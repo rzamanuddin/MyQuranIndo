@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Help.HelpPage"
+             BackgroundColor="{StaticResource BgColor}"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10,20, 10, 10">
+                <Label Text="Baca Surat"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Pada menu utama / home, ketuk pada tombol Baca Surat."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Setelah itu akan muncul daftar surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada surat yang ingin anda baca."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Anda juga bisa mencari ayat, nomor ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+                       Style="{StaticResource HelpContent}" />                
+                <Label Text="Play Murottal"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Bagikan Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Salin Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Bookmark Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Tandai Terakhir Dibaca"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Menampilkan Tafsir Kemenag."
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk dua kali pada ayat."
+                       Style="{StaticResource HelpContent}" />
+                <BoxView Style="{StaticResource HelpBoxView}"/>
+
+                <Label Text="Baca Surat (Mode Tab)"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Pada menu utama / home, ketuk pada tombol Baca Surat (Mode Tab)."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Setelah itu akan muncul surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada surat yang ingin anda baca."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Pada menu ini tampilan suratnya dalam bentuk tab."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Anda juga bisa mencari ayat, nomor ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Play Murottal"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Bagikan Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Salin Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Bookmark Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Tandai Terakhir Dibaca"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Menampilkan Tafsir Kemenag."
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk dua kali pada ayat."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Baca Juz"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Pada menu utama / home, ketuk pada tombol Baca Juz."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Setelah itu akan muncul daftar juz dimulai dari Juz 1 sampai dengan Juz 30, lalu ketuk pada juz yang ingin anda baca."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Anda juga bisa mencari ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Play Murottal"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Bagikan Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Salin Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Bookmark Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Tandai Terakhir Dibaca"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Menampilkan Tafsir Kemenag."
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk dua kali pada ayat."
+                       Style="{StaticResource HelpContent}" />
+                <BoxView Style="{StaticResource HelpBoxView}"/>
+
+                <Label Text="Baca Juz (Mode Tab)"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Pada menu utama / home, ketuk pada tombol Baca Juz (Mode Tab)."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Setelah itu akan muncul juz dimulai dari Juz 1 sampai dengan Juz 30, lalu ketuk pada juz yang ingin anda baca."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Pada menu ini tampilan juznya dalam bentuk tab."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Anda juga bisa mencari ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Play Murottal"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+                       Style="{StaticResource HelpContent}" />
+                <Label Text="Bagikan Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Salin Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Bookmark Ayat"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Tandai Terakhir Dibaca"
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Menampilkan Tafsir Kemenag."
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Ketuk dua kali pada ayat."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Terakhir Dibaca"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini berfungsi untuk pergi ke ayat yang terakhir sudah kita tandai"
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Bookmark"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini berfungsi untuk menampilkan daftar bookmark dari ayat ayat yang sudah kita tandai, anda bisa mengetuk ayat yang ingin ditampilkan."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Pencarian"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini berfungsi untuk mencari ayat, terjemahan, dan transliterasi latin."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Ketik pada kotak teks yang disediakan, lalu tekan tombol search pada tampilan keyboard."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Petunjuk"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini berfungsi untuk menampilkan petunjuk penggunaan program."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Pengaturan"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Transliterasi Latin."
+                       Style="{StaticResource HelpSubTitle}"/>
+                <Label Text="Aktifkan tombol Aktifkan Transliterasi untuk menampilkan transliterasi latin saat baca qur'an."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Terjemahan"
+                       Style="{StaticResource HelpSubTitle}"/>
+                <Label Text="Aktifkan tombol Aktifkan Terjemahan untuk menampilkan terjemahan surat saat baca Al-Qur'an."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Pilih Warna Aplikasi"
+                       Style="{StaticResource HelpSubTitle}"/>
+                <Label Text="Pilih warna yang ingin digunakan untuk tema aplikasi."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Ukuran Teks Arab"
+                       Style="{StaticResource HelpSubTitle}"/>
+                <Label Text="Pilih pada ukuran teks arab yang ingin digunakan saat membaca Al-Qur'an."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Qari"
+                       Style="{StaticResource HelpSubTitle}"/>
+                <Label Text="Pilih qari yang ingin digunakan saat mendengarkan lantunan murottal."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+                <Label Text="Info Aplikasi"
+                       Style="{StaticResource HelpSubTitle}" />
+                <Label Text="Menu ini berfungsi untuk menampilkan halaman Info Aplikasi."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Berikan Rating"
+                       Style="{StaticResource HelpSubTitle}" />
+                <Label Text="Menu ini berfungsi untuk membelikan nilai / rating di playstore."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+                <Label Text="Cek Pembaruan"
+                       Style="{StaticResource HelpSubTitle}" />
+                <Label Text="Menu ini berfungsi untuk memeriksa apakah aplikasi ini ada update atau tidak."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Info Aplikasi"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini berfungsi untuk menampilkan informasi program."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Didalam menu ini anda juga bisa mengirimkan saran maupun kritik."
+                       Style="{StaticResource HelpContent}"/>
+                <Label Text="Kirim Kritik / Saran."
+                       Style="{StaticResource HelpSubTitle}"
+                       />
+                <Label Text="Silahkan isi kritik / saran pada kotak teks yang sudah disediakan, setelah itu tekan tombol dibawahnya untuk mengirimkan email kepada pembuat aplikasi."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+                
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Qibla"
+             x:Class="MyQuranIndo.Views.Qibla.QiblaPage"
+             Title="{Binding Title, Mode=TwoWay}"
+             BackgroundColor="{StaticResource BgColor}"
+             >
+    <ContentPage.BindingContext>
+        <local:QiblaViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <RefreshView x:DataType="local:QiblaViewModel"
+                     Command="{Binding LoadCommand}"
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     RefreshColor="{DynamicResource Primary}">
+            <StackLayout Padding="10"
+                         VerticalOptions="CenterAndExpand">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"               
+                       Source="icon_compass.png"
+                           Rotation="{Binding Heading}"
+                           />
+                    <Label Grid.Row="1"
+                           VerticalOptions="Center" 
+                           HorizontalTextAlignment="Center"
+                           CharacterSpacing="1"
+                           Text="{Binding Info}"
+                           Margin="0,20,0,0">
+                    </Label>
+                    <!--<Label Grid.Row="2"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center"
+                           CharacterSpacing="1"
+                           Text="{Binding Heading, StringFormat='Kiblat {0:N2}° dari Utara'}">
+                    </Label>-->
+                    <!--Kiblat 295.25° dari Utara-->
+                    <Label Grid.Row="2" 
+                           TextColor="{DynamicResource Primary}"
+                           CharacterSpacing="1"
+                           HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Jarak ke Ka'bah"/>
+                                <Span Text="{Binding Distance, Mode=TwoWay, StringFormat=' {0:N2}'}"
+                                      FontAttributes="Bold"
+                                      FontSize="Medium"/>
+                                <Span Text=" KM"/>
+                            </FormattedString>
+                        </Label.FormattedText>                           
+                    </Label>
+                    
+                    <!--<Image HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Source="arrow.png"
+                       Margin="75"
+                       Rotation="{Binding Qibla}"/>-->
+                </Grid>
+            </StackLayout>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

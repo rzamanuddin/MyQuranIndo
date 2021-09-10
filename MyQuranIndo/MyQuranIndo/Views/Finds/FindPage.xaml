@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:localFind="clr-namespace:MyQuranIndo.ViewModels.Find"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Finds"
+             xmlns:test="clr-namespace:MyQuranIndo.Views.Finds"
+             x:Class="MyQuranIndo.Views.Finds.FindPage"
+             Title="{Binding Title, Mode=TwoWay}">
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="localFind:FindViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari Kata Kunci"
+                       Command="{Binding LoadCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
+                       Query="{Binding SearchQuery, Mode=TwoWay}"
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}" />
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout>
+            <!--<SearchBar x:Name="searchBar"
+                       Placeholder="Masukkan Kata Kunci"
+                       SearchCommand="{Binding LoadCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                       TextTransform="Lowercase"
+                       Text="{Binding SearchQuery, Mode=TwoWay}"
+                       TextColor="{StaticResource TextColor}"
+                       >-->
+                <!--<SearchBar.Behaviors>
+                    <localBehavior:TextChangedBehavior />
+                </SearchBar.Behaviors>-->
+            <!--</SearchBar>
+            <BoxView BackgroundColor="Black"
+                     HeightRequest="3"
+                     Margin="0, -7, 0, 0" />-->
+            <Label
+                Text="{Binding NotFoundMessage, Mode=TwoWay}"
+                IsVisible="False"
+                Margin="0, 5, 0, 0" 
+                Padding="5"
+                TextColor="Red"
+                FontSize="Small"
+                HorizontalTextAlignment="Center"                
+                LineBreakMode="WordWrap"/>
+            <Label Text="{Binding NumbersFoundAyahAndSurah, Mode=TwoWay}"
+                   FontSize="Caption"
+                   FontAttributes="Italic"
+                   HorizontalTextAlignment="Center"
+                   Padding="5"
+                   TextColor="{Binding FoundResultColor, Mode=TwoWay}"
+                   CharacterSpacing="1"
+                   />
+            <!--<Grid Padding="0, 5, 10, 5 ">
+                <Grid.ColumnDefinitions>
+                    --><!--<ColumnDefinition Width="95*"/>--><!--
+                    <ColumnDefinition Width="100*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Button Text="Collapse / Expand All"
+                        VerticalOptions="Center"
+                        HorizontalOptions="StartAndExpand"
+                        FontSize="Small"
+                        Command="{Binding ExpandAllCommand}"
+                        IsVisible="{Binding IsVisibleExpandAll}"
+                       />
+            </Grid>-->
+            <!--<RefreshView x:DataType="localFind:FindViewModel" 
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">-->
+                <ListView x:Name ="lstViewFind"  
+                            ItemsSource="{Binding Finds, Mode=TwoWay}"
+                            IsGroupingEnabled="true" 
+                            HasUnevenRows="True" 
+                            SelectionMode="Single"
+                            CachingStrategy="RecycleElement"
+                            SeparatorColor="Black"
+                            SeparatorVisibility="None"
+                            x:DataType="localFind:FindViewModel"
+                            RefreshCommand="{Binding LoadCommand}"
+                            IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                            IsPullToRefreshEnabled="True"
+                            RefreshControlColor="{DynamicResource Primary}">
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout x:DataType="model:FindGroup">
+                                    <Grid BackgroundColor="{DynamicResource Accent}"
+                                            Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40" />
+                                            <!--<RowDefinition />-->
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="100*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding FoundResult}"
+                                                FontSize="Medium"
+                                                FontAttributes="Bold"
+                                                VerticalTextAlignment="Center"
+                                                HorizontalOptions="StartAndExpand"
+                                                TextColor="{StaticResource TextColor}"
+                                                CharacterSpacing="1"/>
+                                        <Image Grid.Column="1" 
+                                            Source="{Binding ImageHeader, Mode=TwoWay}"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="EndAndExpand"
+                                            >
+                                            <!--<Image.Triggers>
+                                                <DataTrigger TargetType="Image"
+                                                                Binding="{Binding Text, Source={Reference lblExpand}, FallbackValue=false, Mode=TwoWay}"
+                                                                Value="False">
+                                                    <Setter Property="Source"
+                                                            Value="expand.png" />
+                                                </DataTrigger>
+                                            </Image.Triggers>-->
+                                        </Image>
+                                        <!--<Label Grid.Row="1"
+                                                x:Name="lblExpand"
+                                                Text="{Binding IsExpand, Mode=TwoWay}" />-->
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type localFind:FindViewModel }}, Path=HeaderTapped}"		
+                                                CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0" 
+                                                x:DataType="model:Find">
+                                    <Grid BackgroundColor="{Binding RowColor}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="35" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                                Grid.RowSpan="2"
+                                                Text="{Binding Ayah.ID}" 
+                                                LineBreakMode="WordWrap"
+                                                FontSize="Caption" 
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                TextColor="{StaticResource TextColor}" 
+                                                Padding="5,10,5,5"/>
+                                        <Label Grid.Column="1"
+                                                Text="{Binding Ayah.TextIndo}" 
+                                                LineBreakMode="WordWrap"
+                                                FontSize="Caption"
+                                                TextColor="{StaticResource TextColor}" 
+                                                Padding="5,10,5,5"/>
+                                        <Label Grid.Column="1"
+                                                Grid.Row="1"
+                                                Text="{Binding Ayah.TranslateIndo}" 
+                                                LineBreakMode="WordWrap"
+                                                FontSize="Small"
+                                                TextColor="{StaticResource TextColor}"
+                                                Padding="5,5,5,10"/>
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type localFind:FindViewModel }}, Path=FindTapped}"		
+                                                CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <!--</RefreshView>-->
+        </StackLayout>        
+    </ContentPage.Content>
+</ContentPage>

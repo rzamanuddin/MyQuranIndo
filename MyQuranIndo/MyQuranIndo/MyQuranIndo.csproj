@@ -1,0 +1,254 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <AssemblyName>MyQuranIndo</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <Version>1.0.2</Version>
+    <Authors>Rommy Zamanuddin</Authors>
+    <Product>My Quran Indonesia Free</Product>
+    <Description>Application to read al quran free.</Description>
+    <PackageIcon>quran_background.png</PackageIcon>
+    <AssemblyOriginatorKeyFile>quran.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Databases\Database.cs" />
+    <Compile Remove="Views\TestPage.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\TestPage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Configurations\settings.json" />
+    <None Remove="Databases\1.json" />
+    <None Remove="Databases\10.json" />
+    <None Remove="Databases\11.json" />
+    <None Remove="Databases\12.json" />
+    <None Remove="Databases\13.json" />
+    <None Remove="Databases\14.json" />
+    <None Remove="Databases\15.json" />
+    <None Remove="Databases\16.json" />
+    <None Remove="Databases\17.json" />
+    <None Remove="Databases\18.json" />
+    <None Remove="Databases\19.json" />
+    <None Remove="Databases\2.json" />
+    <None Remove="Databases\20.json" />
+    <None Remove="Databases\21.json" />
+    <None Remove="Databases\22.json" />
+    <None Remove="Databases\23.json" />
+    <None Remove="Databases\24.json" />
+    <None Remove="Databases\25.json" />
+    <None Remove="Databases\26.json" />
+    <None Remove="Databases\27.json" />
+    <None Remove="Databases\28.json" />
+    <None Remove="Databases\29.json" />
+    <None Remove="Databases\3.json" />
+    <None Remove="Databases\30.json" />
+    <None Remove="Databases\31.json" />
+    <None Remove="Databases\32.json" />
+    <None Remove="Databases\33.json" />
+    <None Remove="Databases\34.json" />
+    <None Remove="Databases\35.json" />
+    <None Remove="Databases\36.json" />
+    <None Remove="Databases\37.json" />
+    <None Remove="Databases\38.json" />
+    <None Remove="Databases\39.json" />
+    <None Remove="Databases\4.json" />
+    <None Remove="Databases\40.json" />
+    <None Remove="Databases\41.json" />
+    <None Remove="Databases\42.json" />
+    <None Remove="Databases\43.json" />
+    <None Remove="Databases\44.json" />
+    <None Remove="Databases\45.json" />
+    <None Remove="Databases\46.json" />
+    <None Remove="Databases\47.json" />
+    <None Remove="Databases\48.json" />
+    <None Remove="Databases\49.json" />
+    <None Remove="Databases\5.json" />
+    <None Remove="Databases\50.json" />
+    <None Remove="Databases\51.json" />
+    <None Remove="Databases\52.json" />
+    <None Remove="Databases\53.json" />
+    <None Remove="Databases\54.json" />
+    <None Remove="Databases\55.json" />
+    <None Remove="Databases\56.json" />
+    <None Remove="Databases\57.json" />
+    <None Remove="Databases\58.json" />
+    <None Remove="Databases\59.json" />
+    <None Remove="Databases\6.json" />
+    <None Remove="Databases\60.json" />
+    <None Remove="Databases\61.json" />
+    <None Remove="Databases\62.json" />
+    <None Remove="Databases\63.json" />
+    <None Remove="Databases\64.json" />
+    <None Remove="Databases\65.json" />
+    <None Remove="Databases\66.json" />
+    <None Remove="Databases\67.json" />
+    <None Remove="Databases\68.json" />
+    <None Remove="Databases\69.json" />
+    <None Remove="Databases\7.json" />
+    <None Remove="Databases\70.json" />
+    <None Remove="Databases\71.json" />
+    <None Remove="Databases\72.json" />
+    <None Remove="Databases\73.json" />
+    <None Remove="Databases\74.json" />
+    <None Remove="Databases\75.json" />
+    <None Remove="Databases\76.json" />
+    <None Remove="Databases\77.json" />
+    <None Remove="Databases\78.json" />
+    <None Remove="Databases\79.json" />
+    <None Remove="Databases\8.json" />
+    <None Remove="Databases\80.json" />
+    <None Remove="Databases\81.json" />
+    <None Remove="Databases\82.json" />
+    <None Remove="Databases\83.json" />
+    <None Remove="Databases\84.json" />
+    <None Remove="Databases\85.json" />
+    <None Remove="Databases\86.json" />
+    <None Remove="Databases\87.json" />
+    <None Remove="Databases\88.json" />
+    <None Remove="Databases\89.json" />
+    <None Remove="Databases\9.json" />
+    <None Remove="Databases\90.json" />
+    <None Remove="Databases\91.json" />
+    <None Remove="Databases\92.json" />
+    <None Remove="Databases\93.json" />
+    <None Remove="Databases\94.json" />
+    <None Remove="Databases\95.json" />
+    <None Remove="Databases\96.json" />
+    <None Remove="Databases\97.json" />
+    <None Remove="Databases\98.json" />
+    <None Remove="Databases\99.json" />
+    <None Remove="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-BoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-ExtraLight.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-ExtraLightItalic.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-Light.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-LightItalic.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-Medium.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-MediumItalic.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Configurations\settings.json" />
+    <EmbeddedResource Include="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-BoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-ExtraLight.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-ExtraLightItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-Light.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-LightItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-Medium.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-MediumItalic.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />  
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v9.0\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Prayer\PrayerSchedulePage.xaml.cs">
+      <DependentUpon>PrayerSchedulePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Surah\TabbedPageSurahDetailPage.xaml.cs">
+      <DependentUpon>TabbedPageSurahDetailPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Controls\GridSurahDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Themes\BlackTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Themes\BlueTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Themes\DarkBlueTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Themes\GreenTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Themes\OrangeTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Themes\PinkTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Themes\PurpleTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Themes\RedTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Bookmarks\BookmarksPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Finds\FindPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Help\HelpPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Home\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Juz\JuzDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Juz\JuzsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Prayer\PrayerSchedulePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Qibla\QiblaPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting\SettingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Surah\SearchModalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Surah\SurahDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Surah\SurahPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Surah\TabbedPageSurahDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TabbedPage\TabbedPageSurahsAndJuzsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Views\Bookmarks\BookmarksPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\MP3s\" />
+  </ItemGroup>
+</Project>

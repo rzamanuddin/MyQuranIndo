@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Juz.JuzsPage"
+             xmlns:behavior="clr-namespace:MyQuranIndo.Behaviors"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans"
+             xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Juz"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Text="Add" Command="{Binding AddCommand}" />-->
+    </ContentPage.ToolbarItems>
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="vm:JuzsViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari No Juz / Nama Surat"
+                       Command="{Binding SearchCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}"                       
+                       >
+        </SearchHandler>
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="0">
+            <!--<SearchBar x:Name="searchBar" 
+               Placeholder="Cari No Juz / Nama Surat" 
+               SearchCommand="{Binding SearchCommand}" 
+               SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource TextColor}">
+                <SearchBar.Behaviors>
+                    <behavior:TextChangedBehavior />
+                </SearchBar.Behaviors>
+            </SearchBar>
+            <BoxView BackgroundColor="{StaticResource TextColor}"
+                     HeightRequest="3"
+                     Margin="0, -4, 0, 0" />-->
+            <RefreshView x:DataType="vm:JuzsViewModel" 
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"                         
+                         RefreshColor="{DynamicResource Primary}">
+                <CollectionView x:Name="collJuzs"
+                    ItemsSource="{Binding Juzs}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="0" 
+                                            x:DataType="model:JuzHeader">
+                                <Grid Margin="0, 0, 0, 0"
+                                      BackgroundColor="{Binding RowColor}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="Auto"/>
+                                        <!--<RowDefinition Height="1"/>-->
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding ID, StringFormat='Juz {0}'}" 
+                                           Style="{StaticResource JuzLabelName}"
+                                           Padding="10,0,10,-10"/>
+                                    <Label Grid.Row="1" 
+                                           Text="{Binding Description}" 
+                                           Style="{StaticResource JuzLabelDescription}"
+                                           LineBreakMode="WordWrap"
+                                           Padding="10,0,10,10" 
+                                           />
+                                    <!--<BoxView Grid.Row="2"
+                                             BackgroundColor="{StaticResource TextColor}"
+                                             />-->
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:JuzsViewModel}}, Path=ItemTapped}"		
+                                    CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

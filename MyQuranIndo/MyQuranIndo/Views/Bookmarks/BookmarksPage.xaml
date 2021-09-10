@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Bookmarks.BookmarksPage"
+             xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Bookmarks"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Bookmarks"
+             Title="{Binding Title, Mode=TwoWay}">
+            
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="0">
+            <Label Text="{Binding EmptyDataMessage, Mode=TwoWay}"
+                   IsVisible="{Binding IsBookmarkEmpty, Mode=TwoWay}"
+                   Margin="0, 20, 0, 20"
+                   TextColor="{StaticResource TextColor}"
+                   FontSize="Large"
+                   HorizontalTextAlignment="Center"
+                   HorizontalOptions="CenterAndExpand"
+                   />
+            <RefreshView x:DataType="local:BookmarkViewModel" 
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         RefreshColor="{DynamicResource Primary}"
+                         Margin="0,20,0,0">
+                <CollectionView x:Name="collSurah"
+                                ItemsSource="{Binding Bookmarks}"
+                                SelectionMode="Single"
+                                IsVisible="{Binding IsExistData}"
+                                >
+                    <CollectionView.Header>
+                        <StackLayout Padding="5,0,5,0">
+                            <Grid BackgroundColor="{DynamicResource Accent}"
+                                  Padding="5,0,5,0"
+                                  Margin="5, 0, 5, 0"
+                                  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="1"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60*" />
+                                    <ColumnDefinition Width="40*"/>
+                                </Grid.ColumnDefinitions>
+                                <BoxView Grid.Row="0"
+                                         Grid.ColumnSpan="2"
+                                         BackgroundColor="{StaticResource Accent}"
+                                    />
+                                <Label Grid.Row="1"
+                                       Text="Bookmark"
+                                       TextColor="{StaticResource TextColor}"
+                                       FontSize="Large"
+                                       FontAttributes="Bold"/>
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="Tanggal"
+                                       TextColor="{StaticResource TextColor}"
+                                       FontSize="Large"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"/>
+                                <BoxView Grid.Row="2"
+                                         Grid.ColumnSpan="2"
+                                         BackgroundColor="{DynamicResource Accent}"
+                                        />
+                            </Grid>
+                        </StackLayout>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10,0,10,0"
+                                         x:DataType="model:Bookmark"
+                                         >
+                                <Grid Margin="0"
+                                      BackgroundColor="{Binding RowColor, Mode=TwoWay}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <!--<RowDefinition Height="1"/>-->
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60*"/>
+                                        <ColumnDefinition Width="40*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" 
+                                           Text="{Binding Description}" 
+                                           TextColor="{StaticResource TextColor}"
+                                           VerticalTextAlignment="Center" 
+                                           LineBreakMode="WordWrap"
+                                           Padding="5,8,5,8"/>
+                                    <Label Grid.Column="1" 
+                                           Text="{Binding CreatedDate, StringFormat='{0:dd-MM-yyyy HH:mm}'}" 
+                                           TextColor="{StaticResource TextColor}"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           />
+                                    <!--<BoxView Grid.Row="1"
+                                             Grid.ColumnSpan="2"
+                                             BackgroundColor="{DynamicResource Accent}"                                             
+                                             />-->
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type local:BookmarkViewModel}}, Path=ItemTapped}"		
+                                                          CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                    <TapGestureRecognizer NumberOfTapsRequired="2"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type local:BookmarkViewModel}}, Path=ItemDoubleTapped}"		
+                                                          CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.Footer>
+                        <StackLayout Padding="10, 10, 0, 10">
+                            <Label Text="Tap satu kali pada ayat diatas untuk membuka ayat."
+                                   TextColor="{StaticResource Primary}"
+                                   FontAttributes="Italic"
+                                   HorizontalTextAlignment="Start"
+                                   CharacterSpacing="1"
+                                   FontSize="Caption"/>
+                            <Label Text="Tap dua kali pada ayat diatas untuk menghapus bookmark."
+                                   TextColor="{StaticResource Primary}"
+                                   FontAttributes="Italic"
+                                   HorizontalTextAlignment="Start"
+                                   CharacterSpacing="1"
+                                   FontSize="Caption"/>                            
+                        </StackLayout>
+                    </CollectionView.Footer>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Home.HomePage"
+             xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Home"
+             Title="{Binding Title, Mode=TwoWay}"
+             BackgroundColor="{DynamicResource BgColor}"             
+             >    
+    <!--<RelativeLayout Padding="0"
+                    ">
+        --><!--<Image
+            Aspect="Fill"
+            Source="quran_background.png"
+            RelativeLayout.WidthConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+            RelativeLayout.HeightConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Height}"
+            >
+            
+        </Image>--><!--
+    </RelativeLayout>-->
+    <ContentPage.Resources>
+        
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>        
+        <ScrollView>
+                <StackLayout Spacing="3" 
+                         Padding="0" 
+                         Margin="0, 0, 0, 0"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="CenterAndExpand"
+                             x:DataType="vm:HomeViewModel"
+                         >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"  />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0"  Grid.Column="0" Padding="10" Margin="5" ColumnSpacing="5" RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"  />
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="100" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"  />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout  Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      HorizontalOptions="FillAndExpand"  
+                                      VerticalOptions="FillAndExpand"
+								      Padding="5">
+                            <Button ImageSource="icon_quran.png" 
+								    Text="Baca Surat"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"   
+									CharacterSpacing="2"
+                                    Command="{Binding SurahTapped}"
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="0" 
+                                     Grid.Column="1" 
+                                     HorizontalOptions="FillAndExpand"  
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_quran_2.png" 
+								    Text="Baca Surat (Mode Tab)"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"       
+									CharacterSpacing="3"
+                                    Command="{Binding SurahTabTapped}"
+									 />
+                        </StackLayout>
+                        <StackLayout  Grid.Row="1" 
+                                      Grid.Column="0" 
+                                      HorizontalOptions="FillAndExpand" 
+                                      VerticalOptions="FillAndExpand"
+								      Padding="5">
+                            <Button ImageSource="icon_juz.png" 
+								    Text="Baca Juz"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"   
+									CharacterSpacing="2"
+                                    Command="{Binding JuzTapped}"
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="1" 
+                                     Grid.Column="1" 
+                                     HorizontalOptions="FillAndExpand"  
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_juz_2.png" 
+								    Text="Baca Juz (Mode Tab)"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"       
+									CharacterSpacing="4"
+                                    Command="{Binding JuzTabTapped}"
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="2" 
+                                     Grid.Column="0" 
+                                     HorizontalOptions="FillAndExpand" 
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_last_read.png" 
+								    Text="Terakhir Dibaca"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"  
+									CharacterSpacing="4"
+                                    Command="{Binding LastReadTapped}"
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="2" 
+                                     Grid.Column="1" 
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_bookmark.png" 
+								    Text="Bookmark"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"   
+									CharacterSpacing="4"      
+                                    Command="{Binding BookmarkTapped}"                    
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="3" 
+                                     Grid.Column="0" 
+                                     HorizontalOptions="FillAndExpand" 
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_find.png" 
+								    Text="Pencarian"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"   
+									CharacterSpacing="4"      
+                                    Command="{Binding FindTapped}"                    
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="3" 
+                                     Grid.Column="1" 
+                                     HorizontalOptions="FillAndExpand" 
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_clock.png" 
+								    Text="Jadwal Sholat (Beta)"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"
+								    CharacterSpacing="2"
+                                    Command="{Binding PrayerScheduleTapped}"/>
+                        </StackLayout>
+                        <StackLayout Grid.Row="4" 
+                                     Grid.Column="0" 
+                                     HorizontalOptions="FillAndExpand" 
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_kaaba.png" 
+								    Text="Arah Kiblat (Beta)"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"
+								    CharacterSpacing="2"
+                                    Command="{Binding QiblaTapped}"/>
+                        </StackLayout>
+                        <StackLayout Grid.Row="4" 
+                                     Grid.Column="1" 
+                                     HorizontalOptions="FillAndExpand" 
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_help.png" 
+								    Text="Petunjuk"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"   
+									CharacterSpacing="4"   
+                                    Command="{Binding HelpTapped}"                       
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="5" 
+                                     Grid.Column="0" 
+                                     HorizontalOptions="FillAndExpand" 
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_setting.png" 
+								    Text="Pengaturan"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"   
+									CharacterSpacing="3"  
+                                    Command="{Binding SettingTapped}"
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="5" 
+                                     Grid.Column="1" 
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_about.png" 
+								    Text="Info Aplikasi"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"
+								    CharacterSpacing="2"
+                                    Command="{Binding AboutTapped}"
+									 />
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </StackLayout>            
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

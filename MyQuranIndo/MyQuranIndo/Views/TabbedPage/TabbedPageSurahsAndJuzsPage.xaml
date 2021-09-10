@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MyQuranIndo.Views.TabbedPage.TabbedPageSurahsAndJuzsPage"
+            xmlns:pageJuz="clr-namespace:MyQuranIndo.Views.Juz"
+            xmlns:pageSurah="clr-namespace:MyQuranIndo.Views.Surah"
+            Title="Baca Qur'an"
+            >
+  <!--Pages can be added as references or inline-->
+    <!--<TabbedPage.Children>
+        <pageJuz:JuzsPage Title="Daftar Juz"/>
+        <pageSurah:SurahPage Title="Daftar Surah"/>
+    </TabbedPage.Children>-->
+    <pageSurah:SurahPage Title="Daftar Surat"/>
+    <pageJuz:JuzsPage Title="Daftar Juz"/>
+</TabbedPage>

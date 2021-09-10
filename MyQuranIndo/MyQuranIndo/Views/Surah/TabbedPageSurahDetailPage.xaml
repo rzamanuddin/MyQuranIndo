@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<tab:BindableTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        x:Class="MyQuranIndo.Views.Surah.TabbedPageSurahDetailPage"
+                        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:tab="clr-namespace:MyQuranIndo.Controls"
+                        xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Surah" 
+                        xmlns:surah="clr-namespace:MyQuranIndo.ViewModels.Surah" 
+                        x:DataType="surah:TabbedPageSurahDetailViewModel"
+                        ChildrenList="{Binding Tabs}"
+                        SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
+                        mc:Ignorable="d"
+                        Title="{Binding Title, Mode=TwoWay}"
+                        Shell.NavBarIsVisible="False"
+                        BarBackgroundColor="{DynamicResource Primary}">    
+    <!--<ContentPage>
+        <Shell.BackButtonBehavior>
+            <BackButtonBehavior Command="{Binding GoToCommand}"
+                            IconOverride="icon_go.png" />
+        </Shell.BackButtonBehavior>
+    </ContentPage>-->
+    <!--<tab:BindableTabbedPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_go.png"
+                     Command="{Binding GoToCommand}"/>
+    </tab:BindableTabbedPage.ToolbarItems>-->
+  <!--Pages can be added as references or inline-->
+    <!--<TabbedPage.ItemTemplate>
+        <DataTemplate>
+            <ContentPage Title="{Binding NameLatin}">
+                <StackLayout>
+                    <Label Text = "Test" />
+                </StackLayout>
+            </ContentPage>
+        </DataTemplate>        
+    </TabbedPage.ItemTemplate>-->
+</tab:BindableTabbedPage>

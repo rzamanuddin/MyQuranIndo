@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:MyQuranIndo.Views"
+       xmlns:localSurah="clr-namespace:MyQuranIndo.Views.Surah"
+       xmlns:localHome="clr-namespace:MyQuranIndo.Views.Home"
+       xmlns:localSetting="clr-namespace:MyQuranIndo.Views.Setting"
+       xmlns:localAbout="clr-namespace:MyQuranIndo.Views.About"
+       xmlns:localFinds="clr-namespace:MyQuranIndo.Views.Finds"
+       xmlns:localHelp="clr-namespace:MyQuranIndo.Views.Help"
+       xmlns:localBookmarks="clr-namespace:MyQuranIndo.Views.Bookmarks"
+       xmlns:localJuz="clr-namespace:MyQuranIndo.Views.Juz"
+       xmlns:localTab="clr-namespace:MyQuranIndo.Views.TabbedPage"
+       xmlns:vm="clr-namespace:MyQuranIndo.ViewModels"
+       x:Class="MyQuranIndo.AppShell"
+       Title="My Qur'an Indonesia Free"
+       >
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+    <Shell.BindingContext>
+        <vm:AppShellViewModel/>
+    </Shell.BindingContext>
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{DynamicResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource Primary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+            <!--
+            Default Styles for all Flyout Items
+            https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
+            -->
+            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White"></Setter>
+            </Style>
+            <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <!--<Setter Property="BackgroundColor" Value="LightBlue"></Setter>-->
+                <Setter Property="BackgroundColor" Value="{DynamicResource Accent}"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="White" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{DynamicResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!--
+            Custom Style you can apply to any Flyout Item
+            -->
+            <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{DynamicResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+    <FlyoutItem Title="Home" Icon="icon_home.png">
+        <ShellContent Route="HomePage" Title="HomePage" ContentTemplate="{DataTemplate localHome:HomePage}"/>
+    </FlyoutItem>
+    <!--<FlyoutItem Title="Baca Al-Qur'an" Icon="icon_quran.png">
+        <ShellContent Route="SurahPage" ContentTemplate="{DataTemplate localSurah:SurahPage}" />
+    </FlyoutItem>-->
+    <!--<FlyoutItem Title="Bookmark" Icon="icon_bookmark.png">
+        <ShellContent Route="BookmarkPage" ContentTemplate="{DataTemplate localBookmarks:BookmarksPage}" />
+    </FlyoutItem>-->
+    <!--<FlyoutItem Title="Baca Al-Qur'an (Mode Tab)" Icon="icon_quran_2.png" >
+        <ShellContent Route="TabbedPageSurahDetailPage" ContentTemplate="{DataTemplate localSurah:TabbedPageSurahDetailPage}" />
+    </FlyoutItem>-->
+    <!--<FlyoutItem Title="Bookmarks" Icon="icon_bookmark.png">
+        <ShellContent Route="BookmarkPage" ContentTemplate="{DataTemplate localBookmarks:BookmarksPage}" />
+    </FlyoutItem>-->
+    <!--<FlyoutItem Title="Pencarian" Icon="icon_find.png">
+        <ShellContent Route="FindPage" ContentTemplate="{DataTemplate localFinds:FindPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Petunjuk" Icon="icon_help.png">
+        <ShellContent Route="HelpPage" ContentTemplate="{DataTemplate localHelp:HelpPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Pengaturan" Icon="icon_setting.png">
+        <ShellContent Route="SettingPage" ContentTemplate="{DataTemplate localSetting:SettingPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Info Aplikasi" Icon="icon_about.png">
+        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate localAbout:AboutPage}" />
+    </FlyoutItem>-->
+    <!--<FlyoutItem Title="Juz Testing" Icon="icon_quran.png">
+        <ShellContent Route="TabbedPageSurahsAndJuzsPage" ContentTemplate="{DataTemplate localTab:TabbedPageSurahsAndJuzsPage}" />
+    </FlyoutItem>-->
+    <MenuItem Text="Baca Surat" 
+              Icon="icon_quran.png"
+              Command="{Binding ReadSurahCommand}"
+              />
+    <MenuItem Text="Baca Surat (Mode Tab)"
+              Icon="icon_quran_2.png"
+              Command="{Binding ReadSurahModeTabCommand}"/>
+    <MenuItem Text="Baca Juz" 
+              Icon="icon_juz.png"
+              Command="{Binding ReadJuzCommand}"
+              />
+    <MenuItem Text="Baca Juz (Mode Tab)"
+              Icon="icon_juz_2.png"
+              Command="{Binding ReadJuzModeTabCommand}"/>
+    <MenuItem Text="Terakhir Dibaca" 
+              Icon="icon_last_read.png"
+              Command="{Binding LastReadCommand}"/>
+    <MenuItem Text="Bookmark" 
+              Icon="icon_bookmark.png"
+              Command="{Binding BookmarkCommand}"/>
+    <MenuItem Text="Pencarian" 
+              Icon="icon_find.png"
+              Command="{Binding FindCommand}"/>
+    <MenuItem Text="Jadwal Sholat" 
+              Icon="icon_clock.png"
+              Command="{Binding PrayerScheduleCommand}"/>
+    <MenuItem Text="Arah Kiblat" 
+              Icon="icon_kaaba.png"
+              Command="{Binding QiblaCommand}"/>
+    <MenuItem Text="Petunjuk" 
+              Icon="icon_help.png"
+              Command="{Binding HelpCommand}"/>
+    <MenuItem Text="Pengaturan" 
+              Icon="icon_setting.png"
+              Command="{Binding SettingCommand}"/>
+    <MenuItem Text="Info Aplikasi" 
+              Icon="icon_about.png"
+              Command="{Binding AboutCommand}"/>
+
+    <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
+    <!--<MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    </MenuItem>-->
+
+    <!--
+        TabBar lets you define content that won't show up in a flyout menu. When this content is active
+        the flyout menu won't be available. This is useful for creating areas of the application where 
+        you don't want users to be able to navigate away from. If you would like to navigate to this 
+        content you can do so by calling 
+        await Shell.Current.GoToAsync("//LoginPage");
+    -->
+    <!--<TabBar>
+        <ShellContent Title="JuzsPage" Icon="tab_feed" ContentTemplate="{DataTemplate localJuz:JuzsPage}" />
+    </TabBar>-->
+
+    <!-- Optional Templates 
+    // These may be provided inline as below or as separate classes.
+
+    // This header appears at the top of the Flyout.
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyout-header
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>ContentHere</Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    // ItemTemplate is for ShellItems as displayed in a Flyout
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-flyoutitem-appearance
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                Bindable Properties: Title, Icon
+            </ContentView>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    // MenuItemTemplate is for MenuItems as displayed in a Flyout
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-menuitem-appearance
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                Bindable Properties: Text, Icon
+            </ContentView>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+    -->
+</Shell>

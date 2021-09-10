@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Setting.SettingPage"
+             xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Setting"
+             xmlns:control="clr-namespace:MyQuranIndo.Controls"
+             xmlns:effect="clr-namespace:MyQuranIndo.Effects"
+             Title="Pengaturan"
+             Shell.PresentationMode="Animated"
+             BackgroundColor="{StaticResource BgColor}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout x:DataType="vm:SettingViewModel">
+                <control:CustomTableView Intent="Settings"
+                                         HasUnevenRows="True"
+                                         SeparatorColor="{DynamicResource Accent}">
+                    <TableRoot TextColor="Black">
+                        <TableSection Title="Transliterasi Latin"
+                                      TextColor="{StaticResource TextColor}">
+                            <SwitchCell Text="Aktifkan Transliterasi" 
+                                        On="{Binding IsActiveTransliteration, Mode=TwoWay}" 
+                                        OnColor="{DynamicResource Primary}" />
+                        </TableSection>
+                        <TableSection Title="Terjemahan"
+                                      TextColor="{StaticResource TextColor}">
+                            <SwitchCell Text="Aktifkan Terjemahan" 
+                                        On="{Binding IsActiveTranslate, Mode=TwoWay}" 
+                                        OnColor="{DynamicResource Primary}"                                        
+                                        />
+                        </TableSection>
+                        <TableSection Title="Pilih Warna Aplikasi"
+                                      TextColor="{StaticResource TextColor}">
+                            <ViewCell Height="50">
+                                <StackLayout Padding="10,0,10,0">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="35"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Button BackgroundColor="#2196F3"
+                                                Command="{Binding ColorThemeCommand}">
+                                            <Button.CommandParameter>
+                                                <x:Int32>0</x:Int32>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Grid.Column="1" 
+                                                BackgroundColor="#075e55"
+                                                Command="{Binding ColorThemeCommand}">
+                                            <Button.CommandParameter>
+                                                <x:Int32>1</x:Int32>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Grid.Column="2" 
+                                                BackgroundColor="#ee4d2d"
+                                                Command="{Binding ColorThemeCommand}">
+                                            <Button.CommandParameter>
+                                                <x:Int32>2</x:Int32>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Grid.Column="3" 
+                                                HeightRequest="25"
+                                                BackgroundColor="#2D2D2B"
+                                                Command="{Binding ColorThemeCommand}">
+                                            <Button.CommandParameter>
+                                                <x:Int32>3</x:Int32>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Grid.Column="4" 
+                                                HeightRequest="25"
+                                                BackgroundColor="#971ABD"
+                                                Command="{Binding ColorThemeCommand}">
+                                            <Button.CommandParameter>
+                                                <x:Int32>4</x:Int32>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Grid.Column="5" 
+                                                HeightRequest="25"
+                                                BackgroundColor="#F70D91"
+                                                Command="{Binding ColorThemeCommand}">
+                                            <Button.CommandParameter>
+                                                <x:Int32>5</x:Int32>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Grid.Column="6" 
+                                                HeightRequest="25"
+                                                BackgroundColor="#e42a5b"
+                                                Command="{Binding ColorThemeCommand}">
+                                            <Button.CommandParameter>
+                                                <x:Int32>6</x:Int32>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button Grid.Column="7" 
+                                                HeightRequest="25"
+                                                BackgroundColor="#154c79"
+                                                Command="{Binding ColorThemeCommand}">
+                                            <Button.CommandParameter>
+                                                <x:Int32>7</x:Int32>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </TableSection>
+                        <!--<TableSection Title="Test">
+                            <control:PickerCell>
+                                <Picker 
+                                            SelectedItem="{Binding FontSizeSelected, Mode=TwoWay}"
+                                            ItemsSource="{Binding FontSizes}"
+                                            ItemDisplayBinding="{Binding Value}"
+                                            CharacterSpacing="2">
+                                </Picker>
+                            </control:PickerCell>                     
+                        </TableSection>-->
+                        <TableSection Title="Ukuran Teks Arab"
+                                      TextColor="{StaticResource TextColor}">                            
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout Padding="10,0,10,0">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <!--<RowDefinition Height="Auto"/>-->
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Button Text="Kecil"
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding FontSizeCommand}"
+                                                    TextColor="{Binding FontSizeSmallColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Int32>0</x:Int32>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="1"
+                                                    Text="Sedang"
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding FontSizeCommand}"
+                                                    TextColor="{Binding FontSizeMediumColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Int32>1</x:Int32>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="2"
+                                                    Text="Besar"
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding FontSizeCommand}"
+                                                    TextColor="{Binding FontSizeLargeColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Int32>2</x:Int32>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <!--<Label Grid.Row ="1"
+                                                   Grid.ColumnSpan="3"
+                                                   Text="Contoh:"
+                                                   TextColor="{StaticResource TextColor}"
+                                                   Margin="5,10,0,0"/>-->
+                                            <Label Grid.Row ="1" 
+                                                   Grid.ColumnSpan="3"
+                                                   Text="بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ"
+                                                   FontSize="{Binding FontSizeArabic}"
+                                                   FontFamily="LPMQ"
+                                                   LineHeight="1.4"
+                                                   TextColor="{StaticResource TextColor}"
+                                                   HorizontalTextAlignment="Center"
+                                                   Padding="5"/>
+                                        </Grid>
+                                        <!--</Grid>-->                                    
+                                    </StackLayout>                                 
+                                </ViewCell.View>
+                            </ViewCell>
+                        </TableSection>
+
+                        <TableSection Title="Qari"
+                                      TextColor="{StaticResource TextColor}">
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout Padding="10,0,10,0">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Button Text="As-Sudais"
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding ReciterCommand}"
+                                                    TextColor="{Binding ReciterAsSudaisColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Int32>0</x:Int32>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="1"
+                                                    Text="Al-Afasy"
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding ReciterCommand}"
+                                                    TextColor="{Binding ReciterAlAfasyColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Int32>1</x:Int32>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="2"
+                                                    Text="Al-Mathrud"
+                                                    Command="{Binding ReciterCommand}"
+                                                    TextColor="{Binding ReciterAlMatroudColor}"
+                                                    FontSize="Caption">
+                                                <Button.CommandParameter>
+                                                    <x:Int32>2</x:Int32>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </TableSection>
+                        <TableSection Title="Lainnya"
+                                      TextColor="{StaticResource TextColor}">
+                            <ImageCell Text="Info Aplikasi" 
+                                       ImageSource="icon_about.png" 
+                                       Command="{Binding AboutTapped}"
+                                       TextColor="{StaticResource TextColor}"/>
+                            <ImageCell Text="Berikan Rating"
+                                       ImageSource="icon_rating.png"
+                                       TextColor="{StaticResource TextColor}"
+                                       Command="{Binding OpenAppStoreTapped}"/>
+                            <ImageCell Text="Cek Pembaruan"
+                                       ImageSource="icon_update.png"
+                                       TextColor="{StaticResource TextColor}"
+                                       Command="{Binding OpenAppStoreTapped}"/>
+                        </TableSection>
+                    </TableRoot>
+                </control:CustomTableView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

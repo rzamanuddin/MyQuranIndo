@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:controls="clr-namespace:MyQuranIndo.Controls"
+      x:Class="MyQuranIndo.Controls.GridSurahDetail"
+      Margin="0, 0, 0, 0"
+      ColumnSpacing="0"
+      RowSpacing="0"
+      BackgroundColor="{Binding RowColor}">    
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <!--<RowDefinition Height="*" />-->
+        <!--<RowDefinition Height="3" />-->
+        <!--<RowDefinition Height="Auto" />-->
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <!--<Grid.GestureRecognizers>
+        <TapGestureRecognizer NumberOfTapsRequired="1"
+                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:SurahDetailViewModel}}, Path=AyahOneTapped}"		
+                              CommandParameter="{Binding .}">
+        </TapGestureRecognizer>
+        <TapGestureRecognizer NumberOfTapsRequired="2"
+                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:SurahDetailViewModel}}, Path=AyahTwoTapped}"		
+                              CommandParameter="{Binding .}">
+        </TapGestureRecognizer>
+    </Grid.GestureRecognizers>-->
+    <Label Text="{Binding AyahID}"
+           FontSize="Small"
+           FontAttributes="Italic"
+           HorizontalTextAlignment="Start"                                           
+           FontFamily="Montserrat-ExtraLight"
+           VerticalTextAlignment="Start"
+           IsVisible="{Binding IsShowNumber}"
+           TextColor="{StaticResource TextColor}"
+           Padding="10, 10, 5, 0"
+        />
+    <Label Grid.Row="0"
+           Grid.Column="1"
+           Text="{Binding ReadText}"
+           FontSize="{Binding FontSizeArabic}"
+           FontFamily="LPMQ"
+           LineHeight="1.4"
+           TextColor="{StaticResource TextColor}"
+           Padding="{Binding Padding}"
+           HorizontalTextAlignment="{Binding TextAlignment}"
+           TextType="Text"
+        />
+    <!--<controls:HtmlLabel Grid.Row="0"
+                        Grid.Column="1"
+                        Text="{Binding ReadTajwidText}"
+                        FontSize="{Binding FontSizeArabic}"
+                        FontFamily="LPMQ"
+                        LineHeight="1.4"
+                        TextColor="{StaticResource TextColor}"
+                        Padding="{Binding Padding}"
+                        HorizontalTextAlignment="{Binding TextAlignment}"
+                        TextType="Text" />-->
+    <!--<controls:AutoWebView Grid.Row="0"
+                          Grid.Column="1"
+                          Source="{Binding HtmlWebViewSource}"
+                          HorizontalOptions="StartAndExpand"
+                          BackgroundColor="Transparent">      
+
+    </controls:AutoWebView>-->
+    <Label Grid.Column="0"
+           Grid.Row="1" 
+           Grid.ColumnSpan="2"
+           Text="{Binding TextIndo}"
+           FontSize="Caption"
+           HorizontalTextAlignment="Start"
+           FontFamily="Montserrat-Medium-Italic"
+           Padding="10,10,10,2"
+           IsVisible="{Binding IsVisibleTransliteration, Mode=TwoWay}"
+           TextColor="{StaticResource TextColor}"
+            />
+    <Label Grid.Column="0"
+           Grid.Row="2" 
+           Grid.ColumnSpan="2"
+           
+           Text="{Binding TranslateIndo}"
+           FontSize="Caption"
+           HorizontalTextAlignment="Start"
+           FontFamily="Montserrat-Light-Italic"
+           Padding="10,5,10,15"  
+           IsVisible="{Binding IsVisibleTranslate, Mode=TwoWay}"
+           TextColor="{StaticResource TextColor}"
+           />
+    <!--<controls:HtmlLabel Grid.Row="3"
+                        Grid.ColumnSpan="2"
+           Text="{Binding ReadTajwidText}"
+           FontSize="{Binding FontSizeArabic}"
+           FontFamily="LPMQ"
+           LineHeight="1.4"
+           TextColor="{StaticResource TextColor}"
+           Padding="{Binding Padding}"
+           HorizontalTextAlignment="{Binding TextAlignment}"
+                        TextType="Text"
+        />-->
+    <!--<BoxView Grid.Row="3"
+             Grid.ColumnSpan="2"
+             BackgroundColor="{StaticResource Accent}"
+             Margin="0, 0, 0, 2"
+             />-->
+</Grid>

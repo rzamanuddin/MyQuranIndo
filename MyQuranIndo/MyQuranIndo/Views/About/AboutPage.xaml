@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.About.AboutPage"
+             xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.About"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource BgColor}">
+    <!--<Shell.TitleView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="90*"/>
+            </Grid.ColumnDefinitions>           
+            <Image Source="icon_about.png"
+                   HorizontalOptions="Start" />
+            <Label Grid.Column="1" 
+                   Text="{Binding Title}"
+                   TextColor="White"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   CharacterSpacing="1"
+                   HorizontalTextAlignment="Start"
+                   VerticalTextAlignment="Center"/>
+        </Grid>
+    </Shell.TitleView>-->
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>    
+    <ContentPage.Resources>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                    <Label Text = "MyQuran Indonesia Free"
+                           FontSize="Large"
+                           FontFamily="Montserrat-Medium"
+                           HorizontalTextAlignment="Center"
+                           Margin="0, 20, 0, 0"
+                           TextColor="{StaticResource TextColor}"
+                           CharacterSpacing="1"
+                        />
+                    <Label Text = "{Binding CurrentVersion, StringFormat='Version {0}'}"
+                           FontSize="Large"
+                           FontFamily="Montserrat-Medium"
+                           HorizontalTextAlignment="Center"
+                           Margin="0, 0, 0, 10"
+                           TextColor="{StaticResource TextColor}"
+                           CharacterSpacing="1"
+                        />
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                        <ContentView Padding="0,20,0,20" VerticalOptions="FillAndExpand">
+                            <Image Source="quran_logo_transparent.png" VerticalOptions="Center" HeightRequest="200" />
+                        </ContentView>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Grid.Row="1" 
+                             Orientation="Vertical" 
+                             Spacing="5"
+                             VerticalOptions="StartAndExpand"
+                             HorizontalOptions="CenterAndExpand"
+                             BackgroundColor="White"
+                             Margin="10, 20, 10, 0"
+                             Padding="10"
+                             x:DataType="vm:AboutViewModel">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Kritik / Saran :" 
+                               FontSize="Medium" 
+                               TextColor="{StaticResource TextColor}"
+                               CharacterSpacing="1" />
+                        <Editor Grid.Row="1" 
+                                Placeholder="Silahkan diisi lalu klik tombol email."
+                                FontSize="Medium"
+                                Text="{Binding EmailText, Mode=TwoWay}"
+                                AutoSize="TextChanges"
+                                TextColor="{StaticResource TextColor}"
+                                />
+                        <Button Grid.Row="2" 
+                                Text="rzamanuddin@gmail.com"
+                                TextTransform="Lowercase"
+                                FontSize="Medium"
+                                CharacterSpacing="2"
+                                ImageSource="icon_mail.png"
+                                VerticalOptions="CenterAndExpand"
+                                Command="{Binding MailCommand}"/>
+                    </Grid>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>    
+</ContentPage>
