@@ -68,7 +68,7 @@
                                            Padding="10,0,10,10" 
                                            />
                                     <!--<BoxView Grid.Row="2"
-                                             BackgroundColor="{StaticResource TextColor}"
+                                             BackgroundColor="{StaticResource TextColor}"testing
                                              />-->
                                 </Grid>
                                 <StackLayout.GestureRecognizers>
