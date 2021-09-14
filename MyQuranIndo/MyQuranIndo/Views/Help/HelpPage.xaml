@@ -255,8 +255,8 @@
                        />
                 <Label Text="Silahkan isi kritik / saran pada kotak teks yang sudah disediakan, setelah itu tekan tombol dibawahnya untuk mengirimkan email kepada pembuat aplikasi."
                        Style="{StaticResource HelpContent}"/>
-                <BoxView BackgroundColor="{DynamicResource Accent}"
-                         HeightRequest="1"/>
+                <!--<BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>-->
                 
             </StackLayout>
         </ScrollView>

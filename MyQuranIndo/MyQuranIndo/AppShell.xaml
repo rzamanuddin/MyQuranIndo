@@ -140,6 +140,12 @@
     <MenuItem Text="Pencarian" 
               Icon="icon_find.png"
               Command="{Binding FindCommand}"/>
+    <MenuItem Text="Dzikir Pagi (Beta)" 
+              Icon="icon_sunrise.png"
+              Command="{Binding ZikrMorningCommand}"/>
+    <MenuItem Text="Dzikir Petang (Beta)" 
+              Icon="icon_sunset.png"
+              Command="{Binding ZikrEveningCommand}"/>
     <MenuItem Text="Jadwal Sholat" 
               Icon="icon_clock.png"
               Command="{Binding PrayerScheduleCommand}"/>

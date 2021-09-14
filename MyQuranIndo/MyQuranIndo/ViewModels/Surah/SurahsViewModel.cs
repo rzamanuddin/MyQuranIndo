@@ -169,7 +169,7 @@ namespace MyQuranIndo.ViewModels.Surah
             await ExecuteLoadCommand();
         }
 
-            private async Task ExecuteLoadCommand()
+        private async Task ExecuteLoadCommand()
         {
             try
             {
@@ -196,8 +196,7 @@ namespace MyQuranIndo.ViewModels.Surah
             }
         }
 
-
-        
+              
 
         private async Task OnDownloadSelected(Models.Qurans.Surah surah)
         {

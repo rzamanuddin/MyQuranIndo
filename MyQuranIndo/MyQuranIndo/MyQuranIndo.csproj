@@ -14,12 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Databases\Database.cs" />
     <Compile Remove="Views\TestPage.xaml.cs" />
+    <Compile Remove="Views\Zikr\ZikrMorningPage.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Views\TestPage.xaml" />
+    <EmbeddedResource Remove="Views\Zikr\ZikrMorningPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -123,6 +124,7 @@
     <None Remove="Databases\97.json" />
     <None Remove="Databases\98.json" />
     <None Remove="Databases\99.json" />
+    <None Remove="Databases\Zikr.json" />
     <None Remove="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
     <None Remove="Resources\Fonts\Montserrat-BoldItalic.ttf" />
@@ -136,6 +138,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Configurations\settings.json" />
+    <EmbeddedResource Include="Databases\Zikr.json" />
     <EmbeddedResource Include="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-BoldItalic.ttf" />
@@ -238,6 +241,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\TabbedPage\TabbedPageSurahsAndJuzsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Zikr\ZikrsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

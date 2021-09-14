@@ -57,6 +57,7 @@ namespace MyQuranIndo.Messages
         public const string MSG_FAIL_GET_LOCATION = "Gagal mengakses lokasi.";
         public const string MSG_FAIL_GET_DISTANCE = "Jarak ke Ka'bah gagal ditampilkan.";
         public const string MSG_FAIL_GET_JUZ = "Juz gagal ditampilkan.";
+        public const string MSG_FAIL_GET_ZIKR = "Zikir pagi dan petang gagal ditampilkan.";
 
         public const string MSG_DEVICE_NOT_SUPPORTED = "Perangkat tidak didukung.";
         public const string MSG_DEVICE_PERMISSION_DENIED = "Akses ke perangkat gps belum diberikan izin.";

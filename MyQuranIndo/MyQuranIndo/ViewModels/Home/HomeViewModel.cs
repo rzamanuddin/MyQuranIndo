@@ -17,6 +17,8 @@ using MyQuranIndo.Views.Juz;
 using MyQuranIndo.ViewModels.Juz;
 using MyQuranIndo.Views.TabbedPage;
 using MyQuranIndo.Helpers;
+using MyQuranIndo.Views.Zikr;
+using MyQuranIndo.ViewModels.Zikr;
 
 namespace MyQuranIndo.ViewModels.Home
 {
@@ -34,7 +36,8 @@ namespace MyQuranIndo.ViewModels.Home
         public Command HelpTapped { get; }
         public Command PrayerScheduleTapped { get; }
         public Command QiblaTapped { get; }
-
+        public ICommand ZikrMorningTapped { get; }
+        public ICommand ZikrEveningTapped { get; }
         public HomeViewModel()
         {
             Title = "Home";
@@ -50,6 +53,8 @@ namespace MyQuranIndo.ViewModels.Home
             QiblaTapped = new Command(async () => await OnQiblaSelected());
             JuzTapped = new Command(async () => await OnJuzSelected());
             JuzTabTapped = new Command(async () => await OnJuzTabSelected());
+            ZikrMorningTapped = new Command(async () => await OnZikrMorningSelected());
+            ZikrEveningTapped = new Command(async () => await OnZikrEveningSelected());
         }
 
         private async Task OnJuzTabSelected()
@@ -86,6 +91,15 @@ namespace MyQuranIndo.ViewModels.Home
         private async Task OnSettingSelected()
         {
             await Shell.Current.GoToAsync($"{nameof(SettingPage)}");
+        }
+
+        private async Task OnZikrMorningSelected()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ZikrsPage)}?{nameof(ZikrViewModel.ZikrTime)}=0");
+        }
+        private async Task OnZikrEveningSelected()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ZikrsPage)}?{nameof(ZikrViewModel.ZikrTime)}=1");
         }
 
         private async Task OnBookmarkSelected()

@@ -11,6 +11,7 @@ using MyQuranIndo.Views.Qibla;
 using MyQuranIndo.Views.Setting;
 using MyQuranIndo.Views.Surah;
 using MyQuranIndo.Views.TabbedPage;
+using MyQuranIndo.Views.Zikr;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -38,6 +39,8 @@ namespace MyQuranIndo
             Routing.RegisterRoute(nameof(JuzDetailPage), typeof(JuzDetailPage));
             Routing.RegisterRoute(nameof(TabbedPageJuzDetailPage), typeof(TabbedPageJuzDetailPage));
             Routing.RegisterRoute(nameof(TabbedPageSurahsAndJuzsPage), typeof(TabbedPageSurahsAndJuzsPage));
+            //Routing.RegisterRoute(nameof(ZikrMorningPage), typeof(ZikrMorningPage));
+            Routing.RegisterRoute(nameof(ZikrsPage), typeof(ZikrsPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

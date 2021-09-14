@@ -52,6 +52,43 @@
             <Setter Property="HeightRequest"
                         Value="1"/>
         </Style>
+        <Style x:Key="ZikrReadArab"
+               TargetType="Label">
+            <Setter Property="FontFamily"
+                    Value="LPMQ" />
+            <Setter Property="LineHeight"
+                    Value="1.4" />
+            <Setter Property="HorizontalTextAlignment"
+                    Value="Start" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource TextColor}" />
+        </Style>
+        <Style x:Key="ZikrReadText"
+               TargetType="Label">
+            <Setter Property="FontSize"
+                    Value="Caption"/>
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium-Italic" />
+            <Setter Property="Padding"
+                    Value="10,10,10,2" />
+            <Setter Property="HorizontalTextAlignment"
+                    Value="Start" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource TextColor}" />
+        </Style>
+        <Style x:Key="ZikrTranslate"
+               TargetType="Label">
+            <Setter Property="FontSize"
+                    Value="Caption"/>
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Light-Italic" />
+            <Setter Property="Padding"
+                    Value="10,5,10,15" />
+            <Setter Property="HorizontalTextAlignment"
+                    Value="Start" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource TextColor}" />
+        </Style>
         <Style x:Key="SurahLabelName"
                    TargetType="Label">
             <Setter Property="LineBreakMode"
