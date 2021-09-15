@@ -66,6 +66,7 @@ namespace MyQuranIndo.ViewModels.Zikr
                 for (int i = 0; i < zikrsMorning.Count; i++)
                 {
                     var zm = zikrsMorning[i];
+                    zm.RowID = i + 1;
                     // Ayat Kursi
                     if (zm.ID == 1)
                     {

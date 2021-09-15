@@ -43,6 +43,7 @@ namespace MyQuranIndo.Models.Zikrs
         [JsonProperty("time")]
         public string Time { get; set; }
 
+        public long RowID { get; set; }
         public double FontSizeArabic
         {
             get
@@ -56,7 +57,7 @@ namespace MyQuranIndo.Models.Zikrs
             {
                 if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
                 {
-                    if (ID % 2 == 0)
+                    if (RowID % 2 == 0)
                     {
                         rowColor = ((Color)Application.Current.Resources["RowColor"]);
                     }
