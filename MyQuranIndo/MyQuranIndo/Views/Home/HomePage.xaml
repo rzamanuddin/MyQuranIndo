@@ -170,15 +170,15 @@
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
-                            <Button ImageSource="icon_allah.png" 
-								    Text="Asmaul Husna"
+                            <Button ImageSource="icon_pray.png" 
+								    Text="Kumpulan Do'a"
 								    BackgroundColor="{DynamicResource Primary}"
 								    TextColor="White"
 								    ContentLayout="Top"
 								    HorizontalOptions="FillAndExpand"
 								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding AsmaulHusnaTapped}"/>
+                                    Command="{Binding PrayTapped}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="4" 
                                      Grid.Column="0" 
@@ -215,15 +215,15 @@
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
-                            <Button ImageSource="icon_pray.png" 
-								    Text="Do'a Khatam Al-Qur'an"
+                            <Button ImageSource="icon_allah.png" 
+								    Text="Asmaul Husna"
 								    BackgroundColor="{DynamicResource Primary}"
 								    TextColor="White"
 								    ContentLayout="Top"
 								    HorizontalOptions="FillAndExpand"
 								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding PrayTapped}"/>
+                                    Command="{Binding AsmaulHusnaTapped}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="5" 
                                      Grid.Column="1" 

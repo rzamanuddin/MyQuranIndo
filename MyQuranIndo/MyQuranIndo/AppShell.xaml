@@ -140,10 +140,7 @@
     <MenuItem Text="Pencarian" 
               Icon="icon_find.png"
               Command="{Binding FindCommand}"/>
-    <MenuItem Text="Asmaul Husna" 
-              Icon="icon_allah.png"
-              Command="{Binding AsmaulHusnaCommand}"/>
-    <MenuItem Text="Do'a Khatam Al-Qur'an" 
+    <MenuItem Text="Kumpulan Do'a" 
               Icon="icon_pray.png"
               Command="{Binding PrayCommand}"/>
     <MenuItem Text="Dzikir Pagi" 
@@ -152,6 +149,9 @@
     <MenuItem Text="Dzikir Petang" 
               Icon="icon_sunset.png"
               Command="{Binding ZikrEveningCommand}"/>
+    <MenuItem Text="Asmaul Husna" 
+              Icon="icon_allah.png"
+              Command="{Binding AsmaulHusnaCommand}"/>
     <MenuItem Text="Jadwal Sholat" 
               Icon="icon_clock.png"
               Command="{Binding PrayerScheduleCommand}"/>

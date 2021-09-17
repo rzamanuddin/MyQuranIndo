@@ -28,6 +28,8 @@ namespace MyQuranIndo.Models.Zikrs
         public string Title { get; set; }
         [JsonProperty("translatedid")]
         public string TranslateID { get; set; }
+        [JsonProperty("tag")]
+        public List<string> Tag { get; set; }
 
         public long RowID { get; set; }
 
@@ -36,7 +38,7 @@ namespace MyQuranIndo.Models.Zikrs
             get
             {
                 if (ID > 0)
-                    return $"{Title}"; //return $"{RowID}. {Title}";
+                    return $"{RowID}. {Title}";
                 else
                     return Title;
             }

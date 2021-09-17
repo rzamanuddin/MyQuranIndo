@@ -196,16 +196,30 @@
                 <BoxView BackgroundColor="{DynamicResource Accent}"
                          HeightRequest="1"/>
 
-                <Label Text="Dzikir Pagi (Beta)"
+                <Label Text="Kumpulan Do'a)"
                        Style="{StaticResource HelpTitle}" />
-                <Label Text="Menu ini akan menamplikan kumpulan dzikir yang bisa dibaca pada waktu pagi."
+                <Label Text="Menu ini berfungsi untuk menamplikan Kumpulan Do'a."
                        Style="{StaticResource HelpContent}"/>
                 <BoxView BackgroundColor="{DynamicResource Accent}"
                          HeightRequest="1"/>
 
-                <Label Text="Dzikir Petang (Beta)"
+                <Label Text="Dzikir Pagi)"
                        Style="{StaticResource HelpTitle}" />
-                <Label Text="Menu ini akan menamplikan kumpulan dzikir yang bisa dibaca pada waktu petang."
+                <Label Text="Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu pagi."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Dzikir Petang"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu petang."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Asmaul Husna)"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini berfungsi untuk menamplikan 99 Asmaul Husna / Nama-Nama Baik Allah SWT."
                        Style="{StaticResource HelpContent}"/>
                 <BoxView BackgroundColor="{DynamicResource Accent}"
                          HeightRequest="1"/>

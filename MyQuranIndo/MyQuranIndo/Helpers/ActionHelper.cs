@@ -42,6 +42,8 @@ namespace MyQuranIndo.Helpers
         public const string ASMAUL_HUSNA_COPY_ALL = "Salin Semua Asmaul Husna";
         public const string PRAY_SHARE = "Bagikan Do'a";
         public const string PRAY_COPY = "Salin Do'a";
+        public const string PRAY_SHARE_ALL = "Bagikan Kumpulan Do'a";
+        public const string PRAY_COPY_ALL = "Salin Kumpulan Do'a";
 
         public async static Task<string> DisplayActionSurahORJuzAsync()
         {
@@ -124,7 +126,7 @@ namespace MyQuranIndo.Helpers
         public static async Task<string> DisplayActionPrayAsync(string title)
         {
             string action = await App.Current.MainPage.DisplayActionSheet(title,
-                Message.MSG_CANCEL, null, PRAY_SHARE, PRAY_COPY);
+                Message.MSG_CANCEL, null, PRAY_SHARE, PRAY_SHARE_ALL, PRAY_COPY, PRAY_COPY_ALL);
 
             return action;
         }
@@ -224,6 +226,30 @@ namespace MyQuranIndo.Helpers
             return zikrCopied;
         }
 
+        public static string GetPraysAllToShare(ObservableCollection<Models.Zikrs.Pray> prays, string title)
+        {
+            string line = Environment.NewLine + Environment.NewLine;
+            string zikrCopied = title;
+            foreach (var pray in prays)
+            {
+                zikrCopied += $"{line + pray.TitleAndNumber}";
+                zikrCopied += $"{line + pray.Arabic}";
+                if (pray.IsVisibleArabicLatin)
+                {
+                    zikrCopied += $"{line + pray.ArabicLatin}";
+                }
+                zikrCopied += $"{Environment.NewLine + pray.TranslateID}";
+                if (pray.IsVisibleFaedah)
+                {
+                    zikrCopied += $"{line}Faedah : {pray.Faedah}";
+                }
+            }
+            zikrCopied += $"{line}*Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return zikrCopied;
+        }
+
         public static string GetAsmaulHusnaToShare(Models.AsmaulHusna.AsmaulHusna ah, string title)
         {
 
@@ -232,7 +258,7 @@ namespace MyQuranIndo.Helpers
 
             zikrCopied += $"{line + ah.Arabic}";
             zikrCopied += $"{line + ah.Title}";
-            zikrCopied += $"{line}{title}{Environment.NewLine}*Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{line}*Via {AppSetting.GetApplicationName()}";
             zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
 
             return zikrCopied;
@@ -247,7 +273,7 @@ namespace MyQuranIndo.Helpers
                 zikrCopied += $"{line + ah.Arabic}";
                 zikrCopied += $"{Environment.NewLine + ah.Title}";
             }
-            zikrCopied += $"{line}{title}{Environment.NewLine}*Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{line}*Via {AppSetting.GetApplicationName()}";
             zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
 
             return zikrCopied;

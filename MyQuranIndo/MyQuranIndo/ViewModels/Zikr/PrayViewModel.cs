@@ -47,7 +47,7 @@ namespace MyQuranIndo.ViewModels.Zikr
 
         public PrayViewModel()
         {
-            Title = "Do'a Khatam Al-Qur'an";
+            Title = "Kumpulan Do'a";
             Prays = new ObservableCollection<Models.Zikrs.Pray>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
             //AyahOneTapped = new Command<Ayah>(OnAyahOneTapped);
@@ -104,7 +104,7 @@ namespace MyQuranIndo.ViewModels.Zikr
                     {
                         if (id > 0 && id <= Prays.Count)
                         {
-                            ScrollToItem(id);
+                            ScrollToItem(id - 1);
                         }
                         else
                         {
@@ -169,15 +169,26 @@ namespace MyQuranIndo.ViewModels.Zikr
                 string errorMessage = "";
                 //var surah = await SurahDataService.GetSurahAsync(zikr.SurahID);
                 string action = await ActionHelper.DisplayActionPrayAsync(pray.TitleAndNumber);
-                string zikrCopied = ActionHelper.GetPrayToShare(pray, this.Title);
+                string zikrCopied = "";
                 try
                 {
                     switch (action)
                     {
                         case ActionHelper.PRAY_SHARE:
+                            zikrCopied = ActionHelper.GetPrayToShare(pray, this.Title);
+                            await ActionHelper.ShareZikrAsync(zikrCopied);
+                            break;
+                        case ActionHelper.PRAY_SHARE_ALL:
+                            zikrCopied = ActionHelper.GetPraysAllToShare(Prays, this.Title);
                             await ActionHelper.ShareZikrAsync(zikrCopied);
                             break;
                         case ActionHelper.PRAY_COPY:
+                            zikrCopied = ActionHelper.GetPrayToShare(pray, this.Title);
+                            await Clipboard.SetTextAsync(zikrCopied);
+                            result = ActionHelper.PRAY_COPY + " Berhasil.";
+                            break;
+                        case ActionHelper.PRAY_COPY_ALL:
+                            zikrCopied = ActionHelper.GetPraysAllToShare(Prays, this.Title);
                             await Clipboard.SetTextAsync(zikrCopied);
                             result = ActionHelper.PRAY_COPY + " Berhasil.";
                             break;
