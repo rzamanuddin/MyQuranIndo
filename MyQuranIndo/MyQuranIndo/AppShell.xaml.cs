@@ -1,6 +1,7 @@
 ﻿using MyQuranIndo.ViewModels;
 using MyQuranIndo.Views;
 using MyQuranIndo.Views.About;
+using MyQuranIndo.Views.AsmaulHusna;
 using MyQuranIndo.Views.Bookmarks;
 using MyQuranIndo.Views.Finds;
 using MyQuranIndo.Views.Help;
@@ -41,6 +42,8 @@ namespace MyQuranIndo
             Routing.RegisterRoute(nameof(TabbedPageSurahsAndJuzsPage), typeof(TabbedPageSurahsAndJuzsPage));
             //Routing.RegisterRoute(nameof(ZikrMorningPage), typeof(ZikrMorningPage));
             Routing.RegisterRoute(nameof(ZikrsPage), typeof(ZikrsPage));
+            Routing.RegisterRoute(nameof(AsmaulHusnaPage), typeof(AsmaulHusnaPage));
+            Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

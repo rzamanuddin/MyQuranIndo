@@ -1,5 +1,5 @@
 ﻿using MyQuranIndo.ViewModels;
-using MyQuranIndo.ViewModels.Zikr;
+using MyQuranIndo.ViewModels.AsmaulHusna;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyQuranIndo.Views.Zikr
+namespace MyQuranIndo.Views.AsmaulHusna
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ZikrsPage : ContentPage, IHasCollectionView
+    public partial class AsmaulHusnaPage : ContentPage, IHasCollectionView
     {
-        private ZikrViewModel _viewModel;
-        public CollectionView CollectionView => collZikrs;
+        private AsmaulHusnaViewModel _viewModel;
+        public CollectionView CollectionView => collAsmaulHusnas;
 
-        public ZikrsPage()
+
+        public AsmaulHusnaPage()
         {
             InitializeComponent();
-            this.BindingContext = _viewModel = new ZikrViewModel();
+            this.BindingContext = _viewModel = new AsmaulHusnaViewModel();
         }
 
         protected override void OnBindingContextChanged()
@@ -31,7 +32,6 @@ namespace MyQuranIndo.Views.Zikr
             }
             base.OnBindingContextChanged();
         }
-
         protected override void OnAppearing()
         {
             base.OnAppearing();

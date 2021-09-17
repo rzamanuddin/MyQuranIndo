@@ -1,23 +1,22 @@
 ﻿using MyQuranIndo.Databases;
-using MyQuranIndo.Models.Zikrs;
+using MyQuranIndo.Models.AsmaulHusna;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyQuranIndo.Services
 {
-    public interface IZikrDataService
+    public interface IAsmaulHusnaDataService
     {
-        Task<List<Zikr>> GetZikrsAsync(bool forceRefresh = false);
+        Task<List<AsmaulHusna>> GetAsmaulHusnasAsync(bool forceRefresh = false);
     }
-    public class ZikrDataService : IZikrDataService
+    public class AsmaulHusnaDataService : IAsmaulHusnaDataService
     {
         private Database _database;
 
 
-        public ZikrDataService()
+        public AsmaulHusnaDataService()
         {
             _database = new Database();
         }
@@ -27,13 +26,13 @@ namespace MyQuranIndo.Services
         /// </summary>
         /// <param name="forceRefresh"></param>
         /// <returns></returns>
-        public async Task<List<Zikr>> GetZikrsAsync(bool forceRefresh = false)
+        public async Task<List<AsmaulHusna>> GetAsmaulHusnasAsync(bool forceRefresh = false)
         {
-            List<Zikr> zikrs = null;
+            List<AsmaulHusna> zikrs = null;
 
             try
             {
-                zikrs = await _database.GetZikrsAsync();
+                zikrs = await _database.GetAsmaulHusnasAsync();
             }
             catch (Exception ex)
             {

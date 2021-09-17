@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyQuranIndo.Models.Qurans;
 using MyQuranIndo.Models.Zikrs;
+using MyQuranIndo.Models.AsmaulHusna;
 
 namespace MyQuranIndo.Databases
 {
@@ -42,6 +43,72 @@ namespace MyQuranIndo.Databases
             var zikrs = JsonConvert.DeserializeObject<ListOfZikr>(json);
 
             return zikrs.data;
+        }
+
+        /// <summary>
+        /// Get asmaul husna from json file
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<AsmaulHusna>> GetAsmaulHusnasAsync()
+        {
+            // Get the assembly this code is executing in
+            var assembly = Assembly.GetExecutingAssembly();
+
+            // Look up the resource names and find the one that ends with settings.json
+            // Your resource names will generally be prefixed with the assembly's default namespace
+            // so you can short circuit this with the known full name if you wish
+            var resName = assembly.GetManifestResourceNames().Where(q => q.StartsWith("MyQuranIndo.Databases"))
+                .FirstOrDefault(q => q.EndsWith("AsmaulHusna.json"));
+
+            // Load the resource file
+            var file = assembly.GetManifestResourceStream(resName);
+
+            string json = "";
+
+            // Stream reader to read the whole file
+            using (var sr = new StreamReader(file))
+            {
+                // Read the json from the file
+                json = await sr.ReadToEndAsync();
+            }
+
+            // Parse out the JSON
+            var ahs = JsonConvert.DeserializeObject<List<AsmaulHusna>>(json);
+
+            return ahs;
+        }
+
+        /// <summary>
+        /// Get asmaul husna from json file
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Pray>> GetPrayAsync()
+        {
+            // Get the assembly this code is executing in
+            var assembly = Assembly.GetExecutingAssembly();
+
+            // Look up the resource names and find the one that ends with settings.json
+            // Your resource names will generally be prefixed with the assembly's default namespace
+            // so you can short circuit this with the known full name if you wish
+            var resName = assembly.GetManifestResourceNames().Where(q => q.StartsWith("MyQuranIndo.Databases"))
+                .FirstOrDefault(q => q.EndsWith("Doa.json"));
+
+            // Load the resource file
+            var file = assembly.GetManifestResourceStream(resName);
+
+            string json = "";
+
+            // Stream reader to read the whole file
+            using (var sr = new StreamReader(file))
+            {
+                // Read the json from the file
+                json = await sr.ReadToEndAsync();
+            }
+
+            // Parse out the JSON
+            var prays = JsonConvert.DeserializeObject<List<Pray>>(json);
+
+            return prays;
         }
 
         //public async Task<Surah> GetSurahAsync(int id)

@@ -2,6 +2,7 @@
 using MyQuranIndo.Messages;
 using MyQuranIndo.Models.Bookmarks;
 using MyQuranIndo.Models.Qurans;
+using MyQuranIndo.Models.Zikrs;
 using MyQuranIndo.References;
 using MyQuranIndo.Services;
 using MyQuranIndo.ViewModels.Juz;
@@ -11,6 +12,7 @@ using MyQuranIndo.Views.Surah;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -29,7 +31,17 @@ namespace MyQuranIndo.Helpers
         public const string AYAH_LAST_READ = "Tandai Terakhir Dibaca";
         public const string TAFSIR_SHARE = "Bagikan Tafsir";
         public const string BOOKMARK_DEL = "Hapus Bookmark";
-        public const string PLAY_MP3 = "Play Murottal";
+        public const string PLAY_MP3 = "Play Murottal"; 
+        public const string ZIKR_SHARE = "Bagikan Dzikir";
+        public const string ZIKR_COPY = "Salin Dzikir";
+        //public const string ZIKR_SHARE_ALL = "Bagikan Semua Dzikir";
+        //public const string ZIKR_COPY_ALL = "Salin Dzikir";
+        public const string ASMAUL_HUSNA_SHARE = "Bagikan Asmaul Husna";
+        public const string ASMAUL_HUSNA_COPY = "Salin Asmaul Husna";
+        public const string ASMAUL_HUSNA_SHARE_ALL = "Bagikan Semua Asmaul Husna";
+        public const string ASMAUL_HUSNA_COPY_ALL = "Salin Semua Asmaul Husna";
+        public const string PRAY_SHARE = "Bagikan Do'a";
+        public const string PRAY_COPY = "Salin Do'a";
 
         public async static Task<string> DisplayActionSurahORJuzAsync()
         {
@@ -100,6 +112,31 @@ namespace MyQuranIndo.Helpers
 
             return action;
         }
+
+        public static async Task<string> DisplayActionZikrAsync(string title)
+        {
+            string action = await App.Current.MainPage.DisplayActionSheet(title,
+                Message.MSG_CANCEL, null, ZIKR_SHARE,ZIKR_COPY);
+
+            return action;
+        }
+
+        public static async Task<string> DisplayActionPrayAsync(string title)
+        {
+            string action = await App.Current.MainPage.DisplayActionSheet(title,
+                Message.MSG_CANCEL, null, PRAY_SHARE, PRAY_COPY);
+
+            return action;
+        }
+
+        public static async Task<string> DisplayActionAsmaulHusnaAsync(string title)
+        {
+            string action = await App.Current.MainPage.DisplayActionSheet(title,
+                Message.MSG_CANCEL, null, ASMAUL_HUSNA_SHARE, ASMAUL_HUSNA_SHARE_ALL, ASMAUL_HUSNA_COPY, ASMAUL_HUSNA_COPY_ALL);
+
+            return action;
+        }
+
         public static string GetAyahToShare(Ayah ayah, string surahNameLatin)
         {           
 
@@ -141,6 +178,81 @@ namespace MyQuranIndo.Helpers
             return ayahCopied;
         }
 
+        public static string GetZikrToShare(Zikr zikr, string title)
+        {
+
+            string zikrCopied = zikr.TitleAndNumber + Environment.NewLine + zikr.Note;
+            string line = Environment.NewLine + Environment.NewLine;
+
+            zikrCopied += $"{line + zikr.Arabic}";
+            if (zikr.IsVisibleArabicLatin)
+            {
+                zikrCopied += $"{line + zikr.ArabicLatin}";
+            }
+            zikrCopied += $"{line + zikr.TranslateID}";
+            if (zikr.IsVisibleFaedah)
+            {
+                zikrCopied += $"{line}Faedah : {zikr.Faedah}";
+            }
+            //zikrCopied += $"{Environment.NewLine}({title}){line} *Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{line}{title}{Environment.NewLine}*Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return zikrCopied;
+        }
+
+        public static string GetPrayToShare(Pray pray, string title)
+        {
+
+            string zikrCopied = pray.TitleAndNumber;
+            string line = Environment.NewLine + Environment.NewLine;
+
+            zikrCopied += $"{line + pray.Arabic}";
+            if (pray.IsVisibleArabicLatin)
+            {
+                zikrCopied += $"{line + pray.ArabicLatin}";
+            }
+            zikrCopied += $"{line + pray.TranslateID}";
+            if (pray.IsVisibleFaedah)
+            {
+                zikrCopied += $"{line}Faedah : {pray.Faedah}";
+            }
+            //zikrCopied += $"{Environment.NewLine}({title}){line} *Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{line}{title}{Environment.NewLine}*Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return zikrCopied;
+        }
+
+        public static string GetAsmaulHusnaToShare(Models.AsmaulHusna.AsmaulHusna ah, string title)
+        {
+
+            string zikrCopied = title;
+            string line = Environment.NewLine + Environment.NewLine;
+
+            zikrCopied += $"{line + ah.Arabic}";
+            zikrCopied += $"{line + ah.Title}";
+            zikrCopied += $"{line}{title}{Environment.NewLine}*Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return zikrCopied;
+        }
+
+        public static string GetAsmaulHusnaAllToShare(ObservableCollection<Models.AsmaulHusna.AsmaulHusna> ahs, string title)
+        {            
+            string line = Environment.NewLine + Environment.NewLine;
+            string zikrCopied = title;
+            foreach (var ah in ahs)
+            {
+                zikrCopied += $"{line + ah.Arabic}";
+                zikrCopied += $"{Environment.NewLine + ah.Title}";
+            }
+            zikrCopied += $"{line}{title}{Environment.NewLine}*Via {AppSetting.GetApplicationName()}";
+            zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return zikrCopied;
+        }
+
         public static async Task ShareAyahAsync(string ayahCopied)
         {
             await Share.RequestAsync(new ShareTextRequest
@@ -149,6 +261,34 @@ namespace MyQuranIndo.Helpers
                 Title = ActionHelper.AYAH_SHARE
             });
         }
+
+        public static async Task ShareZikrAsync(string copiedText)
+        {
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Text = copiedText,
+                Title = ActionHelper.ZIKR_SHARE
+            });
+        }
+
+        public static async Task SharePrayAsync(string copiedText)
+        {
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Text = copiedText,
+                Title = ActionHelper.PRAY_SHARE
+            });
+        }
+
+        public static async Task ShareAsmaulHusnaAsync(string copiedText)
+        {
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Text = copiedText,
+                Title = ActionHelper.ASMAUL_HUSNA_SHARE
+            });
+        }
+
         public static async Task ShareTafsirKemenagAsync(string title, string tafsirKemenag)
         {
             var isShare = await App.Current.MainPage.DisplayAlert(title, tafsirKemenag, Message.SHARE, Message.MSG_OK);

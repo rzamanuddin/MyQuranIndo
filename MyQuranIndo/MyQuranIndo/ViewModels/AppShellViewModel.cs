@@ -20,6 +20,7 @@ using MyQuranIndo.Views.Juz;
 using MyQuranIndo.Helpers;
 using MyQuranIndo.Views.Zikr;
 using MyQuranIndo.ViewModels.Zikr;
+using MyQuranIndo.Views.AsmaulHusna;
 
 namespace MyQuranIndo.ViewModels
 {   public class AppShellViewModel : BaseViewModel
@@ -38,6 +39,8 @@ namespace MyQuranIndo.ViewModels
         public ICommand QiblaCommand { get; }
         public ICommand ZikrMorningCommand { get; }
         public ICommand ZikrEveningCommand { get; }
+        public ICommand AsmaulHusnaCommand { get; }
+        public ICommand PrayCommand { get; }
 
         public AppShellViewModel()
         {
@@ -55,6 +58,8 @@ namespace MyQuranIndo.ViewModels
             QiblaCommand = new Command(async () => await NavigateToQiblaPage());
             ZikrMorningCommand = new Command(async () => await NavigateToZikrMorningPage());
             ZikrEveningCommand = new Command(async () => await NavigateToZikrEveningPage());
+            AsmaulHusnaCommand = new Command(async () => await NavigateToAsmaulHusnaPage());
+            PrayCommand = new Command(async () => await NavigateToPrayPage());
         }
 
         private async Task NavigateToReadJuzPage()
@@ -84,6 +89,16 @@ namespace MyQuranIndo.ViewModels
         private async Task NavigateToZikrEveningPage()
         {
             await Shell.Current.GoToAsync($"{nameof(ZikrsPage)}?{nameof(ZikrViewModel.ZikrTime)}=1");
+            Shell.Current.FlyoutIsPresented = false;
+        }
+        private async Task NavigateToAsmaulHusnaPage()
+        {
+            await Shell.Current.GoToAsync($"{nameof(AsmaulHusnaPage)}");
+            Shell.Current.FlyoutIsPresented = false;
+        }
+        private async Task NavigateToPrayPage()
+        {
+            await Shell.Current.GoToAsync($"{nameof(PraysPage)}");
             Shell.Current.FlyoutIsPresented = false;
         }
 

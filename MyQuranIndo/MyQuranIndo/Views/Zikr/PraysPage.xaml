@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="{Binding Title}"
-             x:Class="MyQuranIndo.Views.Zikr.ZikrsPage"
+             x:Class="MyQuranIndo.Views.Zikr.PraysPage"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Zikr"
-             xmlns:model="clr-namespace:MyQuranIndo.Models.Zikrs">
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Zikrs"
+             Title="{Binding Title}">
     <Shell.SearchHandler>
-        <SearchHandler x:DataType="local:ZikrViewModel"  
+        <SearchHandler x:DataType="local:PrayViewModel"  
                        x:Name="searchBar"
-                       Placeholder="Cari No / Dzikr"
+                       Placeholder="Cari No / Do'a"
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
                        SearchBoxVisibility="Collapsible"
@@ -18,8 +18,8 @@
     </Shell.SearchHandler>
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="0"
-                     x:DataType="local:ZikrViewModel">
-            <Label Text="{Binding TitlePage}"
+                     x:DataType="local:PrayViewModel">
+            <!--<Label Text="{Binding TitlePage}"
                    FontSize="Title"
                    FontAttributes="Bold"
                    Padding="10,10,10,0"
@@ -39,20 +39,20 @@
                     Margin="10,5,10,5"/>
             <BoxView BackgroundColor="{StaticResource TextColor}"
                      HeightRequest="2"
-                     Margin="10, 0, 10, 2" />
-            <RefreshView x:DataType="local:ZikrViewModel" 
+                     Margin="10, 0, 10, 2" />-->
+            <RefreshView x:DataType="local:PrayViewModel" 
                          Command="{Binding LoadCommand}" 
                          IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                          RefreshColor="{DynamicResource Primary}"
                          >
-                <CollectionView x:Name="collZikrs"
-                    ItemsSource="{Binding Zikrs}"
+                <CollectionView x:Name="collPrays"
+                    ItemsSource="{Binding Prays}"
                     SelectionMode="None" 
                     Margin="0, 0, 0, 0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Padding="0" 
-                                        x:DataType="model:Zikr">
+                                        x:DataType="model:Pray">
                                 <Grid Margin="0, 0, 0, 0"
                                       BackgroundColor="{Binding RowColor}">
                                     <Grid.RowDefinitions>
@@ -80,7 +80,7 @@
                                            TextColor="{StaticResource TextColor}"
                                            Padding="10,0,10,5"
                                            HorizontalTextAlignment="Start"
-                                           IsVisible="{Binding IsVisibleSubTitle}"/>
+                                           IsVisible="False"/>
                                     <Label Grid.Row="2"
                                            Text="{Binding Arabic}" 
                                            FontSize="{Binding FontSizeArabic}"
@@ -118,7 +118,7 @@
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer 
                                             NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ZikrViewModel}}, Path=ZikrOneTapped}"		
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:PrayViewModel}}, Path=PrayOneTapped}"		
                                             CommandParameter="{Binding .}">
                                     </TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>

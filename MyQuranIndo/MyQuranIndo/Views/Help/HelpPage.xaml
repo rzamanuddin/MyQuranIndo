@@ -196,6 +196,20 @@
                 <BoxView BackgroundColor="{DynamicResource Accent}"
                          HeightRequest="1"/>
 
+                <Label Text="Dzikir Pagi (Beta)"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini akan menamplikan kumpulan dzikir yang bisa dibaca pada waktu pagi."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
+                <Label Text="Dzikir Petang (Beta)"
+                       Style="{StaticResource HelpTitle}" />
+                <Label Text="Menu ini akan menamplikan kumpulan dzikir yang bisa dibaca pada waktu petang."
+                       Style="{StaticResource HelpContent}"/>
+                <BoxView BackgroundColor="{DynamicResource Accent}"
+                         HeightRequest="1"/>
+
                 <Label Text="Petunjuk"
                        Style="{StaticResource HelpTitle}" />
                 <Label Text="Menu ini berfungsi untuk menampilkan petunjuk penggunaan program."

@@ -124,6 +124,8 @@
     <None Remove="Databases\97.json" />
     <None Remove="Databases\98.json" />
     <None Remove="Databases\99.json" />
+    <None Remove="Databases\AsmaulHusna.json" />
+    <None Remove="Databases\Doa.json" />
     <None Remove="Databases\Zikr.json" />
     <None Remove="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
@@ -138,6 +140,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Configurations\settings.json" />
+    <EmbeddedResource Include="Databases\AsmaulHusna.json" />
+    <EmbeddedResource Include="Databases\Doa.json" />
     <EmbeddedResource Include="Databases\Zikr.json" />
     <EmbeddedResource Include="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />
@@ -201,6 +205,9 @@
     <EmbeddedResource Update="Themes\RedTheme.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\AsmaulHusna\AsmaulHusnaPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Bookmarks\BookmarksPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -241,6 +248,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\TabbedPage\TabbedPageSurahsAndJuzsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Zikr\PraysPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Zikr\ZikrsPage.xaml">

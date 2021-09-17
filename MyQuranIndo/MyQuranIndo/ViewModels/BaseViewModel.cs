@@ -21,6 +21,8 @@ namespace MyQuranIndo.ViewModels
         public IToastService ToastService => DependencyService.Get<IToastService>();
         public IMP3Service MP3Service => DependencyService.Get<IMP3Service>();
         public IZikrDataService ZikrDataService => DependencyService.Get<IZikrDataService>();
+        public IAsmaulHusnaDataService AsmaulHusnaDataService => DependencyService.Get<IAsmaulHusnaDataService>();
+        public IPrayDataService PrayDataService => DependencyService.Get<IPrayDataService>();
 
         //public IColorThemeService ColorThemeService => DependencyService.Get<IColorThemeService>();
         
