@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Zikr.IntentionsPage"
+             xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Zikr"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Zikrs"
+             Title="{Binding Title}">
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="vm:IntentionViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari Kata Kunci"
+                       Command="{Binding LoadCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
+                       Query="{Binding SearchQuery, Mode=TwoWay}"
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}" />
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout>
+            <!--<Label
+                Text="{Binding NotFoundMessage, Mode=TwoWay}"
+                IsVisible="False"
+                Margin="0, 5, 0, 0" 
+                Padding="5"
+                TextColor="Red"
+                FontSize="Small"
+                HorizontalTextAlignment="Center"                
+                LineBreakMode="WordWrap"/>
+            <Label Text="{Binding NumbersFoundAyahAndSurah, Mode=TwoWay}"
+                   FontSize="Caption"
+                   FontAttributes="Italic"
+                   HorizontalTextAlignment="Center"
+                   Padding="5"
+                   TextColor="{Binding FoundResultColor, Mode=TwoWay}"
+                   CharacterSpacing="1"
+                   />-->
+            <RefreshView x:DataType="vm:IntentionViewModel" 
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         RefreshColor="{DynamicResource Primary}"
+                         >
+                <ListView x:Name ="lstViewFind"  
+                            ItemsSource="{Binding Intentions, Mode=TwoWay}"
+                            IsGroupingEnabled="true" 
+                            HasUnevenRows="True" 
+                            SelectionMode="Single"
+                            CachingStrategy="RecycleElement"
+                            SeparatorColor="Black"
+                            SeparatorVisibility="None"
+                            x:DataType="vm:IntentionViewModel"
+                            >
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout x:DataType="model:IntentionGroup">
+                                    <Grid BackgroundColor="{DynamicResource Accent}"
+                                            Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="100*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding FoundResult}"
+                                                FontSize="Medium"
+                                                FontAttributes="Bold"
+                                                VerticalTextAlignment="Center"
+                                                HorizontalOptions="StartAndExpand"
+                                                TextColor="{StaticResource TextColor}"
+                                                CharacterSpacing="1"/>
+                                        <Image Grid.Column="1" 
+                                            Source="{Binding ImageHeader, Mode=TwoWay}"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="EndAndExpand"
+                                            >
+                                        </Image>
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:IntentionViewModel }}, Path=HeaderTapped}"		
+                                                CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0" 
+                                                x:DataType="model:Intention">
+                                    <Grid BackgroundColor="{Binding RowColor}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <!--<ColumnDefinition Width="35" />-->
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <!--<Label Grid.Column="0"
+                                                Grid.RowSpan="3"
+                                                Text="{Binding ID}" 
+                                                LineBreakMode="WordWrap"
+                                                FontSize="Caption" 
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                TextColor="{StaticResource TextColor}" 
+                                                Padding="5,10,5,5"
+                                                IsVisible="False"/>-->
+                                        <Label Grid.Column="0"
+                                           Text="{Binding Arabic}" 
+                                           FontSize="{Binding FontSizeArabic}"
+                                           FontFamily="LPMQ"
+                                           LineHeight="1.4"
+                                           TextColor="{StaticResource TextColor}"
+                                           Padding="5,5,5,5"
+                                           HorizontalTextAlignment="{Binding TextAlignment}"/>
+                                        <Label Grid.Column="0"
+                                           Grid.Row="1"
+                                           Text="{Binding ArabicLatin}" 
+                                           LineBreakMode="WordWrap"
+                                           FontSize="Caption"
+                                           TextColor="{StaticResource TextColor}" 
+                                           Padding="5,10,5,5"/>
+                                        <Label Grid.Column="0"
+                                           Grid.Row="2"
+                                           Text="{Binding TranslateID}" 
+                                           LineBreakMode="WordWrap"
+                                           FontSize="Small"
+                                           TextColor="{StaticResource TextColor}"
+                                           Padding="5,5,5,10"/>
+                                    </Grid>
+                                    <!--<StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type localFind:FindViewModel }}, Path=FindTapped}"		
+                                                CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>-->
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

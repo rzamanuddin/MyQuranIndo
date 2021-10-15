@@ -24,7 +24,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>        
         <ScrollView>
-                <StackLayout Spacing="3" 
+                <StackLayout Spacing="2" 
                          Padding="0" 
                          Margin="0, 0, 0, 0"
                          VerticalOptions="CenterAndExpand"
@@ -38,9 +38,10 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"  />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Row="0"  Grid.Column="0" Padding="10" Margin="5" ColumnSpacing="5" RowSpacing="5">
+                    <Grid Grid.Row="0"  Grid.Column="0" Padding="10" Margin="2" ColumnSpacing="2" RowSpacing="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"  />
+                            <RowDefinition Height="100" />
                             <RowDefinition Height="100" />
                             <RowDefinition Height="100" />
                             <RowDefinition Height="100" />
@@ -227,6 +228,22 @@
                         </StackLayout>
                         <StackLayout Grid.Row="5" 
                                      Grid.Column="1" 
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_allah_2.png" 
+								    Text="Niat Sholat"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"
+								    CharacterSpacing="2"
+                                    Command="{Binding IntentionTapped}"
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="6" 
+                                     Grid.Column="0" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
@@ -241,7 +258,7 @@
                                     Command="{Binding PrayerScheduleTapped}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="6" 
-                                     Grid.Column="0" 
+                                     Grid.Column="1" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
@@ -255,8 +272,8 @@
 								    CharacterSpacing="2"
                                     Command="{Binding QiblaTapped}"/>
                         </StackLayout>
-                        <StackLayout Grid.Row="6" 
-                                     Grid.Column="1" 
+                        <StackLayout Grid.Row="7" 
+                                     Grid.Column="0" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
@@ -272,7 +289,7 @@
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="7" 
-                                     Grid.Column="0" 
+                                     Grid.Column="1" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
@@ -287,8 +304,9 @@
                                     Command="{Binding SettingTapped}"
 									 />
                         </StackLayout>
-                        <StackLayout Grid.Row="7" 
-                                     Grid.Column="1" 
+                        <StackLayout Grid.Row="8" 
+                                     Grid.Column="0" 
+                                     Grid.ColumnSpan="2"
                                      HorizontalOptions="FillAndExpand"
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">

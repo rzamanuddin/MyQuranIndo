@@ -23,6 +23,8 @@ namespace MyQuranIndo.ViewModels
         public IZikrDataService ZikrDataService => DependencyService.Get<IZikrDataService>();
         public IAsmaulHusnaDataService AsmaulHusnaDataService => DependencyService.Get<IAsmaulHusnaDataService>();
         public IPrayDataService PrayDataService => DependencyService.Get<IPrayDataService>();
+        public IIntentionDataService IntentionDataService => DependencyService.Get<IIntentionDataService>();
+        public IHelpDataService HelpDataService => DependencyService.Get<IHelpDataService>();
 
         //public IColorThemeService ColorThemeService => DependencyService.Get<IColorThemeService>();
         

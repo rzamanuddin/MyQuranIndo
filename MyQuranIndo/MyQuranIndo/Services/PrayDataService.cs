@@ -9,7 +9,7 @@ namespace MyQuranIndo.Services
 {
     public interface IPrayDataService
     {
-        Task<List<Pray>> GetPraysAsync(bool forceRefresh = false);
+        Task<IEnumerable<PrayData>> GetPraysAsync(bool forceRefresh = false);
     }
 
     public class PrayDataService : IPrayDataService
@@ -21,9 +21,9 @@ namespace MyQuranIndo.Services
             _database = new Database();
         }
 
-        public async Task<List<Pray>> GetPraysAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<PrayData>> GetPraysAsync(bool forceRefresh = false)
         {
-            List<Pray> prays = null;
+            List<PrayData> prays = null;
 
             try
             {

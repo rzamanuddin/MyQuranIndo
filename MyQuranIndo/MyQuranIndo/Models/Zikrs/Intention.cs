@@ -9,20 +9,9 @@ using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.Zikrs
 {
-    public class PrayData
+    public class Intention : NotifyPropertyChanged
     {
-        [JsonProperty("id")]
-        public int ID { get; set; }
-
-        [JsonProperty("title")]
-        public string Title { get; set; }
-
-        [JsonProperty("data")]
-        public List<Pray> Data { get; set; }
-    }
-
-    public class Pray : NotifyPropertyChanged
-    {
+        private Intention IntentionSelf { get; set; }
         private Color rowColor;
 
         [JsonProperty("id")]
@@ -41,8 +30,9 @@ namespace MyQuranIndo.Models.Zikrs
         public string Title { get; set; }
         [JsonProperty("translatedid")]
         public string TranslateID { get; set; }
-        [JsonProperty("tag")]
-        public List<string> Tag { get; set; }
+        
+        //[JsonProperty("tag")]
+        //public List<string> Tag { get; set; }
 
         public long RowID { get; set; }
 
@@ -69,7 +59,7 @@ namespace MyQuranIndo.Models.Zikrs
             {
                 if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
                 {
-                    if (ID % 2 == 0)
+                    if (RowID % 2 == 0)
                     {
                         rowColor = ((Color)Application.Current.Resources["RowColor"]);
                     }
@@ -161,7 +151,7 @@ namespace MyQuranIndo.Models.Zikrs
         }
     }
 
-    public class PrayGroup : ObservableCollection<Pray>
+    public class IntentionGroup : ObservableCollection<Intention>
     {
         private bool isExpand = false;
         private string imageHeader = "expand.png";
@@ -204,14 +194,14 @@ namespace MyQuranIndo.Models.Zikrs
                 return $"{TitleHeader}";
             }
         }
-        public ObservableCollection<Pray> Prays { get; private set; }
+        public ObservableCollection<Intention> Intentions { get; private set; }
 
-        public PrayGroup(int id, string titleHeader, ObservableCollection<Pray> prays) : base(prays)
+        public IntentionGroup(int id, string titleHeader, ObservableCollection<Intention> intentions) : base(intentions)
         {
             this.ID = id;
             this.TitleHeader = titleHeader;
             //this.NumberOfAyah = numberOfAyah;
-            Prays = prays;
+            Intentions = intentions;
         }
 
         public override string ToString()

@@ -126,7 +126,7 @@ namespace MyQuranIndo.Helpers
         public static async Task<string> DisplayActionPrayAsync(string title)
         {
             string action = await App.Current.MainPage.DisplayActionSheet(title,
-                Message.MSG_CANCEL, null, PRAY_SHARE, PRAY_SHARE_ALL, PRAY_COPY, PRAY_COPY_ALL);
+                Message.MSG_CANCEL, null, PRAY_SHARE, PRAY_COPY);// PRAY_SHARE_ALL, PRAY_COPY, PRAY_COPY_ALL);
 
             return action;
         }
@@ -206,7 +206,7 @@ namespace MyQuranIndo.Helpers
         public static string GetPrayToShare(Pray pray, string title)
         {
 
-            string zikrCopied = pray.TitleAndNumber;
+            string zikrCopied = pray.Title; // pray.TitleAndNumber;
             string line = Environment.NewLine + Environment.NewLine;
 
             zikrCopied += $"{line + pray.Arabic}";

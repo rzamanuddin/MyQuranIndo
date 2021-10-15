@@ -32,7 +32,7 @@ namespace MyQuranIndo.Messages
 
         public const string MSG_FAIL_DOWNLOAD_MP3 = "Murottal gagal diunduh.";
 
-        public const string MSG_FAIL_GET_FIND = "Pencarian surat / ayat gagal.";
+        public const string MSG_FAIL_GET_FIND = "Pencarian data gagal.";
         public const string MSG_NOT_FOUND_FIND = "Surat / Ayat yang anda cari tidak ditemukan.";
         public const string MSG_NOT_FOUND_AYAH = "Cari No / Terjemahan Ayat tidak ditemukan.";
         public const string MSG_FAIL_FIND_AYAH = "Cari No / Terjemahan Ayat gagal.";

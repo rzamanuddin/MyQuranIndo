@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyQuranIndo.Views.Help.HelpPage"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Helps"
+             xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Help"
              BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title}">
-    <ContentPage.Content>
+    <!--<ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="10,20, 10, 10">
                 <Label Text="Baca Surat"
@@ -196,14 +198,14 @@
                 <BoxView BackgroundColor="{DynamicResource Accent}"
                          HeightRequest="1"/>
 
-                <Label Text="Kumpulan Do'a)"
+                <Label Text="Kumpulan Do'a"
                        Style="{StaticResource HelpTitle}" />
                 <Label Text="Menu ini berfungsi untuk menamplikan Kumpulan Do'a."
                        Style="{StaticResource HelpContent}"/>
                 <BoxView BackgroundColor="{DynamicResource Accent}"
                          HeightRequest="1"/>
 
-                <Label Text="Dzikir Pagi)"
+                <Label Text="Dzikir Pagi"
                        Style="{StaticResource HelpTitle}" />
                 <Label Text="Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu pagi."
                        Style="{StaticResource HelpContent}"/>
@@ -217,7 +219,7 @@
                 <BoxView BackgroundColor="{DynamicResource Accent}"
                          HeightRequest="1"/>
 
-                <Label Text="Asmaul Husna)"
+                <Label Text="Asmaul Husna"
                        Style="{StaticResource HelpTitle}" />
                 <Label Text="Menu ini berfungsi untuk menamplikan 99 Asmaul Husna / Nama-Nama Baik Allah SWT."
                        Style="{StaticResource HelpContent}"/>
@@ -282,11 +284,112 @@
                        Style="{StaticResource HelpSubTitle}"
                        />
                 <Label Text="Silahkan isi kritik / saran pada kotak teks yang sudah disediakan, setelah itu tekan tombol dibawahnya untuk mengirimkan email kepada pembuat aplikasi."
-                       Style="{StaticResource HelpContent}"/>
-                <!--<BoxView BackgroundColor="{DynamicResource Accent}"
-                         HeightRequest="1"/>-->
-                
+                       Style="{StaticResource HelpContent}"/>                
             </StackLayout>
         </ScrollView>
+    </ContentPage.Content>-->
+
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="local:HelpViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari Kata Kunci"
+                       Command="{Binding LoadCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
+                       Query="{Binding SearchQuery, Mode=TwoWay}"
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}" />
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView x:DataType="local:HelpViewModel" 
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         RefreshColor="{DynamicResource Primary}"
+                         >
+                <ListView x:Name ="lstViewHelp"  
+                            ItemsSource="{Binding Helps, Mode=TwoWay}"
+                            IsGroupingEnabled="true" 
+                            HasUnevenRows="True" 
+                            SelectionMode="Single"
+                            CachingStrategy="RecycleElement"
+                            SeparatorColor="Black"
+                            SeparatorVisibility="None"
+                            x:DataType="local:HelpViewModel"
+                            >
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout x:DataType="model:HelpGroup">
+                                    <Grid BackgroundColor="{DynamicResource Accent}"
+                                            Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="100*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding FoundResult}"
+                                                FontSize="Medium"
+                                                FontAttributes="Bold"
+                                                VerticalTextAlignment="Center"
+                                                HorizontalOptions="StartAndExpand"
+                                                TextColor="{StaticResource TextColor}"
+                                                CharacterSpacing="1"/>
+                                        <Image Grid.Column="1" 
+                                            Source="{Binding ImageHeader, Mode=TwoWay}"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="EndAndExpand"
+                                            >
+                                        </Image>
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:HelpViewModel }}, Path=HeaderTapped}"		
+                                                CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0" 
+                                                x:DataType="model:HelpContent">
+                                    <Grid BackgroundColor="{Binding RowColor}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                               Grid.Row="0"
+                                               Text="{Binding Subtitle}" 
+                                               LineBreakMode="WordWrap"
+                                               FontSize="Subtitle"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource TextColor}"
+                                               IsVisible="{Binding IsVisibleSubtitle}"
+                                               Padding="5,10,5,0"/>
+                                        <Label Grid.Column="0"
+                                           Grid.Row="1"
+                                           Text="{Binding Content}" 
+                                           LineBreakMode="WordWrap"
+                                           FontSize="Small"
+                                           TextColor="{StaticResource TextColor}"
+                                           Padding="5,5,5,10"/>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RefreshView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

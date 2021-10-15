@@ -12,6 +12,8 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("Montserrat-BoldItalic.ttf", Alias = "Montserrat-Bold-Italic")]
 [assembly: ExportFont("Montserrat-Medium.ttf", Alias = "Montserrat-Medium")]
 [assembly: ExportFont("Montserrat-MediumItalic.ttf", Alias = "Montserrat-Medium-Italic")]
+[assembly: ExportFont("tradbdo.ttf", Alias = "Traditional-Arabic-Medium")]
+[assembly: ExportFont("trado.ttf", Alias = "Traditional-Arabic")]
 #if DEBUG
 [assembly: Application(Debuggable = true)]
 #else

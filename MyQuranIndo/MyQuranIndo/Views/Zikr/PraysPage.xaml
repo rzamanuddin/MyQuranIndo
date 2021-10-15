@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Zikr"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Zikrs"
              Title="{Binding Title}">
-    <Shell.SearchHandler>
+    <!--<Shell.SearchHandler>
         <SearchHandler x:DataType="local:PrayViewModel"  
                        x:Name="searchBar"
                        Placeholder="Cari No / Do'a"
@@ -19,7 +19,7 @@
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="0"
                      x:DataType="local:PrayViewModel">
-            <!--<Label Text="{Binding TitlePage}"
+            --><!--<Label Text="{Binding TitlePage}"
                    FontSize="Title"
                    FontAttributes="Bold"
                    Padding="10,10,10,0"
@@ -39,7 +39,7 @@
                     Margin="10,5,10,5"/>
             <BoxView BackgroundColor="{StaticResource TextColor}"
                      HeightRequest="2"
-                     Margin="10, 0, 10, 2" />-->
+                     Margin="10, 0, 10, 2" />--><!--
             <RefreshView x:DataType="local:PrayViewModel" 
                          Command="{Binding LoadCommand}" 
                          IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
@@ -126,6 +126,145 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>-->
+
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="local:PrayViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari Kata Kunci"
+                       Command="{Binding LoadCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
+                       Query="{Binding SearchQuery, Mode=TwoWay}"
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}" />
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView x:DataType="local:PrayViewModel" 
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         RefreshColor="{DynamicResource Primary}"
+                         >
+                <ListView x:Name ="lstViewPray"  
+                            ItemsSource="{Binding Prays, Mode=TwoWay}"
+                            IsGroupingEnabled="true" 
+                            HasUnevenRows="True" 
+                            SelectionMode="Single"
+                            CachingStrategy="RecycleElement"
+                            SeparatorColor="Black"
+                            SeparatorVisibility="None"
+                            x:DataType="local:PrayViewModel"
+                            >
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout x:DataType="model:PrayGroup">
+                                    <Grid BackgroundColor="{DynamicResource Accent}"
+                                            Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="100*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding FoundResult}"
+                                                FontSize="Medium"
+                                                FontAttributes="Bold"
+                                                VerticalTextAlignment="Center"
+                                                HorizontalOptions="StartAndExpand"
+                                                TextColor="{StaticResource TextColor}"
+                                                CharacterSpacing="1"/>
+                                        <Image Grid.Column="1" 
+                                            Source="{Binding ImageHeader, Mode=TwoWay}"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="EndAndExpand"
+                                            >
+                                        </Image>
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:PrayViewModel }}, Path=HeaderTapped}"		
+                                                CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0" 
+                                                x:DataType="model:Pray">
+                                    <Grid BackgroundColor="{Binding RowColor}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <!--<ColumnDefinition Width="35" />-->
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <!--<Label Grid.Column="0"
+                                                Grid.RowSpan="3"
+                                                Text="{Binding ID}" 
+                                                LineBreakMode="WordWrap"
+                                                FontSize="Caption" 
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                TextColor="{StaticResource TextColor}" 
+                                                Padding="5,10,5,5"
+                                                IsVisible="False"/>-->
+                                        <Label Grid.Column="0"
+                                               Grid.Row="0"
+                                               Text="{Binding Title}" 
+                                               LineBreakMode="WordWrap"
+                                               FontSize="Subtitle"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource TextColor}"
+                                           Padding="5,10,5,5"/>
+                                        <Label Grid.Column="0"
+                                               Grid.Row="1"
+                                           Text="{Binding Arabic}" 
+                                           FontSize="{Binding FontSizeArabic}"
+                                           FontFamily="LPMQ"
+                                           LineHeight="1.4"
+                                           TextColor="{StaticResource TextColor}"
+                                           Padding="5,5,5,5"
+                                           HorizontalTextAlignment="{Binding TextAlignment}"/>
+                                        <Label Grid.Column="0"
+                                           Grid.Row="2"
+                                           Text="{Binding ArabicLatin}" 
+                                           LineBreakMode="WordWrap"
+                                           FontSize="Caption"
+                                           TextColor="{StaticResource TextColor}" 
+                                           Padding="5,10,5,5"/>
+                                        <Label Grid.Column="0"
+                                           Grid.Row="3"
+                                           Text="{Binding TranslateID}" 
+                                           LineBreakMode="WordWrap"
+                                           FontSize="Small"
+                                           TextColor="{StaticResource TextColor}"
+                                           Padding="5,5,5,10"/>
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:PrayViewModel }}, Path=PrayOneTapped}"		
+                                                CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </RefreshView>
         </StackLayout>
     </ContentPage.Content>

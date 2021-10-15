@@ -41,6 +41,7 @@ namespace MyQuranIndo.ViewModels.Home
         public ICommand ZikrEveningTapped { get; }
         public ICommand AsmaulHusnaTapped { get; }
         public ICommand PrayTapped { get; }
+        public ICommand IntentionTapped { get; }
         public HomeViewModel()
         {
             Title = "Home";
@@ -60,6 +61,7 @@ namespace MyQuranIndo.ViewModels.Home
             ZikrEveningTapped = new Command(async () => await OnZikrEveningSelected());
             AsmaulHusnaTapped = new Command(async () => await OnAsmaulHusnaSelected());
             PrayTapped = new Command(async () => await OnPraySelected());
+            IntentionTapped = new Command(async () => await OnIntentionSelected());
         }
 
         private async Task OnJuzTabSelected()
@@ -114,6 +116,10 @@ namespace MyQuranIndo.ViewModels.Home
         private async Task OnPraySelected()
         {
             await Shell.Current.GoToAsync($"{nameof(PraysPage)}");
+        }
+        private async Task OnIntentionSelected()
+        {
+            await Shell.Current.GoToAsync($"{nameof(IntentionsPage)}");
         }
 
         private async Task OnBookmarkSelected()

@@ -44,6 +44,8 @@ namespace MyQuranIndo
             Routing.RegisterRoute(nameof(ZikrsPage), typeof(ZikrsPage));
             Routing.RegisterRoute(nameof(AsmaulHusnaPage), typeof(AsmaulHusnaPage));
             Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
+            Routing.RegisterRoute(nameof(IntentionsPage), typeof(IntentionsPage));
+            //Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

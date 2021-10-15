@@ -12,10 +12,10 @@ using Xamarin.Forms.Xaml;
 namespace MyQuranIndo.Views.Zikr
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PraysPage : ContentPage, IHasCollectionView
+    public partial class PraysPage : ContentPage//, IHasCollectionView
     {
         private PrayViewModel _viewModel;
-        public CollectionView CollectionView => collPrays;
+        //public CollectionView CollectionView => collPrays;
 
         public PraysPage()
         {
@@ -23,14 +23,14 @@ namespace MyQuranIndo.Views.Zikr
             this.BindingContext = _viewModel = new PrayViewModel();
         }
 
-        protected override void OnBindingContextChanged()
-        {
-            if (this.BindingContext is IHasCollectionViewModel hasCollectionViewModel)
-            {
-                hasCollectionViewModel.View = this;
-            }
-            base.OnBindingContextChanged();
-        }
+        //protected override void OnBindingContextChanged()
+        //{
+        //    if (this.BindingContext is IHasCollectionViewModel hasCollectionViewModel)
+        //    {
+        //        hasCollectionViewModel.View = this;
+        //    }
+        //    base.OnBindingContextChanged();
+        //}
 
         protected override void OnAppearing()
         {

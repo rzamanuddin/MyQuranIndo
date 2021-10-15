@@ -1,4 +1,4 @@
-﻿using MyQuranIndo.ViewModels.Help;
+﻿using MyQuranIndo.ViewModels.Zikr;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyQuranIndo.Views.Help
+namespace MyQuranIndo.Views.Zikr
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HelpPage : ContentPage
+    public partial class IntentionsPage : ContentPage
     {
-        HelpViewModel _viewModel;
-        public HelpPage()
+        private IntentionViewModel _viewModel;
+        public IntentionsPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new HelpViewModel();
+            this.BindingContext = _viewModel = new IntentionViewModel();
         }
 
         protected override void OnAppearing()

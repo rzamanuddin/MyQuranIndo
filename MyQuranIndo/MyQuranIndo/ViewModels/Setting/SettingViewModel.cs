@@ -432,76 +432,84 @@ namespace MyQuranIndo.ViewModels.Setting
             {
                 mergedDictionaries.Clear();
                 int themeSetting = Preferences.Get(References.Setting.THEME, 0);
-                switch (theme)
+
+                try
                 {
-                    case (int)ThemeStyle.Blue:
-                        //if (themeSetting != (int)ThemeStyle.Blue)
-                        //{
+                    switch (theme)
+                    {
+                        case (int)ThemeStyle.Blue:
+                            //if (themeSetting != (int)ThemeStyle.Blue)
+                            //{
                             Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Blue);
                             mergedDictionaries.Add(new BlueTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Blue);
-                        //}
-                        break;
-                    case (int)ThemeStyle.Green:
-                        //if (themeSetting != (int)ThemeStyle.Green)
-                        //{
+                            //}
+                            break;
+                        case (int)ThemeStyle.Green:
+                            //if (themeSetting != (int)ThemeStyle.Green)
+                            //{
                             Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Green);
                             mergedDictionaries.Add(new GreenTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Green);
-                        //}
-                        break;
-                    case (int)ThemeStyle.Orange:
-                        //if (themeSetting != (int)ThemeStyle.Orange)
-                        //{
+                            //}
+                            break;
+                        case (int)ThemeStyle.Orange:
+                            //if (themeSetting != (int)ThemeStyle.Orange)
+                            //{
                             Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Orange);
                             mergedDictionaries.Add(new OrangeTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Orange);
-                        //}
-                        break;
-                    case (int)ThemeStyle.Black:
-                       // if (themeSetting != (int)ThemeStyle.Black)
-                       // {
+                            //}
+                            break;
+                        case (int)ThemeStyle.Black:
+                            // if (themeSetting != (int)ThemeStyle.Black)
+                            // {
                             Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Black);
                             mergedDictionaries.Add(new BlackTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Black);
-                        //}
-                        break;
-                    case (int)ThemeStyle.Purple:
-                        //if (themeSetting != (int)ThemeStyle.Purple)
-                        //{
+                            //}
+                            break;
+                        case (int)ThemeStyle.Purple:
+                            //if (themeSetting != (int)ThemeStyle.Purple)
+                            //{
                             Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Purple);
                             mergedDictionaries.Add(new PurpleTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Purple);
-                        //}
-                        break;
-                    case (int)ThemeStyle.Pink:
-                        //if (themeSetting != (int)ThemeStyle.Pink)
-                        //{
-                        Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Pink);
-                        mergedDictionaries.Add(new PinkTheme());
+                            //}
+                            break;
+                        case (int)ThemeStyle.Pink:
+                            //if (themeSetting != (int)ThemeStyle.Pink)
+                            //{
+                            Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Pink);
+                            mergedDictionaries.Add(new PinkTheme());
 
-                        MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Pink);
-                        //}
-                        break;
-                    case (int)ThemeStyle.Red:
-                        Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Red);
-                        mergedDictionaries.Add(new RedTheme());
+                            MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Pink);
+                            //}
+                            break;
+                        case (int)ThemeStyle.Red:
+                            Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Red);
+                            mergedDictionaries.Add(new RedTheme());
 
-                        MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Red);
-                        break;
-                    case (int)ThemeStyle.DarkBlue:
-                        Preferences.Set(References.Setting.THEME, (int)ThemeStyle.DarkBlue);
-                        mergedDictionaries.Add(new DarkBlueTheme());
+                            MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Red);
+                            break;
+                        case (int)ThemeStyle.DarkBlue:
+                            Preferences.Set(References.Setting.THEME, (int)ThemeStyle.DarkBlue);
+                            mergedDictionaries.Add(new DarkBlueTheme());
 
-                        MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.DarkBlue);
-                        break;
-                    default:
-                        goto case (int)ThemeStyle.Blue;
+                            MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.DarkBlue);
+                            break;
+                        default:
+                            goto case (int)ThemeStyle.Blue;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    App.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
                 }
             }
         }        

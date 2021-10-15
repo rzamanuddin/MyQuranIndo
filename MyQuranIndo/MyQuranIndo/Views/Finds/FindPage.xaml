@@ -26,7 +26,7 @@
                        Text="{Binding SearchQuery, Mode=TwoWay}"
                        TextColor="{StaticResource TextColor}"
                        >-->
-                <!--<SearchBar.Behaviors>
+            <!--<SearchBar.Behaviors>
                     <localBehavior:TextChangedBehavior />
                 </SearchBar.Behaviors>-->
             <!--</SearchBar>
@@ -52,7 +52,9 @@
                    />
             <!--<Grid Padding="0, 5, 10, 5 ">
                 <Grid.ColumnDefinitions>
-                    --><!--<ColumnDefinition Width="95*"/>--><!--
+                    -->
+            <!--<ColumnDefinition Width="95*"/>-->
+            <!--
                     <ColumnDefinition Width="100*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -69,7 +71,7 @@
             <!--<RefreshView x:DataType="localFind:FindViewModel" 
                          Command="{Binding LoadCommand}" 
                          IsRefreshing="{Binding IsBusy, Mode=TwoWay}">-->
-                <ListView x:Name ="lstViewFind"  
+            <ListView x:Name ="lstViewFind"  
                             ItemsSource="{Binding Finds, Mode=TwoWay}"
                             IsGroupingEnabled="true" 
                             HasUnevenRows="True" 
@@ -82,33 +84,33 @@
                             IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                             IsPullToRefreshEnabled="True"
                             RefreshControlColor="{DynamicResource Primary}">
-                    <ListView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout x:DataType="model:FindGroup">
-                                    <Grid BackgroundColor="{DynamicResource Accent}"
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout x:DataType="model:FindGroup">
+                                <Grid BackgroundColor="{DynamicResource Accent}"
                                             Padding="5">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40" />
-                                            <!--<RowDefinition />-->
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="100*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Text="{Binding FoundResult}"
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <!--<RowDefinition />-->
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="100*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding FoundResult}"
                                                 FontSize="Medium"
                                                 FontAttributes="Bold"
                                                 VerticalTextAlignment="Center"
                                                 HorizontalOptions="StartAndExpand"
                                                 TextColor="{StaticResource TextColor}"
                                                 CharacterSpacing="1"/>
-                                        <Image Grid.Column="1" 
+                                    <Image Grid.Column="1" 
                                             Source="{Binding ImageHeader, Mode=TwoWay}"
                                             VerticalOptions="Center"
                                             HorizontalOptions="EndAndExpand"
                                             >
-                                            <!--<Image.Triggers>
+                                        <!--<Image.Triggers>
                                                 <DataTrigger TargetType="Image"
                                                                 Binding="{Binding Text, Source={Reference lblExpand}, FallbackValue=false, Mode=TwoWay}"
                                                                 Value="False">
@@ -116,37 +118,37 @@
                                                             Value="expand.png" />
                                                 </DataTrigger>
                                             </Image.Triggers>-->
-                                        </Image>
-                                        <!--<Label Grid.Row="1"
+                                    </Image>
+                                    <!--<Label Grid.Row="1"
                                                 x:Name="lblExpand"
                                                 Text="{Binding IsExpand, Mode=TwoWay}" />-->
-                                    </Grid>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer 
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
                                                 NumberOfTapsRequired="1"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type localFind:FindViewModel }}, Path=HeaderTapped}"		
                                                 CommandParameter="{Binding .}">
-                                        </TapGestureRecognizer>
-                                    </StackLayout.GestureRecognizers>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.GroupHeaderTemplate>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Padding="0" 
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="0" 
                                                 x:DataType="model:Find">
-                                    <Grid BackgroundColor="{Binding RowColor}">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="35" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0"
+                                <Grid BackgroundColor="{Binding RowColor}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0"
                                                 Grid.RowSpan="2"
                                                 Text="{Binding Ayah.ID}" 
                                                 LineBreakMode="WordWrap"
@@ -155,33 +157,33 @@
                                                 HorizontalOptions="Center"
                                                 TextColor="{StaticResource TextColor}" 
                                                 Padding="5,10,5,5"/>
-                                        <Label Grid.Column="1"
+                                    <Label Grid.Column="1"
                                                 Text="{Binding Ayah.TextIndo}" 
                                                 LineBreakMode="WordWrap"
                                                 FontSize="Caption"
                                                 TextColor="{StaticResource TextColor}" 
                                                 Padding="5,10,5,5"/>
-                                        <Label Grid.Column="1"
+                                    <Label Grid.Column="1"
                                                 Grid.Row="1"
                                                 Text="{Binding Ayah.TranslateIndo}" 
                                                 LineBreakMode="WordWrap"
                                                 FontSize="Small"
                                                 TextColor="{StaticResource TextColor}"
                                                 Padding="5,5,5,10"/>
-                                    </Grid>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer 
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
                                                 NumberOfTapsRequired="1"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type localFind:FindViewModel }}, Path=FindTapped}"		
                                                 CommandParameter="{Binding .}">
-                                        </TapGestureRecognizer>
-                                    </StackLayout.GestureRecognizers>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <!--</RefreshView>-->
-        </StackLayout>        
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

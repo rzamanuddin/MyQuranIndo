@@ -1,0 +1,399 @@
+[
+	{
+		"ID": "1",
+		"Title": "Baca Surat",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Pada menu utama / home, ketuk pada tombol Baca Surat."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Setelah itu akan muncul daftar surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada surat yang ingin anda baca."
+			},
+			{
+				"ID": "3",
+				"Subtitle": "",
+				"Content": "Anda juga bisa mencari ayat, nomor ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+			},
+			{
+				"ID": "4",
+				"Subtitle": "Play Murottal",
+				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+			},
+			{
+				"ID": "5",
+				"Subtitle": "Bagikan Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+			},
+			{
+				"ID": "6",
+				"Subtitle": "Salin Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+			},
+			{
+				"ID": "7",
+				"Subtitle": "Bookmark Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+			},
+			{
+				"ID": "8",
+				"Subtitle": "Tandai Terakhir Dibaca",
+				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+			},
+			{
+				"ID": "9",
+				"Subtitle": "Menampilkan Tafsir Kemenag",
+				"Content": "Ketuk dua kali pada ayat."
+			}
+		]
+	},
+	{
+		"ID": "2",
+		"Title": "Baca Surat (Mode Tab)",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Pada menu utama / home, ketuk pada tombol Baca Surat (Mode Tab)."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Setelah itu akan muncul surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada tab surat yang ingin anda baca."
+			},
+			{
+				"ID": "3",
+				"Subtitle": "",
+				"Content": "Anda juga bisa mencari ayat, nomor ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+			},
+			{
+				"ID": "4",
+				"Subtitle": "Play Murottal",
+				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+			},
+			{
+				"ID": "5",
+				"Subtitle": "Bagikan Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+			},
+			{
+				"ID": "6",
+				"Subtitle": "Salin Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+			},
+			{
+				"ID": "7",
+				"Subtitle": "Bookmark Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+			},
+			{
+				"ID": "8",
+				"Subtitle": "Tandai Terakhir Dibaca",
+				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+			},
+			{
+				"ID": "9",
+				"Subtitle": "Menampilkan Tafsir Kemenag",
+				"Content": "Ketuk dua kali pada ayat."
+			}
+		]
+	},
+	{
+		"ID": "3",
+		"Title": "Baca Juz",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Pada menu utama / home, ketuk pada tombol Baca Juz."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Setelah itu akan muncul daftar juz dimulai dari Juz 1 sampai dengan Juz 30, lalu ketuk pada juz yang ingin anda baca."
+			},
+			{
+				"ID": "3",
+				"Subtitle": "",
+				"Content": "Anda juga bisa mencari ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+			},
+			{
+				"ID": "4",
+				"Subtitle": "Play Murottal",
+				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+			},
+			{
+				"ID": "5",
+				"Subtitle": "Bagikan Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+			},
+			{
+				"ID": "6",
+				"Subtitle": "Salin Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+			},
+			{
+				"ID": "7",
+				"Subtitle": "Bookmark Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+			},
+			{
+				"ID": "8",
+				"Subtitle": "Tandai Terakhir Dibaca",
+				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+			},
+			{
+				"ID": "9",
+				"Subtitle": "Menampilkan Tafsir Kemenag",
+				"Content": "Ketuk dua kali pada ayat."
+			}
+		]
+	},
+	{
+		"ID": "4",
+		"Title": "Baca Juz (Mode Tab)",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Pada menu utama / home, ketuk pada tombol Baca Juz (Mode Tab)."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Setelah itu akan muncul daftar juz dimulai dari Juz 1 sampai dengan Juz 30, lalu ketuk pada tab juz yang ingin anda baca."
+			},
+			{
+				"ID": "3",
+				"Subtitle": "",
+				"Content": "Anda juga bisa mencari ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+			},
+			{
+				"ID": "4",
+				"Subtitle": "Play Murottal",
+				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+			},
+			{
+				"ID": "5",
+				"Subtitle": "Bagikan Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+			},
+			{
+				"ID": "6",
+				"Subtitle": "Salin Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+			},
+			{
+				"ID": "7",
+				"Subtitle": "Bookmark Ayat",
+				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+			},
+			{
+				"ID": "8",
+				"Subtitle": "Tandai Terakhir Dibaca",
+				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+			},
+			{
+				"ID": "9",
+				"Subtitle": "Menampilkan Tafsir Kemenag",
+				"Content": "Ketuk dua kali pada ayat."
+			}
+		]
+	},
+	{
+		"ID": "5",
+		"Title": "Terakhir Dibaca",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk pergi ke ayat yang terakhir sudah kita tandai."
+			}
+		]
+	},
+	{
+		"ID": "6",
+		"Title": "Bookmark",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menampilkan daftar bookmark dari ayat ayat yang sudah ditandai, anda bisa mengetuk ayat yang ingin ditampilkan."
+			}
+		]
+	},
+	{
+		"ID": "7",
+		"Title": "Pencarian",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk mencari ayat, terjemahan, dan transliterasi latin."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Ketik pada kotak teks yang disediakan, lalu tekan tombol search pada tampilan keyboard."
+			}
+		]
+	},
+	{
+		"ID": "8",
+		"Title": "Kumpulan Do'a",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menamplikan Kumpulan Do'a."
+			}
+		]
+	},
+	{
+		"ID": "9",
+		"Title": "Dzikir Pagi",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu pagi."
+			}
+		]
+	},
+	{
+		"ID": "10",
+		"Title": "Dzikir Petang",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu sore."
+			}
+		]
+	},
+	{
+		"ID": "11",
+		"Title": "Asmaul Husna",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menamplikan 99 Asmaul Husna / Nama-Nama Baik Allah SWT."
+			}
+		]
+	},
+	{
+		"ID": "12",
+		"Title": "Niat Sholat",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menamplikan halamat niat sholat."
+			}
+		]
+	},
+	{
+		"ID": "13",
+		"Title": "Jadwal Sholat (Beta)",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menampilkan jadwal sholat."
+			}
+		]
+	},
+	{
+		"ID": "14",
+		"Title": "Arah Kiblat (Beta)",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menampilkan arah kiblat."
+			}
+		]
+	},
+	{
+		"ID": "15",
+		"Title": "Petunjuk",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menampilkan petunjuk penggunaan program."
+			}
+		]
+	},
+	{
+		"ID": "16",
+		"Title": "Pengaturan",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "Transliterasi Latin",
+				"Content": "Aktifkan tombol Aktifkan Transliterasi untuk menampilkan transliterasi latin saat membaca Al-Qur'an."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "Terjemahan",
+				"Content": "Aktifkan tombol Aktifkan Terjemahan untuk menampilkan terjemahan surat saat membaca Al-Qur'an."
+			},
+			{
+				"ID": "3",
+				"Subtitle": "Pilih Warna Aplikasi",
+				"Content": "Pilih warna yang ingin digunakan untuk tema aplikasi."
+			},
+			{
+				"ID": "4",
+				"Subtitle": "Ukuran Teks Arab",
+				"Content": "Pilih pada ukuran teks arab yang ingin digunakan saat membaca Al-Qur'an."
+			},
+			{
+				"ID": "5",
+				"Subtitle": "Qari",
+				"Content": "Pilih qari yang ingin digunakan saat mendengarkan lantunan murottal."
+			},
+			{
+				"ID": "6",
+				"Subtitle": "Info Aplikasi",
+				"Content": "Menu ini berfungsi untuk menampilkan halaman Info Aplikasi."
+			},
+			{
+				"ID": "7",
+				"Subtitle": "Berikan Rating",
+				"Content": "Menu ini berfungsi untuk membelikan nilai / rating di playstore."
+			},
+			{
+				"ID": "8",
+				"Subtitle": "Cek Pembaruan",
+				"Content": "Menu ini berfungsi untuk memeriksa apakah aplikasi ini ada update terbaru atau tidak."
+			}
+		]
+	},
+	{
+		"ID": "17",
+		"Title": "Info Aplikasi",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menampilkan informasi program."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Didalam menu ini anda juga bisa mengirimkan saran maupun kritik."
+			},
+			{
+				"ID": "3",
+				"Subtitle": "Kirim Kritik / Saran.",
+				"Content": "Silahkan isi kritik / saran pada kotak teks yang sudah disediakan, setelah itu tekan tombol dibawahnya untuk mengirimkan email kepada pembuat aplikasi."
+			}
+		]
+	}
+]

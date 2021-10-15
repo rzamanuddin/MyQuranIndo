@@ -40,6 +40,7 @@ namespace MyQuranIndo.ViewModels
         public ICommand ZikrMorningCommand { get; }
         public ICommand ZikrEveningCommand { get; }
         public ICommand AsmaulHusnaCommand { get; }
+        public ICommand IntentionCommand { get; }
         public ICommand PrayCommand { get; }
 
         public AppShellViewModel()
@@ -60,6 +61,7 @@ namespace MyQuranIndo.ViewModels
             ZikrEveningCommand = new Command(async () => await NavigateToZikrEveningPage());
             AsmaulHusnaCommand = new Command(async () => await NavigateToAsmaulHusnaPage());
             PrayCommand = new Command(async () => await NavigateToPrayPage());
+            IntentionCommand = new Command(async () => await NavigateToIntentionPage());
         }
 
         private async Task NavigateToReadJuzPage()
@@ -99,6 +101,11 @@ namespace MyQuranIndo.ViewModels
         private async Task NavigateToPrayPage()
         {
             await Shell.Current.GoToAsync($"{nameof(PraysPage)}");
+            Shell.Current.FlyoutIsPresented = false;
+        }
+        private async Task NavigateToIntentionPage()
+        {
+            await Shell.Current.GoToAsync($"{nameof(IntentionsPage)}");
             Shell.Current.FlyoutIsPresented = false;
         }
 
