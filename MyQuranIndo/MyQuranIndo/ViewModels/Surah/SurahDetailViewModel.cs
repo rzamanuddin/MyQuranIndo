@@ -113,7 +113,7 @@ namespace MyQuranIndo.ViewModels.Surah
         public SurahDetailViewModel()
         {
             Title = "Surah";
-            Ayahs = new ObservableCollection<Ayah>();
+            Ayahs = new ObservableCollection<Ayah>();            
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
             AyahOneTapped = new Command<Ayah>(OnAyahOneTapped);
             AyahTwoTapped = new Command<Ayah>(OnAyahTwoTapped);

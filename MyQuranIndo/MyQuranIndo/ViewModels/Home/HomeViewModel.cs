@@ -20,6 +20,7 @@ using MyQuranIndo.Helpers;
 using MyQuranIndo.Views.Zikr;
 using MyQuranIndo.ViewModels.Zikr;
 using MyQuranIndo.Views.AsmaulHusna;
+using MyQuranIndo.Views.Tafsir;
 
 namespace MyQuranIndo.ViewModels.Home
 {
@@ -29,6 +30,7 @@ namespace MyQuranIndo.ViewModels.Home
         public Command SurahTabTapped { get; }
         public Command JuzTapped { get; }
         public Command JuzTabTapped { get; }
+        public ICommand TafsirTapped { get; }
         public ICommand LastReadTapped { get; }
         public Command BookmarkTapped { get; }
         public Command FindTapped { get; }
@@ -47,6 +49,7 @@ namespace MyQuranIndo.ViewModels.Home
             Title = "Home";
             SurahTapped = new Command(async () => await OnSurahSelected());
             SurahTabTapped = new Command(async () => await OnSurahTabSelected());
+            TafsirTapped = new Command(async () => await OnTafsirSelected());
             LastReadTapped = new Command(async () => await OnLastReadSelected());
             BookmarkTapped = new Command(async () => await OnBookmarkSelected());
             FindTapped = new Command(async () => await OnFindSelected());
@@ -189,6 +192,11 @@ namespace MyQuranIndo.ViewModels.Home
             await Shell.Current.GoToAsync($"{nameof(SurahPage)}");
             //await Shell.Current.GoToAsync($"{nameof(TabbedPageSurahsAndJuzsPage)}");
             //await ActionHelper.OpenSurahORJuzPage();
+        }
+
+        private async Task OnTafsirSelected()
+        {
+            await Shell.Current.GoToAsync($"{nameof(TafsirsPage)}");
         }
 
         private async Task OnLastReadSelected()

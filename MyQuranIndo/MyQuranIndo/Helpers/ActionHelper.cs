@@ -22,14 +22,18 @@ namespace MyQuranIndo.Helpers
 {
     public static class ActionHelper
     {
-        public static string ACTION_LOOK_AS_SURAH = "Lihat Sebagai Surat";
-        public static string ACTION_LOOK_AS_JUZ = "Lihat Sebagai Juz";
+        public const string ACTION_LOOK_AS_SURAH = "Lihat Sebagai Surat";
+        public const string ACTION_LOOK_AS_JUZ = "Lihat Sebagai Juz";
 
         public const string AYAH_SHARE = "Bagikan Ayat";
         public const string AYAH_COPY = "Salin Ayat";
         public const string AYAH_BOOKMARK = "Tambahkan Ke Bookmark";
         public const string AYAH_LAST_READ = "Tandai Terakhir Dibaca";
+
         public const string TAFSIR_SHARE = "Bagikan Tafsir";
+        public const string TAFSIR_COPY = "Salin Tafsir";
+        
+
         public const string BOOKMARK_DEL = "Hapus Bookmark";
         public const string PLAY_MP3 = "Play Murottal"; 
         public const string ZIKR_SHARE = "Bagikan Dzikir";
@@ -40,6 +44,7 @@ namespace MyQuranIndo.Helpers
         public const string ASMAUL_HUSNA_COPY = "Salin Asmaul Husna";
         public const string ASMAUL_HUSNA_SHARE_ALL = "Bagikan Semua Asmaul Husna";
         public const string ASMAUL_HUSNA_COPY_ALL = "Salin Semua Asmaul Husna";
+
         public const string PRAY_SHARE = "Bagikan Do'a";
         public const string PRAY_COPY = "Salin Do'a";
         public const string PRAY_SHARE_ALL = "Bagikan Kumpulan Do'a";
@@ -115,6 +120,15 @@ namespace MyQuranIndo.Helpers
             return action;
         }
 
+        public static async Task<string> DisplayActionTafsirAsync(int surahID, int ayahID, string surahNameLatin)
+        {
+            string title = $"Q.S. {surahID}. {surahNameLatin} Ayat {ayahID}";
+            string action = await App.Current.MainPage.DisplayActionSheet(title, //$"Q.S {surahID}:{ayahID}",
+                Message.MSG_CANCEL, null, TAFSIR_SHARE, TAFSIR_COPY, ACTION_LOOK_AS_SURAH, ACTION_LOOK_AS_JUZ);
+
+            return action;
+        }
+
         public static async Task<string> DisplayActionZikrAsync(string title)
         {
             string action = await App.Current.MainPage.DisplayActionSheet(title,
@@ -158,6 +172,19 @@ namespace MyQuranIndo.Helpers
             ayahCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
 
             return ayahCopied;
+        }
+
+        public static string GetTafsirToShare(Tafsir tafsir, string surahNameLatin)
+        {
+
+            string tafsirCopied = $"(Tafsir Q.S. {surahNameLatin} {tafsir.TafsirID}: Ayat {tafsir.ID}): ";
+            string line = Environment.NewLine + Environment.NewLine;
+
+            tafsirCopied += $"{line + tafsir.Kemenag}";
+            tafsirCopied += $"{line}*Via {AppSetting.GetApplicationName()}";
+            tafsirCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return tafsirCopied;
         }
 
         public static string GetAyahToShare(JuzDetail juzDetail)

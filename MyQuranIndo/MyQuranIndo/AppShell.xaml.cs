@@ -12,6 +12,7 @@ using MyQuranIndo.Views.Qibla;
 using MyQuranIndo.Views.Setting;
 using MyQuranIndo.Views.Surah;
 using MyQuranIndo.Views.TabbedPage;
+using MyQuranIndo.Views.Tafsir;
 using MyQuranIndo.Views.Zikr;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,8 @@ namespace MyQuranIndo
             Routing.RegisterRoute(nameof(AsmaulHusnaPage), typeof(AsmaulHusnaPage));
             Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
             Routing.RegisterRoute(nameof(IntentionsPage), typeof(IntentionsPage));
+            Routing.RegisterRoute(nameof(TafsirsPage), typeof(TafsirsPage));
+            Routing.RegisterRoute(nameof(TafsirDetailPage), typeof(TafsirDetailPage));
             //Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
         }
 

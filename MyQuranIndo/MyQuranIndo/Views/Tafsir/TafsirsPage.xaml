@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Tafsir"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans"
+             xmlns:localBehavior="clr-namespace:MyQuranIndo.Behaviors"
+             x:Class="MyQuranIndo.Views.Tafsir.TafsirsPage"
+             Title="{Binding Title, Mode=TwoWay}">
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="local:TafsirsViewModel"
+                       x:Name="searchBar"
+                       Placeholder="Cari No / Nama Surat"
+                       Command="{Binding SearchCommand}"
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}"
+                       >
+        </SearchHandler>
+    </Shell.SearchHandler>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoBackCommand}"
+                            IsEnabled="True"/>        
+    </Shell.BackButtonBehavior>
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="0">
+            <BoxView BackgroundColor="{StaticResource TextColor}"
+                     HeightRequest="3"
+                     Margin="0, -4, 0, 0" />
+            <RefreshView x:DataType="local:TafsirsViewModel" 
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         RefreshColor="{DynamicResource Primary}">
+                <CollectionView x:Name="collSurah"
+                    ItemsSource="{Binding Surahs}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="0" 
+                                         x:DataType="model:Surah">
+                                <Grid Margin="0, 0, 0, 0"
+                                      BackgroundColor="{Binding RowColor}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0"
+                                           Text="{Binding Name}" 
+                                           Style="{StaticResource SurahLabelName}"                                           
+                                           FontSize="{Binding FontSizeArabic}"
+                                           Padding="5,0,5,0"/>
+                                    <Label Grid.Row="1" 
+                                           Text="{Binding DisplayNameLatin}" 
+                                           Style="{StaticResource SurahLabelNameLatin}"
+                                           LineBreakMode="WordWrap"
+                                           Padding="5,0,5,10" />
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:TafsirsViewModel}}, Path=ItemTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

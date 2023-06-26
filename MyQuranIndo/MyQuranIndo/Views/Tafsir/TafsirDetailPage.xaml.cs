@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyQuranIndo.ViewModels;
+using MyQuranIndo.ViewModels.Tafsir;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,29 +8,19 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using MyQuranIndo.Models;
-using MyQuranIndo.ViewModels;
-using System.Collections.ObjectModel;
-using Xamarin.Essentials;
-using MyQuranIndo.ViewModels.Surah;
 
-namespace MyQuranIndo.Views.Surah
+namespace MyQuranIndo.Views.Tafsir
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SurahDetailPage : ContentPage, IHasListView
+    public partial class TafsirDetailPage : ContentPage, IHasListView
     {
-        //public CollectionView CollectionView => collAyah;
-
-        public ListView ListView => collAyah;
-
-        private SurahDetailViewModel _viewModel;
-
-        public SurahDetailPage()
+        public ListView ListView => collTafsir;
+        private TafsirDetailViewModel _viewModel;
+        public TafsirDetailPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new SurahDetailViewModel();
+            BindingContext = _viewModel = new TafsirDetailViewModel();
         }
-
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
@@ -36,6 +28,10 @@ namespace MyQuranIndo.Views.Surah
             {
                 hasListViewViewModel.View = this;
             }
+            //if (this.BindingContext is IHasCollectionViewModel hasCollectionViewModel)
+            //{
+            //    hasCollectionViewModel.View = this;
+            //}
         }
 
         protected override void OnAppearing()
@@ -47,6 +43,7 @@ namespace MyQuranIndo.Views.Surah
             //}
             _viewModel.OnAppearing();
         }
+
 
         protected override bool OnBackButtonPressed()
         {

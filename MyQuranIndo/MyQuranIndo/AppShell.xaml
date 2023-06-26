@@ -11,6 +11,7 @@
        xmlns:localBookmarks="clr-namespace:MyQuranIndo.Views.Bookmarks"
        xmlns:localJuz="clr-namespace:MyQuranIndo.Views.Juz"
        xmlns:localTab="clr-namespace:MyQuranIndo.Views.TabbedPage"
+       xmlns:localTafsir="clr-namespace:MyQuranIndo.Views.Tafsir"
        xmlns:vm="clr-namespace:MyQuranIndo.ViewModels"
        x:Class="MyQuranIndo.AppShell"
        Title="My Qur'an Indonesia Free"
@@ -131,6 +132,9 @@
     <MenuItem Text="Baca Juz (Mode Tab)"
               Icon="icon_juz_2.png"
               Command="{Binding ReadJuzModeTabCommand}"/>
+    <MenuItem Text="Baca Tafsir"
+              IconImageSource="icon_tafsir.png"
+              Command="{Binding ReadTafsirCommand}"/>
     <MenuItem Text="Terakhir Dibaca" 
               Icon="icon_last_read.png"
               Command="{Binding LastReadCommand}"/>

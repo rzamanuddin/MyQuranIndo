@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Tafsir"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans"
+             xmlns:localBehavior="clr-namespace:MyQuranIndo.Behaviors"
+             xmlns:control="clr-namespace:MyQuranIndo.Controls"
+             xmlns:selector="clr-namespace:MyQuranIndo.Selectors"
+             x:Class="MyQuranIndo.Views.Tafsir.TafsirDetailPage"
+             Title="{Binding Title, Mode=TwoWay}">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior
+            Command="{Binding GoBackCommond}"
+            IsEnabled="True"/>
+    </Shell.BackButtonBehavior>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="evenTemplate">
+            <ViewCell>
+                <StackLayout Padding="0" 
+                             x:DataType="model:Tafsir"
+                             Spacing="0">
+                    <control:GridTafsirDetail />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:TafsirDetailViewModel}}, Path=TafsirOneTapped}"		
+                                              CommandParameter="{Binding .}">
+                        </TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_setting_bw.png"
+                     x:DataType="local:TafsirDetailViewModel"
+                     Command="{Binding SettingTapped}"
+        />
+    </ContentPage.ToolbarItems>
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="local:TafsirDetailViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari Kata Kunci"
+                       Command="{Binding SearchCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}"                       
+                       >
+        </SearchHandler>
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout Spacing="3" 
+                     Padding="10">
+            <SearchBar x:Name="searchBar2"
+                       x:DataType="local:TafsirDetailViewModel"
+                       Placeholder="Cari Kata Kunci"
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource TextColor}"
+                       Margin="0, 0, 0, 2"
+                       IsVisible="{Binding VisibleSearchBar}"
+                       >
+                <SearchBar.Behaviors>
+                    <localBehavior:TextChangedBehavior />
+                </SearchBar.Behaviors>
+            </SearchBar>
+            <BoxView BackgroundColor="Black"
+                     HeightRequest="3"
+                     Margin="0, -6, 0, 1" 
+                     IsVisible="{Binding VisibleSearchBar}"
+                     />
+            <RefreshView Command="{Binding LoadCommand}" 
+                         x:DataType="local:TafsirDetailViewModel"
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         RefreshColor="{DynamicResource Primary}">
+                <ListView x:Name="collTafsir"
+                          ItemsSource="{Binding Tafsirs}"                          
+                          SelectionMode="Single"
+                          HasUnevenRows="True"
+                          CachingStrategy="RecycleElement"
+                          ItemTemplate="{StaticResource evenTemplate}"
+                          SeparatorVisibility="None"
+                          SeparatorColor="{StaticResource TextColor}">
+                    <ListView.Header>
+                        <StackLayout>
+                            <Label Text="{Binding SubTitle}"
+                                    FontSize="Medium"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    FontFamily="Montserrat-Medium"
+                                    BackgroundColor="{DynamicResource Accent}"
+                                    TextColor="Black"
+                                    Padding="5"
+                                    />
+                        </StackLayout>
+                    </ListView.Header>
+                </ListView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -3,7 +3,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.V7.Widget;
+//using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using MyQuranIndo.Effects;
@@ -18,6 +18,8 @@ using Color = Xamarin.Forms.Color;
 using Switch = Android.Widget.Switch;
 using ChangeColorSwitchEffect = MyQuranIndo.Droid.Effects.ChangeColorSwitchEffect;
 using XECCSwitchEffect = MyQuranIndo.Effects.ChangeColorSwitchEffect;
+using AndroidX.AppCompat.Widget;
+
 [assembly: ExportEffect(typeof(ChangeColorSwitchEffect), "ChangeColorSwitchEffect")]
 namespace MyQuranIndo.Droid.Effects
 {

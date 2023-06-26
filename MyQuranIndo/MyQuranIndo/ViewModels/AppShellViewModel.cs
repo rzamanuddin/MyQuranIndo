@@ -21,6 +21,7 @@ using MyQuranIndo.Helpers;
 using MyQuranIndo.Views.Zikr;
 using MyQuranIndo.ViewModels.Zikr;
 using MyQuranIndo.Views.AsmaulHusna;
+using MyQuranIndo.Views.Tafsir;
 
 namespace MyQuranIndo.ViewModels
 {   public class AppShellViewModel : BaseViewModel
@@ -29,6 +30,7 @@ namespace MyQuranIndo.ViewModels
         public ICommand ReadSurahCommand { get; }
         public ICommand ReadJuzModeTabCommand { get; }
         public ICommand ReadJuzCommand { get; }
+        public ICommand ReadTafsirCommand {  get; }
         public ICommand FindCommand { get; }
         public ICommand HelpCommand { get; }
         public ICommand SettingCommand { get; }
@@ -49,6 +51,7 @@ namespace MyQuranIndo.ViewModels
             ReadSurahCommand = new Command(async () => await NavigateToReadQuranPage());
             ReadJuzModeTabCommand = new Command(async () => await NavigateToReadJuzModeTabPage());
             ReadJuzCommand = new Command(async () => await NavigateToReadJuzPage());
+            ReadTafsirCommand = new Command(async () => await NavigateToReadTafsirPage());
             FindCommand = new Command(async () => await NavigateToFindPage());
             HelpCommand = new Command(async () => await NavigateToHelpPage());
             SettingCommand = new Command(async () => await NavigateToSettingPage());
@@ -74,6 +77,11 @@ namespace MyQuranIndo.ViewModels
         {
             await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}");
             Shell.Current.FlyoutIsPresented = false;
+        }
+        private async Task NavigateToReadTafsirPage()
+        {
+            await Shell.Current.GoToAsync($"{nameof(TafsirsPage)}");
+            Shell.Current.FlyoutIsPresented=false;
         }
 
         private async Task NavigateToQiblaPage()
