@@ -26,7 +26,7 @@ namespace MyQuranIndo.ViewModels.Home
 {
     public class HomeViewModel : BaseViewModel
     {
-        public Command SurahTapped { get; }
+        public ICommand SurahTapped { get; }
         public Command SurahTabTapped { get; }
         public Command JuzTapped { get; }
         public Command JuzTabTapped { get; }
@@ -47,82 +47,107 @@ namespace MyQuranIndo.ViewModels.Home
         public HomeViewModel()
         {
             Title = "Home";
-            SurahTapped = new Command(async () => await OnSurahSelected());
-            SurahTabTapped = new Command(async () => await OnSurahTabSelected());
-            TafsirTapped = new Command(async () => await OnTafsirSelected());
-            LastReadTapped = new Command(async () => await OnLastReadSelected());
-            BookmarkTapped = new Command(async () => await OnBookmarkSelected());
-            FindTapped = new Command(async () => await OnFindSelected());
-            SettingTapped = new Command(async () => await OnSettingSelected());
-            AboutTapped = new Command(async () => await OnAboutSelected());
-            HelpTapped = new Command(async () => await OnHelpSelected());
-            PrayerScheduleTapped = new Command(async () => await OnPrayerScheduleSelected());
-            QiblaTapped = new Command(async () => await OnQiblaSelected());
-            JuzTapped = new Command(async () => await OnJuzSelected());
-            JuzTabTapped = new Command(async () => await OnJuzTabSelected());
-            ZikrMorningTapped = new Command(async () => await OnZikrMorningSelected());
-            ZikrEveningTapped = new Command(async () => await OnZikrEveningSelected());
-            AsmaulHusnaTapped = new Command(async () => await OnAsmaulHusnaSelected());
-            PrayTapped = new Command(async () => await OnPraySelected());
-            IntentionTapped = new Command(async () => await OnIntentionSelected());
+            //AsmaulHusnaOneTapped = new Command<Models.AsmaulHusna.AsmaulHusna>(OnAsmaulHusnaOneTapped, (x) => CanNavigate);
+            SurahTapped = new Command(async (x) => await OnSurahSelected(), (x) => CanNavigate);
+            SurahTabTapped = new Command(async (x) => await OnSurahTabSelected(), (x) => CanNavigate);
+            TafsirTapped = new Command(async (x) => await OnTafsirSelected(), (x) => CanNavigate);
+            LastReadTapped = new Command(async (x) => await OnLastReadSelected(), (x) => CanNavigate);
+            BookmarkTapped = new Command(async (x) => await OnBookmarkSelected(), (x) => CanNavigate);
+            FindTapped = new Command(async (x) => await OnFindSelected(), (x) => CanNavigate);
+            SettingTapped = new Command(async (x) => await OnSettingSelected(), (x) => CanNavigate);
+            AboutTapped = new Command(async (x) => await OnAboutSelected(), (x) => CanNavigate);
+            HelpTapped = new Command(async (x) => await OnHelpSelected(), (x) => CanNavigate);
+            PrayerScheduleTapped = new Command(async (x) => await OnPrayerScheduleSelected(), (x) => CanNavigate);
+            QiblaTapped = new Command(async (x) => await OnQiblaSelected(), (x) => CanNavigate);
+            JuzTapped = new Command(async (x) => await OnJuzSelected(), (x) => CanNavigate);
+            JuzTabTapped = new Command(async (x) => await OnJuzTabSelected(), (x) => CanNavigate);
+            ZikrMorningTapped = new Command(async (x) => await OnZikrMorningSelected(), (x) => CanNavigate);
+            ZikrEveningTapped = new Command(async (x) => await OnZikrEveningSelected(), (x) => CanNavigate);
+            AsmaulHusnaTapped = new Command(async (x) => await OnAsmaulHusnaSelected(), (x) => CanNavigate);
+            PrayTapped = new Command(async (x) => await OnPraySelected(), (x) => CanNavigate);
+            IntentionTapped = new Command(async (x) => await OnIntentionSelected(), (x) => CanNavigate);
         }
 
         private async Task OnJuzTabSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnJuzSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(JuzsPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnQiblaSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(QiblaPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnHelpSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(HelpPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnAboutSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(AboutPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnSurahTabSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(TabbedPageSurahDetailPage)}");
             //await ActionHelper.OpenSurahORJuzTabbedPage();
+            CanNavigate = true;
         }
 
         private async Task OnSettingSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(SettingPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnZikrMorningSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(ZikrsPage)}?{nameof(ZikrViewModel.ZikrTime)}=0");
+            CanNavigate = true;
         }
         private async Task OnZikrEveningSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(ZikrsPage)}?{nameof(ZikrViewModel.ZikrTime)}=1");
+            CanNavigate = true;
         }
 
         private async Task OnAsmaulHusnaSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(AsmaulHusnaPage)}");
+            CanNavigate = true;
         }
         private async Task OnPraySelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(PraysPage)}");
+            CanNavigate = true;
         }
         private async Task OnIntentionSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(IntentionsPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnBookmarkSelected()
@@ -184,23 +209,30 @@ namespace MyQuranIndo.ViewModels.Home
             //{
             //    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_INFO, Message.MSG_NO_BOOKMARK, Message.MSG_OK);
             //}
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(BookmarksPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnSurahSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(SurahPage)}");
             //await Shell.Current.GoToAsync($"{nameof(TabbedPageSurahsAndJuzsPage)}");
             //await ActionHelper.OpenSurahORJuzPage();
+            CanNavigate = true;
         }
 
         private async Task OnTafsirSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(TafsirsPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnLastReadSelected()
         {
+            CanNavigate = false;
             int surahID = Preferences.Get(MenuKey.LAST_SURAH, 0);
             int ayahID = Preferences.Get(MenuKey.LAST_AYAH, 0);
 
@@ -214,6 +246,7 @@ namespace MyQuranIndo.ViewModels.Home
                 var juzID = await JuzDataService.GetJuzIDAsync(surahID, ayahID);
                 await ActionHelper.OpenAyahPageAsync(surahID, ayahID, juzID, surah.NameLatin);
             }
+            CanNavigate = true;
         }
 
         //private async Task OpenAyahPage(int surahID, int ayahID, string action)
@@ -231,11 +264,15 @@ namespace MyQuranIndo.ViewModels.Home
 
         private async Task OnFindSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(FindPage)}");
+            CanNavigate = true;
         }
         private async Task OnPrayerScheduleSelected()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(PrayerSchedulePage)}");
+            CanNavigate = true;
         }
     }
 }

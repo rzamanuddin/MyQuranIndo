@@ -28,7 +28,7 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
             Title = "Asmaul Husna";
             AsmaulHusnas = new ObservableCollection<Models.AsmaulHusna.AsmaulHusna>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
-            AsmaulHusnaOneTapped = new Command<Models.AsmaulHusna.AsmaulHusna>(OnAsmaulHusnaOneTapped);
+            AsmaulHusnaOneTapped = new Command<Models.AsmaulHusna.AsmaulHusna>(OnAsmaulHusnaOneTapped, (x) => CanNavigate);
         }
 
         private void ScrollToItem(int index, bool isAnimated = false)
@@ -135,6 +135,7 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
         {
             if (IsValidTapped(ah))
             {
+                CanNavigate = false;
                 //MP3Helper.StopPlayer();
                 MP3Service.StopPlayer();
                 var oldColor = ah.RowColor;
@@ -187,6 +188,7 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
                 finally
                 {
                     ah.RowColor = oldColor;
+                    CanNavigate = true;
                 }
             }
         }

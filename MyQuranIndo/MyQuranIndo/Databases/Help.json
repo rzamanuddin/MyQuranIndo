@@ -205,6 +205,37 @@
 	},
 	{
 		"ID": "5",
+		"Title": "Baca Tafsir",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Pada menu utama / home, ketuk pada tombol Baca Tafsir."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Setelah itu akan muncul daftar surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada surat yang ingin anda baca tafsirnya."
+			},
+			{
+				"ID": "3",
+				"Subtitle": "",
+				"Content": "Anda juga bisa mencari tafsir maupun beserta nomornya dengan mengetiknya di kotak pencarian."
+			},
+			{
+				"ID": "4",
+				"Subtitle": "Bagikan Tafsir",
+				"Content": "Ketuk satu kali pada tafsir yang ingin dibagikan, lalu pilih menu Bagikan Tafsir."
+			},
+			{
+				"ID": "5",
+				"Subtitle": "Salin Tafsir",
+				"Content": "Ketuk satu kali pada tafsir yang ingin disalin, lalu pilih Salin Tafsir."
+			}			
+		]
+	},
+	{
+		"ID": "6",
 		"Title": "Terakhir Dibaca",
 		"Contents": [
 			{
@@ -215,7 +246,7 @@
 		]
 	},
 	{
-		"ID": "6",
+		"ID": "7",
 		"Title": "Bookmark",
 		"Contents": [
 			{
@@ -226,7 +257,7 @@
 		]
 	},
 	{
-		"ID": "7",
+		"ID": "8",
 		"Title": "Pencarian",
 		"Contents": [
 			{
@@ -242,7 +273,7 @@
 		]
 	},
 	{
-		"ID": "8",
+		"ID": "9",
 		"Title": "Kumpulan Do'a",
 		"Contents": [
 			{
@@ -253,7 +284,7 @@
 		]
 	},
 	{
-		"ID": "9",
+		"ID": "10",
 		"Title": "Dzikir Pagi",
 		"Contents": [
 			{
@@ -264,7 +295,7 @@
 		]
 	},
 	{
-		"ID": "10",
+		"ID": "11",
 		"Title": "Dzikir Petang",
 		"Contents": [
 			{
@@ -275,7 +306,7 @@
 		]
 	},
 	{
-		"ID": "11",
+		"ID": "12",
 		"Title": "Asmaul Husna",
 		"Contents": [
 			{
@@ -286,7 +317,7 @@
 		]
 	},
 	{
-		"ID": "12",
+		"ID": "13",
 		"Title": "Niat Sholat",
 		"Contents": [
 			{
@@ -297,7 +328,7 @@
 		]
 	},
 	{
-		"ID": "13",
+		"ID": "14",
 		"Title": "Jadwal Sholat (Beta)",
 		"Contents": [
 			{
@@ -308,7 +339,7 @@
 		]
 	},
 	{
-		"ID": "14",
+		"ID": "15",
 		"Title": "Arah Kiblat (Beta)",
 		"Contents": [
 			{
@@ -319,7 +350,7 @@
 		]
 	},
 	{
-		"ID": "15",
+		"ID": "16",
 		"Title": "Petunjuk",
 		"Contents": [
 			{
@@ -330,7 +361,7 @@
 		]
 	},
 	{
-		"ID": "16",
+		"ID": "17",
 		"Title": "Pengaturan",
 		"Contents": [
 			{
@@ -376,7 +407,7 @@
 		]
 	},
 	{
-		"ID": "17",
+		"ID": "18",
 		"Title": "Info Aplikasi",
 		"Contents": [
 			{

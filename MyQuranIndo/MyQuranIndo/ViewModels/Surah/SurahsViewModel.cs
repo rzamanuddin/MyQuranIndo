@@ -81,7 +81,7 @@ namespace MyQuranIndo.ViewModels.Surah
             //SurahFilter = new SurahFilter();
             Surahs = new ObservableCollection<Models.Qurans.Surah>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());            
-            ItemTapped = new Command<Models.Qurans.Surah>(OnSurahSelected);
+            ItemTapped = new Command<Models.Qurans.Surah>(OnSurahSelected, (x) => CanNavigate);
             DownloadCommand = new Command<Models.Qurans.Surah>(async (surah) => await OnDownloadSelected(surah));
             Initialization = InitStart();
         }
@@ -157,12 +157,15 @@ namespace MyQuranIndo.ViewModels.Surah
             {
                 return;
             }
+
+            CanNavigate = false;
             //if (Player.IsPlaying())
             //    await Player.Stop();
             var oldColor = surah.RowColor;
             surah.RowColor = (Color)Application.Current.Resources["SelectedItem"];
             await Shell.Current.GoToAsync($"{nameof(SurahDetailPage)}?{nameof(SurahDetailViewModel.SurahID)}={surah.ID.ToString()}");
             surah.RowColor = oldColor;
+            CanNavigate = true;
         }
         private async Task InitStart()
         {

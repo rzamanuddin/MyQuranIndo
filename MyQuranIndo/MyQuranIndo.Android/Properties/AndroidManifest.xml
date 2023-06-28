@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="32" android:versionName="2.8.4" package="com.rommyzamanuddin.myquranindo" android:installLocation="preferExternal">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="33" android:versionName="3.0.1" package="com.rommyzamanuddin.myquranindo" android:installLocation="preferExternal">
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="33" />
 	<!--Add this to support tab right to left-->
 	<!--<uses-sdk android:minSdkVersion="17" android:targetSdkVersion="28" />-->
-	<application android:label="MyQuran Indonesia Free" android:theme="@style/MainTheme" android:icon="@drawable/icon_kaaba"></application>
+	<application android:label="MyQuran Indonesia" android:theme="@style/MainTheme" android:icon="@drawable/icon_main"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

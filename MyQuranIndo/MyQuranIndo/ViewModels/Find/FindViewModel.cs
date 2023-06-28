@@ -105,7 +105,7 @@ namespace MyQuranIndo.ViewModels.Find
             //Ayahs = new ObservableCollection<Ayah>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
             ClearSearchCommand = new Command(ClearSearch);
-            FindTapped = new Command<MyQuranIndo.Models.Finds.Find>(OnFindSelected);
+            FindTapped = new Command<MyQuranIndo.Models.Finds.Find>(OnFindSelected, (x) => CanNavigate);
             HeaderTapped = new Command<FindGroup>(OnHeaderTapped);
             ExpandAllCommand = new Command(OnExpandAllComand);
             FoundResultColor = Color.Black;
@@ -177,10 +177,12 @@ namespace MyQuranIndo.ViewModels.Find
         {
             if (find != null)
             {
+                CanNavigate = false;
                 var oldColor = find.RowColor;
                 find.RowColor = (Color)Application.Current.Resources["SelectedItem"];
                 await Shell.Current.GoToAsync($"{nameof(SurahDetailPage)}?{nameof(SurahDetailViewModel.SurahID)}={find.Ayah.SurahID}&{nameof(SurahDetailViewModel.AyahID)}={find.Ayah.ID}");
                 find.RowColor = oldColor;
+                CanNavigate = true;
             }
         }
 

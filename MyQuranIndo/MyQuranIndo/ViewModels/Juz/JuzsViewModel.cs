@@ -41,7 +41,7 @@ namespace MyQuranIndo.ViewModels.Juz
             //SurahFilter = new SurahFilter();
             Juzs = new ObservableCollection<Models.Qurans.JuzHeader>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
-            ItemTapped = new Command<Models.Qurans.JuzHeader>(OnJuzSelected);
+            ItemTapped = new Command<Models.Qurans.JuzHeader>(OnJuzSelected, (x) => CanNavigate);
             Initialization = InitStart();
         }
         private async Task InitStart()
@@ -119,10 +119,13 @@ namespace MyQuranIndo.ViewModels.Juz
             {
                 return;
             }
+
+            CanNavigate = false;
             var oldColor = juz.RowColor;
             juz.RowColor = (Color)Application.Current.Resources["SelectedItem"];
             await Shell.Current.GoToAsync($"{nameof(JuzDetailPage)}?{nameof(JuzDetailViewModel.JuzID)}={juz.ID.ToString()}");
             juz.RowColor = oldColor;
+            CanNavigate = true;
         }
 
         private async Task ExecuteLoadCommand()

@@ -1,4 +1,5 @@
-﻿using MyQuranIndo.Models;
+﻿using Javax.Sql;
+using MyQuranIndo.Models;
 using MyQuranIndo.References;
 using MyQuranIndo.Services;
 using Newtonsoft.Json;
@@ -41,6 +42,23 @@ namespace MyQuranIndo.ViewModels
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+
+
+        private bool _canNavigate = true;
+        public bool CanNavigate
+        {
+            get
+            {
+                return _canNavigate;
+            }
+            set
+            {
+                //_canNavigate = value;
+                //OnPropertyChanged();
+                SetProperty(ref _canNavigate, value);
+            }
         }
 
         protected bool IsAudioExist(string audioName)

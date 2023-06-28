@@ -42,7 +42,7 @@ namespace MyQuranIndo.ViewModels.Tafsir
             Title = "Daftar Tafsir";
             Surahs = new ObservableCollection<Models.Qurans.Surah>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
-            ItemTapped = new Command<Models.Qurans.Surah>(OnSurahSelected);
+            ItemTapped = new Command<Models.Qurans.Surah>(OnSurahSelected, (x) => CanNavigate);
             Initialization = InitStart();
         }
 
@@ -116,10 +116,12 @@ namespace MyQuranIndo.ViewModels.Tafsir
                 return;
             }
 
+            CanNavigate = false;
             var oldColor = surah.RowColor;
             surah.RowColor = (Color)Application.Current.Resources["SelectedItem"];
             await Shell.Current.GoToAsync($"{nameof(TafsirDetailPage)}?{nameof(TafsirDetailViewModel.SurahID)}={surah.ID.ToString()}");
             surah.RowColor = oldColor;
+            CanNavigate = true;
         }
 
         private async Task InitStart()

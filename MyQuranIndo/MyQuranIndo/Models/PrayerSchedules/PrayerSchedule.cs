@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,16 @@ namespace MyQuranIndo.Models.PrayerSchedules
     {
         [JsonProperty("tanggal")]
         public string LongDate { get; set; }
+
+        [JsonProperty("tanggal_hijriah")]
+        public string HijriDate 
+        {              
+            get 
+            {
+                HijriCalendar hijri = new HijriCalendar();
+                return $"{hijri.GetDayOfMonth(ShortDate)}/{hijri.GetMonth(ShortDate)}/{hijri.GetYear(ShortDate)}";
+            }
+        }
 
         [JsonProperty("imsak")]
         public string Imsak { get; set; }

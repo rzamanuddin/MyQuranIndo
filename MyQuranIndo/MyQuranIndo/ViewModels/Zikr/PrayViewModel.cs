@@ -309,7 +309,7 @@ namespace MyQuranIndo.ViewModels.Zikr
             HeaderTapped = new Command<PrayGroup>(OnHeaderTapped);
             ExpandAllCommand = new Command(OnExpandAllComand);
             FoundResultColor = Color.Black;
-            PrayOneTapped = new Command<Models.Zikrs.Pray>(OnPrayOneTapped);
+            PrayOneTapped = new Command<Models.Zikrs.Pray>(OnPrayOneTapped, (x) => CanNavigate);
         }
 
         private void OnExpandAllComand()
@@ -482,14 +482,15 @@ namespace MyQuranIndo.ViewModels.Zikr
             return true;
         }
 
-            /// <summary>
-            /// On Zikr tapped one
-            /// </summary>
-            /// <param name="pray"></param>
-            private async void OnPrayOneTapped(Models.Zikrs.Pray pray)
+        /// <summary>
+        /// On Zikr tapped one
+        /// </summary>
+        /// <param name="pray"></param>
+        private async void OnPrayOneTapped(Models.Zikrs.Pray pray)
         {
             if (IsValidTapped(pray))
             {
+                CanNavigate = false;
                 var oldColor = pray.RowColor;
                 pray.RowColor = (Color)Application.Current.Resources["SelectedItem"];
 
@@ -540,6 +541,7 @@ namespace MyQuranIndo.ViewModels.Zikr
                 finally
                 {
                     pray.RowColor = oldColor;
+                    CanNavigate = true;
                 }
             }
         }

@@ -48,7 +48,7 @@ namespace MyQuranIndo.ViewModels
         public AppShellViewModel()
         {
             ReadSurahModeTabCommand = new Command(async () => await NavigateToReadQuranModeTabPage());
-            ReadSurahCommand = new Command(async () => await NavigateToReadQuranPage());
+            ReadSurahCommand = new Command(async (x) => await NavigateToReadQuranPage(), (x) => CanNavigate);
             ReadJuzModeTabCommand = new Command(async () => await NavigateToReadJuzModeTabPage());
             ReadJuzCommand = new Command(async () => await NavigateToReadJuzPage());
             ReadTafsirCommand = new Command(async () => await NavigateToReadTafsirPage());
@@ -155,8 +155,10 @@ namespace MyQuranIndo.ViewModels
 
         private async Task NavigateToReadQuranPage()
         {
+            CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(SurahPage)}");
             Shell.Current.FlyoutIsPresented = false;
+            CanNavigate = true;
         }
 
         private async Task NavigateToReadQuranModeTabPage()
