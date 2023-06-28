@@ -64,6 +64,11 @@ namespace MyQuranIndo.Services
                 var spilttedCity = city.Split(' ');
                 foreach (var sc in spilttedCity)
                 {
+                    if (sc.IndexOf("kota", 0, StringComparison.OrdinalIgnoreCase) >= 0
+                        || sc.IndexOf("kabupaten", 0, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        continue;
+                    }
                     string url = Path.Combine(AppSetting.GetAPIUrlBase(), $"sholat/kota/cari/{sc}");
                     HttpResponseMessage response = await _client.GetAsync(url);
 

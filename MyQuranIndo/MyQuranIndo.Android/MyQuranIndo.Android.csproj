@@ -55,8 +55,8 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>C:\Users\rzama\AppData\Local\Xamarin\Mono for Android\Keystore\quran\quran.keystore</AndroidSigningKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\rommy.zamanuddin\AppData\Local\Xamarin\Mono for Android\Keystore\QuranRommy\QuranRommy.keystore</AndroidSigningKeyStore>
     <AndroidLinkTool>r8</AndroidLinkTool>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidDexTool>d8</AndroidDexTool>
