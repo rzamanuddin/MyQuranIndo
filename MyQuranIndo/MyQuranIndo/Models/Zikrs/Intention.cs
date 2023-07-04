@@ -59,7 +59,7 @@ namespace MyQuranIndo.Models.Zikrs
             {
                 if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
                 {
-                    if (RowID % 2 == 0)
+                    if (RowID % 2 != 0)
                     {
                         rowColor = ((Color)Application.Current.Resources["RowColor"]);
                     }
