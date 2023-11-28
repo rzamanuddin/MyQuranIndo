@@ -35,7 +35,7 @@ namespace MyQuranIndo.Helpers
         
 
         public const string BOOKMARK_DEL = "Hapus Bookmark";
-        public const string PLAY_MP3 = "Play Murottal"; 
+        public const string PLAY_MP3 = "Dengarkan Murottal"; 
         public const string ZIKR_SHARE = "Bagikan Dzikir";
         public const string ZIKR_COPY = "Salin Dzikir";
         //public const string ZIKR_SHARE_ALL = "Bagikan Semua Dzikir";
@@ -246,6 +246,7 @@ namespace MyQuranIndo.Helpers
             {
                 zikrCopied += $"{line}Faedah : {pray.Faedah}";
             }
+            zikrCopied += $"{Environment.NewLine}({pray.Narrator})";
             //zikrCopied += $"{Environment.NewLine}({title}){line} *Via {AppSetting.GetApplicationName()}";
             zikrCopied += $"{line}{title}{Environment.NewLine}*Via {AppSetting.GetApplicationName()}";
             zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
@@ -389,7 +390,7 @@ namespace MyQuranIndo.Helpers
 
                 //result = string.Format("Q.S {0}:{1} berhasil di bookmark."
                 //    , ayah.SurahID, ayah.ID);
-                result = $"Q.S. {ayah.SurahID}. {surahNameLatin} Ayat {ayah.ID} berhasil di bookmark.";
+                result = $"Q.S. {ayah.SurahID}. {surahNameLatin} Ayat {ayah.ID} berhasil di bookmark";
             }
             catch (Exception ex)
             {
@@ -430,7 +431,7 @@ namespace MyQuranIndo.Helpers
 
                     //await SecureStorage.SetAsync(Key.LAST_SURAH, Surah.ID.ToString());
                     //await SecureStorage.SetAsync(Key.LAST_AYAH, ayah.Number.ToString());
-                    result = $"Ayat terakhir dibaca berhasil diubah menjadi Q.S. {ayah.SurahID}. {surahNameLatin} Ayat {ayah.ID}.";
+                    result = $"Ayat terakhir dibaca berhasil diubah menjadi Q.S. {ayah.SurahID}. {surahNameLatin} Ayat {ayah.ID}";
                 }
             }
             catch (Exception ex)

@@ -390,8 +390,9 @@ namespace MyQuranIndo.ViewModels.Zikr
                 {
                     praysData = praysData.Where(q => q.Title.Trim().ToLower().Contains(SearchQuery.ToLower())
                         || q.Data.Any(a => a.ArabicLatin.Trim().ToLower().Contains(SearchQuery.ToLower())
-                        || q.Data.Any(t => t.TranslateID.Trim().ToLower().Contains(SearchQuery.ToLower()))
-                        ));
+                        || q.Data.Any(t => t.TranslateID.Trim().ToLower().Contains(SearchQuery.ToLower())
+                        || q.Data.Any(x => x.Tag.Contains(SearchQuery.ToLower())) // TODO: find based tag
+                        )));
                 }
 
                 Prays.Clear();

@@ -92,7 +92,7 @@ namespace MyQuranIndo.Databases
             // Your resource names will generally be prefixed with the assembly's default namespace
             // so you can short circuit this with the known full name if you wish
             var resName = assembly.GetManifestResourceNames().Where(q => q.StartsWith("MyQuranIndo.Databases"))
-                .FirstOrDefault(q => q.EndsWith("Doa.json"));
+                .FirstOrDefault(q => q.EndsWith("DoaNew.json"));
 
             // Load the resource file
             var file = assembly.GetManifestResourceStream(resName);

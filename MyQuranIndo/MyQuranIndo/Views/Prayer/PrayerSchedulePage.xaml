@@ -105,7 +105,13 @@
                                        FontAttributes="Italic"
                                        CharacterSpacing="2"
                                        HorizontalTextAlignment="Center"
-                                       Margin="0,5,0,5"/>                                
+                                       Margin="0,5,0,5"/>
+                                <Label Text="Catatan: Jika waktu shalat berbeda dengan daerah anda, silahkan mengikuti waktu sholat di daerah anda masing masing."
+                                       TextColor="{DynamicResource Primary}"
+                                       FontAttributes="Italic"
+                                       CharacterSpacing="2"
+                                       HorizontalTextAlignment="Center"
+                                       Margin="0,5,0,5"/>
                             </StackLayout>
                         </CollectionView.Footer>
                     </CollectionView>

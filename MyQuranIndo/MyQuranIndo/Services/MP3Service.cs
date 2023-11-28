@@ -90,17 +90,17 @@ namespace MyQuranIndo.Services
                 if (!File.Exists(fileName))
                 {
                     if (toastService != null)
-                        toastService.Show("Sedang mengunduh murottal.", false);
+                        toastService.Show("Sedang mengunduh murottal", false);
                     mp3File = await DownloadAsync(Path.Combine(url, mp3Name));
                     File.WriteAllBytes(fileName, mp3File);
-                    toastService.Show("Play Murottal.", false);
+                    toastService.Show("Mainkan Murottal", false);
                     fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                     
                 }
                 else
                 {
                     if (toastService != null)
-                        toastService.Show("Play Murottal.", false);
+                        toastService.Show("Mainkan Murottal", false);
                     fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 }
 
@@ -165,7 +165,7 @@ namespace MyQuranIndo.Services
                 // TODO: play all
             }
 
-            //toastService.Show($"Surat {surah.NameLatin} berhasil diunduh.", false);
+            //toastService.Show($"Surat {surah.NameLatin} berhasil diunduh", false);
         }
 
         public void StopPlayer()

@@ -20,8 +20,8 @@
 			},
 			{
 				"ID": "4",
-				"Subtitle": "Play Murottal",
-				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+				"Subtitle": "Dengarkan Murottal",
+				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
 			},
 			{
 				"ID": "5",
@@ -41,7 +41,7 @@
 			{
 				"ID": "8",
 				"Subtitle": "Tandai Terakhir Dibaca",
-				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+				"Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
 			},
 			{
 				"ID": "9",
@@ -71,8 +71,8 @@
 			},
 			{
 				"ID": "4",
-				"Subtitle": "Play Murottal",
-				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+				"Subtitle": "Dengarkan Murottal",
+				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
 			},
 			{
 				"ID": "5",
@@ -92,7 +92,7 @@
 			{
 				"ID": "8",
 				"Subtitle": "Tandai Terakhir Dibaca",
-				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+				"Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
 			},
 			{
 				"ID": "9",
@@ -122,8 +122,8 @@
 			},
 			{
 				"ID": "4",
-				"Subtitle": "Play Murottal",
-				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+				"Subtitle": "Dengarkan Murottal",
+				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
 			},
 			{
 				"ID": "5",
@@ -143,7 +143,7 @@
 			{
 				"ID": "8",
 				"Subtitle": "Tandai Terakhir Dibaca",
-				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+				"Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
 			},
 			{
 				"ID": "9",
@@ -173,8 +173,8 @@
 			},
 			{
 				"ID": "4",
-				"Subtitle": "Play Murottal",
-				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Play Murottal."
+				"Subtitle": "Dengarkan Murottal",
+				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
 			},
 			{
 				"ID": "5",
@@ -194,7 +194,7 @@
 			{
 				"ID": "8",
 				"Subtitle": "Tandai Terakhir Dibaca",
-				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tandai Terakhir Dibaca."
+				"Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
 			},
 			{
 				"ID": "9",
@@ -253,6 +253,16 @@
 				"ID": "1",
 				"Subtitle": "",
 				"Content": "Menu ini berfungsi untuk menampilkan daftar bookmark dari ayat ayat yang sudah ditandai, anda bisa mengetuk ayat yang ingin ditampilkan."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Ketuk satu kali pada bookmark untuk membuka ayat berdasarkan surat atau juz."
+			},
+			{
+				"ID": "2",
+				"Subtitle": "",
+				"Content": "Ketuk dua kali pada bookmark untuk menghapus bookmark."
 			}
 		]
 	},

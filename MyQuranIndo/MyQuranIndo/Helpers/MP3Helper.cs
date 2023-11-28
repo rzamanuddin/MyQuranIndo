@@ -69,7 +69,7 @@ namespace MyQuranIndo.Helpers
             {
                 if (!File.Exists(fileName))
                 {
-                    toastService.Show("Sedang mengunduh murottal.", false);
+                    toastService.Show("Sedang mengunduh murottal", false);
                     mp3File = await DownloadAsync(Path.Combine(url, mp3Name));
                     File.WriteAllBytes(fileName, mp3File);
                     fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);

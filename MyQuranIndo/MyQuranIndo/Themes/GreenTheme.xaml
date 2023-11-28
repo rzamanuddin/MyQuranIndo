@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyQuranIndo.Themes.GreenTheme">
     <Color x:Key="Primary">#075e55</Color>
-    <Color x:Key="Accent">#69f5a6</Color> <!--#09d260-->
+    <Color x:Key="Accent">#5abe6c</Color> <!--#69f5a6-->
     <Color x:Key="TextColor">Black</Color>
     <Color x:Key="RowColor">#e6e9ee</Color>
     <Color x:Key="BgColor">#e6e9ee</Color>
-    <Color x:Key="SelectedItem">#69f5a6</Color>    
+    <Color x:Key="SelectedItem">#5abe6c</Color>    
 </ResourceDictionary>

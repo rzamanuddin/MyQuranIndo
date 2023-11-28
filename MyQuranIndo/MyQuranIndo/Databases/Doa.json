@@ -151,7 +151,7 @@
         "tag": [ "rumah", "wudhu" ],
         "title": "Bacaan Setelah Wudhu (1)",
         "arabic": "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللّٰهُ وَحْدَهُ لَا شَرِيْكَ لَهُ وَأَشْهَدُ أَنَّ مُهَمَّدًا عَبْدُهُ وَرَسُوْلُهُ",
-        "arabiclatin": "Asyhadu allailaha illalloh wa asyhadu anna muhammadan abduhu warosuluhu",
+        "arabiclatin": "Asyhadu allaailaha illalloh wahdahulaa syariikalah wa asyhadu anna muhammadan abduhu warosuluhu",
         "translatedid": "Aku bersaksi bahwa tiada Tuhan yang haq kecuali Allah, Yang Maha Esa dan tiada sekutu bagi-Nya. Aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya",
         "narrator": "HR. Muslim: 1/209"
       },
@@ -178,7 +178,7 @@
   {
     "id": "6",
     "title": "Rumah",
-    "data": [      
+    "data": [
       {
         "id": "1",
         "tag": [ "rumah", "bismillah", "bismilah", "basmalah" ],
@@ -205,6 +205,102 @@
         "arabiclatin": "Bismillahi walaj'na wabismillahi khoroj'na wa'ala robbina yatawakkaluna",
         "translatedid": "'Dengan nama Allah, kami masuk (ke rumah), dengan nama Allah, kami keluar (darinya) dan kepada Tuhan kami, kami bertawakkal'. Kemudian mengucapkan salam kepada keluarganya",
         "narrator": "HR. Abu Dawud: 4/325, dan Al-'Allamah Ibnu Baaz berpendapat, isnad hadits tersebut hasan dalam Tuhfatul Akhyar, no. 28. Dalam Kitab Shahih: 'Apabila seseorang masuk rumahnya lalu berdzikir kepada Allah ketika masuk rumah dan makan, syaitan berkata (kepada teman-temannya), \"Tiada tempat tinggal dan makanan bagi kalian (malam ini)\"'. Muslim, no. 2018"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Kutipan Doa dari Al-Qur'an",
+    "data": [
+      {
+        "id": 1,
+        "tag": [ "kebaikan", "dunia", "akhirat", "Al-Qur'an" ],
+        "title": "Do'a Mohon Kebaikan Demi Akhirat",
+        "arabic": "رَبَّنَآ اٰتِنَا فِى الدُّنْيَا حَسَنَةً وَّفِى الْاٰخِرَةِ حَسَنَةً وَّقِنَا عَذَابَ النَّارِ",
+        "arabiclatin": "Rabbanā ātinā fid-dun-yā ḥasanataw wa fil-ākhirati ḥasanataw wa qinā 'ażāban-nār",
+        "translatedid": "“Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka.”",
+        "narrator": "Q.S Al-Baqarah: 201"
+      },
+      {
+        "id": 2,
+        "tag": [ "tabah", "menghadapi", "lawan", "kafir", "Al-Qur'an" ],
+        "title": "Do'a Tabah Menghadapi Lawan",
+        "arabic": "رَبَّنَآ اَفْرِغْ عَلَيْنَا صَبْرًا وَّثَبِّتْ اَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكٰفِرِيْن",
+        "arabiclatin": "rabbanā afrig 'alainā ṣabraw wa ṡabbit aqdāmanā wanṣurnā 'alal-qaumil-kāfirīn",
+        "translatedid": "“Ya Tuhan kami, limpahkanlah kesabaran kepada kami, kukuhkanlah langkah kami dan tolonglah kami menghadapi orang-orang kafir.”",
+        "narrator": "Q.S Al-Baqarah: 250"
+      },
+      {
+        "id": 3,
+        "tag": [ "teguh", "keteguhan", "iman", "Al-Qur'an" ],
+        "title": "Do'a Diberi Keteguhan Iman",
+        "arabic": "رَبَّنَا لَا تُزِغْ قُلُوْبَنَا بَعْدَ اِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَّدُنْكَ رَحْمَةً ۚاِنَّكَ اَنْتَ الْوَهَّابُ",
+        "arabiclatin": "rabbanā lā tuzig qulụbanā ba'da iż hadaitanā wa hab lanā mil ladungka raḥmah, innaka antal-wahhāb",
+        "translatedid": "“Ya Tuhan kami, janganlah Engkau condongkan hati kami kepada kesesatan setelah Engkau berikan petunjuk kepada kami, dan karuniakanlah kepada kami rahmat dari sisi-Mu, sesungguhnya Engkau Maha Pemberi.”",
+        "narrator": "Q.S Ali 'Imran: 8"
+      },
+      {
+        "id": 4,
+        "tag": [ "kuat", "kekuatan", "iman", "Al-Qur'an" ],
+        "title": "Do'a Kekuatan Iman",
+        "arabic": "رَبَّنَآ اِنَّنَآ اٰمَنَّا فَاغْفِرْ لَنَا ذُنُوْبَنَا وَقِنَا عَذَابَ النَّارِۚ",
+        "arabiclatin": "Rabbanā innanā āmannā fagfir lanā żunụbanā wa qinā 'ażāban-nār",
+        "translatedid": "“Ya Tuhan kami, kami benar-benar beriman, maka ampunilah dosa-dosa kami dan lindungilah kami dari azab neraka.”",
+        "narrator": "Q.S Ali 'Imran: 16"
+      },
+      {
+        "id": 5,
+        "tag": [ "husnul", "khatimah", "Al-Qur'an" ],
+        "title": "Do'a Husnul Khatimah",
+        "arabic": "رَبَّنَآ اِنَّنَا سَمِعْنَا مُنَادِيًا يُّنَادِيْ لِلْاِيْمَانِ اَنْ اٰمِنُوْا بِرَبِّكُمْ فَاٰمَنَّا ۖرَبَّنَا فَاغْفِرْ لَنَا ذُنُوْبَنَا وَكَفِّرْ عَنَّا سَيِّاٰتِنَا وَتَوَفَّنَا مَعَ الْاَبْرَارِۚ  (١٩٣)  رَبَّنَا وَاٰتِنَا مَا وَعَدْتَّنَا عَلٰى رُسُلِكَ وَلَا تُخْزِنَا يَوْمَ الْقِيٰمَةِ ۗ اِنَّكَ لَا تُخْلِفُ الْمِيْعَادَ",
+        "arabiclatin": "Rabbanā innanā sami'nā munādiyay yunādī lil-īmāni an āminụ birabbikum fa āmannā rabbanā fagfir lanā żunụbanā wa kaffir 'annā sayyi`ātinā wa tawaffanā ma'al-abrār. Rabbanā wa ātinā mā wa'attanā 'alā rusulika wa lā tukhzinā yaumal-qiyāmah, innaka lā tukhliful-mī'ād",
+        "translatedid": "Ya Tuhan kami, sesungguhnya kami mendengar orang yang menyeru kepada iman, (yaitu), “Berimanlah kamu kepada Tuhanmu,” maka kami pun beriman. Ya Tuhan kami, ampunilah dosa-dosa kami dan hapuskanlah kesalahan-kesalahan kami, dan matikanlah kami beserta orang-orang yang berbakti. Ya Tuhan kami, berilah kami apa yang telah Engkau janjikan kepada kami melalui rasul-rasul-Mu. Dan janganlah Engkau hinakan kami pada hari Kiamat. Sungguh, Engkau tidak pernah mengingkari janji.”",
+        "narrator": "Q.S Ali 'Imran: 193-194"
+      },
+      {
+        "id": 6,
+        "tag": [ "penyesalan", "istighfar", "nabi", "adam", "Al-Qur'an" ],
+        "title": "Do'a Penyesalan / Istighfar Nabi Adam",
+        "arabic": "رَبَّنَا ظَلَمْنَآ اَنْفُسَنَا وَاِنْ لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُوْنَنَّ مِنَ الْخٰسِرِيْنَ",
+        "arabiclatin": "Rabbanā ẓalamnā anfusana wa il lam tagfir lanā wa tar-ḥamnā lanakụnanna minal-khāsirīn",
+        "translatedid": "“Ya Tuhan kami, kami telah menzalimi diri kami sendiri. Jika Engkau tidak mengampuni kami dan memberi rahmat kepada kami, niscaya kami termasuk orang-orang yang rugi.”",
+        "narrator": "Q.S Al-A'raf: 23"
+      },
+      {
+        "id": 7,
+        "tag": [ "mohon", "perlindungan", "api", "neraka", "Al-Qur'an" ],
+        "title": "Do'a Mohon Perlindungan dari Api Neraka",
+        "arabic": "رَبَّنَا لَا تَجْعَلْنَا مَعَ الْقَوْمِ الظّٰلِمِيْنَ ࣖ",
+        "arabiclatin": "Rabbanā lā taj'alnā ma'al-qaumiẓ-ẓālimīn",
+        "translatedid": "“Ya Tuhan kami, janganlah Engkau tempatkan kami bersama-sama orang-orang zalim itu.”",
+        "narrator": "Q.S Al-A'raf: 47"
+      },
+      {
+        "id": 8,
+        "tag": [ "mohon", "keadilan", "adil", "Al-Qur'an" ],
+        "title": "Do'a Mohon Keadilan",
+        "arabic": "رَبَّنَا افْتَحْ بَيْنَنَا وَبَيْنَ قَوْمِنَا بِالْحَقِّ وَاَنْتَ خَيْرُ الْفَاتِحِيْنَ",
+        "arabiclatin": "Rabbanaftaḥ bainanā wa baina qauminā bil-ḥaqqi wa anta khairul-fātiḥīn",
+        "translatedid": "Ya Tuhan kami, berilah keputusan antara kami dan kaum kami dengan hak (adil). Engkaulah pemberi keputusan terbaik.”",
+        "narrator": "Q.S Al-A'raf: 89"
+      },
+      {
+        "id": 9,
+        "tag": [ "mohon", "keselamatan", "selamat", "Al-Qur'an" ],
+        "title": "Do'a Mohon Keselamatan",
+        "arabic": "رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلْقَوْمِ الظّٰلِمِيْنَ (٨٥) وَنَجِّنَا بِرَحْمَتِكَ مِنَ الْقَوْمِ الْكٰفِرِيْنَ",
+        "arabiclatin": "Rabbanā lā taj'alnā fitnatal lil-qaumiẓ-ẓālimīn. Wa najjinā biraḥmatika minal-qaumil-kāfirīn",
+        "translatedid": "Ya Tuhan kami, janganlah Engkau jadikan kami (sasaran) fitnah bagi kaum yang zalim, dan selamatkanlah kami dengan rahmat-Mu dari orang-orang kafir.”",
+        "narrator": "Q.S Hud: 85-86"
+      },
+      {
+        "id": 10,
+        "tag": [ "mohon", "perlindungan", "lindung", "Al-Qur'an" ],
+        "title": "Do'a Mohon Perlindungan",
+        "arabic": "رَبِّ اِنِّيْٓ اَعُوْذُ بِكَ اَنْ اَسْـَٔلَكَ مَا لَيْسَ لِيْ بِهٖ عِلْمٌ ۗوَاِلَّا تَغْفِرْ لِيْ وَتَرْحَمْنِيْٓ اَكُنْ مِّنَ الْخٰسِرِيْنَ",
+        "arabiclatin": "Rabbi innī a'ụżu bika an as`alaka mā laisa lī bihī 'ilm, wa illā tagfir lī wa tar-ḥamnī akum minal-khāsirīn",
+        "translatedid": "“Ya Tuhanku, sesungguhnya aku berlindung kepada-Mu untuk memohon kepada-Mu sesuatu yang aku tidak mengetahui (hakikatnya). Kalau Engkau tidak mengampuniku, dan (tidak) menaruh belas kasihan kepadaku, niscaya aku termasuk orang yang rugi.”",
+        "narrator": "Q.S Hud: 47"
       }
     ]
   }

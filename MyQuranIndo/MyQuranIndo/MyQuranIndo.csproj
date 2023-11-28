@@ -126,6 +126,7 @@
     <None Remove="Databases\99.json" />
     <None Remove="Databases\AsmaulHusna.json" />
     <None Remove="Databases\Doa.json" />
+    <None Remove="Databases\DoaNew.json" />
     <None Remove="Databases\Help.json" />
     <None Remove="Databases\Intention.json" />
     <None Remove="Databases\Zikr.json" />
@@ -146,6 +147,7 @@
     <EmbeddedResource Include="Configurations\settings.json" />
     <EmbeddedResource Include="Databases\AsmaulHusna.json" />
     <EmbeddedResource Include="Databases\Doa.json" />
+    <EmbeddedResource Include="Databases\DoaNew.json" />
     <EmbeddedResource Include="Databases\Help.json" />
     <EmbeddedResource Include="Databases\Intention.json" />
     <EmbeddedResource Include="Databases\Zikr.json" />
@@ -163,7 +165,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />  
