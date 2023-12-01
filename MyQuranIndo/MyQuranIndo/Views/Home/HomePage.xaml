@@ -264,7 +264,7 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_clock.png" 
-								    Text="Jadwal Sholat (Beta)"
+								    Text="Jadwal Sholat"
 								    BackgroundColor="{DynamicResource Primary}"
 								    TextColor="White"
 								    ContentLayout="Top"
@@ -279,7 +279,7 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_kaaba.png" 
-								    Text="Arah Kiblat (Beta)"
+								    Text="Arah Kiblat"
 								    BackgroundColor="{DynamicResource Primary}"
 								    TextColor="White"
 								    ContentLayout="Top"

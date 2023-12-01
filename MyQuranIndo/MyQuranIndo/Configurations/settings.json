@@ -2,8 +2,10 @@
 	//"apiUrlBase": "https://api.pray.zone/v2/times/day.json/",
 	"apiUrlBase": "https://api.myquran.com/v1",
 	"urlPlayStore": "https://play.google.com/store/apps/details?id=com.rommyzamanuddin.myquranindo",
-	"applicationName": "MyQuran Indonesia Free",
+	"applicationName": "MyQuran Indonesia",
 	"urlMP3": "https://everyayah.com/data/Abdurrahmaan_As-Sudais_64kbps/",
 	"urlMP3AlAfasy": "https://everyayah.com/data/Alafasy_64kbps/",
-	"urlMP3AlMatroud": "https://everyayah.com/data/Abdullah_Matroud_128kbps/"
+	"urlMP3AlMatroud": "https://everyayah.com/data/Abdullah_Matroud_128kbps/",
+	"urlDoa": "https://api.npoint.io/961601eabeb803e83723" 
+	/*https://www.npoint.io/docs/961601eabeb803e83723*/
 }

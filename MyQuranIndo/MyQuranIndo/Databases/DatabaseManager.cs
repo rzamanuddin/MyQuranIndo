@@ -88,7 +88,8 @@ namespace MyQuranIndo.Databases
 
         public async Task<List<Tafsir>> GetTafsirAsync(int surahID)
         {
-            return await connection.QueryAsync<Tafsir>($"SELECT * FROM Tafsir Where SurahId = {surahID}");
+            var tafsirs = await connection.QueryAsync<Tafsir>($"SELECT * FROM Tafsir Where SurahId = {surahID}");
+            return tafsirs;
         }
 
         public async Task<Tafsir> GetTafsirAsync(int surahID, int ayahID)

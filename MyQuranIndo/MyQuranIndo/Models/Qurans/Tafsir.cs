@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyQuranIndo.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace MyQuranIndo.Models.Qurans
         public int ID { get; set; }
         public int SurahID { get; set; }
         public string Kemenag { get; set; }
+        public string AlJalalain { get; set; }
 
         public int TafsirID
         {
@@ -72,6 +74,21 @@ namespace MyQuranIndo.Models.Qurans
             {
                 rowColor = value;
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
+            }
+        }
+
+        public string TafsirText
+        {
+            get
+            {
+                var tafsirType = TafsirTypeHelper.GetTafsirType();
+                switch (tafsirType)
+                {
+                    case (int)TafsirType.AlJalalain:
+                        return AlJalalain;
+                    default:
+                        return Kemenag;
+                }
             }
         }
     }

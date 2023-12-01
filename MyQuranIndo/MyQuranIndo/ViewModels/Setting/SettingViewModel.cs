@@ -99,6 +99,35 @@ namespace MyQuranIndo.ViewModels.Setting
             get;
         }
 
+        public ICommand TafsirCommand
+        {
+            get;
+        }
+
+        public ObservableCollection<KeyValuePair<int, string>> Tafsirs { get; private set; }
+
+        private KeyValuePair<int, string> tafsirSelected;
+        public KeyValuePair<int, string> TafsirSelected
+        {
+            get
+            {
+                int tafsir = Preferences.Get(References.Setting.TAFSIR_SELECTED, (int)Models.Qurans.TafsirType.Kemenag);
+                tafsirSelected = Tafsirs.FirstOrDefault(q => q.Key == tafsir);
+                return tafsirSelected;
+            }
+            set
+            {
+                if (tafsirSelected.Key != value.Key)
+                {
+                    Preferences.Set(References.Setting.TAFSIR_SELECTED, value.Key);
+                    SetProperty(ref tafsirSelected, value);
+                }
+
+                //ReciterURL = ReciterHelper.GetReciterUrl();
+            }
+        }
+
+
         public ObservableCollection<KeyValuePair<int, String>> Reciters { get; private set; }
 
         private KeyValuePair<int, string> reciterSelected;
@@ -128,6 +157,53 @@ namespace MyQuranIndo.ViewModels.Setting
         //    get => reciterURL;
         //    set => SetProperty(ref reciterURL, value);
         //}
+
+        private Color tafsirKemenagColor;
+        public Color TafsirKemenagColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.TAFSIR_SELECTED, 0) == (int)TafsirType.Kemenag)
+                {
+                    tafsirKemenagColor = Color.LightGray;
+                }
+                else
+                {
+                    tafsirKemenagColor = Color.White;
+                }
+
+                return tafsirKemenagColor;
+            }
+
+            set
+            {
+                SetProperty(ref tafsirKemenagColor, value);
+            }
+        }
+
+        private Color tafsirAlJalalainColor;
+        public Color TafsirAlJalalainColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.TAFSIR_SELECTED, 0) == (int)TafsirType.AlJalalain)
+                {
+                    tafsirAlJalalainColor = Color.LightGray;
+                }
+                else
+                {
+                    tafsirAlJalalainColor = Color.White;
+                }
+
+                return tafsirAlJalalainColor;
+            }
+
+            set
+            {
+                SetProperty(ref tafsirAlJalalainColor, value);
+            }
+        }
+
 
         private Color reciterAsSudaisColor;
         public Color ReciterAsSudaisColor
@@ -307,9 +383,11 @@ namespace MyQuranIndo.ViewModels.Setting
             ColorThemeCommand = new Command<int>((theme) => OnColorThemeSelected(theme));
             FontSizeCommand = new Command<int>((fontSize) => OnFontSizeSelected(fontSize));
             ReciterCommand = new Command<int>((reciter) => OnReciterSelected(reciter));
+            TafsirCommand = new Command<int>((tafsir) => OnTafsirSelected(tafsir));
 
             FontSizes = new ObservableCollection<KeyValuePair<int, string>>();
             Reciters = new ObservableCollection<KeyValuePair<int, string>>();
+            Tafsirs = new ObservableCollection<KeyValuePair<int, string>>();
 
             //int fontStyle = Preferences.Get(References.Setting.FONT_SIZE_SELECTED, (int)FontSize.Small);
             //FontSizeSelected = FontSizes.FirstOrDefault(q => q.Key == fontStyle);
@@ -356,6 +434,34 @@ namespace MyQuranIndo.ViewModels.Setting
                     break;
                 default:
                     goto case (int)Models.Qurans.Reciter.AsSudais;
+            }
+        }
+
+        private void OnTafsirSelected(int tafsir)
+        {
+            int tasfirSelected = Preferences.Get(References.Setting.TAFSIR_SELECTED, 0);
+            switch (tafsir)
+            {
+                case (int)Models.Qurans.TafsirType.Kemenag:
+                    if (tasfirSelected != (int)TafsirType.Kemenag)
+                    {
+                        Preferences.Set(References.Setting.TAFSIR_SELECTED, (int)TafsirType.Kemenag);
+                        TafsirSelected = Tafsirs.FirstOrDefault(q => q.Key == tafsir);
+                        TafsirKemenagColor = Color.LightGray;
+                        TafsirAlJalalainColor = Color.White;
+                    }
+                    break;
+                case (int)Models.Qurans.TafsirType.AlJalalain:
+                    if (tasfirSelected != (int)TafsirType.AlJalalain)
+                    {
+                        Preferences.Set(References.Setting.TAFSIR_SELECTED, (int)TafsirType.AlJalalain);
+                        TafsirSelected = Tafsirs.FirstOrDefault(q => q.Key == tafsir);
+                        TafsirKemenagColor = Color.White;
+                        TafsirAlJalalainColor = Color.LightGray;
+                    }
+                    break;
+                default:
+                    goto case (int)Models.Qurans.TafsirType.Kemenag;
             }
         }
 
@@ -416,7 +522,15 @@ namespace MyQuranIndo.ViewModels.Setting
 
             int reciter = Preferences.Get(References.Setting.RECITER_SELECTED, (int)Models.Qurans.Reciter.AsSudais);
             ReciterSelected = Reciters.FirstOrDefault(q => q.Key == reciter);
+
+            Tafsirs.Clear();
+            Tafsirs.Add(new KeyValuePair<int, string>((int)Models.Qurans.TafsirType.Kemenag, "Kemenag"));
+            Tafsirs.Add(new KeyValuePair<int, string>((int)Models.Qurans.TafsirType.AlJalalain, "Al-Jalalain"));
+
+            int tafsir = Preferences.Get(References.Setting.TAFSIR_SELECTED, (int)Models.Qurans.TafsirType.Kemenag);
+            TafsirSelected = Tafsirs.FirstOrDefault(q => q.Key == tafsir);
         }
+
         //private async Task InitStart()
         //{
         //    //FontSizes = new ObservableCollection<KeyValuePair<int, string>>();

@@ -180,7 +180,7 @@ namespace MyQuranIndo.Helpers
             string tafsirCopied = $"(Tafsir Q.S. {surahNameLatin} {tafsir.TafsirID}: Ayat {tafsir.ID}): ";
             string line = Environment.NewLine + Environment.NewLine;
 
-            tafsirCopied += $"{line + tafsir.Kemenag}";
+            tafsirCopied += $"{line + tafsir.TafsirText}";
             tafsirCopied += $"{line}*Via {AppSetting.GetApplicationName()}";
             tafsirCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
 
@@ -343,13 +343,13 @@ namespace MyQuranIndo.Helpers
             });
         }
 
-        public static async Task ShareTafsirKemenagAsync(string title, string tafsirKemenag)
+        public static async Task ShareTafsirAsync(string title, string tafsir)
         {
-            var isShare = await App.Current.MainPage.DisplayAlert(title, tafsirKemenag, Message.SHARE, Message.MSG_OK);
+            var isShare = await App.Current.MainPage.DisplayAlert(title, tafsir, Message.SHARE, Message.MSG_OK);
             if (isShare)
             {
                 string line = Environment.NewLine + Environment.NewLine;
-                string tafsirText = $"{title + line + tafsirKemenag + line} *Via {AppSetting.GetApplicationName()}";
+                string tafsirText = $"{title + line + tafsir + line} *Via {AppSetting.GetApplicationName()}";
                 tafsirText += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
                 await Xamarin.Essentials.Share.RequestAsync(new ShareTextRequest
                 {

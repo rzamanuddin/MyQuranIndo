@@ -255,7 +255,7 @@
                                            Padding="5,5,5,0"/>
                                         <Label Grid.Column="0"
                                            Grid.Row="4"
-                                           Text="{Binding Narrator, StringFormat='({0})'}" 
+                                           Text="{Binding Narrator, StringFormat='{0}'}" 
                                            LineBreakMode="WordWrap"
                                            FontSize="Small"
                                            TextColor="{StaticResource TextColor}"

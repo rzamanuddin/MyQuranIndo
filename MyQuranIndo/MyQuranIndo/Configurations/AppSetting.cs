@@ -24,6 +24,7 @@ namespace MyQuranIndo.Configuration
         private const string API_URL_MP3 = "urlMP3";
         private const string API_URL_MP3_AL_AFASY = "urlMP3AlAfasy";
         private const string API_URL_MP3_AL_MATROUD = "urlMP3AlMatroud";
+        private const string API_URL_DOA = "urlDoa";
         //private const string API_URL_LOGIN = "apiLogin";
         //private const string API_URL_VOTE = "apiVote";
 
@@ -80,6 +81,11 @@ namespace MyQuranIndo.Configuration
         public static string GetUrlMP3AlMatroud()
         {
             return GetJsonSetting(API_URL_MP3_AL_MATROUD);
+        }
+
+        public static string GetUrlDoa()
+        {
+            return GetJsonSetting(API_URL_DOA);
         }
 
         //public static string GetAPICategories()

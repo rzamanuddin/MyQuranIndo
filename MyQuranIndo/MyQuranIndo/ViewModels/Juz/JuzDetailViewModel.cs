@@ -392,10 +392,10 @@ namespace MyQuranIndo.ViewModels.Juz
 
                     var tafsir = await TafsirDataService.GetAsync(juzDetail.SurahID, juzDetail.AyahID);
                     //string tafsir = //getSurahID()Tafsir.TafsirID.TafsirKemenag.Text[ayah.Number];
-                    string title = string.Format("Tafsir Kemenag Q.S {0}:{1}"
+                    string title = string.Format($"Tafsir {TafsirTypeHelper.GetTafsirTypeName()} Q.S {0}:{1}"
                         , juzDetail.SurahID, juzDetail.AyahID);
 
-                    await ActionHelper.ShareTafsirKemenagAsync(title, tafsir.Kemenag);
+                    await ActionHelper.ShareTafsirAsync(title, tafsir.TafsirText);
                 }
                 catch (Exception ex)
                 {

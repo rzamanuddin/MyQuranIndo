@@ -348,8 +348,8 @@ namespace MyQuranIndo.ViewModels.Surah
 
                     var tafsir = await TafsirDataService.GetAsync(getSurahID(), ayah.ID);
                     //string tafsir = //getSurahID()Tafsir.TafsirID.TafsirKemenag.Text[ayah.Number];
-                    string title = $"Tafsir Kemenag Q.S {ayah.SurahID}:{ayah.AyahID}";
-                    await ActionHelper.ShareTafsirKemenagAsync(title, tafsir.Kemenag);
+                    string title = $"Tafsir {TafsirTypeHelper.GetTafsirTypeName()} Q.S {ayah.SurahID}:{ayah.AyahID}";
+                    await ActionHelper.ShareTafsirAsync(title, tafsir.TafsirText);
                 }
                 catch (Exception ex)
                 {

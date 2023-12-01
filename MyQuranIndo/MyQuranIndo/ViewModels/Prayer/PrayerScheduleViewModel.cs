@@ -45,7 +45,7 @@ namespace MyQuranIndo.ViewModels.Prayer
 
         public PrayerScheduleViewModel()
         {
-            Title = "Jadwal Sholat (Beta)";
+            Title = "Jadwal Sholat";
             this.PrayerSchedule = new Models.PrayerSchedules.PrayerSchedule();
             PrayerTimes = new ObservableCollection<PrayerTime>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());

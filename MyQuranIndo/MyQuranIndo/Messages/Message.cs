@@ -64,6 +64,7 @@ namespace MyQuranIndo.Messages
         public const string MSG_DEVICE_NOT_SUPPORTED = "Perangkat tidak didukung.";
         public const string MSG_DEVICE_PERMISSION_DENIED = "Akses ke perangkat gps belum diberikan izin.";
         public const string MSG_DEVICE_NOT_ENABLED = "Perangkat gps belum diaktifkan.";
+        public const string MSG_DEVICE_NO_CONNECTIVITY = "Perangkat tidak terhubung ke internet.";
 
         public const string MSG_NOT_FOUND_KEY = "Kata kunci <text> tidak ditemukan.";
 

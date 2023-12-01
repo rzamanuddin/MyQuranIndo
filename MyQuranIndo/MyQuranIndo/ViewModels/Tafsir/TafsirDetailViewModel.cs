@@ -229,7 +229,7 @@ namespace MyQuranIndo.ViewModels.Tafsir
                     }
                     else
                     {
-                        var t = Tafsirs.FirstOrDefault(q => q.Kemenag.ToLower().Contains(text));
+                        var t = Tafsirs.FirstOrDefault(q => q.TafsirText.ToLower().Contains(text));
 
                         if (t != null)
                         {

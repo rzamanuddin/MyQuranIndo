@@ -256,12 +256,12 @@
 			},
 			{
 				"ID": "2",
-				"Subtitle": "",
+				"Subtitle": "Membuka Bookmark",
 				"Content": "Ketuk satu kali pada bookmark untuk membuka ayat berdasarkan surat atau juz."
 			},
 			{
-				"ID": "2",
-				"Subtitle": "",
+				"ID": "3",
+				"Subtitle": "Menghapus Bookmark",
 				"Content": "Ketuk dua kali pada bookmark untuk menghapus bookmark."
 			}
 		]
@@ -339,7 +339,7 @@
 	},
 	{
 		"ID": "14",
-		"Title": "Jadwal Sholat (Beta)",
+		"Title": "Jadwal Sholat",
 		"Contents": [
 			{
 				"ID": "1",
@@ -350,7 +350,7 @@
 	},
 	{
 		"ID": "15",
-		"Title": "Arah Kiblat (Beta)",
+		"Title": "Arah Kiblat",
 		"Contents": [
 			{
 				"ID": "1",

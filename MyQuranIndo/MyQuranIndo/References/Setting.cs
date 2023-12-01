@@ -14,5 +14,7 @@ namespace MyQuranIndo.References
         public static string FONT_SIZE_SELECTED = "font.size.selected";
 
         public static string RECITER_SELECTED = "reciter.selected";
+
+        public static string TAFSIR_SELECTED = "tafsir.selected";
     }
 }

@@ -119,60 +119,60 @@
         <ShellContent Route="TabbedPageSurahsAndJuzsPage" ContentTemplate="{DataTemplate localTab:TabbedPageSurahsAndJuzsPage}" />
     </FlyoutItem>-->
     <MenuItem Text="Baca Surat" 
-              Icon="icon_quran.png"
+              IconImageSource="icon_quran.png"
               Command="{Binding ReadSurahCommand}"
               />
     <MenuItem Text="Baca Surat (Mode Tab)"
-              Icon="icon_quran_2.png"
+              IconImageSource="icon_quran_2.png"
               Command="{Binding ReadSurahModeTabCommand}"/>
     <MenuItem Text="Baca Juz" 
-              Icon="icon_juz.png"
+              IconImageSource="icon_juz.png"
               Command="{Binding ReadJuzCommand}"
               />
     <MenuItem Text="Baca Juz (Mode Tab)"
-              Icon="icon_juz_2.png"
+              IconImageSource="icon_juz_2.png"
               Command="{Binding ReadJuzModeTabCommand}"/>
     <MenuItem Text="Baca Tafsir"
               IconImageSource="icon_tafsir.png"
               Command="{Binding ReadTafsirCommand}"/>
     <MenuItem Text="Terakhir Dibaca" 
-              Icon="icon_last_read.png"
+              IconImageSource="icon_last_read.png"
               Command="{Binding LastReadCommand}"/>
     <MenuItem Text="Bookmark" 
-              Icon="icon_bookmark.png"
+              IconImageSource="icon_bookmark.png"
               Command="{Binding BookmarkCommand}"/>
     <MenuItem Text="Pencarian" 
-              Icon="icon_find.png"
+              IconImageSource="icon_find.png"
               Command="{Binding FindCommand}"/>
     <MenuItem Text="Kumpulan Do'a" 
-              Icon="icon_pray.png"
+              IconImageSource="icon_pray.png"
               Command="{Binding PrayCommand}"/>
     <MenuItem Text="Dzikir Pagi" 
-              Icon="icon_sunrise.png"
+              IconImageSource="icon_sunrise.png"
               Command="{Binding ZikrMorningCommand}"/>
     <MenuItem Text="Dzikir Petang" 
-              Icon="icon_sunset.png"
+              IconImageSource="icon_sunset.png"
               Command="{Binding ZikrEveningCommand}"/>
     <MenuItem Text="Asmaul Husna" 
-              Icon="icon_allah.png"
+              IconImageSource="icon_allah.png"
               Command="{Binding AsmaulHusnaCommand}"/>
     <MenuItem Text="Niat Sholat" 
-              Icon="icon_allah_2.png"
+              IconImageSource="icon_allah_2.png"
               Command="{Binding IntentionCommand}"/>
     <MenuItem Text="Jadwal Sholat" 
-              Icon="icon_clock.png"
+              IconImageSource="icon_clock.png"
               Command="{Binding PrayerScheduleCommand}"/>
     <MenuItem Text="Arah Kiblat" 
-              Icon="icon_kaaba.png"
+              IconImageSource="icon_kaaba.png"
               Command="{Binding QiblaCommand}"/>
     <MenuItem Text="Petunjuk" 
-              Icon="icon_help.png"
+              IconImageSource="icon_help.png"
               Command="{Binding HelpCommand}"/>
     <MenuItem Text="Pengaturan" 
-              Icon="icon_setting.png"
+              IconImageSource="icon_setting.png"
               Command="{Binding SettingCommand}"/>
     <MenuItem Text="Info Aplikasi" 
-              Icon="icon_about.png"
+              IconImageSource="icon_about.png"
               Command="{Binding AboutCommand}"/>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->

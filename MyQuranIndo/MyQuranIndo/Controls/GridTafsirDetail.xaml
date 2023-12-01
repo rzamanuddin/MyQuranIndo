@@ -27,7 +27,7 @@
            Padding="5"
         />
     <Label Grid.Column="1"           
-           Text="{Binding Kemenag}"
+           Text="{Binding TafsirText}"
            FontSize="Caption"
            HorizontalTextAlignment="Start"
            FontFamily="Montserrat-Light-Italic"

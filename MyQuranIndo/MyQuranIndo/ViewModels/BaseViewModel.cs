@@ -45,7 +45,6 @@ namespace MyQuranIndo.ViewModels
         }
 
 
-
         private bool _canNavigate = true;
         public bool CanNavigate
         {
@@ -59,6 +58,12 @@ namespace MyQuranIndo.ViewModels
                 //OnPropertyChanged();
                 SetProperty(ref _canNavigate, value);
             }
+        }
+
+        protected bool IsConnectedToInternet()
+        {
+            var current = Connectivity.NetworkAccess;
+            return current == NetworkAccess.Internet;
         }
 
         protected bool IsAudioExist(string audioName)

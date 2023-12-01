@@ -78,7 +78,7 @@ namespace MyQuranIndo.ViewModels.Qibla
 
         public QiblaViewModel()
         {
-            Title = "Arah Kiblat (Beta)";
+            Title = "Arah Kiblat";
             StopCommand = new Command(Stop);
             StartCommand = new Command(Start);
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
