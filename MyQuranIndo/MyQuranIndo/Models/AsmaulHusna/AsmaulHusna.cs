@@ -27,7 +27,7 @@ namespace MyQuranIndo.Models.AsmaulHusna
         {
             get
             {
-                return $"{ID}. {ArabicLatin} ({TranslateID})";
+                return $"{ID}. {ArabicLatin} - {TranslateID}";
             }
         }
         public double FontSizeArabic

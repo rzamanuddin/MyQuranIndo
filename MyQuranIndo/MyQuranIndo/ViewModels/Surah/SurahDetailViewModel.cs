@@ -17,6 +17,7 @@ using MyQuranIndo.Models.Bookmarks;
 using MyQuranIndo.Configuration;
 using MyQuranIndo.Helpers;
 using MyQuranIndo.Models.Fonts;
+using Android.Widget;
 
 namespace MyQuranIndo.ViewModels.Surah
 {
@@ -37,9 +38,12 @@ namespace MyQuranIndo.ViewModels.Surah
 
         public string Bismillah
         {
-            get => "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ";
+            get => FontHelper.GetBismillah();
         }
-
+        public string BismillahUthmani
+        {
+            get => "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ";
+        }
         public string BismillahTranslate
         {
             get => "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.";
@@ -192,6 +196,7 @@ namespace MyQuranIndo.ViewModels.Surah
                     a.SurahID = surahID;
                     a.ID = 0;
                     a.ReadText = Bismillah;
+                    a.ReadTextUthmani = BismillahUthmani;
                     a.TextIndo = "bismillāhir-raḥmānir-raḥīm";
                     a.TranslateIndo = BismillahTranslate;
                     //a.ReadTajwidText = GetFormattedHtml(a.ReadText);
@@ -334,7 +339,7 @@ namespace MyQuranIndo.ViewModels.Surah
             SearchData(text);
         }));
 
-        private async void OnAyahTwoTapped(Ayah ayah)
+        private async Task ShowTafsir(Ayah ayah, int tafsirType = (int)TafsirType.Kemenag)
         {
             if (IsValidTapped(ayah))
             {
@@ -348,8 +353,23 @@ namespace MyQuranIndo.ViewModels.Surah
 
                     var tafsir = await TafsirDataService.GetAsync(getSurahID(), ayah.ID);
                     //string tafsir = //getSurahID()Tafsir.TafsirID.TafsirKemenag.Text[ayah.Number];
-                    string title = $"Tafsir {TafsirTypeHelper.GetTafsirTypeName()} Q.S {ayah.SurahID}:{ayah.AyahID}";
-                    await ActionHelper.ShareTafsirAsync(title, tafsir.TafsirText);
+                    string title = $"Tafsir {TafsirTypeHelper.GetTafsirTypeName(tafsirType)} Q.S {ayah.SurahID}:{ayah.AyahID}";
+
+                    string tafsirText = "";
+                    switch (tafsirType)
+                    {
+                        case (int)TafsirType.AlJalalain:
+                            tafsirText = tafsir.AlJalalain;
+                            break;
+                        default:
+                            tafsirText = tafsir.Kemenag;
+                            break;
+                    }
+                    var isCopy = await ActionHelper.CopyTafsirAsync(title, tafsirText);
+                    if (isCopy)
+                    {
+                        ToastService.Show(ActionHelper.AYAH_COPY + " Berhasil");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -361,6 +381,11 @@ namespace MyQuranIndo.ViewModels.Surah
                     ayah.RowColor = oldColor;
                 }
             }
+        }
+
+        private async void OnAyahTwoTapped(Ayah ayah)
+        {
+            //await ShowTafsir(ayah);
         }
 
         private int getSurahID()
@@ -392,7 +417,7 @@ namespace MyQuranIndo.ViewModels.Surah
                             break;
                         case ActionHelper.AYAH_COPY:
                             await Clipboard.SetTextAsync(ayahCopied);
-                            result = ActionHelper.AYAH_COPY + " Berhasil.";
+                            result = ActionHelper.AYAH_COPY + " Berhasil";
                             break;
                         case ActionHelper.AYAH_BOOKMARK:
                             //SetBookmarkAyah(ayah);
@@ -407,6 +432,12 @@ namespace MyQuranIndo.ViewModels.Surah
                         case ActionHelper.PLAY_MP3:
                             //await MP3Helper.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
                             await MP3Service.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
+                            break;
+                        case ActionHelper.TAFSIR_KEMENAG_SHOW:
+                            await ShowTafsir(ayah, (int)TafsirType.Kemenag);
+                            break;
+                        case ActionHelper.TAFSIR_Al_JALALAIN_SHOW:
+                            await ShowTafsir(ayah, (int)TafsirType.AlJalalain);
                             break;
                         default:
                             break;

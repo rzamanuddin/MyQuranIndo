@@ -20,10 +20,34 @@ namespace MyQuranIndo.Models.Qurans
         public string SurahTranslateIndo { get; set; }
         public int AyahID { get; set; }
         public string ReadText { get; set; }
+        public string ReadTextUthmani { get; set; }
         public string TextIndo { get; set; }
         public string TranslateIndo { get; set; }
         public string HtmlRead { get; set; }
         public string ReadTajwidText { get; set; }
+
+        public string FontArabicName
+        {
+            get
+            {
+                return FontHelper.GetFontArabicName();
+            }
+        }
+
+        public string ReadTextArabic
+        {
+            get
+            {
+                if (RasmHelper.GetRasmType() == (int)RasmType.Utsmani)
+                {
+                    return ReadTextUthmani;
+                }
+                else
+                {
+                    return ReadText;
+                }
+            }
+        }
 
         public Color RowColor
         {
@@ -154,7 +178,8 @@ namespace MyQuranIndo.Models.Qurans
                 ReadText = ReadText,
                 SurahID = SurahID,
                 TextIndo = TextIndo,
-                TranslateIndo = TranslateIndo
+                TranslateIndo = TranslateIndo,
+                ReadTextUthmani = ReadTextUthmani
             };
 
             return ayah;

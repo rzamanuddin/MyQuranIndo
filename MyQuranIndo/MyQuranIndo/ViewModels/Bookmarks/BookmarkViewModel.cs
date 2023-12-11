@@ -56,28 +56,28 @@ namespace MyQuranIndo.ViewModels.Bookmarks
             Bookmarks = new ObservableCollection<Bookmark>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
             ItemTapped = new Command<Bookmark>(OnBookmarkSelected);
-            ItemDoubleTapped = new Command<Bookmark>(OnBookmarkDeleted);
+            //ItemDoubleTapped = new Command<Bookmark>(OnBookmarkDeleted);
             isBookmarkEmpty = true;
             emptyDataMessage = "";
             isExistData = false;
         }
 
-        private async void OnBookmarkDeleted(Bookmark bookmark)
-        {
-            if (bookmark != null)
-            {
-                var oldColor = bookmark.RowColor;
-                bookmark.RowColor = ((Color)Application.Current.Resources["SelectedItem"]);
+        //private async void OnBookmarkDeleted(Bookmark bookmark)
+        //{
+        //    if (bookmark != null)
+        //    {
+        //        var oldColor = bookmark.RowColor;
+        //        bookmark.RowColor = ((Color)Application.Current.Resources["SelectedItem"]);
 
-                await ActionHelper.DeleteBookmarkAsync(bookmark.SurahID, bookmark.AyahID, bookmark.SurahNameLatin, ToastService);
-                await ExecuteLoadCommand();
-                bookmark.RowColor = oldColor;
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_INFO, Message.MSG_NO_BOOKMARK, Message.MSG_OK);
-            }
-        }
+        //        await ActionHelper.DeleteBookmarkAsync(bookmark.SurahID, bookmark.AyahID, bookmark.SurahNameLatin, ToastService);
+        //        await ExecuteLoadCommand();
+        //        bookmark.RowColor = oldColor;
+        //    }
+        //    else
+        //    {
+        //        await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_INFO, Message.MSG_NO_BOOKMARK, Message.MSG_OK);
+        //    }
+        //}
         private async void OnBookmarkSelected(Bookmark bookmark)
         {
             if (bookmark!= null)
@@ -91,7 +91,11 @@ namespace MyQuranIndo.ViewModels.Bookmarks
                 //await OpenAyahPage(bookmark.SurahID, bookmark.AyahID, action);
 
                 var juzID = await JuzDataService.GetJuzIDAsync(bookmark.SurahID, bookmark.AyahID);
-                await ActionHelper.OpenAyahPageAsync(bookmark.SurahID, bookmark.AyahID, juzID, bookmark.SurahNameLatin);
+                var isDeleted = await ActionHelper.OpenAyahPageFromBookmarkAsync(bookmark.SurahID, bookmark.AyahID, juzID, bookmark.SurahNameLatin, true, ToastService);
+                if (isDeleted)
+                {
+                    await ExecuteLoadCommand();
+                }
                 bookmark.RowColor = oldColor;
             }
             else

@@ -41,9 +41,9 @@
         />
     <Label Grid.Row="0"
            Grid.Column="1"
-           Text="{Binding ReadText}"
+           Text="{Binding ReadTextArabic}"
            FontSize="{Binding FontSizeArabic}"
-           FontFamily="LPMQ"
+           FontFamily="{Binding FontArabicName}"
            LineHeight="1.4"
            TextColor="{StaticResource TextColor}"
            Padding="{Binding Padding}"

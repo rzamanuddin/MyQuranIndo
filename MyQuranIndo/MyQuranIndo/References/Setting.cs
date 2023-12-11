@@ -16,5 +16,7 @@ namespace MyQuranIndo.References
         public static string RECITER_SELECTED = "reciter.selected";
 
         public static string TAFSIR_SELECTED = "tafsir.selected";
+
+        public static string RASM_SELECTED = "rasm.selected";
     }
 }

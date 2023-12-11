@@ -46,7 +46,12 @@
 			{
 				"ID": "9",
 				"Subtitle": "Menampilkan Tafsir Kemenag",
-				"Content": "Ketuk dua kali pada ayat."
+				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
+			},
+			{
+				"ID": "10",
+				"Subtitle": "Menampilkan Tafsir Al-Jalalain",
+				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
 			}
 		]
 	},
@@ -97,7 +102,12 @@
 			{
 				"ID": "9",
 				"Subtitle": "Menampilkan Tafsir Kemenag",
-				"Content": "Ketuk dua kali pada ayat."
+				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
+			},
+			{
+				"ID": "10",
+				"Subtitle": "Menampilkan Tafsir Al-Jalalain",
+				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
 			}
 		]
 	},
@@ -148,7 +158,12 @@
 			{
 				"ID": "9",
 				"Subtitle": "Menampilkan Tafsir Kemenag",
-				"Content": "Ketuk dua kali pada ayat."
+				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
+			},
+			{
+				"ID": "10",
+				"Subtitle": "Menampilkan Tafsir Al-Jalalain",
+				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
 			}
 		]
 	},
@@ -199,7 +214,12 @@
 			{
 				"ID": "9",
 				"Subtitle": "Menampilkan Tafsir Kemenag",
-				"Content": "Ketuk dua kali pada ayat."
+				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
+			},
+			{
+				"ID": "10",
+				"Subtitle": "Menampilkan Tafsir Al-Jalalain",
+				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
 			}
 		]
 	},
@@ -396,21 +416,31 @@
 			},
 			{
 				"ID": "5",
+				"Subtitle": "Rasm",
+				"Content": "Pilih pada rasm yang ingin digunakan saat membaca Al-Qur'an."
+			},
+			{
+				"ID": "6",
 				"Subtitle": "Qari",
 				"Content": "Pilih qari yang ingin digunakan saat mendengarkan lantunan murottal."
 			},
 			{
-				"ID": "6",
+				"ID": "7",
+				"Subtitle": "Tafsir",
+				"Content": "Pilih tafsir yang ingin digunakan saat membaca tafsir."
+			},
+			{
+				"ID": "8",
 				"Subtitle": "Info Aplikasi",
 				"Content": "Menu ini berfungsi untuk menampilkan halaman Info Aplikasi."
 			},
 			{
-				"ID": "7",
+				"ID": "9",
 				"Subtitle": "Berikan Rating",
 				"Content": "Menu ini berfungsi untuk membelikan nilai / rating di playstore."
 			},
 			{
-				"ID": "8",
+				"ID": "10",
 				"Subtitle": "Cek Pembaruan",
 				"Content": "Menu ini berfungsi untuk memeriksa apakah aplikasi ini ada update terbaru atau tidak."
 			}

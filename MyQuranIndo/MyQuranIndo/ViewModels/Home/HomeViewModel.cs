@@ -244,7 +244,7 @@ namespace MyQuranIndo.ViewModels.Home
             {
                 var surah = await SurahDataService.GetSurahAsync(surahID);
                 var juzID = await JuzDataService.GetJuzIDAsync(surahID, ayahID);
-                await ActionHelper.OpenAyahPageAsync(surahID, ayahID, juzID, surah.NameLatin);
+                _ = await ActionHelper.OpenAyahPageFromBookmarkAsync(surahID, ayahID, juzID, surah.NameLatin);
             }
             CanNavigate = true;
         }

@@ -1,4 +1,5 @@
-﻿using MyQuranIndo.Configuration;
+﻿using Android.Widget;
+using MyQuranIndo.Configuration;
 using MyQuranIndo.Helpers;
 using MyQuranIndo.Messages;
 using MyQuranIndo.Models.Fonts;
@@ -54,6 +55,17 @@ namespace MyQuranIndo.ViewModels.Setting
             }
         }
 
+        private string bismillahSample;
+        public string BismillahSample
+        {
+            get
+            {
+                return FontHelper.GetBismillah();
+            }
+
+            set => SetProperty(ref bismillahSample, value);
+        }
+
         //private ResourceDictionary theme;
         //public ResourceDictionary Theme
         //{
@@ -104,6 +116,11 @@ namespace MyQuranIndo.ViewModels.Setting
             get;
         }
 
+        public ICommand RasmCommand
+        {
+            get;
+        }
+
         public ObservableCollection<KeyValuePair<int, string>> Tafsirs { get; private set; }
 
         private KeyValuePair<int, string> tafsirSelected;
@@ -121,6 +138,29 @@ namespace MyQuranIndo.ViewModels.Setting
                 {
                     Preferences.Set(References.Setting.TAFSIR_SELECTED, value.Key);
                     SetProperty(ref tafsirSelected, value);
+                }
+
+                //ReciterURL = ReciterHelper.GetReciterUrl();
+            }
+        }
+
+        public ObservableCollection<KeyValuePair<int, string>> Rasms { get; private set; }
+
+        private KeyValuePair<int, string> rasmSelected;
+        public KeyValuePair<int, string> RasmSelected
+        {
+            get
+            {
+                int rasm = Preferences.Get(References.Setting.RASM_SELECTED, (int)Models.Qurans.RasmType.IndoPak);
+                rasmSelected = Tafsirs.FirstOrDefault(q => q.Key == rasm);
+                return rasmSelected;
+            }
+            set
+            {
+                if (rasmSelected.Key != value.Key)
+                {
+                    Preferences.Set(References.Setting.RASM_SELECTED, value.Key);
+                    SetProperty(ref rasmSelected, value);
                 }
 
                 //ReciterURL = ReciterHelper.GetReciterUrl();
@@ -201,6 +241,52 @@ namespace MyQuranIndo.ViewModels.Setting
             set
             {
                 SetProperty(ref tafsirAlJalalainColor, value);
+            }
+        }
+
+        private Color rasmUtsmaniColor;
+        public Color RasmUtsmaniColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.RASM_SELECTED, 0) == (int)RasmType.Utsmani)
+                {
+                    rasmUtsmaniColor = Color.LightGray;
+                }
+                else
+                {
+                    rasmUtsmaniColor = Color.White;
+                }
+
+                return rasmUtsmaniColor;
+            }
+
+            set
+            {
+                SetProperty(ref rasmUtsmaniColor, value);
+            }
+        }
+
+        private Color rasmIndoPakColor;
+        public Color RasmIndoPakColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.RASM_SELECTED, 0) == (int)RasmType.IndoPak)
+                {
+                    rasmIndoPakColor = Color.LightGray;
+                }
+                else
+                {
+                    rasmIndoPakColor = Color.White;
+                }
+
+                return rasmIndoPakColor;
+            }
+
+            set
+            {
+                SetProperty(ref rasmIndoPakColor, value);
             }
         }
 
@@ -307,6 +393,19 @@ namespace MyQuranIndo.ViewModels.Setting
             set => SetProperty(ref fontSizeArabic, value);
         }
 
+        private string fontArabicName;
+        public string FontArabicName
+        {
+            get
+            {
+                return FontHelper.GetFontArabicName();
+            }
+
+            set => SetProperty(ref fontArabicName, value);
+        }
+
+
+
         private Color fontSizeSmallColor;
         public Color FontSizeSmallColor
         {
@@ -384,10 +483,12 @@ namespace MyQuranIndo.ViewModels.Setting
             FontSizeCommand = new Command<int>((fontSize) => OnFontSizeSelected(fontSize));
             ReciterCommand = new Command<int>((reciter) => OnReciterSelected(reciter));
             TafsirCommand = new Command<int>((tafsir) => OnTafsirSelected(tafsir));
+            RasmCommand = new Command<int>((rasm) => OnRasmSelected(rasm));
 
             FontSizes = new ObservableCollection<KeyValuePair<int, string>>();
             Reciters = new ObservableCollection<KeyValuePair<int, string>>();
             Tafsirs = new ObservableCollection<KeyValuePair<int, string>>();
+            Rasms = new ObservableCollection<KeyValuePair<int, string>>();
 
             //int fontStyle = Preferences.Get(References.Setting.FONT_SIZE_SELECTED, (int)FontSize.Small);
             //FontSizeSelected = FontSizes.FirstOrDefault(q => q.Key == fontStyle);
@@ -411,6 +512,7 @@ namespace MyQuranIndo.ViewModels.Setting
                         ReciterAlAfasyColor = Color.White;
                         ReciterAlMatroudColor = Color.White;
                     }
+                    ToastService.Show($"Qari Syekh As-Sudais berhasil dipilih", false);
                     break;
                 case (int)Models.Qurans.Reciter.AlAfasy:
                     if (reciterSelected != (int)Reciter.AlAfasy)
@@ -421,6 +523,7 @@ namespace MyQuranIndo.ViewModels.Setting
                         ReciterAlAfasyColor = Color.LightGray;
                         ReciterAlMatroudColor = Color.White;
                     }
+                    ToastService.Show($"Qari Syekh Al-Afasy berhasil dipilih", false);
                     break;
                 case (int)Models.Qurans.Reciter.AlMatroud:
                     if (reciterSelected != (int)Reciter.AlMatroud)
@@ -431,6 +534,7 @@ namespace MyQuranIndo.ViewModels.Setting
                         ReciterAlAfasyColor = Color.White;
                         ReciterAlMatroudColor = Color.LightGray;
                     }
+                    ToastService.Show($"Qari Syekh Al-Mathrud berhasil dipilih", false);
                     break;
                 default:
                     goto case (int)Models.Qurans.Reciter.AsSudais;
@@ -450,6 +554,7 @@ namespace MyQuranIndo.ViewModels.Setting
                         TafsirKemenagColor = Color.LightGray;
                         TafsirAlJalalainColor = Color.White;
                     }
+                    ToastService.Show($"Tafsir Kemenag berhasil dipilih", false);
                     break;
                 case (int)Models.Qurans.TafsirType.AlJalalain:
                     if (tasfirSelected != (int)TafsirType.AlJalalain)
@@ -459,9 +564,44 @@ namespace MyQuranIndo.ViewModels.Setting
                         TafsirKemenagColor = Color.White;
                         TafsirAlJalalainColor = Color.LightGray;
                     }
+                    ToastService.Show($"Tafsir AlJalalain berhasil dipilih", false);
                     break;
                 default:
                     goto case (int)Models.Qurans.TafsirType.Kemenag;
+            }
+        }
+
+        private void OnRasmSelected(int rasm)
+        {
+            int rasmSelected = Preferences.Get(References.Setting.RASM_SELECTED, 0);
+            switch (rasm)
+            {
+                case (int)Models.Qurans.RasmType.IndoPak:
+                    if (rasmSelected != (int)RasmType.IndoPak)
+                    {
+                        Preferences.Set(References.Setting.RASM_SELECTED, (int)RasmType.IndoPak);
+                        RasmSelected = Rasms.FirstOrDefault(q => q.Key == rasm);
+                        RasmIndoPakColor = Color.LightGray;
+                        RasmUtsmaniColor = Color.White;
+                        FontArabicName = FontHelper.GetFontArabicName();
+                        BismillahSample = FontHelper.GetBismillah();
+                    }
+                    ToastService.Show($"Rasm IndoPak berhasil dipilih", false);
+                    break;
+                case (int)Models.Qurans.RasmType.Utsmani:
+                    if (rasmSelected != (int)RasmType.Utsmani)
+                    {
+                        Preferences.Set(References.Setting.RASM_SELECTED, (int)RasmType.Utsmani);
+                        RasmSelected = Rasms.FirstOrDefault(q => q.Key == rasm);
+                        RasmIndoPakColor = Color.White;
+                        RasmUtsmaniColor = Color.LightGray;
+                        FontArabicName = FontHelper.GetFontArabicName();
+                        BismillahSample = FontHelper.GetBismillah();
+                    }
+                    ToastService.Show($"Rasm Utsmani berhasil dipilih", false);
+                    break;
+                default:
+                    goto case (int)Models.Qurans.RasmType.Utsmani;
             }
         }
 
@@ -479,6 +619,7 @@ namespace MyQuranIndo.ViewModels.Setting
                         FontSizeMediumColor = Color.White;
                         FontSizeLargeColor = Color.White;
                     }
+                    ToastService.Show($"Ukuran teks kecil berhasil dipilih", false);
                     break;
                 case (int)FontSize.Medium:
                     if (fontSizeSelected != (int)FontSize.Medium)
@@ -489,6 +630,7 @@ namespace MyQuranIndo.ViewModels.Setting
                         FontSizeLargeColor = Color.White;
                         FontSizeSmallColor = Color.White;
                     }
+                    ToastService.Show($"Ukuran teks sedang berhasil dipilih", false);
                     break;
                 case (int)FontSize.Large:
                     if (fontSizeSelected != (int)FontSize.Large)
@@ -499,6 +641,7 @@ namespace MyQuranIndo.ViewModels.Setting
                         FontSizeMediumColor = Color.White;
                         FontSizeSmallColor = Color.White;
                     }
+                    ToastService.Show($"Ukuran teks besar berhasil dipilih", false);
                     break;
                 default:
                     goto case (int)FontSize.Small;
@@ -558,6 +701,7 @@ namespace MyQuranIndo.ViewModels.Setting
                             mergedDictionaries.Add(new BlueTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Blue);
+                            ToastService.Show($"Tema warna biru berhasil dipilih", false);
                             //}
                             break;
                         case (int)ThemeStyle.Green:
@@ -567,6 +711,7 @@ namespace MyQuranIndo.ViewModels.Setting
                             mergedDictionaries.Add(new GreenTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Green);
+                            ToastService.Show($"Tema warna hijau berhasil dipilih", false);
                             //}
                             break;
                         case (int)ThemeStyle.Orange:
@@ -576,6 +721,7 @@ namespace MyQuranIndo.ViewModels.Setting
                             mergedDictionaries.Add(new OrangeTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Orange);
+                            ToastService.Show($"Tema warna oranye berhasil dipilih", false);
                             //}
                             break;
                         case (int)ThemeStyle.Black:
@@ -585,6 +731,7 @@ namespace MyQuranIndo.ViewModels.Setting
                             mergedDictionaries.Add(new BlackTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Black);
+                            ToastService.Show($"Tema warna hitam berhasil dipilih", false);
                             //}
                             break;
                         case (int)ThemeStyle.Purple:
@@ -594,6 +741,7 @@ namespace MyQuranIndo.ViewModels.Setting
                             mergedDictionaries.Add(new PurpleTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Purple);
+                            ToastService.Show($"Tema warna ungu berhasil dipilih", false);
                             //}
                             break;
                         case (int)ThemeStyle.Pink:
@@ -603,6 +751,7 @@ namespace MyQuranIndo.ViewModels.Setting
                             mergedDictionaries.Add(new PinkTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Pink);
+                            ToastService.Show($"Tema warna pink berhasil dipilih", false);
                             //}
                             break;
                         case (int)ThemeStyle.Red:
@@ -610,12 +759,14 @@ namespace MyQuranIndo.ViewModels.Setting
                             mergedDictionaries.Add(new RedTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Red);
+                            ToastService.Show($"Tema warna merah berhasil dipilih", false);
                             break;
                         case (int)ThemeStyle.DarkBlue:
                             Preferences.Set(References.Setting.THEME, (int)ThemeStyle.DarkBlue);
                             mergedDictionaries.Add(new DarkBlueTheme());
 
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.DarkBlue);
+                            ToastService.Show($"Tema warna biru dongker berhasil dipilih", false);
                             break;
                         default:
                             goto case (int)ThemeStyle.Blue;

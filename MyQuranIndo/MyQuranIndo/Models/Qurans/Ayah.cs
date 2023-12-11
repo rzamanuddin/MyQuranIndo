@@ -18,6 +18,30 @@ namespace MyQuranIndo.Models.Qurans
         public string ReadText { get; set; }
         public string TextIndo { get; set; }
         public string TranslateIndo { get; set; }
+        public string ReadTextUthmani { get; set; }  
+                
+        public string FontArabicName
+        {
+            get
+            {
+                return FontHelper.GetFontArabicName();
+            }
+        }
+        
+        public string ReadTextArabic
+        {
+            get
+            {
+                if (RasmHelper.GetRasmType() == (int)RasmType.Utsmani)
+                {
+                    return ReadTextUthmani;
+                }
+                else
+                {
+                    return ReadText;
+                }
+            }
+        }
 
         public int AyahID 
         { 
@@ -256,7 +280,7 @@ namespace MyQuranIndo.Models.Qurans
 
         public override string ToString()
         {
-            return ReadText;
+            return ReadTextArabic;
         }
     }
 }

@@ -7,6 +7,7 @@ using MyQuranIndo.References;
 using MyQuranIndo.Services;
 using MyQuranIndo.ViewModels.Juz;
 using MyQuranIndo.ViewModels.Surah;
+using MyQuranIndo.Views.Bookmarks;
 using MyQuranIndo.Views.Juz;
 using MyQuranIndo.Views.Surah;
 using Newtonsoft.Json;
@@ -32,7 +33,8 @@ namespace MyQuranIndo.Helpers
 
         public const string TAFSIR_SHARE = "Bagikan Tafsir";
         public const string TAFSIR_COPY = "Salin Tafsir";
-        
+        public const string TAFSIR_KEMENAG_SHOW = "Tampilkan Tafsir Kemenag";
+        public const string TAFSIR_Al_JALALAIN_SHOW = "Tampilkan Tafsir Al-Jalalain";
 
         public const string BOOKMARK_DEL = "Hapus Bookmark";
         public const string PLAY_MP3 = "Dengarkan Murottal"; 
@@ -96,10 +98,19 @@ namespace MyQuranIndo.Helpers
             }
         }
 
-        public async static Task OpenAyahPageAsync(int surahID, int ayahID, int juzID, string surahNameLatin)
+        public async static Task<bool> OpenAyahPageFromBookmarkAsync(int surahID, int ayahID, int juzID, string surahNameLatin, bool isOpenFromBookmark = false, IToastService toastService = null)
         {
-            string action = await App.Current.MainPage.DisplayActionSheet("Q.S " + surahNameLatin + " " + surahID
-                + ": Ayat " + ayahID, Message.MSG_CANCEL, null, ACTION_LOOK_AS_SURAH, ACTION_LOOK_AS_JUZ);
+            string action = "";
+            if (isOpenFromBookmark)
+            {
+                action = await App.Current.MainPage.DisplayActionSheet("Q.S " + surahNameLatin + " " + surahID
+                    + ": Ayat " + ayahID, Message.MSG_CANCEL, null, ACTION_LOOK_AS_SURAH, ACTION_LOOK_AS_JUZ, BOOKMARK_DEL);
+            }
+            else
+            {
+                action = await App.Current.MainPage.DisplayActionSheet("Q.S " + surahNameLatin + " " + surahID
+                    + ": Ayat " + ayahID, Message.MSG_CANCEL, null, ACTION_LOOK_AS_SURAH, ACTION_LOOK_AS_JUZ);
+            }
 
             if (action == ACTION_LOOK_AS_SURAH)
             {
@@ -109,13 +120,20 @@ namespace MyQuranIndo.Helpers
             {
                 await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}?{nameof(TabbedPageJuzDetailViewModel.JuzID)}={juzID}&{nameof(TabbedPageJuzDetailViewModel.SurahID)}={surahID}&{nameof(TabbedPageJuzDetailViewModel.AyahID)}={ayahID}");
             }
+            else if (action == BOOKMARK_DEL)
+            {
+                await DeleteBookmarkAsync(surahID, ayahID, surahNameLatin, toastService);
+                return true;
+            }
+            return false;
         }
 
         public static async Task<string> DisplayActionAyahAsync(int surahID, int ayahID, string surahNameLatin)
         {
             string title = $"Q.S. {surahID}. {surahNameLatin} Ayat {ayahID}";
             string action = await App.Current.MainPage.DisplayActionSheet(title, //$"Q.S {surahID}:{ayahID}",
-                Message.MSG_CANCEL, null, PLAY_MP3, AYAH_SHARE, AYAH_COPY, AYAH_BOOKMARK, AYAH_LAST_READ);
+                Message.MSG_CANCEL, null, PLAY_MP3, AYAH_SHARE, AYAH_COPY, AYAH_BOOKMARK, AYAH_LAST_READ, TAFSIR_KEMENAG_SHOW,
+                    TAFSIR_Al_JALALAIN_SHOW);
 
             return action;
         }
@@ -159,7 +177,7 @@ namespace MyQuranIndo.Helpers
             string ayahCopied = "Allah Subhanahu Wa Ta'ala berfirman: ";
             string line = Environment.NewLine + Environment.NewLine;
 
-            ayahCopied += $"{line + ayah.ReadText}";
+            ayahCopied += $"{line + ayah.ReadTextArabic}";
             if (ayah.IsVisibleTransliteration)
             {
                 ayahCopied += $"{line + ayah.TextIndo}";
@@ -168,7 +186,7 @@ namespace MyQuranIndo.Helpers
             {
                 ayahCopied += $"{line + ayah.TranslateIndo}";
             }
-            ayahCopied += $"{Environment.NewLine}(Q.S. {surahNameLatin} {ayah.AyahID}: Ayat {ayah.ID}){line} *Via {AppSetting.GetApplicationName()}";
+            ayahCopied += $"{Environment.NewLine}(Q.S. {surahNameLatin} {ayah.AyahID}: Ayat {ayah.ID}){line}*Via {AppSetting.GetApplicationName()}";
             ayahCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
 
             return ayahCopied;
@@ -177,7 +195,7 @@ namespace MyQuranIndo.Helpers
         public static string GetTafsirToShare(Tafsir tafsir, string surahNameLatin)
         {
 
-            string tafsirCopied = $"(Tafsir Q.S. {surahNameLatin} {tafsir.TafsirID}: Ayat {tafsir.ID}): ";
+            string tafsirCopied = $"Tafsir {TafsirTypeHelper.GetTafsirTypeName()} Q.S {tafsir.SurahID}:{tafsir.TafsirID}: ";
             string line = Environment.NewLine + Environment.NewLine;
 
             tafsirCopied += $"{line + tafsir.TafsirText}";
@@ -192,7 +210,7 @@ namespace MyQuranIndo.Helpers
             string ayahCopied = "Allah Subhanahu Wa Ta'ala berfirman: ";
             string line = Environment.NewLine + Environment.NewLine;
 
-            ayahCopied += $"{line + juzDetail.ReadText}";
+            ayahCopied += $"{line + juzDetail.ReadTextArabic}";
             if (juzDetail.IsVisibleTransliteration)
             {
                 ayahCopied += $"{line + juzDetail.TextIndo}";
@@ -201,7 +219,7 @@ namespace MyQuranIndo.Helpers
             {
                 ayahCopied += $"{line + juzDetail.TranslateIndo}";
             }
-            ayahCopied += $"{Environment.NewLine}(Q.S. {juzDetail.SurahNameLatin} {juzDetail.AyahID}: Ayat {juzDetail.AyahID}){line} *Via {AppSetting.GetApplicationName()}";
+            ayahCopied += $"{Environment.NewLine}(Q.S. {juzDetail.SurahNameLatin} {juzDetail.AyahID}: Ayat {juzDetail.AyahID}){line}*Via {AppSetting.GetApplicationName()}";
             ayahCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
 
             return ayahCopied;
@@ -343,20 +361,24 @@ namespace MyQuranIndo.Helpers
             });
         }
 
-        public static async Task ShareTafsirAsync(string title, string tafsir)
+        public static async Task<bool> CopyTafsirAsync(string title, string tafsir)
         {
-            var isShare = await App.Current.MainPage.DisplayAlert(title, tafsir, Message.SHARE, Message.MSG_OK);
-            if (isShare)
+            var isCopy = await App.Current.MainPage.DisplayAlert(title, tafsir, Message.COPY, Message.MSG_OK);
+            if (isCopy)
             {
                 string line = Environment.NewLine + Environment.NewLine;
-                string tafsirText = $"{title + line + tafsir + line} *Via {AppSetting.GetApplicationName()}";
+                string tafsirText = $"{title + line + tafsir + line}*Via {AppSetting.GetApplicationName()}";
                 tafsirText += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
-                await Xamarin.Essentials.Share.RequestAsync(new ShareTextRequest
-                {
-                    Text = tafsirText,
-                    Title = ActionHelper.TAFSIR_SHARE
-                });
+
+                await Clipboard.SetTextAsync(tafsirText);
+                //await Xamarin.Essentials.Share.RequestAsync(new ShareTextRequest
+                //{
+                //    Text = tafsirText,
+                //    Title = ActionHelper.TAFSIR_SHARE
+                //});
+                return true;
             }
+            return false;
         }
 
         public static void BookmarkAyah(Ayah ayah, string surahNameLatin, out string result, out string errorMessage)
@@ -441,31 +463,50 @@ namespace MyQuranIndo.Helpers
 
             return new Tuple<string, string>(result, errorMessage);
         }
+        //public async static Task DeleteBookmarkAsync(int surahID, int ayahID, string surahNameLatin, IToastService toastService)
+        //{
+
+        //    string action = await App.Current.MainPage.DisplayActionSheet("Q.S " + surahNameLatin + " " + surahID
+        //        + ": Ayat " + ayahID, Message.MSG_CANCEL, null, BOOKMARK_DEL);
+
+        //    if (action == BOOKMARK_DEL)
+        //    {
+        //        var bookmarks = new List<Bookmark>();
+        //        if (Preferences.ContainsKey(MenuKey.BOOKMARK))
+        //        {
+        //            List<Bookmark> getBookmarks = JsonConvert.DeserializeObject<List<Bookmark>>(Preferences.Get(MenuKey.BOOKMARK, null));
+        //            bookmarks.AddRange(getBookmarks);
+        //        }
+        //        for (int i = 0; i < bookmarks.Count; i++)
+        //        {
+        //            if (bookmarks[i].SurahID == surahID && bookmarks[i].AyahID == ayahID)
+        //            {
+        //                bookmarks.RemoveAt(i);
+        //            }
+        //        }
+        //        Preferences.Set(MenuKey.BOOKMARK, JsonConvert.SerializeObject(bookmarks));
+        //        toastService.Show(Message.MSG_SUCCESS_DEL_BOOKMARK.Replace("<ayat>", $"Q.S. {surahID}. {surahNameLatin} Ayat {ayahID}"));
+        //        //await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_INFO, Message.MSG_SUCCESS_DEL_BOOKMARK, Message.MSG_OK);
+        //    }
+        //}
+
         public async static Task DeleteBookmarkAsync(int surahID, int ayahID, string surahNameLatin, IToastService toastService)
         {
-
-            string action = await App.Current.MainPage.DisplayActionSheet("Q.S " + surahNameLatin + " " + surahID
-                + ": Ayat " + ayahID, Message.MSG_CANCEL, null, BOOKMARK_DEL);
-
-            if (action == BOOKMARK_DEL)
+            var bookmarks = new List<Bookmark>();
+            if (Preferences.ContainsKey(MenuKey.BOOKMARK))
             {
-                var bookmarks = new List<Bookmark>();
-                if (Preferences.ContainsKey(MenuKey.BOOKMARK))
-                {
-                    List<Bookmark> getBookmarks = JsonConvert.DeserializeObject<List<Bookmark>>(Preferences.Get(MenuKey.BOOKMARK, null));
-                    bookmarks.AddRange(getBookmarks);
-                }
-                for (int i = 0; i < bookmarks.Count; i++)
-                {
-                    if (bookmarks[i].SurahID == surahID && bookmarks[i].AyahID == ayahID)
-                    {
-                        bookmarks.RemoveAt(i);
-                    }
-                }
-                Preferences.Set(MenuKey.BOOKMARK, JsonConvert.SerializeObject(bookmarks));
-                toastService.Show(Message.MSG_SUCCESS_DEL_BOOKMARK.Replace("<ayat>", $"Q.S. {surahID}. {surahNameLatin} Ayat {ayahID}"));
-                //await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_INFO, Message.MSG_SUCCESS_DEL_BOOKMARK, Message.MSG_OK);
+                List<Bookmark> getBookmarks = JsonConvert.DeserializeObject<List<Bookmark>>(Preferences.Get(MenuKey.BOOKMARK, null));
+                bookmarks.AddRange(getBookmarks);
             }
+            for (int i = 0; i < bookmarks.Count; i++)
+            {
+                if (bookmarks[i].SurahID == surahID && bookmarks[i].AyahID == ayahID)
+                {
+                    bookmarks.RemoveAt(i);
+                }
+            }
+            Preferences.Set(MenuKey.BOOKMARK, JsonConvert.SerializeObject(bookmarks));
+            toastService.Show(Message.MSG_SUCCESS_DEL_BOOKMARK.Replace("<ayat>", $"Q.S. {surahID}. {surahNameLatin} Ayat {ayahID}"));            
         }
 
         public async static Task PlayMurottalAsync()

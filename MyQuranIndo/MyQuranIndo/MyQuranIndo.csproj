@@ -130,6 +130,7 @@
     <None Remove="Databases\Help.json" />
     <None Remove="Databases\Intention.json" />
     <None Remove="Databases\Zikr.json" />
+    <None Remove="Resources\Fonts\KFGQPC_Uthmanic_Script_HAFS_Regular.otf" />
     <None Remove="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
     <None Remove="Resources\Fonts\Montserrat-BoldItalic.ttf" />
@@ -141,6 +142,8 @@
     <None Remove="Resources\Fonts\Montserrat-MediumItalic.ttf" />
     <None Remove="Resources\Fonts\tradbdo.ttf" />
     <None Remove="Resources\Fonts\trado.ttf" />
+    <None Remove="Resources\Fonts\UthmanTN1B_Ver07.otf" />
+    <None Remove="Resources\Fonts\UthmanTN1_Ver07.otf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -151,6 +154,7 @@
     <EmbeddedResource Include="Databases\Help.json" />
     <EmbeddedResource Include="Databases\Intention.json" />
     <EmbeddedResource Include="Databases\Zikr.json" />
+    <EmbeddedResource Include="Resources\Fonts\KFGQPC_Uthmanic_Script_HAFS_Regular.otf" />
     <EmbeddedResource Include="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-BoldItalic.ttf" />
@@ -162,6 +166,8 @@
     <EmbeddedResource Include="Resources\Fonts\Montserrat-MediumItalic.ttf" />
     <EmbeddedResource Include="Resources\Fonts\tradbdo.ttf" />
     <EmbeddedResource Include="Resources\Fonts\trado.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\UthmanTN1B_Ver07.otf" />
+    <EmbeddedResource Include="Resources\Fonts\UthmanTN1_Ver07.otf" />
   </ItemGroup>
 
   <ItemGroup>

@@ -27,6 +27,24 @@ namespace MyQuranIndo.Helpers
             return tafsirTypeName;
         }
 
+        public static string GetTafsirTypeName(int tafsirType)
+        {
+            string tafsirTypeName = "";
+
+            switch (tafsirType)
+            {
+                case (int)TafsirType.Kemenag:
+                    tafsirTypeName = "Kemenag";
+                    break;
+                case (int)TafsirType.AlJalalain:
+                    tafsirTypeName = "Al-Jalalain";
+                    break;
+                default:
+                    goto case (int)TafsirType.Kemenag;
+            }
+            return tafsirTypeName;
+        }
+
         public static int GetTafsirType()
         {
             int tafsirType = Preferences.Get(References.Setting.TAFSIR_SELECTED, (int)TafsirType.Kemenag);

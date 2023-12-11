@@ -14,6 +14,12 @@ namespace MyQuranIndo.Models.Qurans
     public enum TafsirType : int
     {
         Kemenag = 0,
-        AlJalalain =1
+        AlJalalain = 1
+    }
+
+    public enum RasmType : int
+    {
+        IndoPak = 0,
+        Utsmani = 1,
     }
 }

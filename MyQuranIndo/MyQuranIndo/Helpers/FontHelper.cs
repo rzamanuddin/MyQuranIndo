@@ -1,4 +1,5 @@
 ﻿using MyQuranIndo.Models.Fonts;
+using MyQuranIndo.Models.Qurans;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +25,30 @@ namespace MyQuranIndo.Helpers
 
                 default:
                     goto case (int)FontSize.Small;                
+            }
+        }
+
+        public static string GetFontArabicName()
+        {
+            if (RasmHelper.GetRasmType() == (int)RasmType.Utsmani)
+            {
+                return "KFGQPC";
+            }
+            else
+            {
+                return "LPMQ";
+            }
+        }
+
+        public static string GetBismillah()
+        {
+            if (RasmHelper.GetRasmType() == (int)RasmType.Utsmani)
+            {
+                return "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ";
+            }
+            else
+            {
+                return "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ";
             }
         }
     }

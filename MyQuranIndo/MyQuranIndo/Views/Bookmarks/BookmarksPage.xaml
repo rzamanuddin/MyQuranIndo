@@ -109,7 +109,7 @@
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <CollectionView.Footer>
+                    <!--<CollectionView.Footer>
                         <StackLayout Padding="10, 10, 0, 10">
                             <Label Text="Tap satu kali pada ayat diatas untuk membuka ayat."
                                    TextColor="{StaticResource Primary}"
@@ -117,14 +117,14 @@
                                    HorizontalTextAlignment="Start"
                                    CharacterSpacing="1"
                                    FontSize="Caption"/>
-                            <Label Text="Tap dua kali pada ayat diatas untuk menghapus bookmark."
+                            --><!--<Label Text="Tap dua kali pada ayat diatas untuk menghapus bookmark."
                                    TextColor="{StaticResource Primary}"
                                    FontAttributes="Italic"
                                    HorizontalTextAlignment="Start"
                                    CharacterSpacing="1"
-                                   FontSize="Caption"/>                            
+                                   FontSize="Caption"/>--><!--                            
                         </StackLayout>
-                    </CollectionView.Footer>
+                    </CollectionView.Footer>-->
                 </CollectionView>
             </RefreshView>
         </StackLayout>

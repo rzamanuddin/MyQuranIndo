@@ -27,6 +27,7 @@ namespace MyQuranIndo.Messages
         public const string MSG_NO = "Tidak";
         public static string CONFIRM = "Konfirmasi";
         public static string SHARE = "Bagikan";
+        public static string COPY = "Salin";
 
         public const string MSG_FAIL_PLAY_MP3 = "Murottal gagal diputar.";
 
@@ -44,7 +45,7 @@ namespace MyQuranIndo.Messages
 
         public const string MSG_BOOKMARK = "Bookmark";
         public const string MSG_NO_BOOKMARK = "Tidak ada bookmark.";
-        public const string MSG_SUCCESS_DEL_BOOKMARK = "<ayat> berhasil dihapus dari bookmark.";
+        public const string MSG_SUCCESS_DEL_BOOKMARK = "<ayat> berhasil dihapus dari bookmark";
 
         public const string MSG_NOT_YET_MARK_LAST_READ = "Anda belum menandai ayat.";
 
