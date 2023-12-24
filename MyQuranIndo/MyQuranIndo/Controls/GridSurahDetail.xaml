@@ -44,7 +44,7 @@
            Text="{Binding ReadTextArabic}"
            FontSize="{Binding FontSizeArabic}"
            FontFamily="{Binding FontArabicName}"
-           LineHeight="1.4"
+           LineHeight="{Binding LineHeight}"
            TextColor="{StaticResource TextColor}"
            Padding="{Binding Padding}"
            HorizontalTextAlignment="{Binding TextAlignment}"

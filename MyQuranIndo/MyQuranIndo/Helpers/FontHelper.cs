@@ -10,22 +10,33 @@ namespace MyQuranIndo.Helpers
 {
     public static class FontHelper
     {
-        public static double GetFontSizeArabic()
-        {            
+        public static double GetFontSizeArabic(bool isForQuranOnly = false)
+        {
+            double multiplier = 1.25;
+            double result = 0;
             int fontSize = Preferences.Get(References.Setting.FONT_SIZE_SELECTED, (int)FontSize.Small);
 
             switch (fontSize)
             {
                 case (int)FontSize.Small:
-                    return Device.GetNamedSize(NamedSize.Title, typeof(Label));
+                    result = Device.GetNamedSize(NamedSize.Title, typeof(Label));
+                    break;
                 case (int)FontSize.Medium:
-                    return 28;
+                    result = 28;
+                    break;
                 case (int)FontSize.Large:
-                    return 32;
-
+                    result = 34;
+                    break;
                 default:
                     goto case (int)FontSize.Small;                
             }
+
+            if (RasmHelper.GetRasmType() == (int)RasmType.Utsmani & isForQuranOnly)
+            {
+                result *= multiplier;
+            }
+            
+            return result;
         }
 
         public static string GetFontArabicName()

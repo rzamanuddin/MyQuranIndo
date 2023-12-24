@@ -22,6 +22,8 @@ using MyQuranIndo.Views.Zikr;
 using MyQuranIndo.ViewModels.Zikr;
 using MyQuranIndo.Views.AsmaulHusna;
 using MyQuranIndo.Views.Tafsir;
+using MyQuranIndo.Views.Hadiths;
+using MyQuranIndo.ViewModels.Juz;
 
 namespace MyQuranIndo.ViewModels
 {   public class AppShellViewModel : BaseViewModel
@@ -44,6 +46,8 @@ namespace MyQuranIndo.ViewModels
         public ICommand AsmaulHusnaCommand { get; }
         public ICommand IntentionCommand { get; }
         public ICommand PrayCommand { get; }
+        public ICommand HadithCommand { get; }
+        public ICommand JuzAmmaCommand { get; }
 
         public AppShellViewModel()
         {
@@ -65,6 +69,8 @@ namespace MyQuranIndo.ViewModels
             AsmaulHusnaCommand = new Command(async () => await NavigateToAsmaulHusnaPage());
             PrayCommand = new Command(async () => await NavigateToPrayPage());
             IntentionCommand = new Command(async () => await NavigateToIntentionPage());
+            HadithCommand = new Command(async () => await NavigateToHadithPage());
+            JuzAmmaCommand = new Command(async () => await NavigateToJuzAmmaPage());
         }
 
         private async Task NavigateToReadJuzPage()
@@ -114,6 +120,24 @@ namespace MyQuranIndo.ViewModels
         private async Task NavigateToIntentionPage()
         {
             await Shell.Current.GoToAsync($"{nameof(IntentionsPage)}");
+            Shell.Current.FlyoutIsPresented = false;
+        }
+
+        private async Task NavigateToHadithPage()
+        {
+            await Shell.Current.GoToAsync($"{nameof(HadithsPage)}");
+            Shell.Current.FlyoutIsPresented = false;
+        }
+
+        private async Task NavigateToJuzAmmaPage()
+        {
+            int surahID = 78;
+            int ayahID = 1;
+
+            var surah = await SurahDataService.GetSurahAsync(surahID);
+            var juzID = await JuzDataService.GetJuzIDAsync(surahID, ayahID);
+
+            await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}?{nameof(TabbedPageJuzDetailViewModel.JuzID)}={juzID}&{nameof(TabbedPageJuzDetailViewModel.SurahID)}={surahID}&{nameof(TabbedPageJuzDetailViewModel.AyahID)}={ayahID}");
             Shell.Current.FlyoutIsPresented = false;
         }
 

@@ -49,6 +49,7 @@
                             <RowDefinition Height="100" />
                             <RowDefinition Height="100" />
                             <RowDefinition Height="100" />
+                            <RowDefinition Height="100" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"  />
@@ -136,6 +137,22 @@
                         </StackLayout>
                         <StackLayout Grid.Row="2" 
                                      Grid.Column="1" 
+                                     HorizontalOptions="FillAndExpand"  
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_juz_2.png" 
+								    Text="Baca Juz 'Amma"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"       
+									CharacterSpacing="2"
+                                    Command="{Binding JuzAmmaTapped}"
+									 />
+                        </StackLayout>
+                        <StackLayout Grid.Row="3" 
+                                     Grid.Column="0" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
@@ -151,7 +168,7 @@
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="3" 
-                                     Grid.Column="0" 
+                                     Grid.Column="1" 
                                      HorizontalOptions="FillAndExpand"
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
@@ -166,8 +183,8 @@
                                     Command="{Binding BookmarkTapped}"                    
 									 />
                         </StackLayout>
-                        <StackLayout Grid.Row="3" 
-                                     Grid.Column="1" 
+                        <StackLayout Grid.Row="4" 
+                                     Grid.Column="0" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
@@ -183,7 +200,7 @@
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="4" 
-                                     Grid.Column="0" 
+                                     Grid.Column="1" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
@@ -197,7 +214,22 @@
 								    CharacterSpacing="2"
                                     Command="{Binding PrayTapped}"/>
                         </StackLayout>
-                        <StackLayout Grid.Row="4" 
+                        <StackLayout Grid.Row="5" 
+                                     Grid.Column="0" 
+                                     HorizontalOptions="FillAndExpand" 
+                                     VerticalOptions="FillAndExpand"
+								     Padding="5">
+                            <Button ImageSource="icon_hadith.png" 
+								    Text="Kumpulan Hadis"
+								    BackgroundColor="{DynamicResource Primary}"
+								    TextColor="White"
+								    ContentLayout="Top"
+								    HorizontalOptions="FillAndExpand"
+								    VerticalOptions="FillAndExpand"
+								    CharacterSpacing="2"
+                                    Command="{Binding HadithTapped}"/>
+                        </StackLayout>
+                        <StackLayout Grid.Row="5" 
                                      Grid.Column="1" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
@@ -212,7 +244,7 @@
 								    CharacterSpacing="2"
                                     Command="{Binding ZikrMorningTapped}"/>
                         </StackLayout>
-                        <StackLayout Grid.Row="5" 
+                        <StackLayout Grid.Row="6" 
                                      Grid.Column="0" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
@@ -227,7 +259,7 @@
 								    CharacterSpacing="2"
                                     Command="{Binding ZikrEveningTapped}"/>
                         </StackLayout>
-                        <StackLayout Grid.Row="5" 
+                        <StackLayout Grid.Row="6" 
                                      Grid.Column="1" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
@@ -242,7 +274,7 @@
 								    CharacterSpacing="2"
                                     Command="{Binding AsmaulHusnaTapped}"/>
                         </StackLayout>
-                        <StackLayout Grid.Row="6" 
+                        <StackLayout Grid.Row="7" 
                                      Grid.Column="0" 
                                      HorizontalOptions="FillAndExpand"
                                      VerticalOptions="FillAndExpand"
@@ -258,7 +290,7 @@
                                     Command="{Binding IntentionTapped}"
 									 />
                         </StackLayout>
-                        <StackLayout Grid.Row="6" 
+                        <StackLayout Grid.Row="7" 
                                      Grid.Column="1" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
@@ -273,7 +305,7 @@
 								    CharacterSpacing="2"
                                     Command="{Binding PrayerScheduleTapped}"/>
                         </StackLayout>
-                        <StackLayout Grid.Row="7" 
+                        <StackLayout Grid.Row="8" 
                                      Grid.Column="0" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
@@ -288,7 +320,7 @@
 								    CharacterSpacing="2"
                                     Command="{Binding QiblaTapped}"/>
                         </StackLayout>
-                        <StackLayout Grid.Row="7" 
+                        <StackLayout Grid.Row="8" 
                                      Grid.Column="1" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
@@ -304,7 +336,7 @@
                                     Command="{Binding HelpTapped}"                       
 									 />
                         </StackLayout>
-                        <StackLayout Grid.Row="8" 
+                        <StackLayout Grid.Row="9" 
                                      Grid.Column="0" 
                                      HorizontalOptions="FillAndExpand" 
                                      VerticalOptions="FillAndExpand"
@@ -320,7 +352,7 @@
                                     Command="{Binding SettingTapped}"
 									 />
                         </StackLayout>
-                        <StackLayout Grid.Row="8" 
+                        <StackLayout Grid.Row="9" 
                                      Grid.Column="1"
                                      HorizontalOptions="FillAndExpand"
                                      VerticalOptions="FillAndExpand"

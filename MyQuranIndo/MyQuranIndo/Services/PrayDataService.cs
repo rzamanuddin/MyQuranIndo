@@ -32,12 +32,12 @@ namespace MyQuranIndo.Services
 
         public async Task<IEnumerable<PrayData>> GetPraysAsync(bool forceRefresh = false)
         {
-            var current = Connectivity.NetworkAccess;
-
             List<PrayData> prays = null;
 
             try
             {
+                var current = Connectivity.NetworkAccess;
+
                 // If internet connection is not available
                 if (current != NetworkAccess.Internet)
                 {

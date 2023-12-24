@@ -6,6 +6,8 @@
 	"urlMP3": "https://everyayah.com/data/Abdurrahmaan_As-Sudais_64kbps/",
 	"urlMP3AlAfasy": "https://everyayah.com/data/Alafasy_64kbps/",
 	"urlMP3AlMatroud": "https://everyayah.com/data/Abdullah_Matroud_128kbps/",
-	"urlDoa": "https://api.npoint.io/961601eabeb803e83723" 
+	"urlDoa": "https://api.npoint.io/961601eabeb803e83723",
 	/*https://www.npoint.io/docs/961601eabeb803e83723*/
+	"urlHadith": "https://hadis-api-id.vercel.app/hadith",
+	"urlHelp": "https://api.npoint.io/317372a608b860c7dcb6"
 }

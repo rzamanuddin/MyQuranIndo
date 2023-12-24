@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Hadiths.HadithsPage"
+                          xmlns:behavior="clr-namespace:MyQuranIndo.Behaviors"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Hadiths"
+             xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Hadiths"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="vm:HadithsViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari No / Nama Perawi"
+                       Command="{Binding SearchCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}"                       
+                       >
+        </SearchHandler>
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="0">
+            <RefreshView x:DataType="vm:HadithsViewModel" 
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"                         
+                         RefreshColor="{DynamicResource Primary}">
+                <CollectionView x:Name="collHadiths"
+                    ItemsSource="{Binding Narrators}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="0" 
+                                            x:DataType="model:Narrator">
+                                <Grid Margin="0, 0, 0, 0"
+                                      BackgroundColor="{Binding RowColor}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Name}" 
+                                           Style="{StaticResource JuzLabelName}"
+                                           Padding="10,0,10,-10"/>
+                                    <Label Grid.Row="1" 
+                                           Text="{Binding Description, StringFormat='({0})'}" 
+                                           Style="{StaticResource NarratorLabelDescription}"
+                                           LineBreakMode="WordWrap"
+                                           Padding="10,0,10,10" 
+                                           />
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HadithsViewModel}}, Path=ItemTapped}"		
+                                    CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

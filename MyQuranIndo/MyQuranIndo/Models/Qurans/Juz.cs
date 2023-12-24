@@ -151,7 +151,7 @@ namespace MyQuranIndo.Models.Qurans
         {
             get
             {
-                return FontHelper.GetFontSizeArabic();
+                return FontHelper.GetFontSizeArabic(true);
             }
         }
 

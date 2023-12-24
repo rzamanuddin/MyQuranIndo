@@ -21,6 +21,7 @@ using MyQuranIndo.Views.Zikr;
 using MyQuranIndo.ViewModels.Zikr;
 using MyQuranIndo.Views.AsmaulHusna;
 using MyQuranIndo.Views.Tafsir;
+using MyQuranIndo.Views.Hadiths;
 
 namespace MyQuranIndo.ViewModels.Home
 {
@@ -44,9 +45,11 @@ namespace MyQuranIndo.ViewModels.Home
         public ICommand AsmaulHusnaTapped { get; }
         public ICommand PrayTapped { get; }
         public ICommand IntentionTapped { get; }
+        public ICommand JuzAmmaTapped { get; }
+        public ICommand HadithTapped { get; }
         public HomeViewModel()
         {
-            Title = "Home";
+            Title = "MyQuran Indonesia";
             //AsmaulHusnaOneTapped = new Command<Models.AsmaulHusna.AsmaulHusna>(OnAsmaulHusnaOneTapped, (x) => CanNavigate);
             SurahTapped = new Command(async (x) => await OnSurahSelected(), (x) => CanNavigate);
             SurahTabTapped = new Command(async (x) => await OnSurahTabSelected(), (x) => CanNavigate);
@@ -66,6 +69,8 @@ namespace MyQuranIndo.ViewModels.Home
             AsmaulHusnaTapped = new Command(async (x) => await OnAsmaulHusnaSelected(), (x) => CanNavigate);
             PrayTapped = new Command(async (x) => await OnPraySelected(), (x) => CanNavigate);
             IntentionTapped = new Command(async (x) => await OnIntentionSelected(), (x) => CanNavigate);
+            JuzAmmaTapped = new Command(async (x) => await OnJuzAmmaSelected(), (x) => CanNavigate);
+            HadithTapped = new Command(async (x) => await OnHadithSelected(), (x) => CanNavigate);
         }
 
         private async Task OnJuzTabSelected()
@@ -141,6 +146,12 @@ namespace MyQuranIndo.ViewModels.Home
         {
             CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(PraysPage)}");
+            CanNavigate = true;
+        }
+        private async Task OnHadithSelected()
+        {
+            CanNavigate = false;
+            await Shell.Current.GoToAsync($"{nameof(HadithsPage)}");
             CanNavigate = true;
         }
         private async Task OnIntentionSelected()
@@ -245,6 +256,26 @@ namespace MyQuranIndo.ViewModels.Home
                 var surah = await SurahDataService.GetSurahAsync(surahID);
                 var juzID = await JuzDataService.GetJuzIDAsync(surahID, ayahID);
                 _ = await ActionHelper.OpenAyahPageFromBookmarkAsync(surahID, ayahID, juzID, surah.NameLatin);
+            }
+            CanNavigate = true;
+        }
+
+        private async Task OnJuzAmmaSelected()
+        {
+            CanNavigate = false;
+            int surahID = 78;
+            int ayahID = 1;
+
+            if (surahID == 0 && ayahID == 0)
+            {
+                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_INFO, Message.MSG_NOT_YET_MARK_LAST_READ, Message.MSG_OK);
+            }
+            else
+            {
+                var surah = await SurahDataService.GetSurahAsync(surahID);
+                var juzID = await JuzDataService.GetJuzIDAsync(surahID, ayahID); 
+                await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}?{nameof(TabbedPageJuzDetailViewModel.JuzID)}={juzID}&{nameof(TabbedPageJuzDetailViewModel.SurahID)}={surahID}&{nameof(TabbedPageJuzDetailViewModel.AyahID)}={ayahID}");
+
             }
             CanNavigate = true;
         }

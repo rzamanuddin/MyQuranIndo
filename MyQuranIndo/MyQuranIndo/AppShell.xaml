@@ -88,7 +88,7 @@
             </Style>
         </ResourceDictionary>
     </Shell.Resources>
-    <FlyoutItem Title="Home" Icon="icon_home.png">
+    <FlyoutItem Title="MyQuran Indonesia" Icon="quran_logo.png">
         <ShellContent Route="HomePage" Title="HomePage" ContentTemplate="{DataTemplate localHome:HomePage}"/>
     </FlyoutItem>
     <!--<FlyoutItem Title="Baca Al-Qur'an" Icon="icon_quran.png">
@@ -135,6 +135,9 @@
     <MenuItem Text="Baca Tafsir"
               IconImageSource="icon_tafsir.png"
               Command="{Binding ReadTafsirCommand}"/>
+    <MenuItem Text="Baca Juz 'Amma"
+              IconImageSource="icon_juz_2.png"
+              Command="{Binding JuzAmmaCommand}"/>
     <MenuItem Text="Terakhir Dibaca" 
               IconImageSource="icon_last_read.png"
               Command="{Binding LastReadCommand}"/>
@@ -147,6 +150,9 @@
     <MenuItem Text="Kumpulan Do'a" 
               IconImageSource="icon_pray.png"
               Command="{Binding PrayCommand}"/>
+    <MenuItem Text="Kumpulan Hadis"
+              IconImageSource="icon_hadith.png"
+              Command="{Binding HadithCommand}" />
     <MenuItem Text="Dzikir Pagi" 
               IconImageSource="icon_sunrise.png"
               Command="{Binding ZikrMorningCommand}"/>

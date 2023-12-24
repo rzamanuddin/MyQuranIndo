@@ -1,6 +1,7 @@
 ﻿using MyQuranIndo.Configuration;
 using MyQuranIndo.Messages;
 using MyQuranIndo.Models.Bookmarks;
+using MyQuranIndo.Models.Hadiths;
 using MyQuranIndo.Models.Qurans;
 using MyQuranIndo.Models.Zikrs;
 using MyQuranIndo.References;
@@ -51,6 +52,9 @@ namespace MyQuranIndo.Helpers
         public const string PRAY_COPY = "Salin Do'a";
         public const string PRAY_SHARE_ALL = "Bagikan Kumpulan Do'a";
         public const string PRAY_COPY_ALL = "Salin Kumpulan Do'a";
+
+        public const string HADITH_SHARE = "Bagikan Hadis";
+        public const string HADITH_COPY = "Salin Hadis";
 
         public async static Task<string> DisplayActionSurahORJuzAsync()
         {
@@ -138,6 +142,15 @@ namespace MyQuranIndo.Helpers
             return action;
         }
 
+        public static async Task<string> DisplayActionHadithAsync(string narratorName, int number)
+        {
+            string title = $"H.R. {narratorName} No. {number}";
+            string action = await App.Current.MainPage.DisplayActionSheet(title,
+                Message.MSG_CANCEL, null, HADITH_SHARE, HADITH_COPY);
+
+            return action;
+        }
+
         public static async Task<string> DisplayActionTafsirAsync(int surahID, int ayahID, string surahNameLatin)
         {
             string title = $"Q.S. {surahID}. {surahNameLatin} Ayat {ayahID}";
@@ -190,6 +203,21 @@ namespace MyQuranIndo.Helpers
             ayahCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
 
             return ayahCopied;
+        }
+
+        public static string GetHadithToShare(Hadith hadith, string narratorName)
+        {
+
+            string hadithCopied = $"H.R. {narratorName} No. {hadith.Number}";
+            string line = Environment.NewLine + Environment.NewLine;
+
+            hadithCopied += $"{line + hadith.Arabic}";
+            hadithCopied += $"{line + hadith.Id}";
+            
+            hadithCopied += $"{line}*Via {AppSetting.GetApplicationName()}";
+            hadithCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return hadithCopied;
         }
 
         public static string GetTafsirToShare(Tafsir tafsir, string surahNameLatin)
@@ -333,7 +361,14 @@ namespace MyQuranIndo.Helpers
                 Title = ActionHelper.AYAH_SHARE
             });
         }
-
+        public static async Task ShareHadithAsync(string hadithCopied)
+        {
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Text = hadithCopied,
+                Title = ActionHelper.HADITH_SHARE
+            });
+        }
         public static async Task ShareZikrAsync(string copiedText)
         {
             await Share.RequestAsync(new ShareTextRequest

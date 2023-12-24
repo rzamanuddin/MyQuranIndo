@@ -4,6 +4,7 @@ using MyQuranIndo.Views.About;
 using MyQuranIndo.Views.AsmaulHusna;
 using MyQuranIndo.Views.Bookmarks;
 using MyQuranIndo.Views.Finds;
+using MyQuranIndo.Views.Hadiths;
 using MyQuranIndo.Views.Help;
 using MyQuranIndo.Views.Home;
 using MyQuranIndo.Views.Juz;
@@ -48,6 +49,8 @@ namespace MyQuranIndo
             Routing.RegisterRoute(nameof(IntentionsPage), typeof(IntentionsPage));
             Routing.RegisterRoute(nameof(TafsirsPage), typeof(TafsirsPage));
             Routing.RegisterRoute(nameof(TafsirDetailPage), typeof(TafsirDetailPage));
+            Routing.RegisterRoute(nameof(HadithsPage), typeof(HadithsPage));
+            Routing.RegisterRoute(nameof(HadithDetailPage), typeof(HadithDetailPage));
             //Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
         }
 

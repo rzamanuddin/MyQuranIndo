@@ -182,7 +182,7 @@
                                 </ViewCell.View>
                             </ViewCell>
                         </TableSection>
-                        <TableSection Title="Rasm"
+                        <TableSection Title="Rasm (Penulisan)"
                                       TextColor="{StaticResource TextColor}">
                             <ViewCell>
                                 <ViewCell.View>
@@ -299,6 +299,10 @@
                         </TableSection>
                         <TableSection Title="Lainnya"
                                       TextColor="{StaticResource TextColor}">
+                            <ImageCell Text="Bersihkan Penyimpanan" 
+                                       ImageSource="icon_clean.png" 
+                                       Command="{Binding ClearCacheTapped}"
+                                       TextColor="{StaticResource TextColor}"/>
                             <ImageCell Text="Info Aplikasi" 
                                        ImageSource="icon_about.png" 
                                        Command="{Binding AboutTapped}"

@@ -13,6 +13,7 @@ using MyQuranIndo.Views.Setting;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,6 +91,7 @@ namespace MyQuranIndo.ViewModels.Setting
         // public ObservableCollection<Theme> Themes { get; private set; }
 
         public Command AboutTapped { get; }
+        public ICommand ClearCacheTapped { get; }
         public ICommand OpenAppStoreTapped { get; }
         public ICommand ColorThemeCommand
         {
@@ -382,7 +384,7 @@ namespace MyQuranIndo.ViewModels.Setting
                     Preferences.Set(References.Setting.FONT_SIZE_SELECTED, value.Key);
                     SetProperty(ref fontSizeSelected, value);
                 }
-                FontSizeArabic = FontHelper.GetFontSizeArabic();
+                FontSizeArabic = FontHelper.GetFontSizeArabic(true);
             }
         }
 
@@ -397,7 +399,7 @@ namespace MyQuranIndo.ViewModels.Setting
         public string FontArabicName
         {
             get
-            {
+            {               
                 return FontHelper.GetFontArabicName();
             }
 
@@ -484,6 +486,7 @@ namespace MyQuranIndo.ViewModels.Setting
             ReciterCommand = new Command<int>((reciter) => OnReciterSelected(reciter));
             TafsirCommand = new Command<int>((tafsir) => OnTafsirSelected(tafsir));
             RasmCommand = new Command<int>((rasm) => OnRasmSelected(rasm));
+            ClearCacheTapped = new Command(async () => await OnClearCacheSelected());
 
             FontSizes = new ObservableCollection<KeyValuePair<int, string>>();
             Reciters = new ObservableCollection<KeyValuePair<int, string>>();
@@ -571,9 +574,31 @@ namespace MyQuranIndo.ViewModels.Setting
             }
         }
 
+        private async Task OnClearCacheSelected()
+        {
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string[] filePaths = Directory.GetFiles(folder, "*.mp3");
+
+            if (filePaths.Length > 0)
+            {
+                for (int i = 0; i < filePaths.Length; i++)
+                {
+                    string filePath = filePaths[i];
+                    File.Delete(filePath);
+                }
+                ToastService.Show($"Hapus {filePaths.Length} berkas berhasil", false);
+            }
+            else
+            {
+                ToastService.Show($"Berkas sampah tidak ditemukan", false);
+            }
+        }
+
         private void OnRasmSelected(int rasm)
         {
             int rasmSelected = Preferences.Get(References.Setting.RASM_SELECTED, 0);
+            int fontSizeSelected = Preferences.Get(References.Setting.FONT_SIZE_SELECTED, 0);
+
             switch (rasm)
             {
                 case (int)Models.Qurans.RasmType.IndoPak:
@@ -583,8 +608,6 @@ namespace MyQuranIndo.ViewModels.Setting
                         RasmSelected = Rasms.FirstOrDefault(q => q.Key == rasm);
                         RasmIndoPakColor = Color.LightGray;
                         RasmUtsmaniColor = Color.White;
-                        FontArabicName = FontHelper.GetFontArabicName();
-                        BismillahSample = FontHelper.GetBismillah();
                     }
                     ToastService.Show($"Rasm IndoPak berhasil dipilih", false);
                     break;
@@ -595,14 +618,16 @@ namespace MyQuranIndo.ViewModels.Setting
                         RasmSelected = Rasms.FirstOrDefault(q => q.Key == rasm);
                         RasmIndoPakColor = Color.White;
                         RasmUtsmaniColor = Color.LightGray;
-                        FontArabicName = FontHelper.GetFontArabicName();
-                        BismillahSample = FontHelper.GetBismillah();
                     }
                     ToastService.Show($"Rasm Utsmani berhasil dipilih", false);
                     break;
                 default:
                     goto case (int)Models.Qurans.RasmType.Utsmani;
             }
+
+            FontArabicName = FontHelper.GetFontArabicName();
+            BismillahSample = FontHelper.GetBismillah();
+            FontSizeSelected = FontSizes.FirstOrDefault(q => q.Key == fontSizeSelected);
         }
 
         private void OnFontSizeSelected(int fontSize)

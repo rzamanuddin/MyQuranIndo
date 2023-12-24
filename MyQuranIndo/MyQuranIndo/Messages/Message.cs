@@ -38,6 +38,7 @@ namespace MyQuranIndo.Messages
         public const string MSG_NOT_FOUND_AYAH = "Cari No / Terjemahan Ayat tidak ditemukan.";
         public const string MSG_FAIL_FIND_AYAH = "Cari No / Terjemahan Ayat gagal.";
         public const string MSG_FAIL_FIND_SURAH = "Cari No / Nama Surat gagal.";
+        public const string MSG_FAIL_FIND_HADITH = "Cari No / Hadis gagal.";
 
         public const string MSG_FAIL_GET_TAFSIR = "Tafsir kemenag gagal ditampilkan.";
 
@@ -51,6 +52,7 @@ namespace MyQuranIndo.Messages
 
         public const string MSG_FAIL_LOAD_SURAH = "Surat gagal ditampilkan.";
         public const string MSG_FAIL_LOAD_JUZ = "Juz gagal ditampilkan.";
+        public const string MSG_FAIL_LOAD_HADITH = "Hadis gagal ditampilkan.";
 
         public const string MSG_FAIL_GET_SURAH = "Surat gagal ditampilkan.";
         public const string MSG_FAIL_GET_BOOKMARK = "Bookmark gagal ditampilkan.";
@@ -61,6 +63,7 @@ namespace MyQuranIndo.Messages
         public const string MSG_FAIL_GET_ZIKR = "Dzikir gagal ditampilkan.";
         public const string MSG_FAIL_GET_PRAY = "Do'a gagal ditampilkan.";
         public const string MSG_FAIL_GET_ASMAUL_HUSNA = "Asmaul Husna gagal ditampilkan.";
+        public const string MSG_FAIL_GET_HADITH = "Hadis gagal ditampilkan.";
 
         public const string MSG_DEVICE_NOT_SUPPORTED = "Perangkat tidak didukung.";
         public const string MSG_DEVICE_PERMISSION_DENIED = "Akses ke perangkat gps belum diberikan izin.";

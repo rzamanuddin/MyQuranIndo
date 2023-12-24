@@ -229,38 +229,41 @@
                                                FontSize="Subtitle"
                                                FontAttributes="Bold"
                                                TextColor="{StaticResource TextColor}"
-                                           Padding="5,10,5,5"/>
+                                               Padding="5,10,5,5"/>
                                         <Label Grid.Column="0"
                                                Grid.Row="1"
-                                           Text="{Binding Arabic}" 
-                                           FontSize="{Binding FontSizeArabic}"
-                                           FontFamily="LPMQ"
-                                           LineHeight="1.4"
-                                           TextColor="{StaticResource TextColor}"
-                                           Padding="5,5,5,5"
-                                           HorizontalTextAlignment="{Binding TextAlignment}"/>
+                                               Text="{Binding Arabic}" 
+                                               FontSize="{Binding FontSizeArabic}"
+                                               FontFamily="LPMQ"
+                                               LineHeight="1.4"
+                                               TextColor="{StaticResource TextColor}"
+                                               Padding="5,5,5,5"
+                                               HorizontalTextAlignment="{Binding TextAlignment}"/>
                                         <Label Grid.Column="0"
-                                           Grid.Row="2"
-                                           Text="{Binding ArabicLatin}" 
-                                           LineBreakMode="WordWrap"
-                                           FontSize="Caption"
-                                           TextColor="{StaticResource TextColor}" 
-                                           Padding="5,10,5,5"/>
+                                               Grid.Row="2"
+                                               Text="{Binding ArabicLatin}" 
+                                               LineBreakMode="WordWrap"
+                                               FontFamily="Montserrat-Medium-Italic"
+                                               FontSize="Caption"
+                                               TextColor="{StaticResource TextColor}" 
+                                               Padding="5,10,5,5"/>
                                         <Label Grid.Column="0"
-                                           Grid.Row="3"
-                                           Text="{Binding TranslateID}" 
-                                           LineBreakMode="WordWrap"
-                                           FontSize="Small"
-                                           TextColor="{StaticResource TextColor}"
-                                           Padding="5,5,5,0"/>
+                                               Grid.Row="3"
+                                               Text="{Binding TranslateID}" 
+                                               LineBreakMode="WordWrap"
+                                               FontSize="Caption"
+                                               FontFamily="Montserrat-Light-Italic"
+                                               TextColor="{StaticResource TextColor}"
+                                               Padding="5,5,5,0"/>
                                         <Label Grid.Column="0"
-                                           Grid.Row="4"
-                                           Text="{Binding Narrator, StringFormat='{0}'}" 
-                                           LineBreakMode="WordWrap"
-                                           FontSize="Small"
-                                           TextColor="{StaticResource TextColor}"
-                                           Padding="5,0,5,10"
-                                           FontAttributes="Bold"/>
+                                               Grid.Row="4"
+                                               Text="{Binding Narrator, StringFormat='{0}'}" 
+                                               LineBreakMode="WordWrap"
+                                               FontSize="Caption"
+                                               FontFamily="Montserrat-Medium-Italic"
+                                               TextColor="{StaticResource TextColor}"
+                                               Padding="5,0,5,10"
+                                               />
                                     </Grid>
                                     <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer 

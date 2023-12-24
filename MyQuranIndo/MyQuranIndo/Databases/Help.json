@@ -251,22 +251,33 @@
 				"ID": "5",
 				"Subtitle": "Salin Tafsir",
 				"Content": "Ketuk satu kali pada tafsir yang ingin disalin, lalu pilih Salin Tafsir."
-			}			
+			}
 		]
 	},
 	{
 		"ID": "6",
-		"Title": "Terakhir Dibaca",
+		"Title": "Baca Juz 'Amma",
 		"Contents": [
 			{
 				"ID": "1",
 				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk pergi ke ayat yang terakhir sudah kita tandai."
+				"Content": "Menu ini berfungsi untuk membuka halaman Juz 'Amma."
 			}
 		]
 	},
 	{
 		"ID": "7",
+		"Title": "Terakhir Dibaca",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk membuka ayat yang terakhir sudah kita tandai."
+			}
+		]
+	},
+	{
+		"ID": "8",
 		"Title": "Bookmark",
 		"Contents": [
 			{
@@ -287,7 +298,7 @@
 		]
 	},
 	{
-		"ID": "8",
+		"ID": "9",
 		"Title": "Pencarian",
 		"Contents": [
 			{
@@ -303,7 +314,18 @@
 		]
 	},
 	{
-		"ID": "9",
+		"ID": "10",
+		"Title": "Kumpulan Hadis",
+		"Contents": [
+			{
+				"ID": "1",
+				"Subtitle": "",
+				"Content": "Menu ini berfungsi untuk menamplikan Kumpulan Hadis."
+			}
+		]
+	},
+	{
+		"ID": "11",
 		"Title": "Kumpulan Do'a",
 		"Contents": [
 			{
@@ -314,7 +336,7 @@
 		]
 	},
 	{
-		"ID": "10",
+		"ID": "12",
 		"Title": "Dzikir Pagi",
 		"Contents": [
 			{
@@ -325,7 +347,7 @@
 		]
 	},
 	{
-		"ID": "11",
+		"ID": "13",
 		"Title": "Dzikir Petang",
 		"Contents": [
 			{
@@ -336,7 +358,7 @@
 		]
 	},
 	{
-		"ID": "12",
+		"ID": "14",
 		"Title": "Asmaul Husna",
 		"Contents": [
 			{
@@ -347,7 +369,7 @@
 		]
 	},
 	{
-		"ID": "13",
+		"ID": "15",
 		"Title": "Niat Sholat",
 		"Contents": [
 			{
@@ -358,7 +380,7 @@
 		]
 	},
 	{
-		"ID": "14",
+		"ID": "16",
 		"Title": "Jadwal Sholat",
 		"Contents": [
 			{
@@ -369,7 +391,7 @@
 		]
 	},
 	{
-		"ID": "15",
+		"ID": "17",
 		"Title": "Arah Kiblat",
 		"Contents": [
 			{
@@ -380,7 +402,7 @@
 		]
 	},
 	{
-		"ID": "16",
+		"ID": "18",
 		"Title": "Petunjuk",
 		"Contents": [
 			{
@@ -391,7 +413,7 @@
 		]
 	},
 	{
-		"ID": "17",
+		"ID": "19",
 		"Title": "Pengaturan",
 		"Contents": [
 			{
@@ -447,7 +469,7 @@
 		]
 	},
 	{
-		"ID": "18",
+		"ID": "20",
 		"Title": "Info Aplikasi",
 		"Contents": [
 			{

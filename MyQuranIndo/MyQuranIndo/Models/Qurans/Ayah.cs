@@ -43,6 +43,21 @@ namespace MyQuranIndo.Models.Qurans
             }
         }
 
+        public double LineHeight
+        {
+            get
+            {
+                if (RasmHelper.GetRasmType() == (int)RasmType.Utsmani)
+                {
+                    return 1.1;
+                }
+                else
+                {
+                    return 1.4;
+                }
+            }
+        }
+
         public int AyahID 
         { 
             get { return ID; }
@@ -197,7 +212,7 @@ namespace MyQuranIndo.Models.Qurans
         {
             get
             {
-                return FontHelper.GetFontSizeArabic();
+                return FontHelper.GetFontSizeArabic(true);
             }
         }
 

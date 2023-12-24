@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:scroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="MyQuranIndo.Views.Hadiths.HadithDetailPage"
+             xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Hadiths"  
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Hadiths" 
+             xmlns:localBehavior="clr-namespace:MyQuranIndo.Behaviors"             
+             xmlns:control="clr-namespace:MyQuranIndo.Controls"
+             Title="{Binding Title, Mode=TwoWay}">
+    <!--<Shell.BackButtonBehavior>
+        <BackButtonBehavior
+        Command="{Binding GoBackCommand}"
+        IsEnabled="True"         
+            />
+    </Shell.BackButtonBehavior>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="evenTemplate">
+            <ViewCell>
+                <StackLayout Padding="0" 
+                             x:DataType="model:Hadith"
+                             Spacing="0">
+                    <control:GridHadithDetail />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:HadithDetailViewModel}}, Path=HadithOneTapped}"		
+                                            CommandParameter="{Binding .}">
+                        </TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_setting_bw.png"
+                     x:DataType="local:HadithDetailViewModel"
+                     Command="{Binding SettingTapped}"
+        />
+    </ContentPage.ToolbarItems>
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="local:HadithDetailViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari Kata Kunci"
+                       Command="{Binding SearchCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}"                       
+                       >
+        </SearchHandler>
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout Spacing="3" 
+                     Padding="10">
+            <SearchBar x:Name="searchBar2"
+                       x:DataType="local:HadithDetailViewModel"
+                       Placeholder="Cari Kata Kunci"
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource TextColor}"
+                       Margin="0, 0, 0, 2"
+                       IsVisible="{Binding VisibleSearchBar}"
+                       >
+                <SearchBar.Behaviors>
+                    <localBehavior:TextChangedBehavior />
+                </SearchBar.Behaviors>
+            </SearchBar>
+            <BoxView BackgroundColor="Black"
+                     HeightRequest="3"
+                     Margin="0, -6, 0, 1" 
+                     IsVisible="{Binding VisibleSearchBar}"
+                     />
+            <RefreshView Command="{Binding LoadCommand}" 
+                         x:DataType="local:HadithDetailViewModel"
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         RefreshColor="{DynamicResource Primary}">
+                <ListView x:Name="collHadith"
+                          ItemsSource="{Binding Hadiths}" 
+                          IsGroupingEnabled="False"
+                          SelectionMode="Single"
+                          HasUnevenRows="True"
+                          CachingStrategy="RecycleElement"
+                          ItemTemplate="{StaticResource evenTemplate}"
+                          SeparatorVisibility="None"
+                          SeparatorColor="{StaticResource TextColor}">
+                    <ListView.Behaviors>
+                        <scroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+                    </ListView.Behaviors>
+                    <ListView.Header>
+                        <StackLayout>
+                            <Label Text="{Binding SubTitle}"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center"
+                                FontFamily="Montserrat-Medium"
+                                BackgroundColor="{DynamicResource Accent}"
+                                TextColor="Black"
+                                Padding="5"
+                                />
+                        </StackLayout>
+                    </ListView.Header>
+                </ListView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>-->
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="local:HadithDetailViewModel"  
+                   x:Name="searchBar"
+                   Placeholder="Cari Kata Kunci"
+                   Command="{Binding LoadCommand}" 
+                   CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
+                   Query="{Binding SearchQuery, Mode=TwoWay}"
+                   SearchBoxVisibility="Collapsible"
+                   TextColor="{StaticResource TextColor}" />
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView x:DataType="local:HadithDetailViewModel" 
+                     Command="{Binding LoadCommand}" 
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     RefreshColor="{DynamicResource Primary}"
+                     >
+                <ListView x:Name ="lstViewHadith"  
+                        ItemsSource="{Binding Hadiths, Mode=TwoWay}"
+                        IsGroupingEnabled="true" 
+                        HasUnevenRows="True" 
+                        SelectionMode="Single"
+                        CachingStrategy="RecycleElement"
+                        SeparatorColor="Black"
+                        SeparatorVisibility="None"
+                        x:DataType="local:HadithDetailViewModel"
+                        >
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout x:DataType="model:HadithGroup">
+                                    <Grid BackgroundColor="{DynamicResource Accent}"
+                                        Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="100*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding FoundResult}"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold"
+                                            VerticalTextAlignment="Center"
+                                            HorizontalOptions="StartAndExpand"
+                                            TextColor="{StaticResource TextColor}"
+                                            CharacterSpacing="1"/>
+                                        <Image Grid.Column="1" 
+                                            Source="{Binding ImageHeader, Mode=TwoWay}"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="EndAndExpand"
+                                            >
+                                        </Image>
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:HadithDetailViewModel }}, Path=HeaderTapped}"		
+                                            CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0" 
+                                            x:DataType="model:Hadith">
+                                    <Grid BackgroundColor="{Binding RowColor}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Label  Text="{Binding Number}"
+                                                FontSize="Small"
+                                                FontAttributes="Italic"
+                                                HorizontalTextAlignment="Start"                                           
+                                                FontFamily="Montserrat-ExtraLight"
+                                                VerticalTextAlignment="Start"
+                                                TextColor="{StaticResource TextColor}"
+                                                Padding="10, 10, 5, 0"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Arabic}" 
+                                               FontSize="{Binding FontSizeArabic}"
+                                               FontFamily="LPMQ"
+                                               LineHeight="1.4"
+                                               TextColor="{StaticResource TextColor}"
+                                               Padding="5,5,5,5"
+                                               HorizontalTextAlignment="{Binding TextAlignment}"/>
+                                        <Label Grid.Column="0"
+                                               Grid.Row="1" 
+                                               Grid.ColumnSpan="2"           
+                                               Text="{Binding Id}"
+                                               FontSize="Caption"
+                                               HorizontalTextAlignment="Start"
+                                               FontFamily="Montserrat-Light-Italic"
+                                               Padding="10,5,10,15"
+                                               TextColor="{StaticResource TextColor}" />
+                                        <!--<Label Grid.Column="0"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Text="{Binding Id}" 
+                                               LineBreakMode="WordWrap"
+                                               FontSize="Small"
+                                               TextColor="{StaticResource TextColor}"
+                                               Padding="5,5,5,0"/>-->
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:HadithDetailViewModel }}, Path=HadithOneTapped}"		
+                                            CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Header>
+                        <Label Text="{Binding NumbersFoundHadith, Mode=TwoWay}"
+                               FontSize="Caption"
+                               FontAttributes="Italic"
+                               HorizontalTextAlignment="Center"
+                               Padding="5"
+                               TextColor="{Binding FoundResultColor, Mode=TwoWay}"
+                               CharacterSpacing="1"
+                               IsVisible="{Binding IsVisibleFoundMessage}"
+                                />
+                    </ListView.Header>
+                </ListView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

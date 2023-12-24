@@ -141,6 +141,19 @@
             <Setter Property="HorizontalTextAlignment"
                         Value="Center"/>
         </Style>
+        <Style x:Key="NarratorLabelDescription"
+                   TargetType="Label">
+            <Setter Property="LineBreakMode"
+                        Value="NoWrap"/>
+            <Setter Property="FontSize"
+                        Value="Subtitle"/>
+            <Setter Property="FontFamily"
+                        Value="Montserrat-Light-Italic"/>
+            <Setter Property="TextColor"
+                        Value="{StaticResource TextColor}"/>
+            <Setter Property="HorizontalTextAlignment"
+                        Value="Center"/>
+        </Style>
 
         <Style TargetType="Button">
             <Setter Property="TextColor" Value="White"></Setter>
