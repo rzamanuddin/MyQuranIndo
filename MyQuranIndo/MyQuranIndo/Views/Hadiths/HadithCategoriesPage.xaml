@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Hadiths.HadithCategoriesPage"             
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Hadiths"
+             xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Hadiths"
+             Title="{Binding Title}">
+    <Shell.SearchHandler>
+        <SearchHandler x:DataType="local:HadithCategoriesViewModel"  
+                       x:Name="searchBar"
+                       Placeholder="Cari Kata Kunci"
+                       Command="{Binding LoadCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
+                       Query="{Binding SearchQuery, Mode=TwoWay}"
+                       SearchBoxVisibility="Collapsible"
+                       TextColor="{StaticResource TextColor}" />
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView x:DataType="local:HadithCategoriesViewModel" 
+                           Command="{Binding LoadCommand}" 
+                           IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                           RefreshColor="{DynamicResource Primary}"
+                           >
+                <ListView x:Name ="lstViewHC"  
+                            ItemsSource="{Binding HCS, Mode=TwoWay}"
+                            IsGroupingEnabled="true" 
+                            HasUnevenRows="True" 
+                            SelectionMode="Single"
+                            CachingStrategy="RecycleElement"
+                            SeparatorColor="Black"
+                            SeparatorVisibility="None"
+                            x:DataType="local:HadithCategoriesViewModel"
+                            >
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout x:DataType="model:HadithCategoryGroup">
+                                    <Grid BackgroundColor="{DynamicResource Accent}"
+                                        Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="90*"/>
+                                            <ColumnDefinition Width="10*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding FoundResult}"
+                                               Grid.Column="0"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"
+                                               VerticalTextAlignment="Center"
+                                               HorizontalOptions="StartAndExpand"
+                                               TextColor="{StaticResource TextColor}"
+                                               CharacterSpacing="1"/>
+                                        <Image Grid.Column="1"
+                                               Source="{Binding ImageHeader, Mode=TwoWay}"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="EndAndExpand"/>
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:HadithCategoriesViewModel }}, Path=HeaderTapped}"		
+                                            CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0" 
+                                            x:DataType="model:HadithCategory">
+                                    <Grid BackgroundColor="{Binding RowColor}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding Title}" 
+                                               Style="{StaticResource HadithCategoryLabelName}"
+                                               Padding="5,0,5,5"/>
+                                        <Label Grid.Row="1" 
+                                               Text="{Binding Description, StringFormat='({0})'}" 
+                                               Style="{StaticResource HadithCategoryLabelDescription}"
+                                               LineBreakMode="WordWrap"
+                                               Padding="5,0,5,5" 
+                                           />
+                                    </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:HadithCategoriesViewModel }}, Path=HCOneTapped}"		
+                                            CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

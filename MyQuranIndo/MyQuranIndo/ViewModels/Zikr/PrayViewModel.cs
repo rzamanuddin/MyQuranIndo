@@ -383,12 +383,12 @@ namespace MyQuranIndo.ViewModels.Zikr
 
                 // Ayahs.Clear();
 
-                var praysData = await PrayDataService.GetPraysAsync(true);
+                var hcsData = await PrayDataService.GetPraysAsync(true);
 
                 
                 if (!String.IsNullOrWhiteSpace(SearchQuery))
                 {
-                    praysData = praysData.Where(q => q.Title.Trim().ToLower().Contains(SearchQuery.ToLower())
+                    hcsData = hcsData.Where(q => q.Title.Trim().ToLower().Contains(SearchQuery.ToLower())
                         || q.Data.Any(a => a.ArabicLatin.Trim().ToLower().Contains(SearchQuery.ToLower())
                         || q.Data.Any(t => t.TranslateID.Trim().ToLower().Contains(SearchQuery.ToLower())
                         || q.Data.Any(x => x.Tag.Contains(SearchQuery.ToLower())) // TODO: find based tag
@@ -400,40 +400,22 @@ namespace MyQuranIndo.ViewModels.Zikr
                 ObservableCollection<MyQuranIndo.Models.Zikrs.Pray> prayList = new ObservableCollection<Models.Zikrs.Pray>();
 
                 //var surahGroup = ayahs.ToLookup(s => s.SurahID);
-                var prayGroup = praysData.ToList().ToLookup(q => q.ID);
+                var prayGroup = hcsData.ToList().ToLookup(q => q.ID);
                 int index = 0;
-                foreach (var prayData in prayGroup)
+                foreach (var hcData in prayGroup)
                 {
                     prayList = new ObservableCollection<Models.Zikrs.Pray>();
-                    var prayInGroup = praysData.Where(q => q.ID == prayData.Key).ToList();
+                    var prayInGroup = hcsData.Where(q => q.ID == hcData.Key).ToList();
                     for (int i = 0; i < prayInGroup.Count; i++)
-                    {
-                        //MyQuranIndo.Models.Zikrs.PrayData npd = new Models.Zikrs.PrayData();
-                        //npd.ID = prayInGroup[i].ID;
-                        //npd.Title = prayInGroup[i].Title;
-                        //npd.Data = prayInGroup[i].Data;
-                        //{
-
-                        //    Arabic = prayInGroup[i].Arabic,
-                        //    ArabicLatin = prayInGroup[i].ArabicLatin,
-                        //    Faedah = prayInGroup[i].Faedah,
-                        //    ID = prayInGroup[i].ID,
-                        //    Narrator = prayInGroup[i].Narrator,
-                        //    Note = prayInGroup[i].Note,
-                        //    Title = prayInGroup[i].Title,
-                        //    TranslateID = prayInGroup[i].TranslateID,
-                        //    RowID = i
-                        //}
-
-                        //prayList.Add(npd.Data);
+                    {                        
                         for (int r = 0; r < prayInGroup[i].Data.Count; r++)
                         {
                             prayList.Add(prayInGroup[i].Data[r]);
                         }
                     }
 
-                    Prays.Add(new PrayGroup(prayData.Key, praysData.ToList()[index].Title, prayList));
-                    PraysCopied.Add(new PrayGroup(prayData.Key, praysData.ToList()[index].Title, prayList));
+                    Prays.Add(new PrayGroup(hcData.Key, hcsData.ToList()[index].Title, prayList));
+                    PraysCopied.Add(new PrayGroup(hcData.Key, hcsData.ToList()[index].Title, prayList));
 
                     index++;
                 }

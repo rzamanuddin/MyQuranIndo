@@ -142,30 +142,37 @@ namespace MyQuranIndo.ViewModels.Prayer
 
                 PrayerTimes.Add(new PrayerTime()
                 {
+                    Name = "Dhuha",
+                    Time = PrayerSchedule.Dhuha,
+                    Row = 4
+                });
+
+                PrayerTimes.Add(new PrayerTime()
+                {
                     Name = "Dzuhur",
                     Time = PrayerSchedule.Dzuhur,
-                    Row = 4
+                    Row = 5
                 });
 
                 PrayerTimes.Add(new PrayerTime()
                 {
                     Name = "Ashar",
                     Time = PrayerSchedule.Ashar,
-                    Row = 5
+                    Row = 6
                 });
 
                 PrayerTimes.Add(new PrayerTime()
                 {
                     Name = "Maghrib",
                     Time = PrayerSchedule.Maghrib,
-                    Row = 6
+                    Row = 7
                 });
 
                 PrayerTimes.Add(new PrayerTime()
                 {
                     Name = "Isya",
                     Time = PrayerSchedule.Isya,
-                    Row = 7
+                    Row = 8
                 });
 
                 string[] times = System.DateTime.Now.ToString("HH:mm").Split(':');

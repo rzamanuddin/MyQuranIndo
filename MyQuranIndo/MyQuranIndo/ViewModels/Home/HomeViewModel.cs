@@ -152,12 +152,14 @@ namespace MyQuranIndo.ViewModels.Home
         {
             CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(HadithsPage)}");
+            //await Shell.Current.GoToAsync($"{nameof(HadithCategoriesPage)}");
             CanNavigate = true;
         }
         private async Task OnIntentionSelected()
         {
             CanNavigate = false;
-            await Shell.Current.GoToAsync($"{nameof(IntentionsPage)}");
+            //await Shell.Current.GoToAsync($"{nameof(IntentionsPage)}");
+            await Shell.Current.GoToAsync($"{nameof(TabbedPageIntentionPage)}");
             CanNavigate = true;
         }
 

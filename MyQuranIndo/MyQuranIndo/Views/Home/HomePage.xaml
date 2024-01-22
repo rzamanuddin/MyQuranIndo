@@ -280,7 +280,7 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_allah_2.png" 
-								    Text="Niat Sholat"
+								    Text="Bacaan Sholat"
 								    BackgroundColor="{DynamicResource Primary}"
 								    TextColor="White"
 								    ContentLayout="Top"

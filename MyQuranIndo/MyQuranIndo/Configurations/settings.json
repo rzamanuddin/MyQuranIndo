@@ -1,6 +1,7 @@
 {
 	//"apiUrlBase": "https://api.pray.zone/v2/times/day.json/",
-	"apiUrlBase": "https://api.myquran.com/v1",
+	"apiUrlBase": "https://api.myquran.com/v2",
+	//"apiUrlBase": "https://raw.githubusercontent.com/lakuapik/jadwalsholatorg",
 	"urlPlayStore": "https://play.google.com/store/apps/details?id=com.rommyzamanuddin.myquranindo",
 	"applicationName": "MyQuran Indonesia",
 	"urlMP3": "https://everyayah.com/data/Abdurrahmaan_As-Sudais_64kbps/",
@@ -9,5 +10,8 @@
 	"urlDoa": "https://api.npoint.io/961601eabeb803e83723",
 	/*https://www.npoint.io/docs/961601eabeb803e83723*/
 	"urlHadith": "https://hadis-api-id.vercel.app/hadith",
-	"urlHelp": "https://api.npoint.io/317372a608b860c7dcb6"
+	"urlHelp": "https://api.npoint.io/317372a608b860c7dcb6",
+	"urlHadithCategory": "https://hadeethenc.com/api/v1",
+	"urlIntention": "https://api.npoint.io/90662c99995f2aea311c",
+	"urlPrayerRead": "https://api.npoint.io/6739f279c346129acbde"
 }

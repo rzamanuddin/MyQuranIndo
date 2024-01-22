@@ -28,9 +28,10 @@ namespace MyQuranIndo.ViewModels
         public IHelpDataService HelpDataService => DependencyService.Get<IHelpDataService>();
         public ITafsirDataService TafsirData => DependencyService.Get<ITafsirDataService>();
         public IHadithDataService HadithDataService => DependencyService.Get<IHadithDataService>();
+        public IPrayerReadDataService PrayerReadDataService => DependencyService.Get<IPrayerReadDataService>();
 
         //public IColorThemeService ColorThemeService => DependencyService.Get<IColorThemeService>();
-        
+
         bool isBusy = false;
         public bool IsBusy
         {

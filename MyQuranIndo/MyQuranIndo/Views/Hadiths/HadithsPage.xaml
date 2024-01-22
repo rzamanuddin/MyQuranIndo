@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyQuranIndo.Views.Hadiths.HadithsPage"
-                          xmlns:behavior="clr-namespace:MyQuranIndo.Behaviors"
+             xmlns:behavior="clr-namespace:MyQuranIndo.Behaviors"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Hadiths"
              xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Hadiths"
              Title="{Binding Title}">
@@ -44,8 +44,8 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Text="{Binding Name}" 
-                                           Style="{StaticResource JuzLabelName}"
-                                           Padding="10,0,10,-10"/>
+                                           Style="{StaticResource NarratorLabelName}"
+                                           Padding="10,0,10,-5"/>
                                     <Label Grid.Row="1" 
                                            Text="{Binding Description, StringFormat='({0})'}" 
                                            Style="{StaticResource NarratorLabelDescription}"

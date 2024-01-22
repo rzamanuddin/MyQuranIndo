@@ -12,7 +12,7 @@
                        Command="{Binding LoadCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
                        Query="{Binding SearchQuery, Mode=TwoWay}"
-                       SearchBoxVisibility="Collapsible"
+                       SearchBoxVisibility="Collapsible"                       
                        TextColor="{StaticResource TextColor}" />
     </Shell.SearchHandler>
     <ContentPage.Content>
@@ -124,14 +124,16 @@
                                            Grid.Row="1"
                                            Text="{Binding ArabicLatin}" 
                                            LineBreakMode="WordWrap"
-                                           FontSize="Caption"
+                                               FontFamily="Montserrat-Medium-Italic"
+                                           FontSize="{Binding FontSizeTextIndo}"
                                            TextColor="{StaticResource TextColor}" 
                                            Padding="5,10,5,5"/>
                                         <Label Grid.Column="0"
                                            Grid.Row="2"
                                            Text="{Binding TranslateID}" 
                                            LineBreakMode="WordWrap"
-                                           FontSize="Small"
+                                           FontFamily="Montserrat-Light-Italic"
+                                           FontSize="{Binding FontSizeTranslate}"
                                            TextColor="{StaticResource TextColor}"
                                            Padding="5,5,5,10"/>
                                     </Grid>
@@ -142,6 +144,13 @@
                                                 CommandParameter="{Binding .}">
                                     </TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>-->
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                    NumberOfTapsRequired="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:IntentionViewModel }}, Path=IntentionOneTapped}"		
+                                                    CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

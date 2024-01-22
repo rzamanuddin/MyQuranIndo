@@ -1,0 +1,65 @@
+﻿[
+  {
+    "id": 1,
+    "title": "Bacaan Iftitah",
+    "arabic": "االلّٰهُ أَكْبَرُ كَبِيرًا وَالْحَمْدُ لِلّٰهِ كَثِيرًا وَسُبْحَانَ اللّٰهِ بُكْرَةً وَأَصِيلاً , إِنِّى وَجَّهْتُ وَجْهِىَ لِلَّذِى فَطَرَ السَّمَوَاتِ وَالأَرْضَ حَنِيفًا وَمَا أَنَا مِنَ الْمُشْرِكِينَ إِنَّ صَلاَتِى وَنُسُكِى وَمَحْيَاىَ وَمَمَاتِى لِلّٰهِ رَبِّ الْعَالَمِينَ لاَ شَرِيكَ لَهُ وَبِذَلِكَ أُمِرْتُ وَأَنَا أَوَّلُ الْمُسْلِمِينَ",
+    "arabiclatin": "Allaahu akbar kabiiroo wal hamdu lillaahi katsiiroo wasubhaanalloohi bukrotaw wa-ashiilaa, Innii wajjahtu wajhiya lilladzii fathoros samaawaati wal ardlo haniifaa wamaa ana minal musyrikiin. Inna sholaatii wa nusukii wamahyaa wa mamaatii lillaahi robbil 'aalamiin. Laa syariikalahu wa bidzaalika umirtu wa ana awwalul muslimiin",
+    "translatedid": "Allah Maha Besar dengan sebesar-besarnya, segala puji bagi Allah dengan pujian yang banyak. Mahasuci Allah pada waktu pagi dan petang, Sesungguhnya aku hadapkan wajahku kepada Allah yang telah menciptakan langit dan bumi dalam keadaan tunduk dan aku bukanlah dari golongan orang-orang musyrik. Sesungguhnya shalatku, sembelihanku, hidupku dan matiku hanya untuk Allah Tuhan semesta alam. Tidak ada sekutu bagiNya. Dan dengan yang demikian itu lah aku diperintahkan. Dan aku adalah orang yang pertama berserah diri"
+  },
+  {
+    "id": 2,
+    "title": "Al Fatihah",
+    "arabic": "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ ﴿١﴾ اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَۙ ﴿٢﴾ الرَّحْمٰنِ الرَّحِيْمِۙ ﴿٣﴾ مٰلِكِ يَوْمِ الدِّيْنِۗ ﴿٤﴾ اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُۗ ﴿٥﴾ اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَ ۙ ﴿٦﴾ صِرَاطَ الَّذِيْنَ اَنْعَمْتَ عَلَيْهِمْ ەۙ غَيْرِ الْمَغْضُوْبِ عَلَيْهِمْ وَلَا الضَّاۤلِّيْنَ ࣖ ﴿٧﴾",    
+    "arabiclatin": "Bismillahirrahmanirrahim, Alhamdulillahi rabbil alamin, Arrahmaanirrahiim, Maaliki yaumiddiin, Iyyaka nabudu waiyyaaka nastaiin, Ihdinashirratal mustaqim, shiratalladzina an'amta alaihim ghairil maghduubi alaihim waladhaalin",
+    "translatedid": "Dengan menyebut nama Allah Yang Maha Pemurah lagi Maha Penyayang, Segala puji bagi Allah, Tuhan semesta alam, Maha Pemurah lagi Maha Penyayang, Yang menguasai di Hari Pembalasan, Hanya Engkaulah yang kami sembah, dan hanya kepada Engkaulah kami meminta pertolongan, Tunjukilah kami jalan yang lurus, (yaitu) Jalan orang-orang yang telah Engkau beri nikmat kepada mereka; bukan (jalan) mereka yang dimurkai dan bukan (pula jalan) mereka yang sesat"
+  },
+  {
+    "id": 3,
+    "title": "Bacaan Ruku (3x)",
+    "arabic": "سُبْحَانَ رَبِّيَ الْعَظِيْمِ وَبِحَمْدِهِ",
+    "arabiclatin": "Subhana Rabbiyal Adzimi Wabihamdih",
+    "translatedid": "Maha Suci Tuhanku Yang Maha Agung Dan Dengan Memuji-Nya"
+  },
+  {
+    "id": 4,
+    "title": "Bacaan I'tidal",
+    "arabic": "رَبَّنَا لَكَ الْحَمْدُ مِلْءُ السَّمَوَاتِ وَمِلْءُ الْأَرْضِ وَمِلْءُ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ",
+    "arabiclatin": "Rabbanaaa lakal hamdu mil-ussamaawaati wa mil-ul-ardhi wa mil-u maa syik-ta min syai-im ba’du",
+    "translatedid": "Ya Allah Tuhan Kami, Bagi-Mu lah segala puji, sepenuh langit dan bumi, dan sepenuh barang yang Kau kehendaki sesudah itu"
+  },
+  {
+    "id": 5,
+    "title": "Bacaan Sujud (3x)",
+    "arabic": "سُبْحَانَ رَبِّىَ الْأَعْلَى وَبِحَمْدِهِ",
+    "arabiclatin": "Subhaana robbiyal a'la wabihamdih",
+    "translatedid": "Mahasuci Tuhanku yang Mahatinggi dan segala puji bagiNya"
+  },
+  {
+    "id": 6,
+    "title": "Bacaan Duduk Diantara Dua Sujud",
+    "arabic": "رَبِّ اغْفِرْلِيْ وَارْحَمْنِيْ وَاجْبُرْنِيْ وَارْفَعْنِيْ وَارْزُقْنِيْ وَاهْدِنِيْ وَعَافِنِيْ وَاعْفُ عَنِّيْ",
+    "arabiclatin": "Rabbighfirli Warhamni Wajburnii Warfaknii Wazuqnii Wahdinii Wa'aafinii Wa'fuannii",
+    "translatedid": "Ya Allah, ampunilah dosaku, belas kasihinilah aku dan cukuplah segala kekuranganku da angkatlah derajatku dan berilah rezeki kepadaku, dan berilah aku petunjuk dan berilah kesehatan padaku dan berilah ampunan kepadaku"
+  },
+  {
+    "id": 7,
+    "title": "Duduk Tasyahud Awal",
+    "arabic": "اَلتَّحِيَّاتُ الْمُبَارَكَاتُ الصَّلَوَاتُ الطَّيِّبَاتُ لِلّٰهِ، السَّلاَمُ عَلَيْكَ اَيُّهَا النَّبِيُّ وَرَحْمَةُ اللّٰهِ وَبَرَكَاتُهُ، السَّلاَمُ عَلَيْنَا وَعَلَى عِبَادِاللّٰهِ الصَّالِحِيْنَ، أَشْهَدُ اَنْ لآ إِلَهَ إِلاَّاللّٰهُ وَاَشْهَدُ أَنَّ مُحَمَّدًا رَسُوْلُ اللّٰهُ، اللهم صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ",
+    "arabiclatin": "Attahiyyaatul mubaarokaatush sholawaatuth thoyyibaatu lillaah. Assalaamualaika ayyuhan nabiyyu wa rohmatulloohi wa barokaatuh. Assalaaamualainaa wa alaa ibaadillaahish shoolihiin. Asyhadu allaa ilaaha illallooh wa asyhadu anna Muhammadar rosuulullooh. Allahummasholli ala Sayyidina Muhammad",
+    "translatedid": "Segala penghormatan, keberkahan, shalawat dan kebaikan hanya bagi Allah. Semoga salam sejahtera selalu tercurahkan kepadamu wahai Nabi, demikian pula rahmat Allah dan berkahNya dan semoga salam sejahtera selalu tercurah kepada kami dan hamba-hamba Allah yang shalih. Aku bersaksi bahwa tiada ilah kecuali Allah dan aku bersaksi bahwa Muhammad adalah utusan Allah. Ya Tuhan kami, selawatkanlah ke atas Nabi Muhammad"
+  },
+  {
+    "id": 8,
+    "title": "Duduk Tasyahud Akhir",
+    "arabic": "اَلتَّحِيَّاتُ الْمُبَارَكَاتُ الصَّلَوَاتُ الطَّيِّبَاتُ لِلّٰهِ، السَّلاَمُ عَلَيْكَ اَيُّهَا النَّبِيُّ وَرَحْمَةُ اللّٰهِ وَبَرَكَاتُهُ، السَّلاَمُ عَلَيْنَا وَعَلَى عِبَادِاللّٰهِ الصَّالِحِيْنَ، أَشْهَدُ اَنْ لآ إِلَهَ إِلاَّاللّٰهُ وَاَشْهَدُ أَنَّ مُحَمَّدًا رَسُوْلُ اللّٰهُ، اللهم صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِ سَيِّدِنَا مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى سَيِّدِنَا اِبْرَاهِيْمَ وَعَلَى آلِ سَيِّدِنَا اِبْرَاهِيْمَ  وَبَارِكْ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِ سَيِّدِنَا مُحَمَّدٍ كَمَا بَرَكْتَ عَلَى سَيِّدِنَا اِبْرَاهِيْمَ وَعَلَى آلِ سَيِّدِنَا اِبْرَاهِيْمَ فِى الْعَالَمِيْنَ إِنَّكَ حَمِيْدٌ مَجِيْدٌ",
+    "arabiclatin": "Attahiyyaatul mubaarokaatush sholawaatuth thoyyibaatu lillaah. Assalaamualaika ayyuhan nabiyyu wa rohmatulloohi wa barokaatuh. Assalaaamualainaa wa alaa ibaadillaahish shoolihiin. Asyhadu allaa ilaaha illallooh wa asyhadu anna Muhammadar rosuulullooh. Allahumma Shalli Ala Sayyidina Muhammad Wa Ala Ali Sayyidina Muhammad. Kama Shollaita Ala Sayyidina Ibrahim wa alaa aali sayyidina Ibrahim, wabaarik ala Sayyidina Muhammad Wa Alaa Ali Sayyidina Muhammad, Kama barokta alaa Sayyidina Ibrahim wa alaa ali Sayyidina Ibrahim, Fil aalamiina innaka hamiidummajid",
+    "translatedid": "Segala penghormatan yang berkat solat yang baik adalah untuk Allah. Sejahtera atas engkau wahai Nabi dan rahmat Allah serta keberkatannya. Sejahtera ke atas kami dan atas hamba-hamba Allah yang soleh. Aku bersaksi bahwa tiada Tuhan melainkan Allah dan aku bersaksi bahwasanya Muhammad itu adalah pesuruh Allah. Ya Tuhan kami, selawatkanlah ke atas Nabi Muhammad dan ke atas keluarganya. Sebagaimana Engkau selawatkan ke atas Ibrahim dan atas keluarga Ibrahim. Berkatilah ke atas Muhammad dan atas keluarganya sebagaimana Engkau berkati ke atas Ibrahim dan atas keluarga Ibrahim di dalam alam ini. Sesungguhnya Engkau Maha Terpuji lagi Maha Agung"
+  },
+  {
+    "id": 9,
+    "title": "Salam",
+    "arabic": "السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللّٰهِ",
+    "arabiclatin": "Assalaamu 'alaikum wa rahmatullah",
+    "translatedid": "Semoga keselamatan dan rahmat Allah dilimpahkan kepadamu"
+  }
+]

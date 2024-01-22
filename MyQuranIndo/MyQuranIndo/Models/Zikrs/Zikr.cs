@@ -61,6 +61,23 @@ namespace MyQuranIndo.Models.Zikrs
                 return FontHelper.GetFontSizeArabic();
             }
         }
+
+        public double FontSizeTranslate
+        {
+            get
+            {
+                return FontHelper.GetFontSizeTranslate();
+            }
+        }
+
+        public double FontSizeTextIndo
+        {
+            get
+            {
+                return FontHelper.GetFontSizeTextIndo();
+            }
+        }
+
         public Color RowColor
         {
             get

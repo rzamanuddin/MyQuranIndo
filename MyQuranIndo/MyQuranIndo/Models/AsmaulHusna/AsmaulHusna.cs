@@ -37,6 +37,21 @@ namespace MyQuranIndo.Models.AsmaulHusna
                 return FontHelper.GetFontSizeArabic();
             }
         }
+        public double FontSizeTranslate
+        {
+            get
+            {
+                return FontHelper.GetFontSizeTranslate();
+            }
+        }
+
+        public double FontSizeTextIndo
+        {
+            get
+            {
+                return FontHelper.GetFontSizeTextIndo();
+            }
+        }
 
         private Color rowColor;
         public Color RowColor

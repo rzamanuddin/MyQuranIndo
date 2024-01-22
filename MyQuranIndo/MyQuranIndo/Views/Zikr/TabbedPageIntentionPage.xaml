@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<tab:BindableTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        x:Class="MyQuranIndo.Views.Zikr.TabbedPageIntentionPage"
+                        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:tab="clr-namespace:MyQuranIndo.Controls"
+                        xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Surah" 
+                        xmlns:zikr="clr-namespace:MyQuranIndo.ViewModels.Zikr" 
+                        x:DataType="zikr:TabbedPageIntentionViewModel"
+                        ChildrenList="{Binding Tabs}"
+                        SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
+                        mc:Ignorable="d"
+                        Title="{Binding Title, Mode=TwoWay}"
+                        Shell.NavBarIsVisible="False"
+                        BarBackgroundColor="{DynamicResource Primary}">    
+</tab:BindableTabbedPage>

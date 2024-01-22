@@ -65,21 +65,25 @@ namespace MyQuranIndo.Services
                 foreach (var sc in spilttedCity)
                 {
                     if (sc.IndexOf("kota", 0, StringComparison.OrdinalIgnoreCase) >= 0
-                        || sc.IndexOf("kabupaten", 0, StringComparison.OrdinalIgnoreCase) >= 0)
+                        || sc.IndexOf("kabupaten", 0, StringComparison.OrdinalIgnoreCase) >= 0
+                        || sc.IndexOf("south", 0, StringComparison.OrdinalIgnoreCase) >= 0
+                        || sc.IndexOf("east", 0, StringComparison.OrdinalIgnoreCase) >= 0
+                        || sc.IndexOf("west", 0, StringComparison.OrdinalIgnoreCase) >= 0
+                        || sc.IndexOf("north", 0, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         continue;
                     }
-                    string url = Path.Combine(AppSetting.GetAPIUrlBase(), $"sholat/kota/cari/{sc}");
+                    string url = Path.Combine(AppSetting.GetAPIUrlBase(), $"sholat/kota/cari/{sc.Trim().ToLower()}");
+
                     HttpResponseMessage response = await _client.GetAsync(url);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        string content = await response.Content.ReadAsStringAsync();
-                        if (!content.ToLower().Trim().Contains("tidak ketemu"))
-                        {
-                            locationResults = JsonConvert.DeserializeObject<APILocationResult>(content);
-                            return locationResults;
-                        }
+                        string content = await response.Content.ReadAsStringAsync();  
+                        
+                        locationResults = JsonConvert.DeserializeObject<APILocationResult>(content);
+                        return locationResults;
+                        
                     }
                 }
             }

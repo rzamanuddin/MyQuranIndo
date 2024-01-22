@@ -162,7 +162,7 @@
     <MenuItem Text="Asmaul Husna" 
               IconImageSource="icon_allah.png"
               Command="{Binding AsmaulHusnaCommand}"/>
-    <MenuItem Text="Niat Sholat" 
+    <MenuItem Text="Bacaan Sholat" 
               IconImageSource="icon_allah_2.png"
               Command="{Binding IntentionCommand}"/>
     <MenuItem Text="Jadwal Sholat" 

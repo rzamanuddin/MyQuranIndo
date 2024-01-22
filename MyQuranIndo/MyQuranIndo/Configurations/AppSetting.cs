@@ -26,7 +26,11 @@ namespace MyQuranIndo.Configuration
         private const string API_URL_MP3_AL_MATROUD = "urlMP3AlMatroud";
         private const string API_URL_DOA = "urlDoa";
         private const string API_URL_HADITH = "urlHadith";
+        private const string API_URL_HADITH_CATEGORY = "urlHadithCategory";
         private const string API_URL_HELP = "urlHelp";
+        private const string API_URL_INTENTION = "urlIntention";
+        private const string API_URL_PRAYER_READ = "urlPrayerRead";
+
         //private const string API_URL_LOGIN = "apiLogin";
         //private const string API_URL_VOTE = "apiVote";
 
@@ -89,9 +93,23 @@ namespace MyQuranIndo.Configuration
         {
             return GetJsonSetting(API_URL_DOA);
         }
+        public static string GetUrlIntention()
+        {
+            return GetJsonSetting(API_URL_INTENTION);
+        }
+        public static string GetUrlPrayerRead()
+        {
+            return GetJsonSetting(API_URL_PRAYER_READ);
+        }
+
         public static string GetUrlHadith()
         {
             return GetJsonSetting(API_URL_HADITH);
+        }
+
+        public static string GetUrlHadithCategory()
+        {
+            return GetJsonSetting(API_URL_HADITH_CATEGORY);
         }
         public static string GetUrlHelp()
         {

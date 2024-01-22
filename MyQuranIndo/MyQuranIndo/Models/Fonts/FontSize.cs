@@ -8,6 +8,7 @@ namespace MyQuranIndo.Models.Fonts
     {
         Small = 0,
         Medium = 1,
-        Large = 2
+        Large = 2,
+        Caption = 3,
     }
 }

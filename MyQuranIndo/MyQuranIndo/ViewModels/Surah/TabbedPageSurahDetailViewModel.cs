@@ -114,7 +114,7 @@ namespace MyQuranIndo.ViewModels.Surah
                 //Tabs.Add(new SurahDetailPage());
             }
 
-            //SelectedTab = Tabs[0];
+            SelectedTab = Tabs[0];
         }
 
         public async void LoadSurahDetail()

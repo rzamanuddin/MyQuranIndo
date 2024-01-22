@@ -129,7 +129,14 @@ namespace MyQuranIndo.ViewModels.Zikr
                         {
                             zm.Arabic += $"{alIkhlas[ayah].ReadText}  ";
                             zm.TranslateID += $"{alIkhlas[ayah].TranslateIndo} ";
-                            zm.ArabicLatin += $"{alIkhlas[ayah].TextIndo} ";
+                            if (ayah < alIkhlas.Count - 1)
+                            {
+                                zm.ArabicLatin += $"{alIkhlas[ayah].TextIndo}, ";
+                            }
+                            else
+                            {
+                                zm.ArabicLatin += $"{alIkhlas[ayah].TextIndo} ";
+                            }
                         }
                         zm.Arabic += "\n";
                         zm.TranslateID += "\n";
@@ -142,7 +149,14 @@ namespace MyQuranIndo.ViewModels.Zikr
                         {
                             zm.Arabic += $"{alFalaq[ayah]}  ";
                             zm.TranslateID += $"{alFalaq[ayah].TranslateIndo} ";
-                            zm.ArabicLatin += $"{alFalaq[ayah].TextIndo} ";
+                            if (ayah < alFalaq.Count - 1)
+                            {
+                                zm.ArabicLatin += $"{alFalaq[ayah].TextIndo}, ";
+                            }
+                            else
+                            {
+                                zm.ArabicLatin += $"{alFalaq[ayah].TextIndo} ";
+                            }
                         }
                         zm.Arabic += "\n";
                         zm.TranslateID += "\n";
@@ -155,7 +169,14 @@ namespace MyQuranIndo.ViewModels.Zikr
                         {
                             zm.Arabic += $"{anNaas[ayah]}  ";
                             zm.TranslateID += $"{anNaas[ayah].TranslateIndo} ";
-                            zm.ArabicLatin += $"{anNaas[ayah].TextIndo} ";
+                            if (ayah < anNaas.Count - 1)
+                            {
+                                zm.ArabicLatin += $"{anNaas[ayah].TextIndo}, ";
+                            }
+                            else
+                            {
+                                zm.ArabicLatin += $"{anNaas[ayah].TextIndo} ";
+                            }
                         }
                     }
 

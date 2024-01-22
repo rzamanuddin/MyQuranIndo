@@ -31,6 +31,9 @@ namespace MyQuranIndo.Models.PrayerSchedules
         [JsonProperty("terbit")]
         public string Terbit { get; set; }
 
+        [JsonProperty("dhuha")]
+        public string Dhuha { get; set; }
+
         [JsonProperty("dzuhur")]
         public string Dzuhur { get; set; }
 

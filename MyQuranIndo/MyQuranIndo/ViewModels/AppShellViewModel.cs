@@ -119,7 +119,8 @@ namespace MyQuranIndo.ViewModels
         }
         private async Task NavigateToIntentionPage()
         {
-            await Shell.Current.GoToAsync($"{nameof(IntentionsPage)}");
+            //await Shell.Current.GoToAsync($"{nameof(IntentionsPage)}");
+            await Shell.Current.GoToAsync($"{nameof(TabbedPageIntentionPage)}");
             Shell.Current.FlyoutIsPresented = false;
         }
 

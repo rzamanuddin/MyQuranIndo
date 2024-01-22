@@ -1,13 +1,18 @@
-﻿using MyQuranIndo.Messages;
+﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Messages;
+using MyQuranIndo.Models.Qurans;
 using MyQuranIndo.Models.Zikrs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace MyQuranIndo.ViewModels.Zikr
 {
@@ -82,6 +87,13 @@ namespace MyQuranIndo.ViewModels.Zikr
             }
         }
 
+        private bool visibleSearchBar = false;
+        public bool VisibleSearchBar
+        {
+            get => visibleSearchBar;
+            set => SetProperty(ref visibleSearchBar, value);
+        }
+
         public Command LoadCommand { get; }
         public Command<MyQuranIndo.Models.Finds.Find> FindTapped { get; }
         public Command<IntentionGroup> HeaderTapped { get; }
@@ -92,10 +104,21 @@ namespace MyQuranIndo.ViewModels.Zikr
             get;
         }
 
+        private readonly int index;
+        public Task Initialization { get; private set; }
+        public ICommand IntentionOneTapped { get; }
+
         //public FindViewModel(bool emptyGroups = false)
-        public IntentionViewModel()
+        public IntentionViewModel(int index)
         {
-            Title = "Niat Sholat";
+            if (index == 1)
+            {
+                Title = "Niat Sholat";
+            }
+            else
+            {
+                Title = "Bacaan Sholat";
+            }
             Intentions = new ObservableCollection<IntentionGroup>();
             IntentionsCopy = new ObservableCollection<IntentionGroup>();
             //Ayahs = new ObservableCollection<Ayah>();
@@ -105,6 +128,15 @@ namespace MyQuranIndo.ViewModels.Zikr
             HeaderTapped = new Command<IntentionGroup>(OnHeaderTapped);
             ExpandAllCommand = new Command(OnExpandAllComand);
             FoundResultColor = Color.Black;
+            this.index = index;
+            Initialization = InitStart();
+
+            IntentionOneTapped = new Command<Intention>(OnIntentionOneTapped, (x) => CanNavigate);
+        }
+
+        private async Task InitStart()
+        {
+            await ExecuteLoadCommand();
         }
 
         private void OnExpandAllComand()
@@ -125,6 +157,81 @@ namespace MyQuranIndo.ViewModels.Zikr
                 }
                 IsExpandAll = true;
             }
+        }
+
+        private async void OnIntentionOneTapped(Intention intention)
+        {
+            if (IsValidTapped(intention))
+            {
+                CanNavigate = false;
+                var oldColor = intention.RowColor;
+                intention.RowColor = (Color)Application.Current.Resources["SelectedItem"];
+
+                string result = "";
+                string errorMessage = "";
+                string action = await ActionHelper.DisplayActionIntentionAsync(intention.Title);
+                string zikrCopied = "";
+                try
+                {
+                    switch (action)
+                    {
+                        case ActionHelper.INTENTION_SHARE:
+                            zikrCopied = ActionHelper.GetIntentionToShare(intention, this.Title);
+                            await ActionHelper.ShareZikrAsync(zikrCopied);
+                            break;
+                        case ActionHelper.INTENTION_COPY:
+                            zikrCopied = ActionHelper.GetIntentionToShare(intention, this.Title);
+                            await Clipboard.SetTextAsync(zikrCopied);
+                            result = ActionHelper.INTENTION_COPY + " Berhasil.";
+                            break;
+                        case ActionHelper.INTENTION_COPY_ALL:
+                            ObservableCollection<Intention> intentions = new ObservableCollection<Intention>();
+                            
+                            foreach (var item in Intentions)
+                            {
+                                foreach (var intentionItem in item.Intentions)
+                                {
+                                    intentions.Add(intentionItem);
+                                }
+                            }
+                            zikrCopied = ActionHelper.GetIntentionsAllToShare(intentions, this.Title);
+                            await Clipboard.SetTextAsync(zikrCopied);
+                            result = ActionHelper.INTENTION_COPY_ALL + " Berhasil.";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(result))
+                    {
+                        ToastService.Show(result);
+                    }
+                    if (!string.IsNullOrWhiteSpace(errorMessage))
+                    {
+                        await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, errorMessage, Message.MSG_OK);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_POP_UP_MENU + Environment.NewLine
+                        + ex.Message, Message.MSG_OK);
+                }
+                finally
+                {
+                    intention.RowColor = oldColor;
+                    CanNavigate = true;
+                }
+            }
+        }
+
+        private bool IsValidTapped(Intention intention)
+        {
+            if (intention == null)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void OnHeaderTapped(IntentionGroup intentionGroup)
@@ -180,7 +287,7 @@ namespace MyQuranIndo.ViewModels.Zikr
         //    }
         //}
 
-        private async Task ExecuteLoadCommand()
+        public async Task ExecuteLoadCommand()
         {
             try
             {
@@ -197,7 +304,31 @@ namespace MyQuranIndo.ViewModels.Zikr
 
                 // Ayahs.Clear();
 
-                var intentions = await IntentionDataService.GetIntentions(true);
+                IEnumerable<Intention> intentions = null;
+
+                if (this.index == 1)
+                {
+                    intentions = await IntentionDataService.GetIntentions(true);
+                }
+                else
+                {
+                    var intentionsList = new List<Intention>();
+                    var prayerReads = await PrayerReadDataService.GetPrayerReads(true);
+                    foreach (var pr in prayerReads)
+                    {
+                        var intention = new Intention
+                        {
+                            Arabic = pr.Arabic,
+                            ArabicLatin = pr.ArabicLatin,
+                            ID = pr.ID,
+                            Title = pr.Title,
+                            TranslateID = pr.TranslateID,
+                        };
+
+                        intentionsList.Add(intention);
+                    }
+                    intentions = intentionsList;
+                }
 
                 //var ayahs = await AyahDataService.GetAsync(true);
 

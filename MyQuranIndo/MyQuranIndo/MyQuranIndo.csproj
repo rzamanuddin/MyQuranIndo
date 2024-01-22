@@ -129,6 +129,7 @@
     <None Remove="Databases\DoaNew.json" />
     <None Remove="Databases\Help.json" />
     <None Remove="Databases\Intention.json" />
+    <None Remove="Databases\Prayer.json" />
     <None Remove="Databases\Zikr.json" />
     <None Remove="Resources\Fonts\KFGQPC_Uthmanic_Script_HAFS_Regular.otf" />
     <None Remove="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Configurations\settings.json" />
     <EmbeddedResource Include="Databases\AsmaulHusna.json" />
+    <EmbeddedResource Include="Databases\Prayer.json" />
     <EmbeddedResource Include="Databases\Doa.json" />
     <EmbeddedResource Include="Databases\DoaNew.json" />
     <EmbeddedResource Include="Databases\Help.json" />
@@ -189,6 +191,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Controls\GridHadithCategoryDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Controls\GridHadithDetail.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -229,6 +234,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Finds\FindPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Hadiths\HadithCategoriesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Hadiths\HadithCategoryDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Hadiths\HadithDetailPage.xaml">
@@ -283,6 +294,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Zikr\PraysPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Zikr\TabbedPageIntentionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Zikr\ZikrsPage.xaml">

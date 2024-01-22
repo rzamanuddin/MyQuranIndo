@@ -7,22 +7,12 @@ using System.ComponentModel;
 using System.Text;
 using Xamarin.Forms;
 
-namespace MyQuranIndo.Models.Zikrs
+namespace MyQuranIndo.Models.Prayers
 {
-    public class PrayData
+
+    public class PrayerRead : NotifyPropertyChanged
     {
-        [JsonProperty("id")]
-        public int ID { get; set; }
-
-        [JsonProperty("title")]
-        public string Title { get; set; }
-
-        [JsonProperty("data")]
-        public List<Pray> Data { get; set; }
-    }
-
-    public class Pray : NotifyPropertyChanged
-    {
+        private PrayerRead PrayerReadSelf { get; set; }
         private Color rowColor;
 
         [JsonProperty("id")]
@@ -31,18 +21,10 @@ namespace MyQuranIndo.Models.Zikrs
         public string Arabic { get; set; }
         [JsonProperty("arabiclatin")]
         public string ArabicLatin { get; set; }
-        [JsonProperty("faedah")]
-        public string Faedah { get; set; }
-        [JsonProperty("note")]
-        public string Note { get; set; }
-        [JsonProperty("narrator")]
-        public string Narrator { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
         [JsonProperty("translatedid")]
         public string TranslateID { get; set; }
-        [JsonProperty("tag")]
-        public List<string> Tag { get; set; }
 
         public long RowID { get; set; }
 
@@ -63,6 +45,7 @@ namespace MyQuranIndo.Models.Zikrs
                 return FontHelper.GetFontSizeArabic();
             }
         }
+
         public double FontSizeTranslate
         {
             get
@@ -78,14 +61,13 @@ namespace MyQuranIndo.Models.Zikrs
                 return FontHelper.GetFontSizeTextIndo();
             }
         }
-
         public Color RowColor
         {
             get
             {
                 if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
                 {
-                    if (ID % 2 == 0)
+                    if (RowID % 2 != 0)
                     {
                         rowColor = ((Color)Application.Current.Resources["RowColor"]);
                     }
@@ -107,20 +89,6 @@ namespace MyQuranIndo.Models.Zikrs
             get
             {
                 if (String.IsNullOrWhiteSpace(ArabicLatin))
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-        public bool IsVisibleFaedah
-        {
-            get
-            {
-                if (String.IsNullOrWhiteSpace(Faedah))
                 {
                     return false;
                 }
@@ -177,7 +145,7 @@ namespace MyQuranIndo.Models.Zikrs
         }
     }
 
-    public class PrayGroup : ObservableCollection<Pray>
+    public class PrayerReadGroup : ObservableCollection<PrayerRead>
     {
         private bool isExpand = false;
         private string imageHeader = "expand.png";
@@ -220,14 +188,13 @@ namespace MyQuranIndo.Models.Zikrs
                 return $"{TitleHeader}";
             }
         }
-        public ObservableCollection<Pray> Prays { get; private set; }
+        public ObservableCollection<PrayerRead> PrayerReads { get; private set; }
 
-        public PrayGroup(int id, string titleHeader, ObservableCollection<Pray> prays) : base(prays)
+        public PrayerReadGroup(int id, string titleHeader, ObservableCollection<PrayerRead> prayerReads) : base(prayerReads)
         {
             this.ID = id;
             this.TitleHeader = titleHeader;
-            //this.NumberOfAyah = numberOfAyah;
-            Prays = prays;
+            PrayerReads = prayerReads;
         }
 
         public override string ToString()

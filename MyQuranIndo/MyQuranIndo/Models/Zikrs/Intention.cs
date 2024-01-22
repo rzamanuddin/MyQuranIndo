@@ -53,6 +53,22 @@ namespace MyQuranIndo.Models.Zikrs
                 return FontHelper.GetFontSizeArabic();
             }
         }
+
+        public double FontSizeTranslate
+        {
+            get
+            {
+                return FontHelper.GetFontSizeTranslate();
+            }
+        }
+
+        public double FontSizeTextIndo
+        {
+            get
+            {
+                return FontHelper.GetFontSizeTextIndo();
+            }
+        }
         public Color RowColor
         {
             get
@@ -139,14 +155,7 @@ namespace MyQuranIndo.Models.Zikrs
         {
             get
             {
-                if (ID == 0)
-                {
-                    return TextAlignment.Center;
-                }
-                else
-                {
-                    return TextAlignment.Start;
-                }
+                return TextAlignment.Start;                
             }
         }
     }

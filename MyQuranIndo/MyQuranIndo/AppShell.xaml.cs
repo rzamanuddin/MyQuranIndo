@@ -51,6 +51,9 @@ namespace MyQuranIndo
             Routing.RegisterRoute(nameof(TafsirDetailPage), typeof(TafsirDetailPage));
             Routing.RegisterRoute(nameof(HadithsPage), typeof(HadithsPage));
             Routing.RegisterRoute(nameof(HadithDetailPage), typeof(HadithDetailPage));
+            Routing.RegisterRoute(nameof(HadithCategoriesPage), typeof(HadithCategoriesPage));
+            Routing.RegisterRoute(nameof(HadithCategoryDetailPage), typeof(HadithCategoryDetailPage));
+            Routing.RegisterRoute(nameof(TabbedPageIntentionPage), typeof(TabbedPageIntentionPage));
             //Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
         }
 

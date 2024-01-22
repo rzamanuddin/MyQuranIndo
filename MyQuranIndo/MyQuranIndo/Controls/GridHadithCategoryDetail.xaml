@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Grid xmlns="http://xamarin.com/schemas/2014/forms" 
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="MyQuranIndo.Controls.GridHadithCategoryDetail"
       xmlns:controls="clr-namespace:MyQuranIndo.Controls"
-      x:Class="MyQuranIndo.Controls.GridHadithDetail"
       Margin="0, 0, 0, 0"
       ColumnSpacing="0"
       RowSpacing="0"
@@ -11,23 +11,22 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto" />
         <ColumnDefinition />
     </Grid.ColumnDefinitions>
-    <Label Text="{Binding Number}"
-           FontSize="Small"
-           FontAttributes="Italic"
-           HorizontalTextAlignment="Start"                                           
-           FontFamily="Montserrat-ExtraLight"
-           VerticalTextAlignment="Start"
-           TextColor="{StaticResource TextColor}"
-           Padding="10, 10, 5, 0"
-        />
     <Label Grid.Row="0"
-           Grid.Column="1"
-           Text="{Binding Arabic}"
+           Text="{Binding Content.SubTitle}" 
+           LineBreakMode="WordWrap"
+           FontSize="{Binding FontSizeTranslate}"
+           FontFamily="Montserrat-Medium-Italic"
+           TextColor="{StaticResource TextColor}"
+           Padding="5,5,5,0"
+           />
+    <Label Grid.Row="1"
+           Text="{Binding Content.HadeethArabic}"
            FontSize="{Binding FontSizeArabic}"
            FontFamily="LPMQ"
            LineHeight="{Binding LineHeight}"
@@ -36,10 +35,17 @@
            HorizontalTextAlignment="{Binding TextAlignment}"
            TextType="Text"
         />
-    <Label Grid.Column="0"
-           Grid.Row="2" 
-           Grid.ColumnSpan="2"           
-           Text="{Binding Id}"
+    <Label Grid.Row="2"      
+           Text="{Binding Content.Hadeeth}"
+           FontSize="{Binding FontSizeTextIndo}"
+           HorizontalTextAlignment="Start"
+           FontFamily="Montserrat-Medium-Italic"
+           Padding="10,10,10,2"
+           IsVisible="{Binding IsVisibleTransliteration, Mode=TwoWay}"
+           TextColor="{StaticResource TextColor}"
+           />
+    <Label Grid.Row="3"      
+           Text="{Binding Content.Explanation}"
            FontSize="{Binding FontSizeTranslate}"
            HorizontalTextAlignment="Start"
            FontFamily="Montserrat-Light-Italic"

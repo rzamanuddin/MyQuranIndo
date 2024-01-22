@@ -91,5 +91,13 @@ namespace MyQuranIndo.Models.Qurans
                 }
             }
         }
+
+        public double FontSizeTranslate
+        {
+            get
+            {
+                return FontHelper.GetFontSizeTranslate();
+            }
+        }
     }
 }

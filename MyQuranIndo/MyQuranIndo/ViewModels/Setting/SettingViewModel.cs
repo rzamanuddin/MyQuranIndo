@@ -67,6 +67,28 @@ namespace MyQuranIndo.ViewModels.Setting
             set => SetProperty(ref bismillahSample, value);
         }
 
+        private string bismillahTranslateSample;
+        public string BismillahTranslateSample
+        {
+            get
+            {
+                return FontHelper.GetBismillahTranslate();
+            }
+
+            set => SetProperty(ref bismillahTranslateSample, value);
+        }
+
+        private string bismillahTextIndoSample;
+        public string BismillahTextIndoSample
+        {
+            get
+            {
+                return FontHelper.GetBismillahTextIndo();
+            }
+
+            set => SetProperty(ref bismillahTextIndoSample, value);
+        }
+
         //private ResourceDictionary theme;
         //public ResourceDictionary Theme
         //{
@@ -106,6 +128,16 @@ namespace MyQuranIndo.ViewModels.Setting
             //{
             //    return new Command<string>((theme) => OnColorThemeSelected(theme));
             //}
+        }
+
+        public ICommand FontSizeTranslateCommand
+        {
+            get;
+        }
+
+        public ICommand FontSizeTextIndoCommand
+        {
+            get;
         }
 
         public ICommand ReciterCommand
@@ -366,15 +398,17 @@ namespace MyQuranIndo.ViewModels.Setting
 
 
         public ObservableCollection<KeyValuePair<int, String>> FontSizes { get; private set; }
+        public ObservableCollection<KeyValuePair<int, String>> FontSizeTranslates { get; private set; }
+        public ObservableCollection<KeyValuePair<int, String>> FontSizeTextIndos { get; private set; }
 
-        
+
         private KeyValuePair<int, string> fontSizeSelected;
         public KeyValuePair<int, string> FontSizeSelected
         {
             get
             {
                 int fontStyle = Preferences.Get(References.Setting.FONT_SIZE_SELECTED, (int)FontSize.Small);  
-                fontSizeSelected = FontSizes.FirstOrDefault(q => q.Key == fontStyle);
+                fontSizeSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontStyle);
                 return fontSizeSelected;
             }
             set
@@ -386,6 +420,61 @@ namespace MyQuranIndo.ViewModels.Setting
                 }
                 FontSizeArabic = FontHelper.GetFontSizeArabic(true);
             }
+        }
+
+        private KeyValuePair<int, string> fontSizeTranslateSelected;
+        public KeyValuePair<int, string> FontSizeTranslateSelected
+        {
+            get
+            {
+                int fontStyle = Preferences.Get(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, (int)FontSize.Caption);
+                fontSizeTranslateSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontStyle);
+                return fontSizeTranslateSelected;
+            }
+            set
+            {
+                if (fontSizeTranslateSelected.Key != value.Key)
+                {
+                    Preferences.Set(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, value.Key);
+                    SetProperty(ref fontSizeTranslateSelected, value);
+                }
+                FontSizeTranslate = FontHelper.GetFontSizeTranslate();
+            }
+        }
+
+        private KeyValuePair<int, string> fontSizeTextIndoSelected;
+        public KeyValuePair<int, string> FontSizeTextIndoSelected
+        {
+            get
+            {
+                int fontStyle = Preferences.Get(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, (int)FontSize.Caption);
+                fontSizeTextIndoSelected = FontSizeTextIndos.FirstOrDefault(q => q.Key == fontStyle);
+                return fontSizeTextIndoSelected;
+            }
+            set
+            {
+                if (fontSizeTextIndoSelected.Key != value.Key)
+                {
+                    Preferences.Set(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, value.Key);
+                    SetProperty(ref fontSizeTextIndoSelected, value);
+                }
+                FontSizeTextIndo = FontHelper.GetFontSizeTextIndo();
+            }
+        }
+
+        private double fontSizeTranslate;
+        public double FontSizeTranslate
+        {
+            get => fontSizeTranslate;
+            set => SetProperty(ref fontSizeTranslate, value);
+        }
+
+
+        private double fontSizeTextIndo;
+        public double FontSizeTextIndo
+        {
+            get => fontSizeTextIndo;
+            set => SetProperty(ref fontSizeTextIndo, value);
         }
 
         private double fontSizeArabic;
@@ -475,6 +564,189 @@ namespace MyQuranIndo.ViewModels.Setting
                 SetProperty(ref fontSizeLargeColor, value);
             }
         }
+
+        private Color fontSizeTranslatecaptionColor;
+        public Color FontSizeTranslateCaptionColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, 3) == (int)FontSize.Caption)
+                {
+                    fontSizeTranslatecaptionColor = Color.LightGray;
+                }
+                else
+                {
+                    fontSizeTranslatecaptionColor = Color.White;
+                }
+
+                return fontSizeTranslatecaptionColor;
+            }
+
+            set
+            {
+                SetProperty(ref fontSizeTranslatecaptionColor, value);
+            }
+        }
+
+        private Color fontSizeTranslateSmallColor;
+        public Color FontSizeTranslateSmallColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, 3) == (int)FontSize.Small)
+                {
+                    fontSizeTranslateSmallColor = Color.LightGray;
+                }
+                else
+                {
+                    fontSizeTranslateSmallColor = Color.White;
+                }
+
+                return fontSizeTranslateSmallColor;
+            }
+
+            set
+            {
+                SetProperty(ref fontSizeTranslateSmallColor, value);
+            }
+        }
+
+        private Color fontSizeTranslateMediumColor;
+        public Color FontSizeTranslateMediumColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, 3) == (int)FontSize.Medium)
+                {
+                    fontSizeTranslateMediumColor = Color.LightGray;
+                }
+                else
+                {
+                    fontSizeTranslateMediumColor = Color.White;
+                }
+
+                return fontSizeTranslateMediumColor;
+            }
+
+            set
+            {
+                SetProperty(ref fontSizeTranslateMediumColor, value);
+            }
+        }
+
+        private Color fontSizeTranslateLargeColor;
+        public Color FontSizeTranslateLargeColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, 3) == (int)FontSize.Large)
+                {
+                    fontSizeTranslateLargeColor = Color.LightGray;
+                }
+                else
+                {
+                    fontSizeTranslateLargeColor = Color.White;
+                }
+                return fontSizeTranslateLargeColor;
+            }
+
+            set
+            {
+                SetProperty(ref fontSizeTranslateLargeColor, value);
+            }
+        }
+
+        private Color fontSizeTextIndocaptionColor;
+        public Color FontSizeTextIndoCaptionColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, 3) == (int)FontSize.Caption)
+                {
+                    fontSizeTextIndocaptionColor = Color.LightGray;
+                }
+                else
+                {
+                    fontSizeTextIndocaptionColor = Color.White;
+                }
+
+                return fontSizeTextIndocaptionColor;
+            }
+
+            set
+            {
+                SetProperty(ref fontSizeTextIndocaptionColor, value);
+            }
+        }
+
+        private Color fontSizeTextIndoSmallColor;
+        public Color FontSizeTextIndoSmallColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, 3) == (int)FontSize.Small)
+                {
+                    fontSizeTextIndoSmallColor = Color.LightGray;
+                }
+                else
+                {
+                    fontSizeTextIndoSmallColor = Color.White;
+                }
+
+                return fontSizeTextIndoSmallColor;
+            }
+
+            set
+            {
+                SetProperty(ref fontSizeTextIndoSmallColor, value);
+            }
+        }
+
+        private Color fontSizeTextIndoMediumColor;
+        public Color FontSizeTextIndoMediumColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, 3) == (int)FontSize.Medium)
+                {
+                    fontSizeTextIndoMediumColor = Color.LightGray;
+                }
+                else
+                {
+                    fontSizeTextIndoMediumColor = Color.White;
+                }
+
+                return fontSizeTextIndoMediumColor;
+            }
+
+            set
+            {
+                SetProperty(ref fontSizeTextIndoMediumColor, value);
+            }
+        }
+
+        private Color fontSizeTextIndoLargeColor;
+        public Color FontSizeTextIndoLargeColor
+        {
+            get
+            {
+                if (Preferences.Get(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, 3) == (int)FontSize.Large)
+                {
+                    fontSizeTextIndoLargeColor = Color.LightGray;
+                }
+                else
+                {
+                    fontSizeTextIndoLargeColor = Color.White;
+                }
+                return fontSizeTextIndoLargeColor;
+            }
+
+            set
+            {
+                SetProperty(ref fontSizeTextIndoLargeColor, value);
+            }
+        }
+
         //public Task Initialization { get; private set; }
 
         public SettingViewModel()
@@ -483,12 +755,17 @@ namespace MyQuranIndo.ViewModels.Setting
             OpenAppStoreTapped = new Command(async () => await OnOpenAppStore());
             ColorThemeCommand = new Command<int>((theme) => OnColorThemeSelected(theme));
             FontSizeCommand = new Command<int>((fontSize) => OnFontSizeSelected(fontSize));
+            FontSizeTranslateCommand = new Command<int>((fontSize) => OnFontSizeTranslateSelected(fontSize));
+            FontSizeTextIndoCommand = new Command<int>((fontSize) => OnFontSizeTextIndoSelected(fontSize));
             ReciterCommand = new Command<int>((reciter) => OnReciterSelected(reciter));
             TafsirCommand = new Command<int>((tafsir) => OnTafsirSelected(tafsir));
             RasmCommand = new Command<int>((rasm) => OnRasmSelected(rasm));
             ClearCacheTapped = new Command(async () => await OnClearCacheSelected());
 
             FontSizes = new ObservableCollection<KeyValuePair<int, string>>();
+            FontSizeTranslates = new ObservableCollection<KeyValuePair<int, string>>();
+            FontSizeTextIndos = new ObservableCollection<KeyValuePair<int, string>>();
+
             Reciters = new ObservableCollection<KeyValuePair<int, string>>();
             Tafsirs = new ObservableCollection<KeyValuePair<int, string>>();
             Rasms = new ObservableCollection<KeyValuePair<int, string>>();
@@ -673,6 +950,122 @@ namespace MyQuranIndo.ViewModels.Setting
             }
         }
 
+        private void OnFontSizeTranslateSelected(int fontSize)
+        {
+            int fontSizeTranslateSelected = Preferences.Get(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, 3);
+            switch (fontSize)
+            {
+                case (int)FontSize.Caption:
+                    if (fontSizeTranslateSelected != (int)FontSize.Caption)
+                    {
+                        Preferences.Set(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, (int)FontSize.Caption);
+                        FontSizeTranslateSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontSize);
+                        FontSizeTranslateSmallColor = Color.White;
+                        FontSizeTranslateMediumColor = Color.White;
+                        FontSizeTranslateLargeColor = Color.White;
+                        FontSizeTranslateCaptionColor = Color.LightGray;
+                    }
+                    ToastService.Show($"Ukuran teks default berhasil dipilih", false);
+                    break;
+                case (int)FontSize.Small:
+                    if (fontSizeTranslateSelected != (int)FontSize.Small)
+                    {
+                        Preferences.Set(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, (int)FontSize.Small);
+                        FontSizeTranslateSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontSize);
+                        FontSizeTranslateSmallColor = Color.LightGray;
+                        FontSizeTranslateMediumColor = Color.White;
+                        FontSizeTranslateLargeColor = Color.White;
+                        FontSizeTranslateCaptionColor = Color.White;
+                    }
+                    ToastService.Show($"Ukuran teks kecil berhasil dipilih", false);
+                    break;
+                case (int)FontSize.Medium:
+                    if (fontSizeTranslateSelected != (int)FontSize.Medium)
+                    {
+                        Preferences.Set(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, (int)FontSize.Medium);
+                        FontSizeTranslateSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontSize);
+                        FontSizeTranslateMediumColor = Color.LightGray;
+                        FontSizeTranslateLargeColor = Color.White;
+                        FontSizeTranslateSmallColor = Color.White;
+                        FontSizeTranslateCaptionColor = Color.White;
+                    }
+                    ToastService.Show($"Ukuran teks sedang berhasil dipilih", false);
+                    break;
+                case (int)FontSize.Large:
+                    if (fontSizeTranslateSelected != (int)FontSize.Large)
+                    {
+                        Preferences.Set(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, (int)FontSize.Large);
+                        FontSizeTranslateSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontSize);
+                        FontSizeTranslateLargeColor = Color.LightGray;
+                        FontSizeTranslateMediumColor = Color.White;
+                        FontSizeTranslateSmallColor = Color.White;
+                        FontSizeTranslateCaptionColor = Color.White;
+                    }
+                    ToastService.Show($"Ukuran teks besar berhasil dipilih", false);
+                    break;
+                default:
+                    goto case (int)FontSize.Caption;
+            }
+        }
+
+        private void OnFontSizeTextIndoSelected(int fontSize)
+        {
+            int fontSizeTranslateSelected = Preferences.Get(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, 3);
+            switch (fontSize)
+            {
+                case (int)FontSize.Caption:
+                    if (fontSizeTranslateSelected != (int)FontSize.Caption)
+                    {
+                        Preferences.Set(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, (int)FontSize.Caption);
+                        FontSizeTextIndoSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontSize);
+                        FontSizeTextIndoSmallColor = Color.White;
+                        FontSizeTextIndoMediumColor = Color.White;
+                        FontSizeTextIndoLargeColor = Color.White;
+                        FontSizeTextIndoCaptionColor = Color.LightGray;
+                    }
+                    ToastService.Show($"Ukuran teks default berhasil dipilih", false);
+                    break;
+                case (int)FontSize.Small:
+                    if (fontSizeTranslateSelected != (int)FontSize.Small)
+                    {
+                        Preferences.Set(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, (int)FontSize.Small);
+                        FontSizeTextIndoSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontSize);
+                        FontSizeTextIndoSmallColor = Color.LightGray;
+                        FontSizeTextIndoMediumColor = Color.White;
+                        FontSizeTextIndoLargeColor = Color.White;
+                        FontSizeTextIndoCaptionColor = Color.White;
+                    }
+                    ToastService.Show($"Ukuran teks kecil berhasil dipilih", false);
+                    break;
+                case (int)FontSize.Medium:
+                    if (fontSizeTranslateSelected != (int)FontSize.Medium)
+                    {
+                        Preferences.Set(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, (int)FontSize.Medium);
+                        FontSizeTextIndoSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontSize);
+                        FontSizeTextIndoMediumColor = Color.LightGray;
+                        FontSizeTextIndoLargeColor = Color.White;
+                        FontSizeTextIndoSmallColor = Color.White;
+                        FontSizeTextIndoCaptionColor = Color.White;
+                    }
+                    ToastService.Show($"Ukuran teks sedang berhasil dipilih", false);
+                    break;
+                case (int)FontSize.Large:
+                    if (fontSizeTranslateSelected != (int)FontSize.Large)
+                    {
+                        Preferences.Set(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, (int)FontSize.Large);
+                        FontSizeTextIndoSelected = FontSizeTranslates.FirstOrDefault(q => q.Key == fontSize);
+                        FontSizeTextIndoLargeColor = Color.LightGray;
+                        FontSizeTextIndoMediumColor = Color.White;
+                        FontSizeTextIndoSmallColor = Color.White;
+                        FontSizeTextIndoCaptionColor = Color.White;
+                    }
+                    ToastService.Show($"Ukuran teks besar berhasil dipilih", false);
+                    break;
+                default:
+                    goto case (int)FontSize.Caption;
+            }
+        }
+
         public async Task LoadDataAsync()
         {
             FontSizes.Clear();
@@ -680,8 +1073,24 @@ namespace MyQuranIndo.ViewModels.Setting
             FontSizes.Add(new KeyValuePair<int, string>((int)FontSize.Medium, "Sedang"));
             FontSizes.Add(new KeyValuePair<int, string>((int)FontSize.Large, "Besar"));
 
+            FontSizeTranslates.Clear();
+            FontSizeTranslates.Add(new KeyValuePair<int, string>((int)FontSize.Small, "Default"));
+            FontSizeTranslates.Add(new KeyValuePair<int, string>((int)FontSize.Small, "Kecil"));
+            FontSizeTranslates.Add(new KeyValuePair<int, string>((int)FontSize.Medium, "Sedang"));
+            FontSizeTranslates.Add(new KeyValuePair<int, string>((int)FontSize.Large, "Besar"));
+
+            FontSizeTextIndos.Clear();
+            FontSizeTextIndos.Add(new KeyValuePair<int, string>((int)FontSize.Small, "Default"));
+            FontSizeTextIndos.Add(new KeyValuePair<int, string>((int)FontSize.Small, "Kecil"));
+            FontSizeTextIndos.Add(new KeyValuePair<int, string>((int)FontSize.Medium, "Sedang"));
+            FontSizeTextIndos.Add(new KeyValuePair<int, string>((int)FontSize.Large, "Besar"));
+
             int fontStyle = Preferences.Get(References.Setting.FONT_SIZE_SELECTED, (int)FontSize.Small);
             FontSizeSelected = FontSizes.FirstOrDefault(q => q.Key == fontStyle);
+            fontStyle = Preferences.Get(References.Setting.FONT_SIZE_TRANSLATE_SELECTED, (int)FontSize.Caption);
+            FontSizeTranslateSelected = FontSizes.FirstOrDefault(q => q.Key == fontStyle);
+            fontStyle = Preferences.Get(References.Setting.FONT_SIZE_TEXT_INDO_SELECTED, (int)FontSize.Caption);
+            FontSizeTextIndoSelected = FontSizes.FirstOrDefault(q => q.Key == fontStyle);
 
             Reciters.Clear();
             Reciters.Add(new KeyValuePair<int, string>((int)Models.Qurans.Reciter.AsSudais, AppSetting.GetUrlMP3()));

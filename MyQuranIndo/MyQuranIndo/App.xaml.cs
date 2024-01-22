@@ -102,7 +102,7 @@ namespace MyQuranIndo
             DependencyService.Register<HelpDataService>();
             DependencyService.Register<TafsirDataService>();
             DependencyService.Register<HadithDataService>();
-
+            DependencyService.Register<PrayerDataService>();
             // Sharpnado.HorizontalListView.Initializer.Initialize(true, false);
             MainPage = new AppShell();
 

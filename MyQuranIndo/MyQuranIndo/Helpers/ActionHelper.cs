@@ -56,6 +56,10 @@ namespace MyQuranIndo.Helpers
         public const string HADITH_SHARE = "Bagikan Hadis";
         public const string HADITH_COPY = "Salin Hadis";
 
+        public const string INTENTION_SHARE = "Bagikan";
+        public const string INTENTION_COPY = "Salin";
+        public const string INTENTION_COPY_ALL = "Salin Semua";
+
         public async static Task<string> DisplayActionSurahORJuzAsync()
         {
 
@@ -172,6 +176,14 @@ namespace MyQuranIndo.Helpers
         {
             string action = await App.Current.MainPage.DisplayActionSheet(title,
                 Message.MSG_CANCEL, null, PRAY_SHARE, PRAY_COPY);// PRAY_SHARE_ALL, PRAY_COPY, PRAY_COPY_ALL);
+
+            return action;
+        }
+
+        public static async Task<string> DisplayActionIntentionAsync(string title)
+        {
+            string action = await App.Current.MainPage.DisplayActionSheet(title,
+                Message.MSG_CANCEL, null, INTENTION_SHARE, INTENTION_COPY, INTENTION_COPY_ALL);
 
             return action;
         }
@@ -298,6 +310,43 @@ namespace MyQuranIndo.Helpers
             zikrCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
 
             return zikrCopied;
+        }
+
+        public static string GetIntentionsAllToShare(ObservableCollection<Intention> intentions, string title)
+        {
+            string line = Environment.NewLine + Environment.NewLine;
+            string textCopied = title;
+            foreach (var intention in intentions)
+            {
+                textCopied += $"{line + intention.TitleAndNumber}";
+                textCopied += $"{line + intention.Arabic}";
+                if (intention.IsVisibleArabicLatin)
+                {
+                    textCopied += $"{line + intention.ArabicLatin}";
+                }
+                textCopied += $"{line + intention.TranslateID}";
+            }
+            textCopied += $"{line}*Via {AppSetting.GetApplicationName()}";
+            textCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return textCopied;
+        }
+
+        public static string GetIntentionToShare(Intention intention, string title)
+        {
+            string textCopied = intention.Title;
+            string line = Environment.NewLine + Environment.NewLine;
+
+            textCopied += $"{line + intention.Arabic}";
+            if (intention.IsVisibleArabicLatin)
+            {
+                textCopied += $"{line + intention.ArabicLatin}";
+            }
+            textCopied += $"{line + intention.TranslateID}";
+            textCopied += $"{line}{title}{Environment.NewLine}*Via {AppSetting.GetApplicationName()}";
+            textCopied += $"{Environment.NewLine}{AppSetting.GetUrlPlayStore()}";
+
+            return textCopied;
         }
 
         public static string GetPraysAllToShare(ObservableCollection<Models.Zikrs.Pray> prays, string title)

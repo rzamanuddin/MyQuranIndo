@@ -28,7 +28,7 @@
         />
     <Label Grid.Column="1"           
            Text="{Binding TafsirText}"
-           FontSize="Caption"
+           FontSize="{Binding FontSizeTranslate}}"
            HorizontalTextAlignment="Start"
            FontFamily="Montserrat-Light-Italic"
            Padding="10,5,10,15"

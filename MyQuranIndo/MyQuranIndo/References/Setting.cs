@@ -13,6 +13,10 @@ namespace MyQuranIndo.References
 
         public static string FONT_SIZE_SELECTED = "font.size.selected";
 
+        public static string FONT_SIZE_TRANSLATE_SELECTED = "font.size.translate.selected";
+
+        public static string FONT_SIZE_TEXT_INDO_SELECTED = "font.size.latin.selected";
+
         public static string RECITER_SELECTED = "reciter.selected";
 
         public static string TAFSIR_SELECTED = "tafsir.selected";

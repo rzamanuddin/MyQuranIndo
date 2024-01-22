@@ -244,14 +244,14 @@
                                                Text="{Binding ArabicLatin}" 
                                                LineBreakMode="WordWrap"
                                                FontFamily="Montserrat-Medium-Italic"
-                                               FontSize="Caption"
+                                               FontSize="{Binding FontSizeTextIndo}"
                                                TextColor="{StaticResource TextColor}" 
                                                Padding="5,10,5,5"/>
                                         <Label Grid.Column="0"
                                                Grid.Row="3"
                                                Text="{Binding TranslateID}" 
                                                LineBreakMode="WordWrap"
-                                               FontSize="Caption"
+                                               FontSize="{Binding FontSizeTranslate}"
                                                FontFamily="Montserrat-Light-Italic"
                                                TextColor="{StaticResource TextColor}"
                                                Padding="5,5,5,0"/>
@@ -259,19 +259,19 @@
                                                Grid.Row="4"
                                                Text="{Binding Narrator, StringFormat='{0}'}" 
                                                LineBreakMode="WordWrap"
-                                               FontSize="Caption"
+                                               FontSize="{Binding FontSizeTranslate}"
                                                FontFamily="Montserrat-Medium-Italic"
                                                TextColor="{StaticResource TextColor}"
                                                Padding="5,0,5,10"
                                                />
                                     </Grid>
                                     <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                                NumberOfTapsRequired="1"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:PrayViewModel }}, Path=PrayOneTapped}"		
-                                                CommandParameter="{Binding .}">
-                                    </TapGestureRecognizer>
-                                </StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                    NumberOfTapsRequired="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:PrayViewModel }}, Path=PrayOneTapped}"		
+                                                    CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

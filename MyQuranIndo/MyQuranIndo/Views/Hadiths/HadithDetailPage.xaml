@@ -204,7 +204,7 @@
                                                Grid.Row="1" 
                                                Grid.ColumnSpan="2"           
                                                Text="{Binding Id}"
-                                               FontSize="Caption"
+                                               FontSize="{Binding FontSizeTranslate}"
                                                HorizontalTextAlignment="Start"
                                                FontFamily="Montserrat-Light-Italic"
                                                Padding="10,5,10,15"

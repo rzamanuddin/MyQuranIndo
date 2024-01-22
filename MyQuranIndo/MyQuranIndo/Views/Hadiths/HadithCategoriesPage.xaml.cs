@@ -1,4 +1,5 @@
-﻿using MyQuranIndo.ViewModels.Zikr;
+﻿using MyQuranIndo.ViewModels;
+using MyQuranIndo.ViewModels.Hadiths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,17 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyQuranIndo.Views.Zikr
+namespace MyQuranIndo.Views.Hadiths
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class IntentionsPage : ContentPage
+    public partial class HadithCategoriesPage : ContentPage
     {
-        private IntentionViewModel _viewModel;
-        public IntentionsPage()
+        private HadithCategoriesViewModel _viewModel;
+
+        public HadithCategoriesPage()
         {
             InitializeComponent();
-            this.BindingContext = _viewModel = new IntentionViewModel(1);
+            BindingContext = _viewModel = new HadithCategoriesViewModel();
         }
 
         protected override void OnAppearing()
@@ -25,5 +27,6 @@ namespace MyQuranIndo.Views.Zikr
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
     }
 }
