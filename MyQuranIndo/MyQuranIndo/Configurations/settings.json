@@ -13,5 +13,10 @@
 	"urlHelp": "https://api.npoint.io/317372a608b860c7dcb6",
 	"urlHadithCategory": "https://hadeethenc.com/api/v1",
 	"urlIntention": "https://api.npoint.io/90662c99995f2aea311c",
-	"urlPrayerRead": "https://api.npoint.io/6739f279c346129acbde"
+	"urlPrayerRead": "https://api.npoint.io/6739f279c346129acbde",
+	"urlPrayerZikr": "https://api.npoint.io/52bfdebd0d324c554905",
+	/*"urlPrayerZikr2": "https://api.npoint.io/6ee33b2a0862163a5a7e",*/
+	"urlPrayerZikr2": "https://api.npoint.io/58489684ca8579b325f0", 
+	/*https://www.npoint.io/docs/88684e422da7d5e4d37a*/
+	"urlZikr": "https://api.npoint.io/cb8fdff3efcf8632842f"
 }

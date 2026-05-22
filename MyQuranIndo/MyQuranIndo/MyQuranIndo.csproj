@@ -130,7 +130,11 @@
     <None Remove="Databases\Help.json" />
     <None Remove="Databases\Intention.json" />
     <None Remove="Databases\Prayer.json" />
-    <None Remove="Databases\Zikr.json" />
+    <None Remove="Databases\PrayerZikr.json" />
+    <None Remove="Databases\PrayerZikr2.json" />
+    <None Remove="Databases\ZikrMorningAndNoon.json" />
+    <None Remove="Resources\Fonts\HAFS.TTF" />
+    <None Remove="Resources\Fonts\kfgqpchafsuthmanicscript_regula.otf" />
     <None Remove="Resources\Fonts\KFGQPC_Uthmanic_Script_HAFS_Regular.otf" />
     <None Remove="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
@@ -155,7 +159,11 @@
     <EmbeddedResource Include="Databases\DoaNew.json" />
     <EmbeddedResource Include="Databases\Help.json" />
     <EmbeddedResource Include="Databases\Intention.json" />
-    <EmbeddedResource Include="Databases\Zikr.json" />
+    <EmbeddedResource Include="Databases\PrayerZikr2.json" />
+    <EmbeddedResource Include="Databases\PrayerZikr.json" />
+    <EmbeddedResource Include="Databases\ZikrMorningAndNoon.json" />
+    <EmbeddedResource Include="Resources\Fonts\HAFS.TTF" />
+    <EmbeddedResource Include="Resources\Fonts\kfgqpchafsuthmanicscript_regula.otf" />
     <EmbeddedResource Include="Resources\Fonts\KFGQPC_Uthmanic_Script_HAFS_Regular.otf" />
     <EmbeddedResource Include="Resources\Fonts\LPMQ_IsepMisbah.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />

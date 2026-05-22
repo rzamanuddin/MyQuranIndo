@@ -108,6 +108,14 @@ namespace MyQuranIndo.ViewModels.Zikr
         public Task Initialization { get; private set; }
         public ICommand IntentionOneTapped { get; }
 
+
+        private ICommand _searchCommand;
+        public ICommand SearchCommand => _searchCommand ?? (_searchCommand = new Command<string>(async (text) =>
+        {
+            searchQuery = text;
+            await ExecuteLoadCommand();
+        }));
+
         //public FindViewModel(bool emptyGroups = false)
         public IntentionViewModel(int index)
         {
@@ -115,9 +123,17 @@ namespace MyQuranIndo.ViewModels.Zikr
             {
                 Title = "Niat Sholat";
             }
-            else
+            else if (index == 2)
             {
                 Title = "Bacaan Sholat";
+            }
+            else if (index == 3)
+            {
+                Title = "Dzikir Setelah Sholat 1";
+            }
+            else
+            {
+                Title = "Dzikir Setelah Sholat 2";
             }
             Intentions = new ObservableCollection<IntentionGroup>();
             IntentionsCopy = new ObservableCollection<IntentionGroup>();
@@ -310,11 +326,49 @@ namespace MyQuranIndo.ViewModels.Zikr
                 {
                     intentions = await IntentionDataService.GetIntentions(true);
                 }
-                else
+                else if (this.index == 2)
                 {
                     var intentionsList = new List<Intention>();
                     var prayerReads = await PrayerReadDataService.GetPrayerReads(true);
                     foreach (var pr in prayerReads)
+                    {
+                        var intention = new Intention
+                        {
+                            Arabic = pr.Arabic,
+                            ArabicLatin = pr.ArabicLatin,
+                            ID = pr.ID,
+                            Title = pr.Title,
+                            TranslateID = pr.TranslateID,
+                        };
+
+                        intentionsList.Add(intention);
+                    }
+                    intentions = intentionsList;
+                }
+                else if (this.index == 3)
+                {
+                    var intentionsList = new List<Intention>();
+                    var prayerZikrs = await PrayerReadDataService.GetPrayerZikrs(true);
+                    foreach (var pr in prayerZikrs)
+                    {
+                        var intention = new Intention
+                        {
+                            Arabic = pr.Arabic,
+                            ArabicLatin = pr.ArabicLatin,
+                            ID = pr.ID,
+                            Title = pr.Title,
+                            TranslateID = pr.TranslateID,
+                        };
+
+                        intentionsList.Add(intention);
+                    }
+                    intentions = intentionsList;
+                }
+                else
+                {
+                    var intentionsList = new List<Intention>();
+                    var prayerZikrs = await PrayerReadDataService.GetPrayerZikrs2(true);
+                    foreach (var pr in prayerZikrs)
                     {
                         var intention = new Intention
                         {

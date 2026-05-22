@@ -1,3 +1,4 @@
+
 using Android.App;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,6 +18,7 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("UthmanTN1_Ver07.otf", Alias = "UthmanTN")]
 [assembly: ExportFont("UthmanTN1B_Ver07.otf", Alias = "UthmanTNBold")]
 [assembly: ExportFont("KFGQPC_Uthmanic_Script_HAFS_Regular.otf", Alias = "KFGQPC")]
+[assembly: ExportFont("kfgqpchafsuthmanicscript_regula.otf", Alias = "HAFS")]
 
 #if DEBUG
 [assembly: Application(Debuggable = true)]

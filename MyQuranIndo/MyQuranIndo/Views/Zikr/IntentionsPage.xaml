@@ -4,6 +4,7 @@
              x:Class="MyQuranIndo.Views.Zikr.IntentionsPage"
              xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Zikr"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Zikrs"
+             xmlns:localBehavior="clr-namespace:MyQuranIndo.Behaviors" 
              Title="{Binding Title}">
     <Shell.SearchHandler>
         <SearchHandler x:DataType="vm:IntentionViewModel"  
@@ -34,6 +35,25 @@
                    TextColor="{Binding FoundResultColor, Mode=TwoWay}"
                    CharacterSpacing="1"
                    />-->
+            <SearchBar x:Name="searchBar2"
+                       x:DataType="vm:IntentionViewModel"
+                       Placeholder="Cari Kata Kunci"
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource TextColor}"
+                       Margin="0, 0, 0, 1"
+                       IsVisible="{Binding VisibleSearchBar}">
+                
+                <SearchBar.Behaviors>
+                    <localBehavior:TextChangedBehavior />
+                </SearchBar.Behaviors>
+            </SearchBar>
+            <!--<BoxView BackgroundColor="Black"
+                     HeightRequest="3"
+                     Margin="0, -7, 0, 1" 
+                     IsVisible="{Binding VisibleSearchBar}"
+                     />-->     
             <RefreshView x:DataType="vm:IntentionViewModel" 
                          Command="{Binding LoadCommand}" 
                          IsRefreshing="{Binding IsBusy, Mode=TwoWay}"

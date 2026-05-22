@@ -105,7 +105,7 @@ namespace MyQuranIndo.ViewModels.Surah
                 {
                     ScrollToItem(1);
                 }
-                else
+                else    
                 {
                     int surahID = 0;
                     int.TryParse(text, out surahID);
@@ -163,7 +163,7 @@ namespace MyQuranIndo.ViewModels.Surah
             //    await Player.Stop();
             var oldColor = surah.RowColor;
             surah.RowColor = (Color)Application.Current.Resources["SelectedItem"];
-            await Shell.Current.GoToAsync($"{nameof(SurahDetailPage)}?{nameof(SurahDetailViewModel.SurahID)}={surah.ID.ToString()}");
+            await Shell.Current.GoToAsync($"{nameof(SurahDetailPage)}?{nameof(SurahDetailViewModel.SurahID)}={surah.ID}");
             surah.RowColor = oldColor;
             CanNavigate = true;
         }

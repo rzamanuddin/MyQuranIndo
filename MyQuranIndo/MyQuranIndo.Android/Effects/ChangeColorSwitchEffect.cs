@@ -34,6 +34,7 @@ namespace MyQuranIndo.Droid.Effects
         private Color _falseColorDarker;
         private Color _trueColorDarker;
 
+        [Obsolete]
         protected override void OnAttached()
         {
             if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.JellyBean)

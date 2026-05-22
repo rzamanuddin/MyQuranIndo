@@ -55,10 +55,10 @@ namespace MyQuranIndo.ViewModels.Zikr
         private async Task InitStart()
         {
             Tabs.Clear();
-            for (int i = 1; i <= 2; i++)
+            for (int i = 1; i <= 4; i++)
             {
                 var viewModel = new IntentionViewModel(i);
-                //viewModel.VisibleSearchBar = true;
+                viewModel.VisibleSearchBar = true;
 
                 //await viewModel.ExecuteLoadCommand();
                 Tabs.Add(new IntentionsPage() { BindingContext = viewModel });                

@@ -25,20 +25,36 @@ namespace MyQuranIndo.Services
         bool IsPlaying();
         void Play(FileStream fs);
         void Pause();
+
         double GetCurrentPosition();
         double GetDuration();
         double GetBalance();
-       // void Audio_PlaybackEnded(object sender, EventArgs e);
+        // void Audio_PlaybackEnded(object sender, EventArgs e);
+        ISimpleAudioPlayer Player { get; set; }
+        bool Load(Stream audioStream);
 
+        bool Load(string fileName);
+
+        void Play();
+        void Play(string fileName);
 
     }
     public class MP3Service : IMP3Service
     {
-        private ISimpleAudioPlayer Player;
+        private ISimpleAudioPlayer player;
+
+        public ISimpleAudioPlayer Player
+        {
+            get => this.player;
+            set => this.player = value;
+        }
+
         public MP3Service()
         {
-            Player = CrossSimpleAudioPlayer.Current;
+            player = CrossSimpleAudioPlayer.Current;
         }
+
+        
         public async Task<byte[]> DownloadAsync(string url)
         {
             byte[] result = null;
@@ -106,8 +122,8 @@ namespace MyQuranIndo.Services
 
                 try
                 {
-                    Player.Load(fs);
-                    Player.Play();
+                    player.Load(fs);
+                    player.Play();
                     //player.PlaybackEnded += Player_PlaybackEnded;
                     
                 }
@@ -170,46 +186,67 @@ namespace MyQuranIndo.Services
 
         public void StopPlayer()
         {
-            if (Player.IsPlaying)
-                Player.Stop();
+            if (player.IsPlaying)
+                player.Stop();
         }
 
         public bool IsPlaying()
         {
-            return Player.IsPlaying;
+            return player.IsPlaying;
         }
 
         public void Play(FileStream fs)
         {
-            Player.Load(fs);
-            Player.Play(); 
+            player.Load(fs);
+            player.Play(); 
             //Player.PlaybackEnded += Audio_PlaybackEnded;
         }
 
         public void Pause()
         {
-            Player.Pause();
+            player.Pause();
         }
 
         public double GetCurrentPosition()
         {
-            return Player.CurrentPosition;
+            return player.CurrentPosition;
         }
 
         public double GetDuration()
         {
-            return Player.Duration;
+            return player.Duration;
         }
 
         public double GetBalance()
         {
             
-            return Player.Balance;
+            return player.Balance;
+        }
+
+        public bool Load(Stream audioStream)
+        {
+            return player.Load(audioStream);
+        }
+
+        public bool Load(string fileName)
+        {
+            return player.Load(fileName);
+        }
+
+        public void Play()
+        {
+            player.Play();
+        }
+
+        public void Play(string fileName)
+        {
+            player.Load(fileName);
+            player.Play();
         }
 
         //public void Audio_PlaybackEnded(object sender, EventArgs e)
         //{
-            
+
         //    //Check if next playlist element exists
         //    //if (Playlist.IndexOf(PlaylistSelectedItem) + 1 < Playlist.Count)
         //    //{

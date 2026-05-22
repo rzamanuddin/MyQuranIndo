@@ -185,6 +185,20 @@ namespace MyQuranIndo.Models.Qurans
                 }
             }
         }
+        public double LineHeight
+        {
+            get
+            {
+                if (RasmHelper.GetRasmType() == (int)RasmType.Utsmani)
+                {
+                    return 1.1;
+                }
+                else
+                {
+                    return 1.4;
+                }
+            }
+        }
 
         public Ayah ToAyah()
         {

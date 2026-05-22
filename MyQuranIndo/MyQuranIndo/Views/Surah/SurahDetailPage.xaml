@@ -84,9 +84,28 @@
     </Shell.SearchHandler>
     <ContentPage.Content>
         <StackLayout Spacing="3" 
-                     Padding="10">            
+                     Padding="10"
+                     x:DataType="local:SurahDetailViewModel">
+            <!--<ProgressBar WidthRequest="500"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="Fill"
+                         Progress="{Binding Progress}"
+                         ProgressColor="{DynamicResource Primary}"
+                         MinimumHeightRequest="10"
+                         IsVisible="{Binding VisibleProgressBar}"/>
+            <Button Text="Download"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    Command="{Binding DownloadMP3Command}" />
+            <Button Text="Play"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    Command="{Binding PlayMP3Command}" />
+            <Button Text="Stop"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    Command="{Binding StopMP3Command}" />-->
             <SearchBar x:Name="searchBar2"
-                       x:DataType="local:SurahDetailViewModel"
                        Placeholder="Cari Kata Kunci"
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"

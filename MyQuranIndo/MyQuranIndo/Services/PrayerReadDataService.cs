@@ -18,6 +18,8 @@ namespace MyQuranIndo.Services
     public interface IPrayerReadDataService
     {
         Task<IEnumerable<PrayerRead>> GetPrayerReads(bool forceRefresh = false);
+        Task<IEnumerable<PrayerRead>> GetPrayerZikrs(bool forceRefresh = false);
+        Task<IEnumerable<PrayerRead>> GetPrayerZikrs2(bool forceRefresh = false);
     }
     public class PrayerDataService : IPrayerReadDataService
     {
@@ -63,6 +65,91 @@ namespace MyQuranIndo.Services
             catch (OperationCanceledException)
             {
                 results = await _database.GetPrayerReadsAsync();
+                return results;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return results;
+        }
+
+        public async Task<IEnumerable<PrayerRead>> GetPrayerZikrs(bool forceRefresh = false)
+        {
+            IEnumerable<PrayerRead> results;
+            try
+            {
+                var current = Connectivity.NetworkAccess;
+
+                // If internet connection is not available
+                if (current != NetworkAccess.Internet)
+                {
+                    results = await _database.GetPrayerZikrsAsync();
+                    return results;
+                }
+
+                string url = Path.Combine(AppSetting.GetUrlPrayerZikr());
+
+                var tokenSource = new CancellationTokenSource(3000);
+
+                HttpResponseMessage response = await _client.GetAsync(url, tokenSource.Token);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    results = JsonConvert.DeserializeObject<List<PrayerRead>>(content);
+                }
+                else
+                {
+                    results = await _database.GetPrayerZikrsAsync();
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                results = await _database.GetPrayerZikrsAsync();
+                return results;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return results;
+        }
+        public async Task<IEnumerable<PrayerRead>> GetPrayerZikrs2(bool forceRefresh = false)
+        {
+            IEnumerable<PrayerRead> results;
+            try
+            {
+                var current = Connectivity.NetworkAccess;
+
+                // If internet connection is not available
+                if (current != NetworkAccess.Internet)
+                {
+                    results = await _database.GetPrayerZikrs2Async();
+                    return results;
+                }
+
+                string url = Path.Combine(AppSetting.GetUrlPrayerZikr2());
+
+                var tokenSource = new CancellationTokenSource(3000);
+
+                HttpResponseMessage response = await _client.GetAsync(url, tokenSource.Token);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    results = JsonConvert.DeserializeObject<List<PrayerRead>>(content);
+                }
+                else
+                {
+                    results = await _database.GetPrayerZikrs2Async();
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                results = await _database.GetPrayerZikrs2Async();
                 return results;
             }
             catch (Exception ex)

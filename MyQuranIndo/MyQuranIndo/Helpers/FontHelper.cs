@@ -95,7 +95,8 @@ namespace MyQuranIndo.Helpers
         {
             if (RasmHelper.GetRasmType() == (int)RasmType.Utsmani)
             {
-                return "KFGQPC";
+                //return "KFGQPC";
+                return "HAFS";
             }
             else
             {

@@ -30,6 +30,9 @@ namespace MyQuranIndo.Configuration
         private const string API_URL_HELP = "urlHelp";
         private const string API_URL_INTENTION = "urlIntention";
         private const string API_URL_PRAYER_READ = "urlPrayerRead";
+        private const string API_URL_PRAYER_ZIKR = "urlPrayerZikr";
+        private const string API_URL_PRAYER_ZIKR_2 = "urlPrayerZikr2";
+        private const string API_URL_ZIKR = "urlZikr";
 
         //private const string API_URL_LOGIN = "apiLogin";
         //private const string API_URL_VOTE = "apiVote";
@@ -101,7 +104,18 @@ namespace MyQuranIndo.Configuration
         {
             return GetJsonSetting(API_URL_PRAYER_READ);
         }
-
+        public static string GetUrlPrayerZikr()
+        {
+            return GetJsonSetting(API_URL_PRAYER_ZIKR);
+        }
+        public static string GetUrlPrayerZikr2()
+        {
+            return GetJsonSetting(API_URL_PRAYER_ZIKR_2);
+        }
+        public static string GetUrlZikr()
+        {
+            return GetJsonSetting(API_URL_ZIKR);
+        }
         public static string GetUrlHadith()
         {
             return GetJsonSetting(API_URL_HADITH);

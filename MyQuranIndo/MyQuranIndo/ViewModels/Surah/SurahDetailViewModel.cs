@@ -18,6 +18,12 @@ using MyQuranIndo.Configuration;
 using MyQuranIndo.Helpers;
 using MyQuranIndo.Models.Fonts;
 using Android.Widget;
+using System.IO;
+using System.Threading;
+using static Android.Provider.MediaStore;
+//using MediaManager.Media;
+//using MediaManager.Playback;
+//using MediaManager;
 
 namespace MyQuranIndo.ViewModels.Surah
 {
@@ -103,16 +109,61 @@ namespace MyQuranIndo.ViewModels.Surah
             set => SetProperty(ref visibleSearchBar, value);
         }
 
+        private bool visibleProgressBar = false;
+        public bool VisibleProgressBar
+        {
+            get => visibleProgressBar;
+            set => SetProperty(ref visibleProgressBar, value);
+        }
+
         public IHasListView View
         {
             get; set;
-        }        
+        }
+        private float progress;
+        public float Progress
+        {
+            get => progress;
+            set => SetProperty(ref progress, value);
+        }
+
+        float percent = 0f;
+        public float Percent
+        {
+            get => percent;
+            set => SetProperty(ref percent, value);
+        }
+
+        string fileName;
+        public string FileName
+        {
+            get => fileName;
+            set => SetProperty(ref fileName, value);
+        }
+                
+        private int countMP3 = 0;
+        public int CountMP3
+        {
+            get => countMP3;
+            set => SetProperty(ref countMP3, value);
+        }
+
+        private int currentMP3 = 1;
+        public int CurrentMP3
+        {
+            get => currentMP3;
+            set => SetProperty(ref currentMP3, value);
+        }
+
 
         public Command LoadCommand { get; private set; }
         public ICommand AyahOneTapped { get; }
         public ICommand AyahTwoTapped { get; }
         public Command SettingTapped { get; }
         public ICommand GoBackCommand { get; }
+        public ICommand DownloadMP3Command { get; }
+        public ICommand PlayMP3Command { get; }
+        public ICommand StopMP3Command { get; }
 
         public SurahDetailViewModel()
         {
@@ -123,7 +174,203 @@ namespace MyQuranIndo.ViewModels.Surah
             AyahTwoTapped = new Command<Ayah>(OnAyahTwoTapped);
             SettingTapped = new Command(OnSettingTapped);
             GoBackCommand = new Command(async () => await OnBackTapped());
+            DownloadMP3Command = new Command(async () => await OnDownloadMP3Command());
+            PlayMP3Command = new Command(async (x) => await OnPlayMP3Command());
+            StopMP3Command = new Command(async (x) => await OnStopMP3Command());
+
+            //CrossMediaManager.Current.StateChanged += (object sender, StateChangedEventArgs e) =>
+            //{
+            //    if (e.State == MediaManager.Player.MediaPlayerState.Stopped)
+            //    {
+            //        Progress = 0f;
+            //        Percent = 0f;
+            //        CurrentMP3 = 0;
+            //        VisibleProgressBar = false;
+            //    }
+            //    else if (e.State == MediaManager.Player.MediaPlayerState.Playing)
+            //    {
+            //        VisibleProgressBar = true;
+            //        CurrentMP3 = 1;
+            //        Progress = (float)CurrentMP3 / CountMP3;
+            //        Percent = Progress * 100;
+            //    }
+            //};
+
+            //CrossMediaManager.Current.MediaItemChanged += (object sender, MediaItemEventArgs e) =>
+            //{
+            //    CurrentMP3++;
+            //    Progress = (float)CurrentMP3 / CountMP3;
+            //    Percent = Progress * 100;
+            //};
+            //MP3Service.Player.PlaybackEnded += Player_PlayBackEnded;            
         }
+
+        public async Task OnDownloadMP3Command()
+        {
+            MP3Service.StopPlayer();
+            Progress = 0;
+            Percent = 0;
+            string url = ReciterHelper.GetReciterUrl();
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            int count = surah.NumberOfAyah;
+            VisibleProgressBar = true;
+            for (int i = 1; i <= count; i++)
+            {
+                string mp3Name = $"{surah.ID:000}{i:000}.mp3";
+                var mp3File = await MP3Service.DownloadAsync(Path.Combine(url, mp3Name));
+
+                string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
+                File.WriteAllBytes(fileName, mp3File);
+                Progress = (float)i / count;
+                Percent = Progress * 100;
+            }
+            VisibleProgressBar = false;
+        }
+
+        private async Task OnStopMP3Command()
+        {
+            //MP3Service.StopPlayer();
+            //currentMP3 = 0;
+            //Percent = 0;
+            //Progress = 0;
+            //await CrossMediaManager.Current.Stop();
+        }
+
+        private async Task OnPlayMP3Command()
+        {
+            CountMP3 = Surah.NumberOfAyah;
+            CurrentMP3 = 1;
+            Progress = 0f;
+            Percent = 0f;
+            FileName = "";
+            MP3Service.StopPlayer();
+            VisibleProgressBar = true;
+
+
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //string mp3Name = $"{Surah.ID:000}{currentMP3:000}.mp3";
+            //string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
+
+            //var fileNames = new List<string>();
+            //for (int i = 1; i <= CountMP3; i++)
+            //{
+            //    string mp3Name = $"{Surah.ID:000}{i:000}.mp3";
+            //    string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
+            //    fileNames.Add(fileName);
+            //}
+            //await CrossMediaManager.Current.Play(fileNames);
+
+            //FileName = mp3Name;
+            //try
+            //{
+            //    FileStream fs = null;
+
+            //    if (File.Exists(fileName))
+            //    {
+            //        fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            //    }
+
+            //    try
+            //    {
+            //        MP3Service.Play(fs);
+            //        Progress = (float)CurrentMP3 / CountMP3;
+            //        Percent = Progress * 100;
+            //        ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
+            //        MP3Service.Player.PlaybackEnded += Player_PlayBackEnded;
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        await App.Current.MainPage.DisplayAlert("ERROR", ex.Message, "OK");
+            //    }
+            //    finally
+            //    {
+            //        if (fs != null)
+            //            fs.Dispose();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    await App.Current.MainPage.DisplayAlert("ERROR", ex.Message, "OK");
+            //}
+        }
+
+        //private void Player_PlayBackEnded(object sender, EventArgs e)
+        //{
+        //    //check if next playlist element exists
+        //    if (CurrentMP3 < CountMP3)
+        //    {             
+        //        MP3Service.StopPlayer();
+        //        VisibleProgressBar = true;
+
+        //        //string mp3Name = $"{Surah.ID:000}{CurrentMP3:000}.mp3";
+        //        //string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        //        //string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
+
+        //        //FileName = mp3Name;
+        //        //FileStream fs = null;
+        //        //if (File.Exists(fileName))
+        //        //{
+        //        //    fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+        //        //}
+
+        //        //MP3Service.Play(fs);
+        //        //Progress = (float)CurrentMP3 / CountMP3;
+        //        //Percent = Progress * 100;
+        //        //ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
+
+        //        //if (fs != null)
+        //        //{
+        //        //    fs.Dispose();
+        //        //}
+
+        //        string mp3Name = $"{Surah.ID:000}{CurrentMP3:000}.mp3";
+        //        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        //        string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
+
+        //        FileName = mp3Name;
+        //        FileStream fs = null;
+
+        //        try
+        //        {
+
+        //            if (File.Exists(fileName))
+        //            {
+        //                fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+        //            }
+
+        //            try
+        //            {
+        //                MP3Service.Play(fs);
+        //                Progress = (float)CurrentMP3 / CountMP3;
+        //                Percent = Progress * 100;
+        //                ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
+        //                CurrentMP3++;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                App.Current.MainPage.DisplayAlert("ERROR", ex.Message, "OK");
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            App.Current.MainPage.DisplayAlert("ERROR", ex.Message, "OK");
+        //        }
+        //        finally
+        //        {
+        //            if (fs != null)
+        //                fs.Dispose();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MP3Service.StopPlayer();
+        //        Progress = 0;
+        //        Percent = 0;
+        //        currentMP3 = 0;
+        //        VisibleProgressBar = false;
+        //    }
+        //}
 
         private async void OnSettingTapped()
         {

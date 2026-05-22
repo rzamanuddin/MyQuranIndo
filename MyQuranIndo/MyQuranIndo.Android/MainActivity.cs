@@ -14,10 +14,10 @@ using MyQuranIndo.Themes;
 using Android.Content.Res;
 using MyQuranIndo.ViewModels.Setting;
 using MyQuranIndo.Models.Themes;
-
+//using MediaManager;
 namespace MyQuranIndo.Droid
 {
-    [Activity(Label = "MyQuranIndo", Icon = "@drawable/icon_main", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
+    [Activity(LaunchMode = LaunchMode.SingleTop, Label = "MyQuranIndo", Icon = "@drawable/icon_main", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected async override void OnCreate(Bundle savedInstanceState)
@@ -34,8 +34,8 @@ namespace MyQuranIndo.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            //CrossMediaManager.Current.Init();
 
-            
             LoadApplication(new App());
 
             ICollection<ResourceDictionary> mergedDictionaries = App.Current.Resources.MergedDictionaries;
