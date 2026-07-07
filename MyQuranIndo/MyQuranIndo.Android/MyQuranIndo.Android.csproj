@@ -67,6 +67,7 @@
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <MandroidI18n />
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -290,7 +291,6 @@
     <AndroidResource Include="Resources\drawable\icon_clean.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-
   <!--
     Native libraries dengan 16 KB ELF page alignment untuk Android 15 (Google Play requirement).
     File-file ini adalah versi patched dari SQLitePCLRaw 2.1.9 yang p_align-nya sudah diubah
@@ -305,7 +305,11 @@
       <Abi>armeabi-v7a</Abi>
     </AndroidNativeLibrary>
   </ItemGroup>
-
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_donate.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
   <!--
     Override libe_sqlite3.so yang diekstrak dari NuGet dengan versi 16 KB aligned.
     Berjalan setelah NuGet mengekstrak native libraries ke obj/lp/X/nl/{abi}/.
@@ -318,20 +322,11 @@
       <_ExtractedSQLite Include="$(IntermediateOutputPath)lp\**\libe_sqlite3.so" />
     </ItemGroup>
     <!-- Copy patched versions untuk arm64-v8a -->
-    <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)lib\arm64-v8a\libe_sqlite3.so"
-      DestinationFiles="@(_ExtractedSQLite)"
-      SkipUnchangedFiles="false"
-      Condition="'@(_ExtractedSQLite)' != '' and $([System.String]::Copy('%(Identity)').Contains('arm64-v8a'))" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)lib\arm64-v8a\libe_sqlite3.so" DestinationFiles="@(_ExtractedSQLite)" SkipUnchangedFiles="false" Condition="'@(_ExtractedSQLite)' != '' and $([System.String]::Copy('%(Identity)').Contains('arm64-v8a'))" />
     <!-- Copy patched versions untuk armeabi-v7a -->
-    <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)lib\armeabi-v7a\libe_sqlite3.so"
-      DestinationFiles="@(_ExtractedSQLite)"
-      SkipUnchangedFiles="false"
-      Condition="'@(_ExtractedSQLite)' != '' and $([System.String]::Copy('%(Identity)').Contains('armeabi-v7a'))" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)lib\armeabi-v7a\libe_sqlite3.so" DestinationFiles="@(_ExtractedSQLite)" SkipUnchangedFiles="false" Condition="'@(_ExtractedSQLite)' != '' and $([System.String]::Copy('%(Identity)').Contains('armeabi-v7a'))" />
     <Message Text="✅ Replaced libe_sqlite3.so dengan 16 KB aligned version" Importance="high" />
   </Target>
-
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties TriggeredFromHotReload="False" />

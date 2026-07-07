@@ -22,6 +22,8 @@ using MyQuranIndo.ViewModels.Zikr;
 using MyQuranIndo.Views.AsmaulHusna;
 using MyQuranIndo.Views.Tafsir;
 using MyQuranIndo.Views.Hadiths;
+using System;
+using MyQuranIndo.Views.Donate;
 
 namespace MyQuranIndo.ViewModels.Home
 {
@@ -47,6 +49,8 @@ namespace MyQuranIndo.ViewModels.Home
         public ICommand IntentionTapped { get; }
         public ICommand JuzAmmaTapped { get; }
         public ICommand HadithTapped { get; }
+        public ICommand SurahPopularTapped { get; }
+        public ICommand DonateTapped { get; }
         public HomeViewModel()
         {
             Title = "MyQuran Indonesia";
@@ -71,6 +75,22 @@ namespace MyQuranIndo.ViewModels.Home
             IntentionTapped = new Command(async (x) => await OnIntentionSelected(), (x) => CanNavigate);
             JuzAmmaTapped = new Command(async (x) => await OnJuzAmmaSelected(), (x) => CanNavigate);
             HadithTapped = new Command(async (x) => await OnHadithSelected(), (x) => CanNavigate);
+            SurahPopularTapped = new Command(async (x) => await OnSurahPopularSelected(), (x) => CanNavigate);
+            DonateTapped = new Command(async (x) => await OnDonateSelected(), (x) => CanNavigate);
+        }
+
+        private async Task OnDonateSelected()
+        {
+            CanNavigate = false;
+            await Shell.Current.GoToAsync($"{nameof(DonatePage)}");
+            CanNavigate = true;
+        }
+
+        private async Task OnSurahPopularSelected()
+        {
+            CanNavigate = false;
+            await Shell.Current.GoToAsync($"{nameof(SurahPopularPage)}");
+            CanNavigate = true;
         }
 
         private async Task OnJuzTabSelected()

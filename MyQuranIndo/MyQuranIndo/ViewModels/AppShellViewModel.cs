@@ -24,6 +24,7 @@ using MyQuranIndo.Views.AsmaulHusna;
 using MyQuranIndo.Views.Tafsir;
 using MyQuranIndo.Views.Hadiths;
 using MyQuranIndo.ViewModels.Juz;
+using MyQuranIndo.Views.Donate;
 
 namespace MyQuranIndo.ViewModels
 {   public class AppShellViewModel : BaseViewModel
@@ -48,6 +49,8 @@ namespace MyQuranIndo.ViewModels
         public ICommand PrayCommand { get; }
         public ICommand HadithCommand { get; }
         public ICommand JuzAmmaCommand { get; }
+        public ICommand ReadSurahPopularCommand { get; }
+        public ICommand DonateCommand { get; }
 
         public AppShellViewModel()
         {
@@ -71,6 +74,14 @@ namespace MyQuranIndo.ViewModels
             IntentionCommand = new Command(async () => await NavigateToIntentionPage());
             HadithCommand = new Command(async () => await NavigateToHadithPage());
             JuzAmmaCommand = new Command(async () => await NavigateToJuzAmmaPage());
+            ReadSurahPopularCommand = new Command(async (x) => await NavigateToReadSurahPopularPage(), (x) => CanNavigate);
+            DonateCommand = new Command(async () => await NavigateToDonatePage());
+        }
+
+        private async Task NavigateToDonatePage()
+        {
+            await Shell.Current.GoToAsync($"{nameof(DonatePage)}");
+            Shell.Current.FlyoutIsPresented = false;
         }
 
         private async Task NavigateToReadJuzPage()
@@ -182,6 +193,14 @@ namespace MyQuranIndo.ViewModels
         {
             CanNavigate = false;
             await Shell.Current.GoToAsync($"{nameof(SurahPage)}");
+            Shell.Current.FlyoutIsPresented = false;
+            CanNavigate = true;
+        }
+
+        private async Task NavigateToReadSurahPopularPage()
+        {
+            CanNavigate = false;
+            await Shell.Current.GoToAsync($"{nameof(SurahPopularPage)}");
             Shell.Current.FlyoutIsPresented = false;
             CanNavigate = true;
         }

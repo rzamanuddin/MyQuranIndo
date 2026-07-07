@@ -16,7 +16,9 @@ namespace MyQuranIndo.Services
         //Task<Dictionary<int, Surah>> GetAsync(bool forceRefresh = false);
         Task<List<Surah>> GetSurahNewAsync(bool forceRefresh = false);
         Task<Surah> GetSurahAsync(int id);
+        Task<List<Surah>> GetSurahPopularAsync(bool forceRefresh = false);
     }
+
     public class SurahDataService : ISurahDataService
     {
         private DatabaseManager _database;
@@ -86,8 +88,7 @@ namespace MyQuranIndo.Services
 
             try
             {
-                var surahs = await _database.GetSurahAsync();
-                surah = surahs.FirstOrDefault(q => q.ID == id);
+                return await _database.GetSurahAsync(id);
             }
             catch (Exception ex)
             {
@@ -95,6 +96,22 @@ namespace MyQuranIndo.Services
             }
 
             return surah;
+        }
+
+        public async Task<List<Surah>> GetSurahPopularAsync(bool forceRefresh = false)
+        {
+            List<Surah> surahs = null;
+
+            try
+            {
+                surahs = await _database.GetSurahPopularAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return surahs;
         }
 
         //public async Task<IEnumerable<Category>> GetAsync(CategoryFilter categoryFilter, bool forceRefresh = false)

@@ -3,6 +3,7 @@ using MyQuranIndo.Views;
 using MyQuranIndo.Views.About;
 using MyQuranIndo.Views.AsmaulHusna;
 using MyQuranIndo.Views.Bookmarks;
+using MyQuranIndo.Views.Donate;
 using MyQuranIndo.Views.Finds;
 using MyQuranIndo.Views.Hadiths;
 using MyQuranIndo.Views.Help;
@@ -54,6 +55,8 @@ namespace MyQuranIndo
             Routing.RegisterRoute(nameof(HadithCategoriesPage), typeof(HadithCategoriesPage));
             Routing.RegisterRoute(nameof(HadithCategoryDetailPage), typeof(HadithCategoryDetailPage));
             Routing.RegisterRoute(nameof(TabbedPageIntentionPage), typeof(TabbedPageIntentionPage));
+            Routing.RegisterRoute(nameof(SurahPopularPage), typeof(SurahPopularPage));
+            Routing.RegisterRoute(nameof(DonatePage), typeof(DonatePage));
             //Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
         }
 

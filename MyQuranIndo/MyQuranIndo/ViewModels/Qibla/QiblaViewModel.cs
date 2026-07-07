@@ -163,13 +163,24 @@ namespace MyQuranIndo.ViewModels.Qibla
 
         void Start()
         {
-            if (Compass.IsMonitoring)
-                return;
+            try
+            {
+                if (Compass.IsMonitoring)
+                    return;
 
-            //Compass.ApplyLowPassFilter = true;
-            Compass.ReadingChanged += Compass_ReadingChanged;
-            Compass.Start(SensorSpeed.UI);
-
+                Compass.ReadingChanged += Compass_ReadingChanged;
+                Compass.Start(SensorSpeed.UI);
+            }
+            catch (FeatureNotSupportedException)
+            {
+                // Perangkat tidak memiliki sensor kompas
+                Info = "Kompas tidak didukung di perangkat ini.";
+            }
+            catch (Exception ex)
+            {
+                // Menangani error lainnya (misal: sensor rusak atau sedang digunakan aplikasi lain)
+                System.Diagnostics.Debug.WriteLine($"Gagal menjalankan kompas: {ex.Message}");
+            }
         }
 
         //void Compass_ReadingChanged(object sender, CompassChangedEventArgs e)
@@ -193,24 +204,30 @@ namespace MyQuranIndo.ViewModels.Qibla
         {
             try
             {
-                //Qibla lat and long
-                //var qiblaLocation = new Location(QIBLA_LATITUDE, QIBLA_LONGITUDE);
+                if (Location == null) return; // Pastikan lokasi sudah didapat
 
-                //current position
-                //var position = await GetLocation();
                 var res = DistanceCalculator.Bearing(Location, QiblaLocation);
                 var TargetHeading = (360 - res) % 360;
-
                 var currentHeading = 360 - e.Reading.HeadingMagneticNorth;
-                Heading = currentHeading - TargetHeading;
 
-                //Info = string.Format("Garis Lintang: {0:N2}, Bujur: {1:N2}", Location.Latitude, Location.Longitude);
-                Info = string.Format($"{Placemark.SubLocality}, {Placemark.Locality}");
+                // Simpan hasil kalkulasi ke variabel sementara
+                double newHeading = currentHeading - TargetHeading;
 
+                // Ambil info lokasi dengan aman
+                string newInfo = Placemark != null
+                    ? $"{Placemark.SubLocality}, {Placemark.Locality}"
+                    : "Lokasi tidak diketahui";
+
+                // Pindahkan update UI ke Main Thread
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    Heading = newHeading;
+                    Info = newInfo;
+                });
             }
             catch (Exception ex)
             {
-                //log exception}
+                System.Diagnostics.Debug.WriteLine($"Error Compass: {ex.Message}");
             }
         }
 

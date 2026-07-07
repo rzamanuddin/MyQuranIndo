@@ -10,7 +10,9 @@ namespace MyQuranIndo.Models.Qurans
     public class Surah : NotifyPropertyChanged
     {
         private Color rowColor;
+        private Color rowColorPopular;
         public int ID { get; set; }
+        public int SurahPopularID { get; set; }
         public string Name { get; set; }
         public string NameLatin { get; set; }
         public string TranslateIndo { get; set; }
@@ -42,6 +44,30 @@ namespace MyQuranIndo.Models.Qurans
                 //}
                 rowColor = value;
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
+            }
+        }
+
+        public Color RowColorPopular
+        {
+            get
+            {
+                if (rowColorPopular != ((Color)Application.Current.Resources["SelectedItem"]))
+                {
+                    if (SurahPopularID % 2 == 0)
+                    {
+                        rowColorPopular = ((Color)Application.Current.Resources["RowColor"]);
+                    }
+                    else
+                    {
+                        rowColorPopular = Color.White;
+                    }
+                }
+                return rowColorPopular;
+            }
+            set
+            {
+                rowColorPopular = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColorPopular)));
             }
         }
 

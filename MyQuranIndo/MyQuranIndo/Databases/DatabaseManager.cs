@@ -26,6 +26,13 @@ namespace MyQuranIndo.Databases
             return await connection.Table<Surah>().ToListAsync();
         }
 
+        public async Task<List<Surah>> GetSurahPopularAsync()
+        {
+            var popularSurahIds = new List<int> { 1, 18, 36, 55, 56, 67 };
+            return await connection.Table<Surah>()
+                .Where(x => popularSurahIds.Contains(x.ID)).ToListAsync();
+        }
+
         public async Task<JuzHeader> GetJuzHeaderAsync(int id)
         {
             string query = "SELECT * FROM JuzHeader WHERE ID=?";
@@ -58,9 +65,11 @@ namespace MyQuranIndo.Databases
             return juzID;
         }
 
-        public async Task<Surah> GetSurahAsync(int id)
+        public async Task<Surah> GetSurahAsync(int surahId)
         {
-            var surah = await connection.FindAsync<Surah>(id);
+            var surah = await connection.Table<Surah>()
+                .FirstOrDefaultAsync(s => s.ID == surahId);
+
             return surah;
         }
 

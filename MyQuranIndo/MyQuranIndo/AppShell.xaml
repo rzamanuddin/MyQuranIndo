@@ -138,6 +138,9 @@
     <MenuItem Text="Baca Juz 'Amma"
               IconImageSource="icon_juz_2.png"
               Command="{Binding JuzAmmaCommand}"/>
+    <MenuItem Text="Baca Surat Populer"
+              IconImageSource="icon_quran_2.png"
+              Command="{Binding ReadSurahPopularCommand}"/>
     <MenuItem Text="Terakhir Dibaca" 
               IconImageSource="icon_last_read.png"
               Command="{Binding LastReadCommand}"/>
@@ -180,6 +183,9 @@
     <MenuItem Text="Info Aplikasi" 
               IconImageSource="icon_about.png"
               Command="{Binding AboutCommand}"/>
+    <MenuItem Text="Donasi" 
+              IconImageSource="icon_donate.png"
+              Command="{Binding DonateCommand}"/>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <!--<MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">

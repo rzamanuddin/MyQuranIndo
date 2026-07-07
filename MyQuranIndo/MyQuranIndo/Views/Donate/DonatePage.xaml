@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyQuranIndo.Views.Donate.DonatePage"
+             xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Donate"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource BgColor}">
+    <ContentPage.BindingContext>
+        <vm:DonateViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                    <Label Text = "Dukung MyQuranWeb Indonesia"
+                           FontSize="Large"
+                           FontFamily="Montserrat-Medium"
+                           HorizontalTextAlignment="Center"
+                           Margin="0, 20, 0, 0"
+                           TextColor="{DynamicResource Primary}"
+                           CharacterSpacing="1"
+                    />
+                </StackLayout>
+                <StackLayout Grid.Row="1" 
+                             Orientation="Vertical" 
+                             Spacing="15"
+                             VerticalOptions="StartAndExpand"
+                             HorizontalOptions="FillAndExpand"
+                             BackgroundColor="{DynamicResource BgColor}"
+                             Margin="10, 0, 10, 0"
+                             Padding="20">
+                    <!-- Tambahkan CornerRadius jika dibungkus Frame -->
+                    <Image Source="icon_donate.png" 
+                           HorizontalOptions="Center" />
+                    <Label Text="Jazakumullahu Khairan" 
+                           FontSize="Medium" 
+                           FontAttributes="Bold" 
+                           HorizontalTextAlignment="Center"
+                           TextColor="{DynamicResource Primary}" />
+
+                    <Label Text="MyQuran Indonesia Free adalah aplikasi gratis tanpa iklan, dikembangkan secara mandiri dengan penuh keikhlasan. Dukungan Anda membantu kami mengembangkan fitur baru, dan menghadirkan konten islami yang lebih lengkap."
+                           FontSize="Small"
+                           TextColor="{DynamicResource Primary}"
+                           HorizontalTextAlignment="Center"
+                           LineBreakMode="WordWrap" />
+
+                    <BoxView HeightRequest="1" Color="LightGray" Margin="0,10"/>
+
+                    <!-- Contoh Kartu Informasi Rekening -->
+                    <Frame BorderColor="{DynamicResource Primary}" CornerRadius="8" Padding="15" HasShadow="True">
+                        <StackLayout>
+                            <Label Text="Bank Central Asia (BCA)" 
+                                   FontAttributes="Bold" 
+                                   FontSize="Small" 
+                                   TextColor="{DynamicResource Primary}"/>
+                            <Label Text="Nomor Rekening:" FontSize="Micro" />
+                            <Label Text="7165037715" 
+                                   FontSize="Large" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{StaticResource TextColor}"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="A.N. Rommy Zamanuddin" 
+                                   FontSize="Small" 
+                                   HorizontalOptions="Center"/>
+
+                            <Button Text="Salin Nomor Rekening" 
+                                    Command="{Binding CopyRekeningCommand}" 
+                                    BackgroundColor="{DynamicResource Primary}" 
+                                    TextColor="White"
+                                    CornerRadius="5"
+                                    Margin="0,10,0,0"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame BorderColor="{DynamicResource Primary}" CornerRadius="8" Padding="15" HasShadow="True">
+                        <StackLayout>
+                            <Label Text="Bank Negara Indonesia (BNI)" 
+                                   FontAttributes="Bold" 
+                                   FontSize="Small" 
+                                   TextColor="{DynamicResource Primary}"/>
+                            <Label Text="Nomor Rekening:" FontSize="Micro" />
+                            <Label Text="0707175048" 
+                                   FontSize="Large" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{StaticResource TextColor}"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="A.N. Rommy Zamanuddin" 
+                                   FontSize="Small" 
+                                   HorizontalOptions="Center"/>
+                            <Button Text="Salin Nomor Rekening" 
+                                Command="{Binding CopyRekeningBNICommand}" 
+                                BackgroundColor="{DynamicResource Primary}" 
+                                TextColor="White"
+                                CornerRadius="5"
+                                Margin="0,10,0,0"/>
+                        </StackLayout>
+                    </Frame>
+                    <!--<Frame BorderColor="{DynamicResource Primary}" CornerRadius="8" Padding="15" HasShadow="True">
+                        <StackLayout>
+                            <Label Text="E-Wallet (GoPay / Dana)" 
+                                   FontAttributes="Bold" 
+                                   FontSize="Small" 
+                                   TextColor="{DynamicResource Primary}"/>
+                            <Label Text="Nomor:" FontSize="Micro" />
+                            <Label Text="0857-9344-5020" 
+                                   FontSize="Large" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{StaticResource TextColor}"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="A.N. Rommy Zamanuddin" 
+                                   FontSize="Small" 
+                                   HorizontalOptions="Center"/>
+
+                            <Button Text="Salin Nomor E-Wallet" 
+                                    Command="{Binding CopyEWalletCommand}" 
+                                    BackgroundColor="{DynamicResource Primary}" 
+                                    TextColor="White"
+                                    CornerRadius="5"
+                                    Margin="0,10,0,0"/>
+                        </StackLayout>
+                    </Frame>-->
+                    <Frame BorderColor="{DynamicResource Primary}" CornerRadius="8" Padding="15" HasShadow="True">
+                        <StackLayout>
+                            <Label Text="PayPal" 
+                                   FontAttributes="Bold" 
+                                   FontSize="Small" 
+                                   TextColor="{DynamicResource Primary}"/>
+                            <Label Text="Akun:" FontSize="Micro" />
+                            <Label Text="rzamanuddin@gmail.com" 
+                                   FontSize="Large" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{StaticResource TextColor}"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="A.N. Rommy Zamanuddin" 
+                                   FontSize="Small" 
+                                   HorizontalOptions="Center"/>
+                            <Button Text="Salin Akun" 
+                                Command="{Binding CopyRekeningPayPalCommand}" 
+                                BackgroundColor="{DynamicResource Primary}" 
+                                TextColor="White"
+                                CornerRadius="5"
+                                Margin="0,10,0,0"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame BorderColor="{DynamicResource Primary}" CornerRadius="8" Padding="15" HasShadow="True">
+                        <StackLayout>
+                            <Label Text="Konfirmasi Donasi" 
+                                   FontAttributes="Bold" 
+                                   FontSize="Small" 
+                                   TextColor="{DynamicResource Primary}"/>
+                            <Label Text="Email:" FontSize="Micro" />
+                            <Label Text="rzamanuddin@gmail.com" 
+                                   FontSize="Large" 
+                                   FontAttributes="Bold" 
+                                   TextColor="{StaticResource TextColor}"
+                                   HorizontalOptions="Center"/>
+                            <Button Text="Salin Alamat Email" 
+                                Command="{Binding CopyEmailAddressCommand}" 
+                                BackgroundColor="{DynamicResource Primary}" 
+                                TextColor="White"
+                                CornerRadius="5"
+                                Margin="0,10,0,0"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame BorderColor="{DynamicResource Primary}" CornerRadius="8" Padding="15" HasShadow="True">
+                        <StackLayout>                            
+                            <Label FontSize="Small" 
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="{DynamicResource Primary}">
+                                <Label.Text>
+                                    Semoga Allah membalas kebaikan Anda dengan berlipat ganda. "Barang siapa memudahkan urusan orang lain, maka Allah akan memudahkan urusannya di dunia dan akhirat." (HR. Muslim)
+                                </Label.Text>
+                            </Label>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
