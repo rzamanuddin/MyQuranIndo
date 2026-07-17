@@ -1,4 +1,5 @@
 ﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Models.Qurans;
 using MyQuranIndo.Views.Juz;
 using System;
 using System.Collections.Generic;
@@ -106,11 +107,11 @@ namespace MyQuranIndo.ViewModels.Juz
         //    await Shell.Current.GoToAsync($"{nameof(SettingPage)}");
         //}
 
-        private async Task InitStart()
+        private Task InitStart()
         {
             Tabs.Clear();
 
-            for (int i = 1; i <= 30; i++)
+            for (int i = JuzHeader.JUZ_COUNT; i >= 1; i--)
             {
                 var viewModel = new JuzDetailViewModel();
                 viewModel.JuzID = i.ToString();
@@ -122,35 +123,57 @@ namespace MyQuranIndo.ViewModels.Juz
                 //Tabs.Add(new SurahDetailPage());
             }
 
-            //SelectedTab = Tabs[0];
+            SelectedTab = Tabs[GetTabIndex(1)];
+
+            return Task.CompletedTask;
         }
 
-        public async void LoadJuzDetail()
+        public async Task LoadJuzDetail()
         {
             MP3Service.StopPlayer();
             int juzID = 0;
             int.TryParse(JuzID, out juzID);
 
+            // Validate
+            if (juzID <= 0 || Tabs == null || Tabs.Count == 0)
+                return;
+
+            var idx = GetTabIndex(juzID);
+            if (idx < 0 || idx >= Tabs.Count)
+                return;
+
+            var viewModel = Tabs[idx].BindingContext as JuzDetailViewModel;
+            if (viewModel == null)
+                return;
+
             // Load data if ayah is empty
-            var viewModel = (Tabs[juzID - 1].BindingContext as JuzDetailViewModel);
-            //viewModel.LoadSurahID(SurahID.ToString());
             if (!viewModel.JuzDetails.Any(q => q.JuzID == juzID))
             {
-                //viewModel.SurahID = surahID.ToString();
-                await (viewModel).ExecuteLoadCommand();
+                await viewModel.ExecuteLoadCommand();
             }
+        }
+
+        private int GetTabIndex(int juzId)
+        {
+            return Math.Abs(juzId - JuzHeader.JUZ_COUNT);
         }
 
         private void LoadJuzDetail(int juzID, int surahID, int ayahID)
         {
-            if (ayahID > 0 && Tabs.Count > 0)
+            if (ayahID > 0 && Tabs != null && Tabs.Count > 0)
             {
-                SelectedTab = Tabs[juzID - 1];
+                var idx = GetTabIndex(juzID);
+                if (idx < 0 || idx >= Tabs.Count)
+                    return;
 
-                var page = (Tabs[juzID - 1] as JuzDetailPage);
-                //(page.BindingContext as JuzDetailViewModel).LoadJuzID(juzID.ToString(), surahID.ToString(), ayahID.ToString());
-                (page.BindingContext as JuzDetailViewModel).SurahID = surahID.ToString();
-                (page.BindingContext as JuzDetailViewModel).AyahID = ayahID.ToString();
+                SelectedTab = Tabs[idx];
+
+                var page = (SelectedTab as JuzDetailPage);
+                if (page?.BindingContext is JuzDetailViewModel vm)
+                {
+                    vm.SurahID = surahID.ToString();
+                    vm.AyahID = ayahID.ToString();
+                }
                 //var juz = (page.BindingContext as JuzDetailViewModel).JuzDetails.FirstOrDefault(q => q.JuzID == juzID
                 //    && q.SurahID == surahID && q.AyahID == ayahID);
                 //(page.BindingContext as JuzDetailViewModel).LoadJuzID(juzID.ToString(),

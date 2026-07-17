@@ -14,11 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Surah\SurahDetailPageNew.xaml.cs" />
     <Compile Remove="Views\TestPage.xaml.cs" />
     <Compile Remove="Views\Zikr\ZikrMorningPage.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Views\Surah\SurahDetailPageNew.xaml" />
     <EmbeddedResource Remove="Views\TestPage.xaml" />
     <EmbeddedResource Remove="Views\Zikr\ZikrMorningPage.xaml" />
   </ItemGroup>

@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-                    <Label Text = "Dukung MyQuranWeb Indonesia"
+                    <Label Text = "Dukung MyQuran Free Indonesia"
                            FontSize="Large"
                            FontFamily="Montserrat-Medium"
                            HorizontalTextAlignment="Center"
@@ -70,6 +70,7 @@
                                    HorizontalOptions="Center"/>
                             <Label Text="A.N. Rommy Zamanuddin" 
                                    FontSize="Small" 
+                                   TextColor="{StaticResource TextColor}"
                                    HorizontalOptions="Center"/>
 
                             <Button Text="Salin Nomor Rekening" 
@@ -94,6 +95,7 @@
                                    HorizontalOptions="Center"/>
                             <Label Text="A.N. Rommy Zamanuddin" 
                                    FontSize="Small" 
+                                   TextColor="{StaticResource TextColor}"
                                    HorizontalOptions="Center"/>
                             <Button Text="Salin Nomor Rekening" 
                                 Command="{Binding CopyRekeningBNICommand}" 
@@ -141,6 +143,7 @@
                                    HorizontalOptions="Center"/>
                             <Label Text="A.N. Rommy Zamanuddin" 
                                    FontSize="Small" 
+                                   TextColor="{StaticResource TextColor}"
                                    HorizontalOptions="Center"/>
                             <Button Text="Salin Akun" 
                                 Command="{Binding CopyRekeningPayPalCommand}" 

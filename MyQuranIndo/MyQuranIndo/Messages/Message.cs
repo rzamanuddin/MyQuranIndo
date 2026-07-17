@@ -54,6 +54,9 @@ namespace MyQuranIndo.Messages
         public const string MSG_FAIL_LOAD_JUZ = "Juz gagal ditampilkan.";
         public const string MSG_FAIL_LOAD_HADITH = "Hadis gagal ditampilkan.";
 
+        public const string MSG_NO_SURAH = "Tidak ada surat.";
+        public const string MSG_NO_JUZ = "Tidak ada juz.";
+
         public const string MSG_FAIL_GET_SURAH = "Surat gagal ditampilkan.";
         public const string MSG_FAIL_GET_BOOKMARK = "Bookmark gagal ditampilkan.";
         public const string MSG_FAIL_GET_PRAYER_SCHEDULE = "Jadwal Sholat gagal ditampilkan.";

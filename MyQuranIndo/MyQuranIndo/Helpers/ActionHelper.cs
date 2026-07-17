@@ -92,7 +92,7 @@ namespace MyQuranIndo.Helpers
             }
         }
 
-        public async static Task OpenSurahORJuzTabbedPageAsync()
+        public async static Task OpenSurahORJuzTabbedPageAsync2()
         {
             string action = await DisplayActionSurahORJuzAsync();
 
@@ -134,6 +134,28 @@ namespace MyQuranIndo.Helpers
                 return true;
             }
             return false;
+        }
+
+        public async static Task OpenPageFromPopularAsync(int surahID, int ayahID, int juzID, string surahNameLatin, IToastService toastService = null)
+        {
+            string action = await App.Current.MainPage.DisplayActionSheet("Q.S " + 
+                surahNameLatin + " " + 
+                surahID + 
+                ": Ayat " + 
+                ayahID, 
+                Message.MSG_CANCEL,
+                null, 
+                ACTION_LOOK_AS_SURAH, 
+                ACTION_LOOK_AS_JUZ);
+
+            if (action == ACTION_LOOK_AS_SURAH)
+            {
+                await Shell.Current.GoToAsync($"{nameof(TabbedPageSurahDetailPage)}?{nameof(TabbedPageSurahDetailViewModel.SurahID)}={surahID}&{nameof(TabbedPageSurahDetailViewModel.AyahID)}={ayahID}");
+            }
+            else if (action == ACTION_LOOK_AS_JUZ)
+            {
+                await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}?{nameof(TabbedPageJuzDetailViewModel.JuzID)}={juzID}&{nameof(TabbedPageJuzDetailViewModel.SurahID)}={surahID}&{nameof(TabbedPageJuzDetailViewModel.AyahID)}={ayahID}");
+            }
         }
 
         public static async Task<string> DisplayActionAyahAsync(int surahID, int ayahID, string surahNameLatin)

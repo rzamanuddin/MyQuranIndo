@@ -1,9 +1,7 @@
 ﻿using MyQuranIndo.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -249,6 +247,7 @@ namespace MyQuranIndo.Models.Qurans
 
     public class JuzHeader : NotifyPropertyChanged
     {
+        public static int JUZ_COUNT = 30;
         private Color rowColor;
 
         public int ID { get; set; }

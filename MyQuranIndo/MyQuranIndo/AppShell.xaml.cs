@@ -57,6 +57,8 @@ namespace MyQuranIndo
             Routing.RegisterRoute(nameof(TabbedPageIntentionPage), typeof(TabbedPageIntentionPage));
             Routing.RegisterRoute(nameof(SurahPopularPage), typeof(SurahPopularPage));
             Routing.RegisterRoute(nameof(DonatePage), typeof(DonatePage));
+            // Register new fast-detail page implemented with CollectionView+CarouselView
+            //Routing.RegisterRoute(nameof(Views.Surah.SurahDetailPageNew), typeof(Views.Surah.SurahDetailPageNew));
             //Routing.RegisterRoute(nameof(PraysPage), typeof(PraysPage));
         }
 

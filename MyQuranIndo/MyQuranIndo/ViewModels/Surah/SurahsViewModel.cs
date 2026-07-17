@@ -163,7 +163,8 @@ namespace MyQuranIndo.ViewModels.Surah
             //    await Player.Stop();
             var oldColor = surah.RowColor;
             surah.RowColor = (Color)Application.Current.Resources["SelectedItem"];
-            await Shell.Current.GoToAsync($"{nameof(SurahDetailPage)}?{nameof(SurahDetailViewModel.SurahID)}={surah.ID}");
+            await Shell.Current.GoToAsync($"{nameof(TabbedPageSurahDetailPage)}" +
+                $"?{nameof(TabbedPageSurahDetailViewModel.SurahID)}={surah.ID}");
             surah.RowColor = oldColor;
             CanNavigate = true;
         }

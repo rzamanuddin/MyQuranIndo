@@ -123,7 +123,8 @@ namespace MyQuranIndo.ViewModels.Juz
             CanNavigate = false;
             var oldColor = juz.RowColor;
             juz.RowColor = (Color)Application.Current.Resources["SelectedItem"];
-            await Shell.Current.GoToAsync($"{nameof(JuzDetailPage)}?{nameof(JuzDetailViewModel.JuzID)}={juz.ID.ToString()}");
+            await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}" +
+                $"?{nameof(TabbedPageJuzDetailViewModel.JuzID)}={juz.ID.ToString()}");
             juz.RowColor = oldColor;
             CanNavigate = true;
         }

@@ -9,6 +9,8 @@ namespace MyQuranIndo.Models.Qurans
 {
     public class Surah : NotifyPropertyChanged
     {
+        public static int SURAH_COUNT = 114;
+
         private Color rowColor;
         private Color rowColorPopular;
         public int ID { get; set; }

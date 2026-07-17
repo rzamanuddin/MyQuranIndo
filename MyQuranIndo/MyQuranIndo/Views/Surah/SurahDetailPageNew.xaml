@@ -1,0 +1,87 @@
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:MyQuranIndo.Controls"
+             xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans"
+             x:Class="MyQuranIndo.Views.Surah.SurahDetailPageNew"
+             Title="{Binding CurrentSurahName}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="evenTemplate">
+                <ViewCell>
+                    <StackLayout Padding="0" x:DataType="model:Ayah" Spacing="0">
+                        <control:GridSurahDetail />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AyahOneTapped}"
+                                                   CommandParameter="{Binding .}"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cari" Clicked="OnSearchClicked" />
+        <ToolbarItem Text="Pengaturan" Clicked="OnSettingClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto, *">
+            <!-- Tab strip -->
+            <CollectionView x:Name="tabsCollectionView"
+                            Grid.Row="0"
+                            HeightRequest="50"
+                            ItemsSource="{Binding SurahList}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSurahTab, Mode=TwoWay}"
+                            ItemsLayout="HorizontalList"
+                            BackgroundColor="{DynamicResource Primary}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Surah">
+                        <Grid Padding="12,0" HeightRequest="50">
+                            <Label Text="{Binding NameLatin}"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Carousel content -->
+            <CarouselView Grid.Row="1"
+                          x:Name="mainCarouselView"
+                          ItemsSource="{Binding SurahList}"
+                          Position="{Binding CarouselPosition, Mode=TwoWay}"
+                          CurrentItemChanged="CarouselView_CurrentItemChanged">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Surah">
+                        <Grid RowDefinitions="Auto, *">
+                            <!-- Header bound to current Surah item -->
+                            <StackLayout Padding="10" Grid.Row="0">
+                                <Label Text="{Binding DisplayNameLatin}"
+                                       FontSize="Medium"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"
+                                       BackgroundColor="{DynamicResource Accent}"
+                                       TextColor="Black"
+                                       Padding="5" />
+                            </StackLayout>
+
+                            <!-- Ayahs list are provided by the page's CurrentAyahs -->
+                            <ListView Grid.Row="1"
+                                      ItemsSource="{Binding BindingContext.CurrentAyahs, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                      HasUnevenRows="True"
+                                      CachingStrategy="RecycleElement"
+                                      ItemTemplate="{StaticResource evenTemplate}"
+                                      SeparatorVisibility="None" />
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

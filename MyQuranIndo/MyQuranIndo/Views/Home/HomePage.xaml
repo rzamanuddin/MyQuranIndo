@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Home"
              Title="{Binding Title, Mode=TwoWay}"
              BackgroundColor="{DynamicResource BgColor}"             
-             >    
+             >
     <!--<RelativeLayout Padding="0"
                     ">
         --><!--<Image
@@ -18,7 +18,25 @@
         </Image>--><!--
     </RelativeLayout>-->
     <ContentPage.Resources>
-        
+        <ResourceDictionary>
+            <Style x:Key="MenuButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="ContentLayout" Value="Top" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="Padding">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="Thickness" Phone="5, 10, 5, 10" Tablet="10, 20, 10, 20" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" Phone="100" Tablet="120" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
     </ContentPage.ToolbarItems>
@@ -39,20 +57,20 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0"  Grid.Column="0" Padding="10" Margin="2" ColumnSpacing="2" RowSpacing="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"  />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"  />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <StackLayout  Grid.Row="0" 
@@ -60,15 +78,11 @@
                                       HorizontalOptions="FillAndExpand"  
                                       VerticalOptions="FillAndExpand"
 								      Padding="5">
-                            <Button ImageSource="icon_quran.png" 
-								    Text="Baca Surat"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"   
+                            <Button ImageSource="icon_quran.png"
+								    Text="Baca Surat"  
 									CharacterSpacing="2"
                                     Command="{Binding SurahTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="0" 
@@ -77,14 +91,10 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_quran_2.png" 
-								    Text="Baca Surat (Mode Tab)"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"       
+								    Text="Baca Surat (Mode Tab)"  
 									CharacterSpacing="3"
                                     Command="{Binding SurahTabTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout  Grid.Row="1" 
@@ -93,14 +103,10 @@
                                       VerticalOptions="FillAndExpand"
 								      Padding="5">
                             <Button ImageSource="icon_juz.png" 
-								    Text="Baca Juz"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"   
+								    Text="Baca Juz"  
 									CharacterSpacing="2"
                                     Command="{Binding JuzTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="1" 
@@ -109,14 +115,10 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_juz_2.png" 
-								    Text="Baca Juz (Mode Tab)"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"       
+								    Text="Baca Juz (Mode Tab)"    
 									CharacterSpacing="4"
                                     Command="{Binding JuzTabTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="2" 
@@ -125,14 +127,10 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_tafsir.png" 
-								    Text="Baca Tafsir"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"       
+								    Text="Baca Tafsir"     
 									CharacterSpacing="2"
                                     Command="{Binding TafsirTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="2" 
@@ -141,14 +139,10 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_juz_2.png" 
-								    Text="Baca Juz 'Amma"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"       
+								    Text="Baca Juz 'Amma"     
 									CharacterSpacing="2"
                                     Command="{Binding JuzAmmaTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="3" 
@@ -157,14 +151,10 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_quran_2.png" 
-								    Text="Baca Surat Populer"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"       
+								    Text="Baca Surat Populer"    
 									CharacterSpacing="3"
                                     Command="{Binding SurahPopularTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="3" 
@@ -174,13 +164,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_last_read.png" 
 								    Text="Terakhir Dibaca"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"  
 									CharacterSpacing="4"
                                     Command="{Binding LastReadTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="4" 
@@ -190,13 +176,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_bookmark.png" 
 								    Text="Bookmark"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"   
 									CharacterSpacing="4"      
-                                    Command="{Binding BookmarkTapped}"                    
+                                    Command="{Binding BookmarkTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"         
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="4" 
@@ -206,13 +188,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_find.png" 
 								    Text="Pencarian"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"   
 									CharacterSpacing="4"      
-                                    Command="{Binding FindTapped}"                    
+                                    Command="{Binding FindTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"       
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="5" 
@@ -222,13 +200,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_pray.png" 
 								    Text="Kumpulan Do'a"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding PrayTapped}"/>
+                                    Command="{Binding PrayTapped}"
+                                    Style="{StaticResource MenuButtonStyle}" />
                         </StackLayout>
                         <StackLayout Grid.Row="5" 
                                      Grid.Column="1" 
@@ -237,13 +211,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_hadith.png" 
 								    Text="Kumpulan Hadis"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding HadithTapped}"/>
+                                    Command="{Binding HadithTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="6" 
                                      Grid.Column="0" 
@@ -252,13 +222,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_sunrise.png" 
 								    Text="Dzikir Pagi"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding ZikrMorningTapped}"/>
+                                    Command="{Binding ZikrMorningTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="6" 
                                      Grid.Column="1" 
@@ -267,13 +233,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_sunset.png" 
 								    Text="Dzikir Petang"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding ZikrEveningTapped}"/>
+                                    Command="{Binding ZikrEveningTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="7" 
                                      Grid.Column="0" 
@@ -282,13 +244,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_allah.png" 
 								    Text="Asmaul Husna"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding AsmaulHusnaTapped}"/>
+                                    Command="{Binding AsmaulHusnaTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="7" 
                                      Grid.Column="1" 
@@ -297,13 +255,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_allah_2.png" 
 								    Text="Bacaan Sholat"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
                                     Command="{Binding IntentionTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="8" 
@@ -313,13 +267,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_clock.png" 
 								    Text="Jadwal Sholat"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding PrayerScheduleTapped}"/>
+                                    Command="{Binding PrayerScheduleTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="8" 
                                      Grid.Column="1" 
@@ -328,13 +278,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_kaaba.png" 
 								    Text="Arah Kiblat"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
-                                    Command="{Binding QiblaTapped}"/>
+                                    Command="{Binding QiblaTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"/>
                         </StackLayout>
                         <StackLayout Grid.Row="9" 
                                      Grid.Column="0" 
@@ -342,14 +288,10 @@
                                      VerticalOptions="FillAndExpand"
 								     Padding="5">
                             <Button ImageSource="icon_help.png" 
-								    Text="Petunjuk"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"   
+								    Text="Petunjuk" 
 									CharacterSpacing="4"   
-                                    Command="{Binding HelpTapped}"                       
+                                    Command="{Binding HelpTapped}"  
+                                    Style="{StaticResource MenuButtonStyle}"                     
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="9" 
@@ -359,13 +301,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_setting.png" 
 								    Text="Pengaturan"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"   
 									CharacterSpacing="3"  
                                     Command="{Binding SettingTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="10" 
@@ -375,13 +313,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_about.png" 
 								    Text="Info Aplikasi"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
                                     Command="{Binding AboutTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                         <StackLayout Grid.Row="10" 
@@ -391,13 +325,9 @@
 								     Padding="5">
                             <Button ImageSource="icon_donate.png" 
 								    Text="Donasi"
-								    BackgroundColor="{DynamicResource Primary}"
-								    TextColor="White"
-								    ContentLayout="Top"
-								    HorizontalOptions="FillAndExpand"
-								    VerticalOptions="FillAndExpand"
 								    CharacterSpacing="2"
                                     Command="{Binding DonateTapped}"
+                                    Style="{StaticResource MenuButtonStyle}"
 									 />
                         </StackLayout>
                     </Grid>

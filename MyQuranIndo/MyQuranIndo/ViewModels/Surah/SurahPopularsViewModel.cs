@@ -1,5 +1,6 @@
 ﻿using MyQuranIndo.Helpers;
 using MyQuranIndo.Messages;
+using MyQuranIndo.Models.Bookmarks;
 using MyQuranIndo.References;
 using MyQuranIndo.Views;
 using MyQuranIndo.Views.Surah;
@@ -114,22 +115,32 @@ namespace MyQuranIndo.ViewModels.Surah
 
         private async void OnSurahSelected(Models.Qurans.Surah surah)
         {
-            if (surah == null)
+            if (surah == null || surah.ID == 0)
             {
-                return;
-            }
-            if (surah.ID == 0)
-            {
+                //await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_INFO, Message.MSG_NO_SURAH, Message.MSG_OK);
                 return;
             }
 
+            //CanNavigate = false;
+            //var oldColor = surah.RowColorPopular;
+            //surah.RowColorPopular = (Color)Application.Current.Resources["SelectedItem"];
+            //await Shell.Current.GoToAsync($"{nameof(TabbedPageSurahDetailPage)}" +
+            //    $"?{nameof(TabbedPageSurahDetailViewModel.SurahID)}={surah.ID}");
+            //surah.RowColorPopular = oldColor;
+
             CanNavigate = false;
             var oldColor = surah.RowColorPopular;
-            surah.RowColorPopular = (Color)Application.Current.Resources["SelectedItem"];
-            await Shell.Current.GoToAsync($"{nameof(SurahDetailPage)}?{nameof(SurahDetailViewModel.SurahID)}={surah.ID}");
+            surah.RowColorPopular = ((Color)Application.Current.Resources["SelectedItem"]);
+            var juzID = await JuzDataService.GetJuzIDAsync(surah.ID, 1);
+            await ActionHelper.OpenPageFromPopularAsync(surah.ID, 
+                1, 
+                juzID, 
+                surah.NameLatin, 
+                ToastService);
             surah.RowColorPopular = oldColor;
             CanNavigate = true;
         }
+
         private async Task InitStart()
         {
             await ExecuteLoadCommand();
