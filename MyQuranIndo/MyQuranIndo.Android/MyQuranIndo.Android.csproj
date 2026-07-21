@@ -310,6 +310,14 @@
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\collapse_black.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\expand_black.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
   <!--
     Override libe_sqlite3.so yang diekstrak dari NuGet dengan versi 16 KB aligned.
     Berjalan setelah NuGet mengekstrak native libraries ke obj/lp/X/nl/{abi}/.

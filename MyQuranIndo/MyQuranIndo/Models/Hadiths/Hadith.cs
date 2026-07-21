@@ -1,14 +1,18 @@
 ﻿using MyQuranIndo.Helpers;
 using MyQuranIndo.Models.Finds;
 using MyQuranIndo.Models.Qurans;
+using MyQuranIndo.Models.Themes;
 using MyQuranIndo.Models.Zikrs;
+using MyQuranIndo.References;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using static Android.Content.Res.Resources;
 
 namespace MyQuranIndo.Models.Hadiths
 {
@@ -41,39 +45,12 @@ namespace MyQuranIndo.Models.Hadiths
         }
 
     }
-    public class HadithCategoryDetail : NotifyPropertyChanged
+    public class HadithCategoryDetail : BaseModel
     {
-        [JsonProperty("id")]
-        public int ID { get; set; }
-
         [JsonProperty("title")]
         public string Title { get; set; }
         public HadithCategoryDetailContent Content { get; set; } = new HadithCategoryDetailContent();
 
-        private Color rowColor;
-        public Color RowColor
-        {
-            get
-            {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                {
-                    if (ID % 2 == 0)
-                    {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                    }
-                    else
-                    {
-                        rowColor = Color.White;
-                    }
-                }
-                return rowColor;
-            }
-            set
-            {
-                rowColor = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
-            }
-        }
         public double FontSizeArabic
         {
             get
@@ -229,6 +206,14 @@ namespace MyQuranIndo.Models.Hadiths
 
         public HadithCategoryGroup(int? id, string title, int totalHadith, ObservableCollection<HadithCategory> hadithCategories) : base(hadithCategories)
         {
+            if (Preferences.Get(MyQuranIndo.References.Setting.THEME, 0) == (int)ThemeStyle.Black)
+            {
+                this.imageHeader = "expand_black.png";
+            }
+            else
+            {
+                this.imageHeader = "expand.png";
+            }
             this.ID = id ?? 0;
             this.TitleHeader = title;
             this.TotalHadith = totalHadith;
@@ -243,6 +228,8 @@ namespace MyQuranIndo.Models.Hadiths
         
     public class HadithCategory : NotifyPropertyChanged
     {
+        private int theme = Preferences.Get(Setting.THEME, 0);
+
         [JsonProperty("id")]
         public int ID { get; set; }
         [JsonProperty("title")]
@@ -278,7 +265,21 @@ namespace MyQuranIndo.Models.Hadiths
                     }
                     else
                     {
-                        rowColor = Color.White;
+                        if (theme == (int)ThemeStyle.Black)
+                        {
+                            rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                        }
+                        else
+                        {
+                            if (theme == (int)ThemeStyle.Black)
+                            {
+                                rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                            }
+                            else
+                            {
+                                rowColor = Color.White;
+                            }
+                        }
                     }
                 }
                 return rowColor;
@@ -350,6 +351,8 @@ namespace MyQuranIndo.Models.Hadiths
 
     public class Hadith : NotifyPropertyChanged
     {
+        private int theme = Preferences.Get(Setting.THEME, 0);
+
         [JsonProperty("Number")]
         public int Number { get; set; }
 
@@ -372,7 +375,21 @@ namespace MyQuranIndo.Models.Hadiths
                     }
                     else
                     {
-                        rowColor = Color.White;
+                        if (theme == (int)ThemeStyle.Black)
+                        {
+                            rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                        }
+                        else
+                        {
+                            if (theme == (int)ThemeStyle.Black)
+                            {
+                                rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                            }
+                            else
+                            {
+                                rowColor = Color.White;
+                            }
+                        }
                     }
                 }
                 return rowColor;

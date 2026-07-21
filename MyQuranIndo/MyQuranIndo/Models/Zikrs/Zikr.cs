@@ -12,7 +12,7 @@ namespace MyQuranIndo.Models.Zikrs
     {
         public List<Zikr> data { get; set; }
     }
-    public class Zikr : NotifyPropertyChanged
+    public class Zikr : BaseGroupModel
     {
         private Color rowColor;
 
@@ -42,7 +42,6 @@ namespace MyQuranIndo.Models.Zikrs
 
         [JsonProperty("time")]
         public string Time { get; set; }
-        public long RowID { get; set; }
 
         public string TitleAndNumber
         {
@@ -75,35 +74,6 @@ namespace MyQuranIndo.Models.Zikrs
             get
             {
                 return FontHelper.GetFontSizeTextIndo();
-            }
-        }
-
-        public Color RowColor
-        {
-            get
-            {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                {
-                    if (RowID % 2 == 0)
-                    {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                    }
-                    else
-                    {
-                        rowColor = Color.White;
-                    }
-                }
-                return rowColor;
-            }
-            set
-            {
-                //if (value == ((Color)Application.Current.Resources["SelectedItem"]))
-                //{
-                //    rowColor = value;
-                //    OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
-                //}
-                rowColor = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
             }
         }
         public bool IsVisibleArabicLatin

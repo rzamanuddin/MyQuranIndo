@@ -127,7 +127,7 @@ namespace MyQuranIndo.ViewModels.Hadiths
             ClearSearchCommand = new Command(ClearSearch);
             HeaderTapped = new Command<HadithGroup>(OnHeaderTapped);
             ExpandAllCommand = new Command(OnExpandAllComand);
-            FoundResultColor = Color.Black;
+            FoundResultColor = (Color)Application.Current.Resources["TextColor"];
             HadithOneTapped = new Command<Hadith>(OnHadithOneTapped, (x) => CanNavigate);
         }
 
@@ -163,12 +163,12 @@ namespace MyQuranIndo.ViewModels.Hadiths
                 {
                     hadithGroup.Add(context[i]);
                 }
-                hadithGroup.ImageHeader = "collapse.png";
+                hadithGroup.ImageHeader = GetCollapsImageHeaderName();
             }
             else
             {
                 hadithGroup.Clear();
-                hadithGroup.ImageHeader = "expand.png";
+                hadithGroup.ImageHeader = GetExpandImageHeaderName();
             }
         }
 
@@ -327,7 +327,7 @@ namespace MyQuranIndo.ViewModels.Hadiths
                     }
                     else
                     {
-                        FoundResultColor = Color.Black;
+                        FoundResultColor = (Color)Application.Current.Resources["TextColor"];
                         NumbersFoundHadith = $"Kata Kunci '{SearchQuery}' ditemukan, total {haditsResultAPI.Sum(x => x.Items.Count)} hadis.";
                     }
                     

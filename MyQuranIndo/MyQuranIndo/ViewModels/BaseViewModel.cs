@@ -1,5 +1,6 @@
 ﻿using Javax.Sql;
 using MyQuranIndo.Models;
+using MyQuranIndo.Models.Themes;
 using MyQuranIndo.References;
 using MyQuranIndo.Services;
 using Newtonsoft.Json;
@@ -87,6 +88,28 @@ namespace MyQuranIndo.ViewModels
         {
             //MP3Helper.StopPlayer();
             MP3Service.StopPlayer();
+        }
+
+        public string GetCollapsImageHeaderName()
+        {
+
+            if (Preferences.Get(MyQuranIndo.References.Setting.THEME, 0) == (int)ThemeStyle.Black)
+            {
+                return "collapse_black.png";
+            }
+
+            return "collapse.png";
+        }
+
+        public string GetExpandImageHeaderName()
+        {
+
+            if (Preferences.Get(MyQuranIndo.References.Setting.THEME, 0) == (int)ThemeStyle.Black)
+            {
+                return "expand_black.png";
+            }
+
+            return "expanded.png";
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

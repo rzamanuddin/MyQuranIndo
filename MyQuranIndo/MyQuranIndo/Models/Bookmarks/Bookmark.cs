@@ -1,13 +1,18 @@
-﻿using System;
+﻿using MyQuranIndo.Models.Themes;
+using MyQuranIndo.References;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.Bookmarks
 {
     public class Bookmark : NotifyPropertyChanged
     {
+        int theme = Preferences.Get(Setting.THEME, 0);
+
         private Color rowColor;
         public int SurahID { get; set; }
         public string SurahNameLatin { get; set; }
@@ -27,7 +32,14 @@ namespace MyQuranIndo.Models.Bookmarks
                     }
                     else
                     {
-                        rowColor = Color.White;
+                        if (theme == (int)ThemeStyle.Black)
+                        {
+                            rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                        }
+                        else
+                        {
+                            rowColor = Color.White;
+                        }
                     }
                 }
                 return rowColor;

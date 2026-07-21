@@ -4,6 +4,7 @@
              x:Class="MyQuranIndo.Views.Prayer.PrayerSchedulePage"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Prayer"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Prayers"
+             BackgroundColor="{StaticResource  BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
     <ContentPage.Content>
         <ScrollView>
@@ -101,13 +102,13 @@
                         <CollectionView.Footer>
                             <StackLayout>
                                 <Label Text="Sumber: https://api.myquran.com/"
-                                       TextColor="{DynamicResource Primary}"
+                                       TextColor="{DynamicResource TextColor}"
                                        FontAttributes="Italic"
                                        CharacterSpacing="2"
                                        HorizontalTextAlignment="Center"
                                        Margin="0,5,0,5"/>
                                 <Label Text="Catatan: Jika waktu shalat berbeda dengan daerah anda, silahkan mengikuti waktu sholat di daerah anda masing masing."
-                                       TextColor="{DynamicResource Primary}"
+                                       TextColor="{DynamicResource TextColor}"
                                        FontAttributes="Italic"
                                        CharacterSpacing="2"
                                        HorizontalTextAlignment="Center"

@@ -7,31 +7,75 @@
              xmlns:effect="clr-namespace:MyQuranIndo.Effects"
              Title="Pengaturan"
              Shell.PresentationMode="Animated"
-             BackgroundColor="{StaticResource BgColor}">
+             BackgroundColor="LightGray">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout x:DataType="vm:SettingViewModel">
                 <control:CustomTableView Intent="Settings"
                                          HasUnevenRows="True"
-                                         SeparatorColor="{DynamicResource Accent}">
-                    <TableRoot TextColor="Black">
+                                         SeparatorColor="{DynamicResource TextColor}">
+                    <TableRoot>
                         <TableSection Title="Transliterasi Latin"
-                                      TextColor="{StaticResource TextColor}">
+                                      TextColor="{DynamicResource TextColor}">
                             <SwitchCell Text="Aktifkan Transliterasi" 
                                         On="{Binding IsActiveTransliteration, Mode=TwoWay}" 
-                                        OnColor="{DynamicResource Primary}" />
+                                        OnColor="{DynamicResource TextColor}" />
                         </TableSection>
                         <TableSection Title="Terjemahan"
-                                      TextColor="{StaticResource TextColor}">
+                                      TextColor="{DynamicResource TextColor}">
                             <SwitchCell Text="Aktifkan Terjemahan" 
                                         On="{Binding IsActiveTranslate, Mode=TwoWay}" 
-                                        OnColor="{DynamicResource Primary}"                                        
+                                        OnColor="{DynamicResource Primary}"                                      
                                         />
+                        </TableSection>         
+                        <TableSection Title="Tema"
+                                      TextColor="{DynamicResource TextColor}">
+                            <SwitchCell Text="Ikuti Tema Sistem"
+                                        On="{Binding FollowSystemTheme, Mode=TwoWay}"
+                                        OnColor="{DynamicResource Primary}" />
+                            <SwitchCell Text="Gunakan Mode Gelap"
+                                        On="{Binding IsDarkMode, Mode=TwoWay}"
+                                        OnColor="{DynamicResource Primary}" />
                         </TableSection>
-                        <TableSection Title="Pilih Warna Aplikasi"
-                                      TextColor="{StaticResource TextColor}">
+                        <!--<TableSection Title="Tema">
                             <ViewCell Height="50">
-                                <StackLayout Padding="10,0,10,0">
+                                <Grid Padding="15,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        --><!-- Label mengambil sisa ruang --><!--
+                                        <ColumnDefinition Width="30" />
+                                        --><!-- Switch hanya mengambil ruang yang dibutuhkan --><!--
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="Ikuti Tema Sistem" 
+                                           VerticalOptions="Center" 
+                                           TextColor="{DynamicResource TextColor}"/>
+                                    <Switch Grid.Column="1"
+                                            BackgroundColor="{DynamicResource TextColor}"
+                                            IsToggled="{Binding FollowSystemTheme, Mode=TwoWay}"
+                                            VerticalOptions="Center" />
+
+                                    <Label Grid.Row="1"
+                                           Text="Gunakan Mode Gelap" 
+                                           VerticalOptions="Center" 
+                                           TextColor="{DynamicResource TextColor}"/>
+                                    <Switch Grid.Row="1"
+                                            Grid.Column="1"
+                                            BackgroundColor="{DynamicResource TextColor}"
+                                            IsToggled="{Binding IsDarkMode, Mode=TwoWay}"
+                                            VerticalOptions="Center" />
+                                </Grid>
+                            </ViewCell>
+                        </TableSection>-->
+                        <TableSection Title="Pilih Warna Aplikasi"
+                                      TextColor="{DynamicResource TextColor}">        
+                            <ViewCell Height="50">
+                                <StackLayout Padding="10,0,10,0"
+                                             >
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="35"/>
@@ -71,7 +115,7 @@
                                                 BackgroundColor="#2D2D2B"
                                                 Command="{Binding ColorThemeCommand}">
                                             <Button.CommandParameter>
-                                                <x:Int32>3</x:Int32>
+                                                <x:Int32>8</x:Int32>
                                             </Button.CommandParameter>
                                         </Button>
                                         <Button Grid.Column="4" 
@@ -121,10 +165,11 @@
                             </control:PickerCell>                     
                         </TableSection>-->
                         <TableSection Title="Ukuran Teks Arab"
-                                      TextColor="{StaticResource TextColor}">                            
+                                      TextColor="{DynamicResource TextColor}">                            
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout Padding="10,0,10,0">
+                                    <StackLayout Padding="10,0,10,0" 
+                                                 BackgroundColor="{DynamicResource BgColor}"                                                 >
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="40"/>
@@ -165,7 +210,7 @@
                                             <!--<Label Grid.Row ="1"
                                                    Grid.ColumnSpan="3"
                                                    Text="Contoh:"
-                                                   TextColor="{StaticResource TextColor}"
+                                                   TextColor="{DynamicResource TextColor}"
                                                    Margin="5,10,0,0"/>-->
                                             <Label Grid.Row ="1" 
                                                    Grid.ColumnSpan="3"
@@ -173,7 +218,8 @@
                                                    FontSize="{Binding FontSizeArabic}"
                                                    FontFamily="{Binding FontArabicName}"
                                                    LineHeight="1.4"
-                                                   TextColor="{StaticResource TextColor}"
+                                                   TextColor="{DynamicResource TextColor}"
+                                                   BackgroundColor="{DynamicResource BgColor}"
                                                    HorizontalTextAlignment="Center"
                                                    Padding="5"/>
                                         </Grid>
@@ -183,7 +229,7 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Ukuran Teks Transliterasi"
-                                      TextColor="{StaticResource TextColor}">
+                                      TextColor="{DynamicResource TextColor}">
                             <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout Padding="10,0,10,0">
@@ -234,7 +280,8 @@
                                                    Text="{Binding BismillahTextIndoSample}"
                                                    FontSize="{Binding FontSizeTextIndo}"
                                                    FontFamily="Montserrat-Light-Italic"
-                                                   TextColor="{StaticResource TextColor}"
+                                                   TextColor="{DynamicResource TextColor}"
+                                                   BackgroundColor="{DynamicResource BgColor}"
                                                    HorizontalTextAlignment="Center"
                                                    Padding="5" />
                                         </Grid>
@@ -244,7 +291,7 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Ukuran Teks Terjemahan"
-                                      TextColor="{StaticResource TextColor}">
+                                      TextColor="{DynamicResource TextColor}">
                             <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout Padding="10,0,10,0">
@@ -296,7 +343,8 @@
                                                    Text="{Binding BismillahTranslateSample}"
                                                    FontSize="{Binding FontSizeTranslate}"
                                                    FontFamily="Montserrat-Light-Italic"
-                                                   TextColor="{StaticResource TextColor}"
+                                                   TextColor="{DynamicResource TextColor}"
+                                                   BackgroundColor="{DynamicResource BgColor}"
                                                    HorizontalTextAlignment="Center"
                                                    Padding="5" />    
                                         </Grid>
@@ -306,7 +354,7 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Rasm (Penulisan)"
-                                      TextColor="{StaticResource TextColor}">
+                                      TextColor="{DynamicResource TextColor}">
                             <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout Padding="10,0,10,0">
@@ -341,7 +389,7 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Qari"
-                                      TextColor="{StaticResource TextColor}">
+                                      TextColor="{DynamicResource TextColor}">
                             <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout Padding="10,0,10,0">
@@ -386,7 +434,7 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Tafsir"
-                                      TextColor="{StaticResource TextColor}">
+                                      TextColor="{DynamicResource TextColor}">
                             <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout Padding="10,0,10,0">
@@ -421,22 +469,18 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Lainnya"
-                                      TextColor="{StaticResource TextColor}">
+                                      TextColor="{DynamicResource TextColor}">
                             <ImageCell Text="Bersihkan Penyimpanan" 
                                        ImageSource="icon_clean.png" 
-                                       Command="{Binding ClearCacheTapped}"
-                                       TextColor="{StaticResource TextColor}"/>
+                                       Command="{Binding ClearCacheTapped}"/>
                             <ImageCell Text="Info Aplikasi" 
                                        ImageSource="icon_about.png" 
-                                       Command="{Binding AboutTapped}"
-                                       TextColor="{StaticResource TextColor}"/>
+                                       Command="{Binding AboutTapped}"/>
                             <ImageCell Text="Berikan Rating"
                                        ImageSource="icon_rating.png"
-                                       TextColor="{StaticResource TextColor}"
                                        Command="{Binding OpenAppStoreTapped}"/>
                             <ImageCell Text="Cek Pembaruan"
                                        ImageSource="icon_update.png"
-                                       TextColor="{StaticResource TextColor}"
                                        Command="{Binding OpenAppStoreTapped}"/>
                         </TableSection>
                     </TableRoot>

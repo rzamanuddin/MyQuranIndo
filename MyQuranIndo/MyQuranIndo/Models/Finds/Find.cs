@@ -1,41 +1,21 @@
 ﻿using MyQuranIndo.Models.Qurans;
+using MyQuranIndo.Models.Themes;
+using MyQuranIndo.References;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.Finds
 {
-    public class Find : NotifyPropertyChanged
+    public class Find : BaseGroupModel
     {
+        private int theme = Preferences.Get(Setting.THEME, 0);
         private Color rowColor;
         public Ayah Ayah { get; set; }
-        public int Row { get; set; }
-        public Color RowColor
-        {
-            get
-            {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                {
-                    if (Row % 2 == 1)
-                    {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                    }
-                    else
-                    {
-                        rowColor = Color.White;
-                    }
-                }
-                return rowColor;
-            }
-            set
-            {             
-                rowColor = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
-            }
-        }
         //public List<FindGroup> FindGroups { get; private set; } = new List<FindGroup>();
     }
 

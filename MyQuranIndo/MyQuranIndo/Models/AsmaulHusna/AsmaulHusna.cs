@@ -1,15 +1,20 @@
 ﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Models.Themes;
+using MyQuranIndo.References;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.AsmaulHusna
 {
     public class AsmaulHusna : NotifyPropertyChanged
     {
+        private int theme = Preferences.Get(Setting.THEME, 0);
+
         [JsonProperty("urutan")]
         public long ID { get; set; }
 
@@ -66,7 +71,14 @@ namespace MyQuranIndo.Models.AsmaulHusna
                     }
                     else
                     {
-                        rowColor = Color.White;
+                        if (theme == (int)ThemeStyle.Black)
+                        {
+                            rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                        }
+                        else
+                        {
+                            rowColor = Color.White;
+                        }
                     }
                 }
                 return rowColor;

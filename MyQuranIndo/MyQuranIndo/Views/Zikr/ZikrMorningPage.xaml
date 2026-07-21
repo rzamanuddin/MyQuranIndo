@@ -4,6 +4,7 @@
              x:Class="MyQuranIndo.Views.Zikr.ZikrMorningPage"
              Title="{Binding Title}"
              xmlns:model="clr-namespace:MyQuranIndo.ViewModels.Zikr"
+             BackgroundColor="{StaticResource BgColor}"
              >
     <ContentPage.Content>
         <ScrollView>

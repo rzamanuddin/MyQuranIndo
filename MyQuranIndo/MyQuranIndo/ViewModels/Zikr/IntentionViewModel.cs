@@ -262,12 +262,12 @@ namespace MyQuranIndo.ViewModels.Zikr
                 {
                     intentionGroup.Add(context[i]);
                 }
-                intentionGroup.ImageHeader = "collapse.png";
+                intentionGroup.ImageHeader = GetCollapsImageHeaderName();
             }
             else
             {
                 intentionGroup.Clear();
-                intentionGroup.ImageHeader = "expand.png";
+                intentionGroup.ImageHeader = GetExpandImageHeaderName();
             }
 
             //for (int i = 0; i < Finds.Count; i++)

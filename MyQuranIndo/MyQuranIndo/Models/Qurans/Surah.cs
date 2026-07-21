@@ -1,8 +1,9 @@
 ﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Models.Themes;
+using MyQuranIndo.References;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.Qurans
@@ -10,6 +11,7 @@ namespace MyQuranIndo.Models.Qurans
     public class Surah : NotifyPropertyChanged
     {
         public static int SURAH_COUNT = 114;
+        int theme = Preferences.Get(Setting.THEME, 0);
 
         private Color rowColor;
         private Color rowColorPopular;
@@ -32,7 +34,24 @@ namespace MyQuranIndo.Models.Qurans
                     }
                     else
                     {
-                        rowColor = Color.White;
+                        if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
+                        {
+                            if (ID % 2 == 0)
+                            {
+                                rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                            }
+                            else
+                            {
+                                if (theme == (int)ThemeStyle.Black)
+                                {
+                                    rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                                }
+                                else
+                                {
+                                    rowColor = Color.White;
+                                }
+                            }
+                        }
                     }
                 }
                 return rowColor;
@@ -61,7 +80,14 @@ namespace MyQuranIndo.Models.Qurans
                     }
                     else
                     {
-                        rowColorPopular = Color.White;
+                        if (theme == (int)ThemeStyle.Black)
+                        {
+                            rowColorPopular = ((Color)Application.Current.Resources["RowColor"]);
+                        }
+                        else
+                        {
+                            rowColorPopular = Color.White;
+                        }
                     }
                 }
                 return rowColorPopular;

@@ -5,6 +5,7 @@
              xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans" 
              xmlns:localBehavior="clr-namespace:MyQuranIndo.Behaviors"
              x:Class="MyQuranIndo.Views.Surah.SurahPage"
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
     <Shell.SearchHandler>
         <SearchHandler x:DataType="local:SurahsViewModel"  
@@ -13,7 +14,9 @@
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
                        SearchBoxVisibility="Collapsible"
-                       TextColor="{StaticResource TextColor}"                       
+                       TextColor="{StaticResource TextColor}" 
+                       BackgroundColor="{StaticResource BgColor}"
+                       PlaceholderColor="LightGray"
                        >            
         </SearchHandler>
     </Shell.SearchHandler>
@@ -66,11 +69,13 @@
                                            Text="{Binding Name}" 
                                            Style="{StaticResource SurahLabelName}"                                           
                                            FontSize="{Binding FontSizeArabic}"
+                                           TextColor="{StaticResource TextColor}"
                                            Padding="5,0,5,0"/>
                                     <Label Grid.Row="1" 
                                            Text="{Binding DisplayNameLatin}" 
                                            Style="{StaticResource SurahLabelNameLatin}"
                                            LineBreakMode="WordWrap"
+                                           TextColor="{StaticResource TextColor}"
                                            Padding="5,0,5,10" />
                                     <!--<Image Grid.Column="1"
                                            Grid.RowSpan="2"

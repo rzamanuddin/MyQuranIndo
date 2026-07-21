@@ -10,10 +10,12 @@
         <SearchHandler x:DataType="local:HelpViewModel"  
                        x:Name="searchBar"
                        Placeholder="Cari Kata Kunci"
+                       PlaceholderColor="LightGray"
                        Command="{Binding LoadCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
                        Query="{Binding SearchQuery, Mode=TwoWay}"
                        SearchBoxVisibility="Collapsible"
+                       BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}" />
     </Shell.SearchHandler>
     <ContentPage.Content>

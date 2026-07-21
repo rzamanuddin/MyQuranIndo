@@ -4,6 +4,7 @@
              x:Class="MyQuranIndo.Views.Bookmarks.BookmarksPage"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Bookmarks"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Bookmarks"
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
             
     <ContentPage.Content>

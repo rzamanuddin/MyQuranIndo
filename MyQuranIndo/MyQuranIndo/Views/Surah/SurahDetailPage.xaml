@@ -7,6 +7,7 @@
              xmlns:control="clr-namespace:MyQuranIndo.Controls"           
              xmlns:selector="clr-namespace:MyQuranIndo.Selectors"
              x:Class="MyQuranIndo.Views.Surah.SurahDetailPage"
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior
@@ -78,7 +79,9 @@
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
                        SearchBoxVisibility="Collapsible"
-                       TextColor="{StaticResource TextColor}"                       
+                       BackgroundColor="{StaticResource BgColor}"
+                       TextColor="{StaticResource TextColor}"    
+                       PlaceholderColor="LightGray"                   
                        >
         </SearchHandler>
     </Shell.SearchHandler>
@@ -110,15 +113,17 @@
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
                        FontSize="Medium"
+                       BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}"
                        Margin="0, 0, 0, 2"
                        IsVisible="{Binding VisibleSearchBar}"
+                       PlaceholderColor="LightGray"
                        >
                 <SearchBar.Behaviors>
                     <localBehavior:TextChangedBehavior />
                 </SearchBar.Behaviors>
             </SearchBar>
-            <BoxView BackgroundColor="Black"
+            <BoxView BackgroundColor="{StaticResource BgColor}"
                      HeightRequest="3"
                      Margin="0, -6, 0, 1" 
                      IsVisible="{Binding VisibleSearchBar}"
@@ -146,7 +151,7 @@
                                     HorizontalTextAlignment="Center"
                                     FontFamily="Montserrat-Medium"
                                     BackgroundColor="{DynamicResource Accent}"
-                                    TextColor="Black"
+                                    TextColor="{StaticResource TextColor}"
                                     Padding="5"
                                     />
                             <!--<BoxView BackgroundColor="Black"

@@ -1,16 +1,18 @@
 ﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Models.Themes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.Prayers
 {
 
-    public class PrayerRead : NotifyPropertyChanged
+    public class PrayerRead : BaseGroupModel
     {
         private PrayerRead PrayerReadSelf { get; set; }
         private Color rowColor;
@@ -25,8 +27,6 @@ namespace MyQuranIndo.Models.Prayers
         public string Title { get; set; }
         [JsonProperty("translatedid")]
         public string TranslateID { get; set; }
-
-        public long RowID { get; set; }
 
         public string TitleAndNumber
         {
@@ -59,29 +59,6 @@ namespace MyQuranIndo.Models.Prayers
             get
             {
                 return FontHelper.GetFontSizeTextIndo();
-            }
-        }
-        public Color RowColor
-        {
-            get
-            {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                {
-                    if (RowID % 2 != 0)
-                    {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                    }
-                    else
-                    {
-                        rowColor = Color.White;
-                    }
-                }
-                return rowColor;
-            }
-            set
-            {
-                rowColor = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
             }
         }
         public bool IsVisibleArabicLatin
@@ -192,6 +169,14 @@ namespace MyQuranIndo.Models.Prayers
 
         public PrayerReadGroup(int id, string titleHeader, ObservableCollection<PrayerRead> prayerReads) : base(prayerReads)
         {
+            if (Preferences.Get(MyQuranIndo.References.Setting.THEME, 0) == (int)ThemeStyle.Black)
+            {
+                this.imageHeader = "expand_black.png";
+            }
+            else
+            {
+                this.imageHeader = "expand.png";
+            }
             this.ID = id;
             this.TitleHeader = titleHeader;
             PrayerReads = prayerReads;

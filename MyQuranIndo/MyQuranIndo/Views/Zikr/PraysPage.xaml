@@ -4,6 +4,7 @@
              x:Class="MyQuranIndo.Views.Zikr.PraysPage"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Zikr"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Zikrs"
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title}">
     <!--<Shell.SearchHandler>
         <SearchHandler x:DataType="local:PrayViewModel"  
@@ -134,10 +135,12 @@
         <SearchHandler x:DataType="local:PrayViewModel"  
                        x:Name="searchBar"
                        Placeholder="Cari Kata Kunci"
+                       PlaceholderColor="LightGray"
                        Command="{Binding LoadCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
                        Query="{Binding SearchQuery, Mode=TwoWay}"
                        SearchBoxVisibility="Collapsible"
+                       BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}" />
     </Shell.SearchHandler>
     <ContentPage.Content>
