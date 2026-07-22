@@ -121,12 +121,12 @@ namespace MyQuranIndo.ViewModels.Help
                 {
                     helpGroup.Add(context[i]);
                 }
-                helpGroup.ImageHeader = "collapse.png";
+                helpGroup.ImageHeader = GetCollapsImageHeaderName();
             }
             else
             {
                 helpGroup.Clear();
-                helpGroup.ImageHeader = "expand.png";
+                helpGroup.ImageHeader = GetExpandImageHeaderName();
             }
         }
 

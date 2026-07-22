@@ -1,10 +1,12 @@
 ﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Models.Themes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.Zikrs
@@ -21,10 +23,8 @@ namespace MyQuranIndo.Models.Zikrs
         public List<Pray> Data { get; set; }
     }
 
-    public class Pray : NotifyPropertyChanged
+    public class Pray : BaseGroupModel
     {
-        private Color rowColor;
-
         [JsonProperty("id")]
         public int ID { get; set; }
         [JsonProperty("arabic")]
@@ -43,8 +43,6 @@ namespace MyQuranIndo.Models.Zikrs
         public string TranslateID { get; set; }
         [JsonProperty("tag")]
         public List<string> Tag { get; set; }
-
-        public long RowID { get; set; }
 
         public string TitleAndNumber
         {
@@ -79,29 +77,6 @@ namespace MyQuranIndo.Models.Zikrs
             }
         }
 
-        public Color RowColor
-        {
-            get
-            {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                {
-                    if (ID % 2 == 0)
-                    {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                    }
-                    else
-                    {
-                        rowColor = Color.White;
-                    }
-                }
-                return rowColor;
-            }
-            set
-            {
-                rowColor = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
-            }
-        }
         public bool IsVisibleArabicLatin
         {
             get
@@ -224,6 +199,14 @@ namespace MyQuranIndo.Models.Zikrs
 
         public PrayGroup(int id, string titleHeader, ObservableCollection<Pray> prays) : base(prays)
         {
+            if (Preferences.Get(MyQuranIndo.References.Setting.THEME, 0) == (int)ThemeStyle.Black)
+            {
+                this.imageHeader = "expand_black.png";
+            }
+            else
+            {
+                this.imageHeader = "expand.png";
+            }
             this.ID = id;
             this.TitleHeader = titleHeader;
             //this.NumberOfAyah = numberOfAyah;

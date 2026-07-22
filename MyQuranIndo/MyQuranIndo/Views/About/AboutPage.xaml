@@ -69,7 +69,7 @@
                              Spacing="5"
                              VerticalOptions="StartAndExpand"
                              HorizontalOptions="CenterAndExpand"
-                             BackgroundColor="White"
+                             BackgroundColor="{StaticResource BgColor}"                             
                              Margin="10, 20, 10, 0"
                              Padding="10"
                              x:DataType="vm:AboutViewModel">
@@ -88,6 +88,7 @@
                                CharacterSpacing="1" />
                         <Editor Grid.Row="1" 
                                 Placeholder="Silahkan diisi lalu klik tombol email."
+                                PlaceholderColor="LightGray"
                                 FontSize="Medium"
                                 Text="{Binding EmailText, Mode=TwoWay}"
                                 AutoSize="TextChanges"
@@ -100,7 +101,9 @@
                                 CharacterSpacing="2"
                                 ImageSource="icon_mail.png"
                                 VerticalOptions="CenterAndExpand"
-                                Command="{Binding MailCommand}"/>
+                                Command="{Binding MailCommand}"
+                                TextColor="{StaticResource TextColor}"
+                                BackgroundColor="{StaticResource Accent}"/>
                     </Grid>
                 </StackLayout>
             </Grid>

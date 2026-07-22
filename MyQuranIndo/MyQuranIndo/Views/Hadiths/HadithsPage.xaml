@@ -5,6 +5,7 @@
              xmlns:behavior="clr-namespace:MyQuranIndo.Behaviors"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Hadiths"
              xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Hadiths"
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title}">
     <ContentPage.Resources>
     </ContentPage.Resources>
@@ -14,9 +15,11 @@
         <SearchHandler x:DataType="vm:HadithsViewModel"  
                        x:Name="searchBar"
                        Placeholder="Cari No / Nama Perawi"
+                       PlaceholderColor="LightGray"
                        Command="{Binding SearchCommand}" 
-                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                      
                        SearchBoxVisibility="Collapsible"
+                       BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}"                       
                        >
         </SearchHandler>
@@ -33,7 +36,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Padding="0" 
-                                            x:DataType="model:Narrator">
+                                         x:DataType="model:Narrator">
                                 <Grid Margin="0, 0, 0, 0"
                                       BackgroundColor="{Binding RowColor}">
                                     <Grid.RowDefinitions>
@@ -45,11 +48,13 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Text="{Binding Name}" 
                                            Style="{StaticResource NarratorLabelName}"
+                                           TextColor="{StaticResource TextColor}"
                                            Padding="10,0,10,-5"/>
                                     <Label Grid.Row="1" 
                                            Text="{Binding Description, StringFormat='({0})'}" 
                                            Style="{StaticResource NarratorLabelDescription}"
                                            LineBreakMode="WordWrap"
+                                           TextColor="{StaticResource TextColor}"
                                            Padding="10,0,10,10" 
                                            />
                                 </Grid>

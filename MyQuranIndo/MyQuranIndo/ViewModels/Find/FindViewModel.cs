@@ -143,12 +143,12 @@ namespace MyQuranIndo.ViewModels.Find
                 {
                     findGroup.Add(context[i]);
                 }
-                findGroup.ImageHeader = "collapse.png";
+                findGroup.ImageHeader = GetCollapsImageHeaderName();
             }
             else
             {
                 findGroup.Clear();
-                findGroup.ImageHeader = "expand.png";
+                findGroup.ImageHeader = GetExpandImageHeaderName();
             }
 
             //for (int i = 0; i < Finds.Count; i++)
@@ -242,7 +242,7 @@ namespace MyQuranIndo.ViewModels.Find
                         MyQuranIndo.Models.Finds.Find find = new Models.Finds.Find()
                         {
                             Ayah = ayahInSurahGroup[i],
-                            Row = i
+                            RowID = i
                         };
                         findList.Add(find);
                     }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MyQuranIndo.Models.Themes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.Helps
@@ -14,9 +16,8 @@ namespace MyQuranIndo.Models.Helps
         public List<HelpContent> Contents { get; set; }
     }
 
-    public class HelpContent : NotifyPropertyChanged
+    public class HelpContent : BaseModel
     {
-        public int ID { get; set; }
         public string Subtitle { get; set; }
         public string Content { get; set; }
 
@@ -32,31 +33,6 @@ namespace MyQuranIndo.Models.Helps
                 {
                     return true;
                 }
-            }
-        }
-
-        private Color rowColor;
-        public Color RowColor
-        {
-            get
-            {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                {
-                    if (ID % 2 == 0)
-                    {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                    }
-                    else
-                    {
-                        rowColor = Color.White;
-                    }
-                }
-                return rowColor;
-            }
-            set
-            {
-                rowColor = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
             }
         }
     }
@@ -108,6 +84,15 @@ namespace MyQuranIndo.Models.Helps
 
         public HelpGroup(int id, string titleHeader, ObservableCollection<HelpContent> helps) : base(helps)
         {
+            if (Preferences.Get(MyQuranIndo.References.Setting.THEME, 0) == (int)ThemeStyle.Black)
+            {
+                this.imageHeader = "expand_black.png";
+            }
+            else
+            {
+                this.imageHeader = "expand.png";
+            }
+
             this.ID = id;
             this.TitleHeader = titleHeader;
             Helps = helps;

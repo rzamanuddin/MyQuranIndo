@@ -1,17 +1,20 @@
-﻿using MyQuranIndo.Models;
+﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Messages;
+using MyQuranIndo.Models;
+using MyQuranIndo.Models.Themes;
 using MyQuranIndo.Views;
 using MyQuranIndo.Views.Setting;
 using MyQuranIndo.Views.Surah;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using System.Linq;
 using System.Windows.Input;
-using MyQuranIndo.Messages;
-using MyQuranIndo.Helpers;
+using Xamarin.Forms;
+using static Android.Resource;
 
 namespace MyQuranIndo.ViewModels.Surah
 {
@@ -23,7 +26,6 @@ namespace MyQuranIndo.ViewModels.Surah
         private Page selectedTab;
         private string surahID;
         private string ayahID;
-
         public Page SelectedTab
         {
             //get { return _selectedtab; }

@@ -344,12 +344,12 @@ namespace MyQuranIndo.ViewModels.Zikr
                 {
                     prayGroup.Add(context[i]);
                 }
-                prayGroup.ImageHeader = "collapse.png";
+                prayGroup.ImageHeader = GetCollapsImageHeaderName();
             }
             else
             {
                 prayGroup.Clear();
-                prayGroup.ImageHeader = "expand.png";
+                prayGroup.ImageHeader = GetExpandImageHeaderName();
             }
         }
 
@@ -411,6 +411,7 @@ namespace MyQuranIndo.ViewModels.Zikr
                         for (int r = 0; r < prayInGroup[i].Data.Count; r++)
                         {
                             prayList.Add(prayInGroup[i].Data[r]);
+                            prayInGroup[i].Data[r].RowID = r + 1;
                         }
                     }
 

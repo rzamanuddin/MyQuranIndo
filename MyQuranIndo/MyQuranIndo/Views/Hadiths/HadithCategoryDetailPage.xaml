@@ -39,7 +39,8 @@
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
                        SearchBoxVisibility="Collapsible"
-                       TextColor="{StaticResource TextColor}"                       
+                       TextColor="{StaticResource TextColor}"    
+                       PlaceholderColor="LightGray"                   
                        >
         </SearchHandler>
     </Shell.SearchHandler>

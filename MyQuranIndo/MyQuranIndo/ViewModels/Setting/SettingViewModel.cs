@@ -42,6 +42,99 @@ namespace MyQuranIndo.ViewModels.Setting
             }
         }
 
+        private bool isDarkMode;
+        public bool IsDarkMode
+        {
+            get
+            {
+                isDarkMode = Preferences.Get(References.Setting.IS_DARK_MODE, false);
+                return isDarkMode;
+            }
+            set
+            {
+                if (isDarkMode != value)
+                {
+                    Preferences.Set(References.Setting.IS_DARK_MODE, value);
+                    // set theme preference and apply
+                    Preferences.Set(References.Setting.THEME, value ? (int)ThemeStyle.Black : (int)ThemeStyle.BlackLight);
+                    ApplyTheme(value);
+                    SetProperty(ref isDarkMode, value);
+
+                    // if user manually toggles dark mode, turn off follow-system
+                    if (FollowSystemTheme)
+                    {
+                        FollowSystemTheme = false;
+                    }
+                }
+            }
+        }
+
+        private bool followSystemTheme;
+        public bool FollowSystemTheme
+        {
+            get
+            {
+                followSystemTheme = Preferences.Get(References.Setting.FOLLOW_SYSTEM_THEME, false);
+                return followSystemTheme;
+            }
+            set
+            {
+                if (followSystemTheme != value)
+                {
+                    Preferences.Set(References.Setting.FOLLOW_SYSTEM_THEME, value);
+                    SetProperty(ref followSystemTheme, value);
+                    if (value)
+                    {
+                        // apply current system theme immediately
+                        bool isDark = Application.Current.RequestedTheme == OSAppTheme.Dark;
+                        Preferences.Set(References.Setting.IS_DARK_MODE, isDark);
+                        ApplyTheme(isDark);
+                        // subscribe to changes
+                        Application.Current.RequestedThemeChanged += OnRequestedThemeChanged;
+                    }
+                    else
+                    {
+                        // unsubscribe from changes
+                        try { Application.Current.RequestedThemeChanged -= OnRequestedThemeChanged; } catch { }
+                    }
+                }
+            }
+        }
+
+        private void OnRequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
+        {
+            if (Preferences.Get(References.Setting.FOLLOW_SYSTEM_THEME, false))
+            {
+                bool isDark = e.RequestedTheme == OSAppTheme.Dark;
+                Preferences.Set(References.Setting.IS_DARK_MODE, isDark);
+                ApplyTheme(isDark);
+                SetProperty(ref isDarkMode, isDark);
+            }
+        }
+
+        private void ApplyTheme(bool isDark)
+        {
+            ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+            if (mergedDictionaries != null)
+            {
+                mergedDictionaries.Clear();
+                if (isDark)
+                {
+                    Preferences.Set(References.Setting.THEME, (int)ThemeStyle.Black);
+                    mergedDictionaries.Add(new BlackTheme());
+                    MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.Black);
+                    ToastService.Show($"Tema gelap berhasil diterapkan", false);
+                }
+                else
+                {
+                    Preferences.Set(References.Setting.THEME, (int)ThemeStyle.BlackLight);
+                    mergedDictionaries.Add(new BlackLightTheme());
+                    MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.BlackLight);
+                    ToastService.Show($"Tema terang berhasil diterapkan", false);
+                }
+            }
+        }
+
         public bool IsActiveTranslate
         {
             get
@@ -1202,9 +1295,17 @@ namespace MyQuranIndo.ViewModels.Setting
                             MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.DarkBlue);
                             ToastService.Show($"Tema warna biru dongker berhasil dipilih", false);
                             break;
+                        case (int)ThemeStyle.BlackLight:
+                            Preferences.Set(References.Setting.THEME, (int)ThemeStyle.BlackLight);
+                            mergedDictionaries.Add(new BlackLightTheme());
+
+                            MessagingCenter.Send(this, Message.MSG_KEY_CHANGE_THEME, (int)ThemeStyle.BlackLight);
+                            ToastService.Show($"Tema warna hitam light berhasil dipilih", false);
+                            break;
                         default:
-                            goto case (int)ThemeStyle.Blue;
+                            goto case (int)ThemeStyle.BlackLight;
                     }
+                    IsDarkMode = false;
                 }
                 catch (Exception ex)
                 {

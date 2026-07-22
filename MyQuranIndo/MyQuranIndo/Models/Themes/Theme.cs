@@ -13,11 +13,11 @@ namespace MyQuranIndo.Models.Themes
         Purple = 4,
         Pink = 5,
         Red = 6,
-        DarkBlue = 7
+        DarkBlue = 7,
+        BlackLight = 8,
     }
     public class Theme
-    {
-        
+    {        
         public int ID { get; set; }
         public string Name { get; set; }
     }

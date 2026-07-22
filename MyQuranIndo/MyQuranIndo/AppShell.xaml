@@ -118,20 +118,20 @@
     <!--<FlyoutItem Title="Juz Testing" Icon="icon_quran.png">
         <ShellContent Route="TabbedPageSurahsAndJuzsPage" ContentTemplate="{DataTemplate localTab:TabbedPageSurahsAndJuzsPage}" />
     </FlyoutItem>-->
-    <MenuItem Text="Baca Surat" 
+    <MenuItem Text="Baca Surat"
               IconImageSource="icon_quran.png"
               Command="{Binding ReadSurahCommand}"
               />
-    <MenuItem Text="Baca Surat (Mode Tab)"
+    <!--<MenuItem Text="Baca Surat (Mode Tab)"
               IconImageSource="icon_quran_2.png"
-              Command="{Binding ReadSurahModeTabCommand}"/>
+              Command="{Binding ReadSurahModeTabCommand}"/>-->
     <MenuItem Text="Baca Juz" 
               IconImageSource="icon_juz.png"
               Command="{Binding ReadJuzCommand}"
               />
-    <MenuItem Text="Baca Juz (Mode Tab)"
+    <!--<MenuItem Text="Baca Juz (Mode Tab)"
               IconImageSource="icon_juz_2.png"
-              Command="{Binding ReadJuzModeTabCommand}"/>
+              Command="{Binding ReadJuzModeTabCommand}"/>-->
     <MenuItem Text="Baca Tafsir"
               IconImageSource="icon_tafsir.png"
               Command="{Binding ReadTafsirCommand}"/>

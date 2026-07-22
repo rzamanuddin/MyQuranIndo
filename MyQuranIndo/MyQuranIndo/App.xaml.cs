@@ -33,6 +33,45 @@ namespace MyQuranIndo
                 {
                     mergedDictionaries.Add(new BlueTheme());
                 }
+            // If user wants to follow system theme, override the chosen theme and subscribe to changes
+            bool followSystem = Preferences.Get(References.Setting.FOLLOW_SYSTEM_THEME, false);
+            if (followSystem)
+            {
+                ICollection<ResourceDictionary> md = Application.Current.Resources.MergedDictionaries;
+                if (md != null)
+                {
+                    md.Clear();
+                    bool isDark = Application.Current.RequestedTheme == OSAppTheme.Dark;
+                    if (isDark)
+                    {
+                        md.Add(new BlackTheme());
+                        Preferences.Set(Setting.THEME, (int)ThemeStyle.Black);
+                    }
+                    else
+                    {
+                        md.Add(new BlackLightTheme());
+                        Preferences.Set(Setting.THEME, (int)ThemeStyle.Blue);
+                    }
+
+                    Application.Current.RequestedThemeChanged += (s, e) =>
+                    {
+                        if (Preferences.Get(References.Setting.FOLLOW_SYSTEM_THEME, false))
+                        {
+                            md.Clear();
+                            if (e.RequestedTheme == OSAppTheme.Dark)
+                            {
+                                md.Add(new BlackTheme());
+                                Preferences.Set(Setting.THEME, (int)ThemeStyle.Black);
+                            }
+                            else
+                            {
+                                md.Add(new BlackLightTheme());
+                                Preferences.Set(Setting.THEME, (int)ThemeStyle.Blue);
+                            }
+                        }
+                    };
+                }
+            }
                 else
                 {
                     if (theme == (int)ThemeStyle.Blue)
@@ -67,9 +106,13 @@ namespace MyQuranIndo
                     {
                         mergedDictionaries.Add(new DarkBlueTheme());
                     }
+                    else if (theme == (int)ThemeStyle.BlackLight)
+                    {
+                        mergedDictionaries.Add(new BlackLightTheme());
+                    }
                     else
                     {
-                        mergedDictionaries.Add(new BlueTheme());
+                        mergedDictionaries.Add(new BlackLightTheme());
                     }
                 }
             }

@@ -136,12 +136,12 @@ namespace MyQuranIndo.ViewModels.Hadiths
                 {
                     prayGroup.Add(context[i]);
                 }
-                prayGroup.ImageHeader = "collapse.png";
+                prayGroup.ImageHeader = GetCollapsImageHeaderName();
             }
             else
             {
                 prayGroup.Clear();
-                prayGroup.ImageHeader = "expand.png";
+                prayGroup.ImageHeader = GetExpandImageHeaderName();
             }
         }
 

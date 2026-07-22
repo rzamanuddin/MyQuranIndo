@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MyQuranIndo.Models.Themes;
 using Newtonsoft.Json;
-using System.Globalization;
-using Xamarin.Forms;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
+using System.Text;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace MyQuranIndo.Models.Prayers
 {
     public class PrayerTime : NotifyPropertyChanged
     {
+        private int theme = Preferences.Get(MyQuranIndo.References.Setting.THEME, 0);
+
         private FontAttributes fontAttributes;
         public string Name { get; set; }
         public string Time { get; set; }
@@ -25,7 +29,14 @@ namespace MyQuranIndo.Models.Prayers
                 }
                 else
                 {
-                    return Color.White;
+                    if (theme == (int)ThemeStyle.Black)
+                    {
+                        return ((Color)Application.Current.Resources["RowColor"]);
+                    }
+                    else
+                    {
+                        return Color.White;
+                    }
                 }
             }
         }

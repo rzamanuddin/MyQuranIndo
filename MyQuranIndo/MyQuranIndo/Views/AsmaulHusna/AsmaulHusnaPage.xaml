@@ -4,14 +4,17 @@
              x:Class="MyQuranIndo.Views.AsmaulHusna.AsmaulHusnaPage"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.AsmaulHusna"
              xmlns:model="clr-namespace:MyQuranIndo.Models.AsmaulHusna"
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title}">
     <Shell.SearchHandler>
         <SearchHandler x:DataType="local:AsmaulHusnaViewModel"  
                        x:Name="searchBar"
                        Placeholder="Cari No / Asmaul Husna"
+                       PlaceholderColor="LightGray"
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
                        SearchBoxVisibility="Collapsible"
+                       BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}"                       
                        >
         </SearchHandler>
@@ -69,6 +72,7 @@
                                            Text="{Binding Title}" 
                                            LineBreakMode="WordWrap"
                                            Padding="10,0,10,10"
+                                           TextColor="{StaticResource TextColor}"
                                            Style="{StaticResource SurahLabelNameLatin}"/>
                                 </Grid>
                                 <StackLayout.GestureRecognizers>

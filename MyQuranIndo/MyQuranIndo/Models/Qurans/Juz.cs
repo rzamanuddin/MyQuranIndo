@@ -1,15 +1,19 @@
 ﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Models.Themes;
+using MyQuranIndo.References;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using static Android.Content.Res.Resources;
 
 namespace MyQuranIndo.Models.Qurans
 {
     public class JuzDetail : NotifyPropertyChanged
     {
         private Color rowColor;
+        private int theme = Preferences.Get(Setting.THEME, 0);
 
         public int JuzID { get; set; }
         public int SurahID { get; set; }
@@ -46,7 +50,6 @@ namespace MyQuranIndo.Models.Qurans
                 }
             }
         }
-
         public Color RowColor
         {
             get
@@ -62,7 +65,14 @@ namespace MyQuranIndo.Models.Qurans
                         }
                         else
                         {
-                            rowColor = Color.White;
+                            if (theme == (int)ThemeStyle.Black)
+                            {
+                                rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                            }
+                            else
+                            {
+                                rowColor = Color.White;
+                            }
                         }
                     }
                     return rowColor;
@@ -77,7 +87,14 @@ namespace MyQuranIndo.Models.Qurans
                         }
                         else
                         {
-                            rowColor = Color.White;
+                            if (theme == (int)ThemeStyle.Black)
+                            {
+                                rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                            }
+                            else
+                            {
+                                rowColor = Color.White;
+                            }
                         }
                     }
                     return rowColor;
@@ -89,7 +106,6 @@ namespace MyQuranIndo.Models.Qurans
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
             }
         }
-
         public bool IsVisibleTranslate
         {
             get
@@ -245,12 +261,9 @@ namespace MyQuranIndo.Models.Qurans
         }
     }
 
-    public class JuzHeader : NotifyPropertyChanged
+    public class JuzHeader : BaseModel
     {
         public static int JUZ_COUNT = 30;
-        private Color rowColor;
-
-        public int ID { get; set; }
         public int SurahIDStart { get; set; }
         public string SurahNameStart { get; set; }
         public int AyahIDStart { get; set; }
@@ -266,54 +279,6 @@ namespace MyQuranIndo.Models.Qurans
                 return $"{SurahNameStart} Ayat {AyahIDStart} - {SurahNameEnd} {AyahIDEnd}{Environment.NewLine}(Total Ayat {TotalAyah})";
             }
         }
-
-
-        public Color RowColor
-        {
-            get
-            {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                {
-                    if (ID % 2 == 0)
-                    {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                    }
-                    else
-                    {
-                        rowColor = Color.White;
-                    }
-                }
-                return rowColor;
-            }
-            set
-            {
-                //if (value == ((Color)Application.Current.Resources["SelectedItem"]))
-                //{
-                //    rowColor = value;
-                //    OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
-                //}
-                rowColor = value;
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
-            }
-        }
-
-        //public JuzHeader()
-        //{
-
-        //}
-
-        //public ObservableCollection<JuzDetail> JuzDetails { get; private set; }
-        //public JuzHeader(int id, int surahIDStart, int surahIDEnd, string surahNameStart, string surahNameEnd, int ayahIDStart, int ayahIDEnd, ObservableCollection<JuzDetail> juzDetails) : base(juzDetails)
-        //{
-        //    this.AyahIDEnd = ayahIDEnd;
-        //    this.AyahIDStart = ayahIDStart;
-        //    this.ID = id;
-        //    this.SurahIDEnd = surahIDEnd;
-        //    this.SurahIDStart = surahIDStart;
-        //    this.SurahNameEnd = surahNameEnd;
-        //    this.SurahNameStart = surahNameStart;
-        //}
-
         public override string ToString()
         {
             return Description;

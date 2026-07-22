@@ -4,6 +4,7 @@
              Title="{Binding Title}"
              x:Class="MyQuranIndo.Views.Zikr.ZikrsPage"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Zikr"
+             BackgroundColor="{StaticResource BgColor}"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Zikrs">
     <Shell.SearchHandler>
         <SearchHandler x:DataType="local:ZikrViewModel"  
@@ -12,6 +13,7 @@
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
                        SearchBoxVisibility="Collapsible"
+                       BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}"                       
                        >
         </SearchHandler>

@@ -5,15 +5,18 @@
              xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Zikr"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Zikrs"
              xmlns:localBehavior="clr-namespace:MyQuranIndo.Behaviors" 
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title}">
     <Shell.SearchHandler>
         <SearchHandler x:DataType="vm:IntentionViewModel"  
                        x:Name="searchBar"
                        Placeholder="Cari Kata Kunci"
+                       PlaceholderColor="LightGray"
                        Command="{Binding LoadCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
                        Query="{Binding SearchQuery, Mode=TwoWay}"
-                       SearchBoxVisibility="Collapsible"                       
+                       SearchBoxVisibility="Collapsible"      
+                       BackgroundColor="{StaticResource BgColor}"                 
                        TextColor="{StaticResource TextColor}" />
     </Shell.SearchHandler>
     <ContentPage.Content>
@@ -38,6 +41,7 @@
             <SearchBar x:Name="searchBar2"
                        x:DataType="vm:IntentionViewModel"
                        Placeholder="Cari Kata Kunci"
+                       PlaceholderColor="LightGray"
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
                        FontSize="Medium"

@@ -8,6 +8,7 @@
              xmlns:model="clr-namespace:MyQuranIndo.Models.Hadiths" 
              xmlns:localBehavior="clr-namespace:MyQuranIndo.Behaviors"             
              xmlns:control="clr-namespace:MyQuranIndo.Controls"
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
     <!--<Shell.BackButtonBehavior>
         <BackButtonBehavior
@@ -107,13 +108,15 @@
     </ContentPage.Content>-->
     <Shell.SearchHandler>
         <SearchHandler x:DataType="local:HadithDetailViewModel"  
-                   x:Name="searchBar"
-                   Placeholder="Cari Kata Kunci"
-                   Command="{Binding LoadCommand}" 
-                   CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
-                   Query="{Binding SearchQuery, Mode=TwoWay}"
-                   SearchBoxVisibility="Collapsible"
-                   TextColor="{StaticResource TextColor}" />
+                       x:Name="searchBar"
+                       Placeholder="Cari Kata Kunci"
+                       PlaceholderColor="LightGray"
+                       Command="{Binding LoadCommand}" 
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
+                       Query="{Binding SearchQuery, Mode=TwoWay}"
+                       SearchBoxVisibility="Collapsible"
+                       BackgroundColor="{StaticResource BgColor}"
+                       TextColor="{StaticResource TextColor}" />
     </Shell.SearchHandler>
     <ContentPage.Content>
         <StackLayout>
@@ -128,7 +131,7 @@
                         HasUnevenRows="True" 
                         SelectionMode="Single"
                         CachingStrategy="RecycleElement"
-                        SeparatorColor="Black"
+                        SeparatorColor="{StaticResource TextColor}"
                         SeparatorVisibility="None"
                         x:DataType="local:HadithDetailViewModel"
                         >
@@ -136,7 +139,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout x:DataType="model:HadithGroup">
-                                    <Grid BackgroundColor="{DynamicResource Accent}"
+                                    <Grid BackgroundColor="{DynamicResource RowColor}"
                                         Padding="5">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="40" />

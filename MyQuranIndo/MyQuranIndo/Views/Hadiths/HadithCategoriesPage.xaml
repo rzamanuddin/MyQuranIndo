@@ -13,6 +13,7 @@
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}" 
                        Query="{Binding SearchQuery, Mode=TwoWay}"
                        SearchBoxVisibility="Collapsible"
+                       PlaceholderColor="LightGray"
                        TextColor="{StaticResource TextColor}" />
     </Shell.SearchHandler>
     <ContentPage.Content>
