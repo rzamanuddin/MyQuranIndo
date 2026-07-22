@@ -1,12 +1,10 @@
 ﻿using MyQuranIndo.Helpers;
 using MyQuranIndo.Messages;
 using MyQuranIndo.Models.Zikrs;
-using MyQuranIndo.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -14,232 +12,20 @@ using Xamarin.Forms;
 
 namespace MyQuranIndo.ViewModels.Zikr
 {
-    //public class PrayViewModel : BaseViewModel, IHasCollectionViewModel
-    //{
-    //    private ICommand _searchCommand;
-
-    //    public ObservableCollection<Models.Zikrs.Pray> Prays { get; }
-
-    //    public ICommand LoadCommand { get; }
-
-    //    public ICommand PrayOneTapped { get; }
-
-    //    private string zikrTime;
-    //    public string ZikrTime
-    //    {
-    //        get
-    //        {
-    //            return zikrTime;
-    //        }
-    //        set
-    //        {
-    //            zikrTime = value;
-    //        }
-    //    }
-    //    public double FontSizeArabic
-    //    {
-    //        get
-    //        {
-    //            return FontHelper.GetFontSizeArabic();
-    //        }
-    //    }
-                
-    //    public IHasCollectionView View { get; set; }
-
-    //    public PrayViewModel()
-    //    {
-    //        Title = "Kumpulan Do'a";
-    //        Prays = new ObservableCollection<Models.Zikrs.Pray>();
-    //        LoadCommand = new Command(async () => await ExecuteLoadCommand());
-    //        //AyahOneTapped = new Command<Ayah>(OnAyahOneTapped);
-    //        PrayOneTapped = new Command<Models.Zikrs.Pray>(OnPrayOneTapped);
-    //    }
-
-    //    private void ScrollToItem(int index, bool isAnimated = false)
-    //    {
-    //        View.CollectionView.ScrollTo(index, -1, position: ScrollToPosition.Start, isAnimated); // don't forget check null
-    //    }
-    //    private void ScrollToItem(Models.Zikrs.Pray pray, bool isAnimated = false)
-    //    {
-    //        View.CollectionView.ScrollTo(pray, -1, position: ScrollToPosition.Start, isAnimated); // don't forget check null
-    //    }
-
-    //    private async Task ExecuteLoadCommand()
-    //    {
-    //        try
-    //        {
-    //            Prays.Clear();
-    //            var prays = await PrayDataService.GetPraysAsync();
-
-    //            for (int i = 0; i < prays.Count; i++)
-    //            {
-    //                prays[i].RowID = i + 1;
-    //                Prays.Add(prays[i]);
-    //            }
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_PRAY
-    //                + Environment.NewLine + ex.Message, Message.MSG_OK); ;
-    //        }
-    //        finally
-    //        {
-    //            IsBusy = false;
-    //        }
-    //    }
-
-    //    public ICommand SearchCommand => _searchCommand ?? (_searchCommand = new Command<string>(async (text) =>
-    //    {
-    //        try
-    //        {
-    //            if (String.IsNullOrWhiteSpace(text))
-    //            {
-    //                ScrollToItem(1);
-    //            }
-    //            else
-    //            {
-    //                int id = 0;
-    //                int.TryParse(text, out id);
-    //                string warningMessage = Message.MSG_NOT_FOUND_KEY.Replace("<text>", text);
-    //                if (id > 0)
-    //                {
-    //                    if (id > 0 && id <= Prays.Count)
-    //                    {
-    //                        ScrollToItem(id - 1);
-    //                    }
-    //                    else
-    //                    {
-    //                        await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
-    //                    }
-    //                }
-    //                else
-    //                {
-    //                    var s = Prays.FirstOrDefault(q => q.Title.ToLower().Contains(text));
-    //                    if (s != null)
-    //                    {
-    //                        ScrollToItem(s);
-    //                    }
-    //                    else
-    //                    {
-    //                        await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
-    //                    }
-    //                }
-    //            }
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET
-    //                + Environment.NewLine + ex.Message, Message.MSG_OK);
-    //        }
-    //        finally
-    //        {
-    //            IsBusy = false;
-    //        }
-    //    }));
-
-    //    private bool IsValidTapped(Models.Zikrs.Pray pray)
-    //    {
-    //        if (pray == null)
-    //        {
-    //            return false;
-    //        }
-
-    //        // Dont show pop up menu at ta'awudz
-    //        if (pray.ID == 0)
-    //        {
-    //            return false;
-    //        }
-
-    //        return true;
-    //    }
-
-    //    /// <summary>
-    //    /// On Zikr tapped one
-    //    /// </summary>
-    //    /// <param name="pray"></param>
-    //    private async void OnPrayOneTapped(Models.Zikrs.Pray pray)
-    //    {
-    //        if (IsValidTapped(pray))
-    //        {
-    //            //MP3Helper.StopPlayer();
-    //            MP3Service.StopPlayer();
-    //            var oldColor = pray.RowColor;
-    //            pray.RowColor = (Color)Application.Current.Resources["SelectedItem"];
-
-    //            string result = "";
-    //            string errorMessage = "";
-    //            //var surah = await SurahDataService.GetSurahAsync(zikr.SurahID);
-    //            string action = await ActionHelper.DisplayActionPrayAsync(pray.TitleAndNumber);
-    //            string zikrCopied = "";
-    //            try
-    //            {
-    //                switch (action)
-    //                {
-    //                    case ActionHelper.PRAY_SHARE:
-    //                        zikrCopied = ActionHelper.GetPrayToShare(pray, this.Title);
-    //                        await ActionHelper.ShareZikrAsync(zikrCopied);
-    //                        break;
-    //                    case ActionHelper.PRAY_SHARE_ALL:
-    //                        zikrCopied = ActionHelper.GetPraysAllToShare(Prays, this.Title);
-    //                        await ActionHelper.ShareZikrAsync(zikrCopied);
-    //                        break;
-    //                    case ActionHelper.PRAY_COPY:
-    //                        zikrCopied = ActionHelper.GetPrayToShare(pray, this.Title);
-    //                        await Clipboard.SetTextAsync(zikrCopied);
-    //                        result = ActionHelper.PRAY_COPY + " Berhasil.";
-    //                        break;
-    //                    case ActionHelper.PRAY_COPY_ALL:
-    //                        zikrCopied = ActionHelper.GetPraysAllToShare(Prays, this.Title);
-    //                        await Clipboard.SetTextAsync(zikrCopied);
-    //                        result = ActionHelper.PRAY_COPY + " Berhasil.";
-    //                        break;
-    //                    default:
-    //                        break;
-    //                }
-
-    //                if (!string.IsNullOrWhiteSpace(result))
-    //                {
-    //                    ToastService.Show(result);
-    //                }
-    //                if (!string.IsNullOrWhiteSpace(errorMessage))
-    //                {
-    //                    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, errorMessage, Message.MSG_OK);
-    //                }
-    //            }
-    //            catch (Exception ex)
-    //            {
-    //                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_POP_UP_MENU + Environment.NewLine
-    //                    + ex.Message, Message.MSG_OK);
-    //            }
-    //            finally
-    //            {
-    //                pray.RowColor = oldColor;
-    //            }
-    //        }
-    //    }
-
-    //    public void OnAppearing()
-    //    {
-    //        IsBusy = true;
-    //    }
-    //}
-    
-    public class PrayViewModel : BaseViewModel 
+    public class PrayViewModel : BaseViewModel
     {
-
         private string searchQuery;
         private string notFoundMessage;
         private bool isVisibleNotFoundMessage;
         private string numbersFoundAyahAndSurah;
         private Color foundResultColor;
-        private MyQuranIndo.Models.Zikrs.PrayData selectedPray;
+        private PrayData selectedPray;
         private bool isExpandAll = true;
         private bool isVisibleExpandAll = false;
-        public ICommand PrayOneTapped { get; }
 
-        //public ObservableCollection<Ayah> Ayahs { get; }
-        public ObservableCollection<PrayGroup> Prays { get; set; }
-        public ObservableCollection<PrayGroup> PraysCopied { get; set; }
+        public ICommand PrayOneTapped { get; }
+        public ObservableCollection<PrayGroup> Prays { get; }
+        public ObservableCollection<PrayGroup> PraysCopied { get; }
 
         public string SearchQuery
         {
@@ -274,175 +60,181 @@ namespace MyQuranIndo.ViewModels.Zikr
         public bool IsExpandAll
         {
             get => isExpandAll;
-            set
-            {
-                SetProperty(ref isExpandAll, value);
-            }
+            set => SetProperty(ref isExpandAll, value);
         }
+
         public bool IsVisibleExpandAll
         {
             get => isVisibleExpandAll;
-            set
-            {
-                SetProperty(ref isVisibleExpandAll, value);
-            }
+            set => SetProperty(ref isVisibleExpandAll, value);
         }
 
         public Command LoadCommand { get; }
         public Command<PrayGroup> HeaderTapped { get; }
-        public Command ExpandAllCommand { get; set; }
+        public Command ExpandAllCommand { get; }
+        public ICommand ClearSearchCommand { get; }
 
-        public ICommand ClearSearchCommand
-        {
-            get;
-        }
-
-        //public FindViewModel(bool emptyGroups = false)
         public PrayViewModel()
         {
             Title = "Kumpulan Do'a";
             Prays = new ObservableCollection<PrayGroup>();
             PraysCopied = new ObservableCollection<PrayGroup>();
-            //Ayahs = new ObservableCollection<Ayah>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
             ClearSearchCommand = new Command(ClearSearch);
             HeaderTapped = new Command<PrayGroup>(OnHeaderTapped);
-            ExpandAllCommand = new Command(OnExpandAllComand);
+            ExpandAllCommand = new Command(OnExpandAllCommand);
             FoundResultColor = Color.Black;
-            PrayOneTapped = new Command<Models.Zikrs.Pray>(OnPrayOneTapped, (x) => CanNavigate);
+            PrayOneTapped = new Command<Pray>(OnPrayOneTapped, (x) => CanNavigate);
         }
 
-        private void OnExpandAllComand()
+        private void OnExpandAllCommand()
         {
-            if (IsExpandAll)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                for (int i = 0; i < Prays.Count; i++)
+                if (IsExpandAll)
                 {
-                    Prays[i].Clear();
+                    foreach (var group in Prays)
+                    {
+                        group.Clear();
+                    }
+                    IsExpandAll = false;
                 }
-                IsExpandAll = false;
-            }
-            else
-            {
-                for (int i = 0; i < PraysCopied.Count; i++)
+                else
                 {
-                    Prays.Add(PraysCopied[i]);
+                    Prays.Clear();
+                    foreach (var group in PraysCopied)
+                    {
+                        Prays.Add(group);
+                    }
+                    IsExpandAll = true;
                 }
-                IsExpandAll = true;
-            }
+            });
         }
 
         private void OnHeaderTapped(PrayGroup prayGroup)
         {
+            if (prayGroup == null) return;
+
             prayGroup.IsExpand = !prayGroup.IsExpand;
 
-            if (prayGroup.IsExpand)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                var index = Prays.IndexOf(prayGroup);
-                var context = PraysCopied[index];
-                for (int i = 0; i < context.Count; i++)
+                if (prayGroup.IsExpand)
                 {
-                    prayGroup.Add(context[i]);
+                    var index = Prays.IndexOf(prayGroup);
+                    if (index >= 0 && index < PraysCopied.Count)
+                    {
+                        var context = PraysCopied[index];
+                        prayGroup.Clear();
+                        foreach (var item in context)
+                        {
+                            prayGroup.Add(item);
+                        }
+                    }
+                    prayGroup.ImageHeader = GetCollapsImageHeaderName();
                 }
-                prayGroup.ImageHeader = GetCollapsImageHeaderName();
-            }
-            else
-            {
-                prayGroup.Clear();
-                prayGroup.ImageHeader = GetExpandImageHeaderName();
-            }
+                else
+                {
+                    prayGroup.Clear();
+                    prayGroup.ImageHeader = GetExpandImageHeaderName();
+                }
+            });
         }
 
         private void ClearSearch()
         {
-            if (Prays != null)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 Prays.Clear();
-            }
-
-            if (PraysCopied != null)
-            {
                 PraysCopied.Clear();
-            }
+            });
         }
 
         private async Task ExecuteLoadCommand()
         {
             try
             {
-                NotFoundMessage = "";
+                NotFoundMessage = string.Empty;
                 IsVisibleNotFoundMessage = false;
-                NumbersFoundAyahAndSurah = "";
+                NumbersFoundAyahAndSurah = string.Empty;
                 FoundResultColor = Color.Gray;
 
-                // Don't search if search query is blank
-                //if (string.IsNullOrWhiteSpace(searchQuery))
-                //{
-                //    return;
-                //}
-
-                // Ayahs.Clear();
-
                 var hcsData = await PrayDataService.GetPraysAsync(true);
+                if (hcsData == null) return;
 
-                
-                if (!String.IsNullOrWhiteSpace(SearchQuery))
+                if (!string.IsNullOrWhiteSpace(SearchQuery))
                 {
-                    hcsData = hcsData.Where(q => q.Title.Trim().ToLower().Contains(SearchQuery.ToLower())
-                        || q.Data.Any(a => a.ArabicLatin.Trim().ToLower().Contains(SearchQuery.ToLower())
-                        || q.Data.Any(t => t.TranslateID.Trim().ToLower().Contains(SearchQuery.ToLower())
-                        || q.Data.Any(x => x.Tag.Contains(SearchQuery.ToLower())) // TODO: find based tag
-                        )));
+                    string keyword = SearchQuery.Trim().ToLower();
+                    hcsData = hcsData.Where(q =>
+                        (q.Title != null && q.Title.ToLower().Contains(keyword)) ||
+                        (q.Data != null && q.Data.Any(a =>
+                            (a.ArabicLatin != null && a.ArabicLatin.ToLower().Contains(keyword)) ||
+                            (a.TranslateID != null && a.TranslateID.ToLower().Contains(keyword)) ||
+                            (a.Tag != null && a.Tag.Contains(keyword))
+                        ))
+                    ).ToList();
                 }
 
-                Prays.Clear();
-                PraysCopied.Clear();
-                ObservableCollection<MyQuranIndo.Models.Zikrs.Pray> prayList = new ObservableCollection<Models.Zikrs.Pray>();
+                var tempPrays = new List<PrayGroup>();
+                var tempPraysCopied = new List<PrayGroup>();
 
-                //var surahGroup = ayahs.ToLookup(s => s.SurahID);
-                var prayGroup = hcsData.ToList().ToLookup(q => q.ID);
+                var prayGroup = hcsData.ToLookup(q => q.ID);
                 int index = 0;
+                var hcsList = hcsData.ToList();
+
                 foreach (var hcData in prayGroup)
                 {
-                    prayList = new ObservableCollection<Models.Zikrs.Pray>();
-                    var prayInGroup = hcsData.Where(q => q.ID == hcData.Key).ToList();
+                    var prayList = new ObservableCollection<Pray>();
+                    var prayInGroup = hcsList.Where(q => q.ID == hcData.Key).ToList();
+
                     for (int i = 0; i < prayInGroup.Count; i++)
-                    {                        
+                    {
                         for (int r = 0; r < prayInGroup[i].Data.Count; r++)
                         {
-                            prayList.Add(prayInGroup[i].Data[r]);
                             prayInGroup[i].Data[r].RowID = r + 1;
+                            prayList.Add(prayInGroup[i].Data[r]);
                         }
                     }
 
-                    Prays.Add(new PrayGroup(hcData.Key, hcsData.ToList()[index].Title, prayList));
-                    PraysCopied.Add(new PrayGroup(hcData.Key, hcsData.ToList()[index].Title, prayList));
-
+                    if (index < hcsList.Count)
+                    {
+                        string titleGroup = hcsList[index].Title;
+                        tempPrays.Add(new PrayGroup(hcData.Key, titleGroup, prayList));
+                        tempPraysCopied.Add(new PrayGroup(hcData.Key, titleGroup, prayList));
+                    }
                     index++;
                 }
 
-                if (Prays.Count == 0)
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    NotFoundMessage = Message.MSG_NOT_FOUND_FIND;
-                    IsVisibleNotFoundMessage = true;
-                    FoundResultColor = Color.Red;
-                }
-                else
-                {
-                    FoundResultColor = Color.Black;
-                }
+                    Prays.Clear();
+                    PraysCopied.Clear();
 
-                IsVisibleExpandAll = Prays.Count > 0;
+                    foreach (var item in tempPrays) Prays.Add(item);
+                    foreach (var item in tempPraysCopied) PraysCopied.Add(item);
 
-                for (int i = 0; i < Prays.Count; i++)
-                {
-                    Prays[i].Clear();
-                }
+                    if (Prays.Count == 0)
+                    {
+                        NotFoundMessage = Message.MSG_NOT_FOUND_FIND;
+                        IsVisibleNotFoundMessage = true;
+                        FoundResultColor = Color.Red;
+                    }
+                    else
+                    {
+                        FoundResultColor = Color.Black;
+                    }
+
+                    IsVisibleExpandAll = Prays.Count > 0;
+
+                    foreach (var group in Prays)
+                    {
+                        group.Clear();
+                    }
+                });
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_FIND
-                    + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_FIND + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -450,83 +242,62 @@ namespace MyQuranIndo.ViewModels.Zikr
             }
         }
 
-        private bool IsValidTapped(Models.Zikrs.Pray pray)
+        private bool IsValidTapped(Pray pray)
         {
-            if (pray == null)
+            if (pray == null || pray.ID == 0)
             {
                 return false;
             }
-
-            // Dont show pop up menu at ta'awudz
-            if (pray.ID == 0)
-            {
-                return false;
-            }
-
             return true;
         }
 
-        /// <summary>
-        /// On Zikr tapped one
-        /// </summary>
-        /// <param name="pray"></param>
-        private async void OnPrayOneTapped(Models.Zikrs.Pray pray)
+        private async void OnPrayOneTapped(Pray pray)
         {
-            if (IsValidTapped(pray))
+            if (!IsValidTapped(pray)) return;
+
+            CanNavigate = false;
+            var oldColor = pray.RowColor;
+            pray.RowColor = (Color)Application.Current.Resources["SelectedItem"];
+
+            string result = string.Empty;
+            string errorMessage = string.Empty;
+            string action = await ActionHelper.DisplayActionPrayAsync(pray.Title);
+            string zikrCopied = string.Empty;
+
+            try
             {
-                CanNavigate = false;
-                var oldColor = pray.RowColor;
-                pray.RowColor = (Color)Application.Current.Resources["SelectedItem"];
+                switch (action)
+                {
+                    case ActionHelper.PRAY_SHARE:
+                        zikrCopied = ActionHelper.GetPrayToShare(pray, Title);
+                        await ActionHelper.ShareZikrAsync(zikrCopied);
+                        break;
+                    case ActionHelper.PRAY_COPY:
+                        zikrCopied = ActionHelper.GetPrayToShare(pray, Title);
+                        await Clipboard.SetTextAsync(zikrCopied);
+                        result = ActionHelper.PRAY_COPY + " Berhasil.";
+                        break;
+                    default:
+                        break;
+                }
 
-                string result = "";
-                string errorMessage = "";
-                string action = await ActionHelper.DisplayActionPrayAsync(pray.Title);
-                string zikrCopied = "";
-                try
+                if (!string.IsNullOrWhiteSpace(result))
                 {
-                    switch (action)
-                    {
-                        case ActionHelper.PRAY_SHARE:
-                            zikrCopied = ActionHelper.GetPrayToShare(pray, this.Title);
-                            await ActionHelper.ShareZikrAsync(zikrCopied);
-                            break;
-                        //case ActionHelper.PRAY_SHARE_ALL:
-                        //    zikrCopied = ActionHelper.GetPraysAllToShare(Prays, this.Title);
-                        //    await ActionHelper.ShareZikrAsync(zikrCopied);
-                        //    break;
-                        case ActionHelper.PRAY_COPY:
-                            zikrCopied = ActionHelper.GetPrayToShare(pray, this.Title);
-                            await Clipboard.SetTextAsync(zikrCopied);
-                            result = ActionHelper.PRAY_COPY + " Berhasil.";
-                            break;
-                        //case ActionHelper.PRAY_COPY_ALL:
-                        //    zikrCopied = ActionHelper.GetPraysAllToShare(Prays, this.Title);
-                        //    await Clipboard.SetTextAsync(zikrCopied);
-                        //    result = ActionHelper.PRAY_COPY + " Berhasil.";
-                        //    break;
-                        default:
-                            break;
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(result))
-                    {
-                        ToastService.Show(result);
-                    }
-                    if (!string.IsNullOrWhiteSpace(errorMessage))
-                    {
-                        await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, errorMessage, Message.MSG_OK);
-                    }
+                    ToastService.Show(result);
                 }
-                catch (Exception ex)
+                if (!string.IsNullOrWhiteSpace(errorMessage))
                 {
-                    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_POP_UP_MENU + Environment.NewLine
-                        + ex.Message, Message.MSG_OK);
+                    await DisplayAlertSafe(Message.MSG_TITLE_ERROR, errorMessage, Message.MSG_OK);
                 }
-                finally
-                {
-                    pray.RowColor = oldColor;
-                    CanNavigate = true;
-                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_POP_UP_MENU + Environment.NewLine + ex.Message, Message.MSG_OK);
+            }
+            finally
+            {
+                pray.RowColor = oldColor;
+                CanNavigate = true;
             }
         }
 
@@ -534,6 +305,17 @@ namespace MyQuranIndo.ViewModels.Zikr
         {
             IsBusy = true;
             selectedPray = null;
+        }
+
+        private async Task DisplayAlertSafe(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (App.Current?.MainPage != null)
+                {
+                    await App.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
         }
     }
 }

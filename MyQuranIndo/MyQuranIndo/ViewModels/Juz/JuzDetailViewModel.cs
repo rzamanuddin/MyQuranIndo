@@ -33,20 +33,11 @@ namespace MyQuranIndo.ViewModels.Juz
         private string ayahID;
         private ICommand _searchCommand;
 
-        public string Bismillah
-        {
-            get => "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ";
-        }
+        public string Bismillah => "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ";
 
-        public string BismillahUthmani
-        {
-            get => "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ";
-        }
+        public string BismillahUthmani => "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ";
 
-        public string BismillahTranslate
-        {
-            get => "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.";
-        }
+        public string BismillahTranslate => "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.";
 
         public bool IsBismillahShow
         {
@@ -71,12 +62,10 @@ namespace MyQuranIndo.ViewModels.Juz
         public ObservableCollection<SurahGroup> SurahGroups { get; set; }
 
         public string ID { get; set; }
+
         public string JuzID
         {
-            get
-            {
-                return juzID;
-            }
+            get => juzID;
             set
             {
                 juzID = value;
@@ -87,23 +76,13 @@ namespace MyQuranIndo.ViewModels.Juz
         private string surahID;
         public string SurahID
         {
-            get
-            {
-                return surahID;
-            }
-            set
-            {
-                surahID = value;
-                //LoadJuzID(value);
-            }
+            get => surahID;
+            set => surahID = value;
         }
 
         public string AyahID
         {
-            get
-            {
-                return ayahID;
-            }
+            get => ayahID;
             set
             {
                 ayahID = value;
@@ -111,10 +90,7 @@ namespace MyQuranIndo.ViewModels.Juz
             }
         }
 
-        public IHasListView View
-        {
-            get; set;
-        }
+        public IHasListView View { get; set; }
 
         private bool visibleSearchBar = false;
         public bool VisibleSearchBar
@@ -135,11 +111,10 @@ namespace MyQuranIndo.ViewModels.Juz
             JuzDetails = new ObservableCollection<JuzDetail>();
             SurahGroups = new ObservableCollection<SurahGroup>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
-            //errorMessages = new Dictionary<string, ErrorMessage>();
             AyahOneTapped = new Command<JuzDetail>(OnAyahOneTapped);
             AyahTwoTapped = new Command<JuzDetail>(OnAyahTwoTapped);
             SettingTapped = new Command(OnSettingTapped);
-            GoBackCommand = new Command(async() => await OnBackTapped());
+            GoBackCommand = new Command(async () => await OnBackTapped());
         }
 
         private async void OnSettingTapped()
@@ -148,38 +123,45 @@ namespace MyQuranIndo.ViewModels.Juz
             await Shell.Current.GoToAsync($"{nameof(SettingPage)}");
         }
 
-        public void ScrollToItem(JuzDetail jusDetail, bool isAnimated = false)
+        // PERBAIKAN BUG A: Pengecekan Null Safe pada ScrollToItem
+        public void ScrollToItem(JuzDetail juzDetail, bool isAnimated = false)
         {
-            View.ListView.ScrollTo(jusDetail, position: ScrollToPosition.Start, isAnimated); // don't forget check null
-            //View.CollectionView.ScrollTo(ayah, -1, position: ScrollToPosition.Start, isAnimated); // don't forget check null
+            if (juzDetail != null && View?.ListView != null)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    View.ListView.ScrollTo(juzDetail, position: ScrollToPosition.Start, isAnimated);
+                });
+            }
         }
 
-        public async void LoadJuzID(string juzID, string surahID = null, string ayahID = null)
+        public async void LoadJuzID(string targetJuzID, string targetSurahID = null, string targetAyahID = null)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(juzID) || juzID == "0")
+                if (string.IsNullOrWhiteSpace(targetJuzID) || targetJuzID == "0")
                 {
                     return;
                 }
 
-                var juzHeader = await JuzDataService.GetJuzHeaderAsync(Convert.ToInt32(juzID));
-                JuzHeader = juzHeader;
-                ID = juzHeader.ID.ToString();
-                SubTitle = juzHeader.Description;
-                Title = $"Juz {ID} ({juzHeader.TotalAyah} Ayat)";
-                //Title = $"Juz {ID}";
-
-                if (!string.IsNullOrEmpty(surahID) && surahID != "0" && !string.IsNullOrEmpty(ayahID) && ayahID != "0")
+                var header = await JuzDataService.GetJuzHeaderAsync(Convert.ToInt32(targetJuzID));
+                if (header != null)
                 {
-                    ScrollToItem(JuzDetails.FirstOrDefault(q => q.SurahID == Convert.ToInt32(surahID) 
-                        && q.AyahID == Convert.ToInt32(ayahID)));
+                    JuzHeader = header;
+                    ID = header.ID.ToString();
+                    SubTitle = header.Description;
+                    Title = $"Juz {ID} ({header.TotalAyah} Ayat)";
+                }
+
+                if (!string.IsNullOrEmpty(targetSurahID) && targetSurahID != "0" && !string.IsNullOrEmpty(targetAyahID) && targetAyahID != "0")
+                {
+                    var targetItem = JuzDetails.FirstOrDefault(q => q.SurahID == Convert.ToInt32(targetSurahID) && q.AyahID == Convert.ToInt32(targetAyahID));
+                    ScrollToItem(targetItem);
                 }
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_LOAD_JUZ
-                    + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_LOAD_JUZ + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -192,79 +174,73 @@ namespace MyQuranIndo.ViewModels.Juz
             try
             {
                 MP3Service.StopPlayer();
-                JuzDetails.Clear();
-                SurahGroups.Clear();
 
-                int juzID = 0;
-                int.TryParse(JuzID, out juzID);
-
-                if (juzID == 0)
+                if (!int.TryParse(JuzID, out int parsedJuzID) || parsedJuzID == 0)
                 {
                     return;
                 }
 
-                //var juzHeader = await JuzDataService.GetJuzHeaderAsync(Convert.ToInt32(juzID));
-                //JuzHeader = juzHeader;
-                //ID = juzHeader.ID.ToString();
-                //SubTitle = juzHeader.Description;
-                //Title = $"Juz {ID} ({juzHeader.TotalAyah} Ayat)";
-                ////Title = $"Juz {ID}";
+                var rawJuzDetails = await JuzDataService.GetJuzDetailAsync(parsedJuzID);
+                if (rawJuzDetails == null) return;
 
-                var juzDetails = await JuzDataService.GetJuzDetailAsync(juzID);
+                var tempJuzDetails = new List<JuzDetail>();
 
-                JuzDetail jd;
-
-                for (int i = 0; i < juzDetails.Count; i++)
+                for (int i = 0; i < rawJuzDetails.Count; i++)
                 {
-                    // Add bismillah except surah Al-Fatihah and At-Taubah
-                    if (juzDetails[i].SurahID != 1 && juzDetails[i].SurahID != 9
-                        && juzDetails[i].AyahID == 1)
+                    // Tambahkan bismillah kecuali surat Al-Fatihah (1) dan At-Taubah (9)
+                    if (rawJuzDetails[i].SurahID != 1 && rawJuzDetails[i].SurahID != 9 && rawJuzDetails[i].AyahID == 1)
                     {
-                        jd = new JuzDetail();
-                        jd.JuzID = juzID;
-                        jd.SurahID = juzDetails[i].SurahID;
-                        jd.SurahNameLatin = juzDetails[i].SurahNameLatin;
-                        jd.SurahNumberOfAyah = juzDetails[i].SurahNumberOfAyah;
-                        jd.SurahTranslateIndo = juzDetails[i].SurahTranslateIndo;
-                        jd.AyahID = 0;
-                        jd.ReadText = Bismillah;
-                        jd.ReadTextUthmani = BismillahUthmani;
-                        jd.TextIndo = "bismillāhir-raḥmānir-raḥīm";
-                        jd.TranslateIndo = BismillahTranslate;
-                        
-                        jd.HtmlRead = GetFormattedHtml(jd.ReadText);
-                        JuzDetails.Add(jd);
+                        var bismillahDetail = new JuzDetail
+                        {
+                            JuzID = parsedJuzID,
+                            SurahID = rawJuzDetails[i].SurahID,
+                            SurahNameLatin = rawJuzDetails[i].SurahNameLatin,
+                            SurahNumberOfAyah = rawJuzDetails[i].SurahNumberOfAyah,
+                            SurahTranslateIndo = rawJuzDetails[i].SurahTranslateIndo,
+                            AyahID = 0,
+                            ReadText = Bismillah,
+                            ReadTextUthmani = BismillahUthmani,
+                            TextIndo = "bismillāhir-raḥmānir-raḥīm",
+                            TranslateIndo = BismillahTranslate,
+                            HtmlRead = string.Empty
+                        };
+                        tempJuzDetails.Add(bismillahDetail);
                     }
 
-                    JuzDetails.Add(juzDetails[i]);
+                    tempJuzDetails.Add(rawJuzDetails[i]);
                 }
 
-                //var juzList = new ObservableCollection<JuzDetail>();
-
-                var surahGroups = juzDetails.ToLookup(q => q.SurahID);
-
-                foreach (var sg in surahGroups)
+                // PERBAIKAN PERFORMA B: Mengisi koleksi sekaligus untuk menghindari UI re-render berulang
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    var juzList = new ObservableCollection<JuzDetail>();
-                    var jds = JuzDetails.Where(q => q.SurahID == sg.Key).ToList();
-
-                    for (int i = 0; i < jds.Count; i++)
+                    JuzDetails.Clear();
+                    foreach (var item in tempJuzDetails)
                     {
-                        juzList.Add(jds[i]);
+                        JuzDetails.Add(item);
                     }
-                    SurahGroups.Add(new SurahGroup(sg.Key, jds.FirstOrDefault().SurahNameLatin, juzList.Where(q => q.AyahID > 0 && q.SurahID == sg.Key).Count(), juzList));
-                }
 
-                if (!string.IsNullOrEmpty(this.SurahID) && this.SurahID != "0" && !string.IsNullOrEmpty(this.AyahID) && this.AyahID != "0")
+                    SurahGroups.Clear();
+                    var groupedSurahs = tempJuzDetails.GroupBy(q => q.SurahID);
+
+                    foreach (var group in groupedSurahs)
+                    {
+                        var subList = new ObservableCollection<JuzDetail>(group);
+                        int validAyahCount = subList.Count(q => q.AyahID > 0);
+                        string surahName = group.FirstOrDefault()?.SurahNameLatin ?? string.Empty;
+
+                        SurahGroups.Add(new SurahGroup(group.Key, surahName, validAyahCount, subList));
+                    }
+                });
+
+                if (!string.IsNullOrEmpty(SurahID) && SurahID != "0" && !string.IsNullOrEmpty(AyahID) && AyahID != "0")
                 {
-                    ScrollToItem(JuzDetails.FirstOrDefault(q => q.SurahID == Convert.ToInt32(surahID)
-                        && q.AyahID == Convert.ToInt32(ayahID)));
+                    var scrollToTarget = JuzDetails.FirstOrDefault(q => q.SurahID == Convert.ToInt32(SurahID) && q.AyahID == Convert.ToInt32(AyahID));
+                    ScrollToItem(scrollToTarget);
                 }
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR
-                    , Message.MSG_FAIL_GET_JUZ + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_JUZ + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -274,59 +250,15 @@ namespace MyQuranIndo.ViewModels.Juz
 
         private string GetFormattedHtml(string ayahText)
         {
-            string body = "";
-            string header = "<html><head></head><body>";
-            string footer = "</body></html>";
-
-            //// Gunnah (Nun tasydid, Mim tasydid)
-            //string[] gunnah = new string[] { "نَّ", "مَّ" };
-            //string[] idghamBigunnah = new string[] { "نْ", "\u064B", "\u064C", "\u064D" };
-            ////string ya = "\u0649";
-            ////String s = "a\u0304\u0308bc\u0327\u0645";
-
-            //TextElementEnumerator charEnum = StringInfo.GetTextElementEnumerator(ayahText);
-            //while (charEnum.MoveNext())
-            //{
-            //    string text = charEnum.GetTextElement();
-            //    var isGunnah = gunnah.Any(q => String.Equals(q, text, StringComparison.InvariantCultureIgnoreCase));
-            //    //var isIdghamBigunnah = idghamBigunnah.Any(q => String.Equals(q, text, StringComparison.InvariantCultureIgnoreCase));
-            //    if (isGunnah)
-            //    {
-            //        body += string.Format("<span style='color: green'>{0}</span>", text);
-            //    }
-            //    else
-            //    {
-            //        body += string.Format("<span>{0}</span>", text);
-            //    }
-            //}
-
-            //body = TajwidHelper.ReplaceTextToTajwidColor(body, TajwidHelper.IdghamBigunnahs, TajwidHelper.COLOR_IDGHAM_BIGUNNAH);
-            //body = TajwidHelper.ReplaceTextToTajwidColor(body, TajwidHelper.IdghamBilagunnahs, TajwidHelper.COLOR_IDGHAM_BILAGUNNAH);
-            //body = TajwidHelper.ReplaceTextToTajwidColor(body, TajwidHelper.Ikhfas, TajwidHelper.COLOR_IKHFA);
-            //body = TajwidHelper.ReplaceTextToTajwidColor(body, TajwidHelper.Iqlabs, TajwidHelper.COLOR_IQLAB);
-            //body = TajwidHelper.ReplaceTextToTajwidColor(body, TajwidHelper.IdghamMimis, TajwidHelper.COLOR_IDGHAM_MIMI);
-            //body = TajwidHelper.ReplaceTextToTajwidColor(body, TajwidHelper.IkhfaSyafawis, TajwidHelper.COLOR_IKHFA_SYAFAWI);
-            //body = TajwidHelper.ReplaceTextToTajwidColor(body, TajwidHelper.Gunnahs, TajwidHelper.COLOR_GUNNAH);
-
-            // TODO: set qalqalah
-            // body = TajwidHelper.ReplaceTextToTajwidColor(body, TajwidHelper.Qalqalahs, TajwidHelper.COLOR_QALQALAH);
-
-            return ""; // header + body + footer;
+            return string.Empty;
         }
 
         private bool IsValidTapped(JuzDetail juzDetail)
         {
-            if (juzDetail == null)
+            if (juzDetail == null || juzDetail.AyahID == 0)
             {
                 return false;
             }
-
-            // Dont show pop up menu at bismillah
-            if (juzDetail.AyahID == 0)
-            {
-                return false;
-            }
-
             return true;
         }
 
@@ -334,104 +266,91 @@ namespace MyQuranIndo.ViewModels.Juz
         {
             try
             {
-                if (String.IsNullOrWhiteSpace(text))
+                if (string.IsNullOrWhiteSpace(text))
                 {
-                    ScrollToItem(JuzDetails[0]);
+                    if (JuzDetails.Count > 0)
+                        ScrollToItem(JuzDetails[0]);
                 }
                 else
                 {
                     MP3Service.StopPlayer();
-                    int ayahID = 0;
-                    int.TryParse(text, out ayahID);
-                    string errorMessage = Message.MSG_NOT_FOUND_KEY.Replace("<text>", text);
+                    string searchKeyword = text.Trim().ToLower();
+                    string errorMessageText = Message.MSG_NOT_FOUND_KEY.Replace("<text>", text);
 
-                    if (ayahID > 0)
+                    if (int.TryParse(searchKeyword, out int targetAyahID) && targetAyahID > 0)
                     {
-                        // TODO: set this
-                        //if (ayahID > 0 && ((JuzID == "1" || JuzID == "9") && ayahID <= JuzDetails.Count)
-                        //    || ((JuzID != "1" || JuzID != "9") && ayahID < JuzDetails.Count))
-                        //{
-                        //    ScrollToItem(JuzDetails.FirstOrDefault(q => q.AyahID == ayahID));
-                        //}
-                        //else
-                        //{
-                        //    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_WARNING, errorMessage, Message.MSG_OK);
-                        //}
-                    }
-                    else
-                    {
-                        var a = JuzDetails.FirstOrDefault(q => q.TranslateIndo.ToLower().Contains(text)
-                            || q.TextIndo.ToLower().Contains(text));
-
-                        if (a != null)
+                        var foundAyah = JuzDetails.FirstOrDefault(q => q.AyahID == targetAyahID);
+                        if (foundAyah != null)
                         {
-                            ScrollToItem(a);
+                            ScrollToItem(foundAyah);
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_WARNING, errorMessage, Message.MSG_OK);
+                            await DisplayAlertSafe(Message.MSG_TITLE_WARNING, errorMessageText, Message.MSG_OK);
+                        }
+                    }
+                    else
+                    {
+                        var matchingAyah = JuzDetails.FirstOrDefault(q =>
+                            (q.TranslateIndo != null && q.TranslateIndo.ToLower().Contains(searchKeyword)) ||
+                            (q.TextIndo != null && q.TextIndo.ToLower().Contains(searchKeyword)));
+
+                        if (matchingAyah != null)
+                        {
+                            ScrollToItem(matchingAyah);
+                        }
+                        else
+                        {
+                            await DisplayAlertSafe(Message.MSG_TITLE_WARNING, errorMessageText, Message.MSG_OK);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_FIND_AYAH + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_FIND_AYAH + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
         }
 
-        public ICommand SearchCommand => _searchCommand ?? (_searchCommand = new Command<string>(async (text) =>
-        {
-            SearchData(text);
-        }));
+        public ICommand SearchCommand => _searchCommand ?? (_searchCommand = new Command<string>(SearchData));
 
         private async Task ShowTafsir(JuzDetail juzDetail, int tafsirType = (int)TafsirType.Kemenag)
         {
-            if (IsValidTapped(juzDetail))
+            if (!IsValidTapped(juzDetail)) return;
+
+            MP3Service.StopPlayer();
+            var oldColor = juzDetail.RowColor;
+
+            try
             {
-                MP3Service.StopPlayer();
-                var oldColor = juzDetail.RowColor;
-                // Show Tafsir
-                try
-                {
-                    juzDetail.RowColor = (Color)Application.Current.Resources["SelectedItem"];
+                juzDetail.RowColor = (Color)Application.Current.Resources["SelectedItem"];
 
-                    var tafsir = await TafsirDataService.GetAsync(juzDetail.SurahID, juzDetail.AyahID);
-                    //string tafsir = //getSurahID()Tafsir.TafsirID.TafsirKemenag.Text[ayah.Number];
-                    string title = string.Format($"Tafsir {TafsirTypeHelper.GetTafsirTypeName(tafsirType)} Q.S {juzDetail.SurahID}:{juzDetail.AyahID}");
+                var tafsir = await TafsirDataService.GetAsync(juzDetail.SurahID, juzDetail.AyahID);
+                if (tafsir == null) return;
 
-                    string tafsirText = "";
-                    switch (tafsirType)
-                    {
-                        case (int)TafsirType.AlJalalain:
-                            tafsirText = tafsir.AlJalalain;
-                            break;
-                        default:
-                            tafsirText = tafsir.Kemenag;
-                            break;
-                    }
+                string title = $"Tafsir {TafsirTypeHelper.GetTafsirTypeName(tafsirType)} Q.S {juzDetail.SurahID}:{juzDetail.AyahID}";
+                string tafsirText = tafsirType == (int)TafsirType.AlJalalain ? tafsir.AlJalalain : tafsir.Kemenag;
 
-                    var isCopy = await ActionHelper.CopyTafsirAsync(title, tafsirText);
-                    if (isCopy)
-                    {
-                        ToastService.Show(ActionHelper.AYAH_COPY + " Berhasil");
-                    }
-                }
-                catch (Exception ex)
+                var isCopy = await ActionHelper.CopyTafsirAsync(title, tafsirText);
+                if (isCopy)
                 {
-                    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_TAFSIR + Environment.NewLine
-                        + ex.Message, Message.MSG_OK);
+                    ToastService.Show(ActionHelper.AYAH_COPY + " Berhasil");
                 }
-                finally
-                {
-                    juzDetail.RowColor = oldColor;
-                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_TAFSIR + Environment.NewLine + ex.Message, Message.MSG_OK);
+            }
+            finally
+            {
+                juzDetail.RowColor = oldColor;
             }
         }
 
         private async void OnAyahTwoTapped(JuzDetail juzDetail)
         {
-            //await ShowTafsir(juzDetail);
+            // Opsional: Implementasi tap kedua jika diperlukan
+            await Task.CompletedTask;
         }
 
         public async Task OnBackTapped()
@@ -442,77 +361,84 @@ namespace MyQuranIndo.ViewModels.Juz
 
         private async void OnAyahOneTapped(JuzDetail juzDetail)
         {
-            if (IsValidTapped(juzDetail))
+            if (!IsValidTapped(juzDetail)) return;
+
+            MP3Service.StopPlayer();
+            var oldColor = juzDetail.RowColor;
+            juzDetail.RowColor = (Color)Application.Current.Resources["SelectedItem"];
+
+            result = "";
+            errorMessage = "";
+
+            try
             {
-                MP3Service.StopPlayer();
-                var oldColor = juzDetail.RowColor;
-                juzDetail.RowColor = (Color)Application.Current.Resources["SelectedItem"];
-
-                result = "";
-                errorMessage = "";
-
                 string action = await ActionHelper.DisplayActionAyahAsync(juzDetail.SurahID, juzDetail.AyahID, juzDetail.SurahNameLatin);
                 string ayahCopied = ActionHelper.GetAyahToShare(juzDetail);
-                try
-                {
-                    switch (action)
-                    {
-                        case ActionHelper.AYAH_SHARE:
-                            await ActionHelper.ShareAyahAsync(ayahCopied);
-                            break;
-                        case ActionHelper.AYAH_COPY:
-                            await Clipboard.SetTextAsync(ayahCopied);
-                            result = ActionHelper.AYAH_COPY + " Berhasil";
-                            break;
-                        case ActionHelper.AYAH_BOOKMARK:
-                            ActionHelper.BookmarkAyah(juzDetail.ToAyah(), juzDetail.SurahNameLatin, out result, out errorMessage);
-                            break;
-                        case ActionHelper.AYAH_LAST_READ:
-                            var lastRead = await ActionHelper.SetLastReadAyahAsync(juzDetail.ToAyah(), juzDetail.SurahNameLatin, SurahDataService);
-                            result = lastRead.Item1;
-                            errorMessage = lastRead.Item2;
-                            break;
-                        case ActionHelper.PLAY_MP3:
-                            await MP3Service.PlayMurottal(juzDetail.SurahID, juzDetail.AyahID, ToastService);
-                            break;
-                        case ActionHelper.TAFSIR_KEMENAG_SHOW:
-                            await ShowTafsir(juzDetail, (int)TafsirType.Kemenag);
-                            break;
-                        case ActionHelper.TAFSIR_Al_JALALAIN_SHOW:
-                            await ShowTafsir(juzDetail, (int)TafsirType.AlJalalain);
-                            break;
-                        default:
-                            break;
-                    }
 
-                    if (!string.IsNullOrWhiteSpace(this.result))
-                    {
-                        //await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_INFO, this.result, Message.MSG_OK);
-                        ToastService.Show(this.result);
-                    }
-                    if (!string.IsNullOrWhiteSpace(this.errorMessage))
-                    {
-                        await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, this.errorMessage, Message.MSG_OK);
-                    }
-                }
-                catch (Exception ex)
+                switch (action)
                 {
-                    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_POP_UP_MENU + Environment.NewLine
-                        + ex.Message, Message.MSG_OK);
+                    case ActionHelper.AYAH_SHARE:
+                        await ActionHelper.ShareAyahAsync(ayahCopied);
+                        break;
+                    case ActionHelper.AYAH_COPY:
+                        await Clipboard.SetTextAsync(ayahCopied);
+                        result = ActionHelper.AYAH_COPY + " Berhasil";
+                        break;
+                    case ActionHelper.AYAH_BOOKMARK:
+                        ActionHelper.BookmarkAyah(juzDetail.ToAyah(), juzDetail.SurahNameLatin, out result, out errorMessage);
+                        break;
+                    case ActionHelper.AYAH_LAST_READ:
+                        var lastRead = await ActionHelper.SetLastReadAyahAsync(juzDetail.ToAyah(), juzDetail.SurahNameLatin, SurahDataService);
+                        result = lastRead.Item1;
+                        errorMessage = lastRead.Item2;
+                        break;
+                    case ActionHelper.PLAY_MP3:
+                        await MP3Service.PlayMurottal(juzDetail.SurahID, juzDetail.AyahID, ToastService);
+                        break;
+                    case ActionHelper.TAFSIR_KEMENAG_SHOW:
+                        await ShowTafsir(juzDetail, (int)TafsirType.Kemenag);
+                        break;
+                    case ActionHelper.TAFSIR_Al_JALALAIN_SHOW:
+                        await ShowTafsir(juzDetail, (int)TafsirType.AlJalalain);
+                        break;
+                    default:
+                        break;
                 }
-                finally
+
+                if (!string.IsNullOrWhiteSpace(result))
                 {
-                    juzDetail.RowColor = oldColor;
+                    ToastService.Show(result);
                 }
+                if (!string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    await DisplayAlertSafe(Message.MSG_TITLE_ERROR, errorMessage, Message.MSG_OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_POP_UP_MENU + Environment.NewLine + ex.Message, Message.MSG_OK);
+            }
+            finally
+            {
+                juzDetail.RowColor = oldColor;
             }
         }
 
         public void OnAppearing()
         {
             IsBusy = true;
-            //SelectedSurah = null;
+        }
 
-            //ScrollToItem(11);
+        // Helper aman untuk menampilkan Alert di Main Thread
+        private async Task DisplayAlertSafe(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (App.Current?.MainPage != null)
+                {
+                    await App.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
         }
     }
 }

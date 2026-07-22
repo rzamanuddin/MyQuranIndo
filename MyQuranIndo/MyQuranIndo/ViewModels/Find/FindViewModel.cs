@@ -1,17 +1,15 @@
 ﻿using MyQuranIndo.Messages;
-using MyQuranIndo.Models;
 using MyQuranIndo.Views.Surah;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using MyQuranIndo.ViewModels.Surah;
 using MyQuranIndo.Models.Finds;
-using MyQuranIndo.Models.Qurans;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace MyQuranIndo.ViewModels.Find
 {
@@ -26,9 +24,8 @@ namespace MyQuranIndo.ViewModels.Find
         private bool isExpandAll = true;
         private bool isVisibleExpandAll = false;
 
-        //public ObservableCollection<Ayah> Ayahs { get; }
-        public ObservableCollection<FindGroup> Finds { get; set; }
-        public ObservableCollection<FindGroup> FindsCopy { get; set; }
+        public ObservableCollection<FindGroup> Finds { get; }
+        public ObservableCollection<FindGroup> FindsCopy { get; }
 
         public string SearchQuery
         {
@@ -69,118 +66,111 @@ namespace MyQuranIndo.ViewModels.Find
                 OnFindSelected(value);
             }
         }
+
         public bool IsExpandAll
         {
             get => isExpandAll;
-            set
-            {
-                SetProperty(ref isExpandAll, value);
-            }
+            set => SetProperty(ref isExpandAll, value);
         }
+
         public bool IsVisibleExpandAll
         {
             get => isVisibleExpandAll;
-            set
-            {
-                SetProperty(ref isVisibleExpandAll, value);
-            }
+            set => SetProperty(ref isVisibleExpandAll, value);
         }
 
         public Command LoadCommand { get; }
         public Command<MyQuranIndo.Models.Finds.Find> FindTapped { get; }
         public Command<FindGroup> HeaderTapped { get; }
         public Command ExpandAllCommand { get; set; }
+        public ICommand ClearSearchCommand { get; }
 
-        public ICommand ClearSearchCommand
-        {
-            get;
-        }
-
-        //public FindViewModel(bool emptyGroups = false)
         public FindViewModel()
         {
             Title = "Pencarian Surat / Ayat";
             Finds = new ObservableCollection<FindGroup>();
             FindsCopy = new ObservableCollection<FindGroup>();
-            //Ayahs = new ObservableCollection<Ayah>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
             ClearSearchCommand = new Command(ClearSearch);
             FindTapped = new Command<MyQuranIndo.Models.Finds.Find>(OnFindSelected, (x) => CanNavigate);
             HeaderTapped = new Command<FindGroup>(OnHeaderTapped);
-            ExpandAllCommand = new Command(OnExpandAllComand);
+            ExpandAllCommand = new Command(OnExpandAllCommand);
             FoundResultColor = Color.Black;
         }
 
-        private void OnExpandAllComand()
+        private void OnExpandAllCommand()
         {
-            if (IsExpandAll)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                for (int i = 0; i < Finds.Count; i++)
+                if (IsExpandAll)
                 {
-                    Finds[i].Clear();
+                    foreach (var group in Finds)
+                    {
+                        group.Clear();
+                    }
+                    IsExpandAll = false;
                 }
-                IsExpandAll = false;
-            }
-            else
-            {
-                for (int i = 0; i < FindsCopy.Count; i++)
+                else
                 {
-                    Finds.Add(FindsCopy[i]);
+                    Finds.Clear();
+                    foreach (var group in FindsCopy)
+                    {
+                        Finds.Add(group);
+                    }
+                    IsExpandAll = true;
                 }
-                IsExpandAll = true;
-            }
+            });
         }
 
         private void OnHeaderTapped(FindGroup findGroup)
         {
+            if (findGroup == null) return;
+
             findGroup.IsExpand = !findGroup.IsExpand;
 
-            if (findGroup.IsExpand)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                var index = Finds.IndexOf(findGroup);
-                var context = FindsCopy[index];
-                for (int i = 0; i < context.Count; i++)
+                if (findGroup.IsExpand)
                 {
-                    findGroup.Add(context[i]);
+                    var index = Finds.IndexOf(findGroup);
+                    if (index >= 0 && index < FindsCopy.Count)
+                    {
+                        var context = FindsCopy[index];
+                        findGroup.Clear();
+                        foreach (var item in context)
+                        {
+                            findGroup.Add(item);
+                        }
+                    }
+                    findGroup.ImageHeader = GetCollapsImageHeaderName();
                 }
-                findGroup.ImageHeader = GetCollapsImageHeaderName();
-            }
-            else
-            {
-                findGroup.Clear();
-                findGroup.ImageHeader = GetExpandImageHeaderName();
-            }
-
-            //for (int i = 0; i < Finds.Count; i++)
-            //{
-            //    if (Finds[i].SurahID == findGroup.SurahID)
-            //    {
-            //        Finds[i].IsExpand = findGroup.IsExpand;
-            //        break;
-            //    }
-            //}
+                else
+                {
+                    findGroup.Clear();
+                    findGroup.ImageHeader = GetExpandImageHeaderName();
+                }
+            });
         }
 
         private void ClearSearch()
         {
-            if (Finds != null)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 Finds.Clear();
-            }
-
-            if (FindsCopy != null)
-            {
                 FindsCopy.Clear();
-            }
+            });
         }
+
         private async void OnFindSelected(MyQuranIndo.Models.Finds.Find find)
         {
-            if (find != null)
+            if (find?.Ayah != null)
             {
                 CanNavigate = false;
                 var oldColor = find.RowColor;
                 find.RowColor = (Color)Application.Current.Resources["SelectedItem"];
+
                 await Shell.Current.GoToAsync($"{nameof(SurahDetailPage)}?{nameof(SurahDetailViewModel.SurahID)}={find.Ayah.SurahID}&{nameof(SurahDetailViewModel.AyahID)}={find.Ayah.ID}");
+
                 find.RowColor = oldColor;
                 CanNavigate = true;
             }
@@ -190,162 +180,94 @@ namespace MyQuranIndo.ViewModels.Find
         {
             try
             {
-                NotFoundMessage = "";
+                NotFoundMessage = string.Empty;
                 IsVisibleNotFoundMessage = false;
-                NumbersFoundAyahAndSurah = "";
+                NumbersFoundAyahAndSurah = string.Empty;
                 FoundResultColor = Color.Gray;
 
-                // Don't search if search query is blank
-                if(string.IsNullOrWhiteSpace(searchQuery))
+                if (string.IsNullOrWhiteSpace(searchQuery))
                 {
                     return;
                 }
 
-               // Ayahs.Clear();
+                string keyword = searchQuery.Trim().ToLower();
 
                 var surahs = await SurahDataService.GetSurahNewAsync(true);
-                
                 var ayahs = await AyahDataService.GetAsync(true);
 
-                //var surahs = from s in getSurahs
-                //             select s;
-                //i ayahs = from a in getAyahs
-                //            select a;
-
-                if (!String.IsNullOrWhiteSpace(SearchQuery))
+                if (ayahs != null)
                 {
-                    // Find in surah and translate
-                    //result = quran.Where(q => q.Value.NameLatin.ToLower().Contains(SearchQuery)
-                    //    || q.Value.Translation.ID.Text.Any(text => text.Value.ToLower().Contains(searchQuery))
-                    //    //|| q.Value.AyahTextIndo.Any(text => text.Value.ToLower().Contains(searchQuery)));
-                    //    ).Union(result.Where(q => q.Value.NameLatin.ToLower().Contains(SearchQuery)
-                    //            || q.Value.AyahTextIndo.Any(text => text.Value.ToLower().Contains(searchQuery))
-                    //            )
-                    //    );
-                    //surahs = surahs.Where(q => q.NameLatin.ToLower().Contains(SearchQuery));
-                    ayahs = ayahs.Where(q => q.TranslateIndo.ToLower().Contains(SearchQuery)
-                        || q.TextIndo.ToLower().Contains(SearchQuery)).ToList();
+                    ayahs = ayahs.Where(q =>
+                        (q.TranslateIndo != null && q.TranslateIndo.ToLower().Contains(keyword)) ||
+                        (q.TextIndo != null && q.TextIndo.ToLower().Contains(keyword))
+                    ).ToList();
                 }
 
-                Finds.Clear();
-                FindsCopy.Clear();
-                ObservableCollection<MyQuranIndo.Models.Finds.Find> findList = new ObservableCollection<Models.Finds.Find>();
-                                
-                var surahGroup = ayahs.ToLookup(s => s.SurahID);
+                var tempFinds = new List<FindGroup>();
+                var tempFindsCopy = new List<FindGroup>();
 
-                foreach (var surah in surahGroup)
+                if (ayahs != null && ayahs.Count > 0 && surahs != null)
                 {
-                    findList = new ObservableCollection<Models.Finds.Find>();
-                    var ayahInSurahGroup = ayahs.Where(q => q.SurahID == surah.Key).ToList();
-                    for (int i = 0; i < ayahInSurahGroup.Count; i++)
+                    var surahGroup = ayahs.ToLookup(s => s.SurahID);
+
+                    foreach (var surah in surahGroup)
                     {
-                        MyQuranIndo.Models.Finds.Find find = new Models.Finds.Find()
+                        var findList = new ObservableCollection<Models.Finds.Find>();
+                        var ayahInSurahGroup = ayahs.Where(q => q.SurahID == surah.Key).ToList();
+
+                        for (int i = 0; i < ayahInSurahGroup.Count; i++)
                         {
-                            Ayah = ayahInSurahGroup[i],
-                            RowID = i
-                        };
-                        findList.Add(find);
+                            var find = new Models.Finds.Find
+                            {
+                                Ayah = ayahInSurahGroup[i],
+                                RowID = i
+                            };
+                            findList.Add(find);
+                        }
+
+                        if (surah.Key - 1 >= 0 && surah.Key - 1 < surahs.Count)
+                        {
+                            string surahName = surahs[surah.Key - 1].NameLatin;
+                            tempFinds.Add(new FindGroup(surah.Key, surahName, findList.Count, findList));
+                            tempFindsCopy.Add(new FindGroup(surah.Key, surahName, findList.Count, findList));
+                        }
                     }
-                    Finds.Add(new FindGroup(surah.Key, surahs[surah.Key - 1].NameLatin, findList.Count(), findList));
-                    FindsCopy.Add(new FindGroup(surah.Key, surahs[surah.Key - 1].NameLatin, findList.Count(), findList));
                 }
 
-                //if (ayahs != null && ayahs.Count > 0)
-                //{
-                //    int surahID = 0;
-                //    for (int i = 0; i < ayahs.Count; i++)
-                //    {
-                //        if  (ayahs[i].SurahID == ayahs[i + 1].SurahID)
-                //        {
-                //            MyQuranIndo.Models.Finds.Find find = new Models.Finds.Find()
-                //            {
-                //                Ayah = ayahs[i],
-                //                Row = i
-                //            };
-                //            findList.Add(find);
-                //        }
-                //            Finds.Add(new FindGroup(surahID, surahs[surahID - 1].NameLatin, findList.Count(), findList));
-                //            FindsCopy.Add(new FindGroup(surahID, surahs[surahID - 1].NameLatin, findList.Count(), findList));
-                //            findList = new ObservableCollection<Models.Finds.Find>();
-                        
-                //        surahID = ayahs[i].SurahID;
-                //    }
-                //}
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    Finds.Clear();
+                    FindsCopy.Clear();
 
-                //foreach (var item in surahs)
-                //{
-                //    ObservableCollection<MyQuranIndo.Models.Finds.Find> findList = new ObservableCollection<Models.Finds.Find>();
-                //    int row = 0;
-                //    for (int i = 1; i <= item.Value.Text.Count; i++)
-                //    {
-                //        // filter translation based on searchQuery
-                //        if (item.Value.Translation.ID.Text[i].ToLower().Contains(searchQuery))
-                //        {
-                //            MyQuranIndo.Models.Finds.Find f = new MyQuranIndo.Models.Finds.Find();
-                //            f.Ayah = new Ayah();
-                //            f.Ayah.Number = i;
-                //            f.Ayah.Name = item.Value.Text[i];
-                //            f.Ayah.SurahID = item.Value.Number;
-                //            f.Ayah.TafsirKemenag = item.Value.Tafsir.TafsirID.TafsirKemenag.Text[i];
-                //            f.Ayah.TranslateID = item.Value.Translation.ID.Text[i];
-                //            f.Ayah.TextIndo = item.Value.AyahTextIndo[i];
-                //            f.Row = row;
-                //            row++;
-                //            findList.Add(f);
-                //        }
+                    foreach (var item in tempFinds) Finds.Add(item);
+                    foreach (var item in tempFindsCopy) FindsCopy.Add(item);
 
-                //        // filter transliteration based on searchQUery
-                //        if (item.Value.AyahTextIndo[i].ToLower().Contains(searchQuery))
-                //        {
-                //            MyQuranIndo.Models.Finds.Find f = new MyQuranIndo.Models.Finds.Find();
-                //            f.Ayah = new Ayah();
-                //            f.Ayah.Number = i;
-                //            f.Ayah.Name = item.Value.Text[i];
-                //            f.Ayah.SurahID = item.Value.Number;
-                //            f.Ayah.TafsirKemenag = item.Value.Tafsir.TafsirID.TafsirKemenag.Text[i];
-                //            f.Ayah.TranslateID = item.Value.Translation.ID.Text[i];
-                //            f.Ayah.TextIndo = item.Value.AyahTextIndo[i];
-                //            f.Row = row;
-                //            row++;
-                //            findList.Add(f);
-                //        }
-                //    }
+                    int totalAyah = Finds.Sum(q => q.NumberOfAyah);
+                    if (totalAyah > 0)
+                    {
+                        NumbersFoundAyahAndSurah = string.Format("Kata Kunci '{0}' ditemukan, total {1} ayat dalam {2} surat.", SearchQuery, totalAyah, Finds.Count);
+                        FoundResultColor = Color.Black;
+                        IsVisibleNotFoundMessage = false;
+                    }
+                    else
+                    {
+                        NumbersFoundAyahAndSurah = string.Format("Kata Kunci '{0}' tidak ditemukan.", SearchQuery);
+                        NotFoundMessage = Message.MSG_NOT_FOUND_FIND;
+                        IsVisibleNotFoundMessage = true;
+                        FoundResultColor = Color.Red;
+                    }
 
-                //    Finds.Add(new FindGroup(item.Value.Number, item.Value.NameLatin, findList.Count(), findList));
-                //    FindsCopy.Add(new FindGroup(item.Value.Number, item.Value.NameLatin, findList.Count(), findList));
-                //}
+                    IsVisibleExpandAll = Finds.Count > 0;
 
-                if (Finds.Count == 0)
-                {
-                    NotFoundMessage = Message.MSG_NOT_FOUND_FIND;
-                    IsVisibleNotFoundMessage = true;
-                    FoundResultColor = Color.Red;
-                }
-                else
-                {
-                    FoundResultColor = Color.Black;
-                }
-                //NumbersFoundAyahAndSurah = string.Format("Total {0} ayat ditemukan dalam {1} surat.", Finds.Sum(q => q.NumberOfAyah), Finds.Count());
-                int totalAyah = Finds.Sum(q => q.NumberOfAyah);
-                if (totalAyah > 0)
-                {
-                    NumbersFoundAyahAndSurah = string.Format("Kata Kunci '{0}' ditemukan, total {1} ayat dalam {2} surat.", SearchQuery, Finds.Sum(q => q.NumberOfAyah), Finds.Count());
-                }
-                else
-                {
-                    NumbersFoundAyahAndSurah = string.Format("Kata Kunci '{0}' tidak ditemukan.", SearchQuery);
-                }
-                IsVisibleExpandAll = Finds.Count > 0;
-                
-                for (int i = 0; i < Finds.Count; i++)
-                {
-                    Finds[i].Clear();
-                }
+                    foreach (var group in Finds)
+                    {
+                        group.Clear();
+                    }
+                });
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_FIND
-                    + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_FIND + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -355,8 +277,18 @@ namespace MyQuranIndo.ViewModels.Find
 
         public void OnAppearing()
         {
-            //IsBusy = true;
-            selectedFind = null;
+            SelectedFind = null;
+        }
+
+        private async Task DisplayAlertSafe(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (App.Current?.MainPage != null)
+                {
+                    await App.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
         }
     }
 }

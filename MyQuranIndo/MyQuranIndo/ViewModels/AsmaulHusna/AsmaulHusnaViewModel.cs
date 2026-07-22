@@ -33,11 +33,18 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
 
         private void ScrollToItem(int index, bool isAnimated = false)
         {
-            View.CollectionView.ScrollTo(index - 1, -1, position: ScrollToPosition.Start, isAnimated); // don't forget check null
+            if (View?.CollectionView != null && index > 0 && index <= AsmaulHusnas.Count)
+            {
+                View.CollectionView.ScrollTo(index - 1, -1, position: ScrollToPosition.Start, isAnimated);
+            }
         }
+
         private void ScrollToItem(Models.AsmaulHusna.AsmaulHusna asmaulHusna, bool isAnimated = false)
         {
-            View.CollectionView.ScrollTo(asmaulHusna, -1, position: ScrollToPosition.Start, isAnimated); // don't forget check null
+            if (View?.CollectionView != null && asmaulHusna != null)
+            {
+                View.CollectionView.ScrollTo(asmaulHusna, -1, position: ScrollToPosition.Start, isAnimated);
+            }
         }
 
         private async Task ExecuteLoadCommand()
@@ -46,16 +53,21 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
             {
                 AsmaulHusnas.Clear();
                 var ahs = await AsmaulHusnaDataService.GetAsmaulHusnasAsync();
+                if (ahs == null) return;
+
                 for (int i = 0; i < ahs.Count; i++)
                 {
-                    ahs[i].RowID = i + 1;
-                    AsmaulHusnas.Add(ahs[i]);
+                    if (ahs[i] != null)
+                    {
+                        ahs[i].RowID = i + 1;
+                        AsmaulHusnas.Add(ahs[i]);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_ASMAUL_HUSNA
-                    + Environment.NewLine + ex.Message, Message.MSG_OK); ;
+                    + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -67,8 +79,6 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
         {
             try
             {
-                //if (Player.IsPlaying()) 
-                //    await Player.Stop();
                 if (String.IsNullOrWhiteSpace(text))
                 {
                     ScrollToItem(1);
@@ -81,7 +91,7 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
 
                     if (id > 0)
                     {
-                        if (id > 0 && id <= AsmaulHusnas.Count)
+                        if (id <= AsmaulHusnas.Count)
                         {
                             ScrollToItem(id);
                         }
@@ -93,8 +103,10 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
                     else
                     {
                         text = text.ToLower();
-                        var s = AsmaulHusnas.FirstOrDefault(q => q.ArabicLatin.ToLower().Contains(text)
-                                || q.TranslateID.ToLower().Contains(text));
+                        var s = AsmaulHusnas.FirstOrDefault(q =>
+                            (q?.ArabicLatin != null && q.ArabicLatin.ToLower().Contains(text)) ||
+                            (q?.TranslateID != null && q.TranslateID.ToLower().Contains(text)));
+
                         if (s != null)
                         {
                             ScrollToItem(s);
@@ -119,24 +131,14 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
 
         private bool IsValidTapped(Models.AsmaulHusna.AsmaulHusna ah)
         {
-            if (ah == null)
-            {
-                return false;
-            }
-
-            return true;
+            return ah != null;
         }
 
-        /// <summary>
-        ///  On Asmaul Husna One Tapped
-        /// </summary>
-        /// <param name="ah"></param>
         private async void OnAsmaulHusnaOneTapped(Models.AsmaulHusna.AsmaulHusna ah)
         {
             if (IsValidTapped(ah))
             {
                 CanNavigate = false;
-                //MP3Helper.StopPlayer();
                 MP3Service.StopPlayer();
                 var oldColor = ah.RowColor;
                 ah.RowColor = (Color)Application.Current.Resources["SelectedItem"];
@@ -192,6 +194,7 @@ namespace MyQuranIndo.ViewModels.AsmaulHusna
                 }
             }
         }
+
         public void OnAppearing()
         {
             IsBusy = true;

@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-                    <Label Text = "Dukung MyQuran Free Indonesia"
+                    <Label Text = "Dukung MyQuran Indonesia Free"
                            FontSize="Large"
                            FontFamily="Montserrat-Medium"
                            HorizontalTextAlignment="Center"

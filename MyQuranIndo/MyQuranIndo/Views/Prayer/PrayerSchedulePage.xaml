@@ -4,25 +4,23 @@
              x:Class="MyQuranIndo.Views.Prayer.PrayerSchedulePage"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Prayer"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Prayers"
-             BackgroundColor="{StaticResource  BgColor}"
+             BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
+
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Padding="10,15,10, 10">
-                <StackLayout Padding="5,0,5,0"
-                             x:DataType="local:PrayerScheduleViewModel">
-                    <Grid>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="50*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
-                                   Grid.ColumnSpan="2"
-                                   TextColor="{StaticResource TextColor}"
+        <RefreshView x:DataType="local:PrayerScheduleViewModel" 
+                     Command="{Binding LoadCommand}" 
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     RefreshColor="{DynamicResource Primary}">
+            <CollectionView x:Name="collPrayerSchedule"
+                            ItemsSource="{Binding PrayerTimes}"
+                            SelectionMode="None">
+                <CollectionView.Header>
+                    <StackLayout Padding="10,15,10,10"
+                                 x:DataType="local:PrayerScheduleViewModel">
+                        <!-- Bagian Tanggal -->
+                        <StackLayout Padding="5,0,5,10">
+                            <Label TextColor="{StaticResource TextColor}"
                                    FontSize="Medium"
                                    HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
@@ -32,92 +30,80 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                        </Grid>
-                    </Grid>
-                </StackLayout>
-                <RefreshView x:DataType="local:PrayerScheduleViewModel" 
-                         Command="{Binding LoadCommand}" 
-                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                         Margin="0,10,0,0"
-                         RefreshColor="{DynamicResource Primary}">
-                    <CollectionView x:Name="collPrayerSchedule"
-                                ItemsSource="{Binding PrayerTimes}"
-                                SelectionMode="None">
-                        <CollectionView.Header>
-                            <StackLayout Padding="10"
-                                         BackgroundColor="{StaticResource Accent}">
-                                <Label TextColor="{StaticResource TextColor}"
+                        </StackLayout>
+
+                        <!-- Bagian Lokasi -->
+                        <StackLayout Padding="10"
+                                     BackgroundColor="{StaticResource Accent}">
+                            <Label TextColor="{StaticResource TextColor}"
+                                   FontSize="Medium"
+                                   FontAttributes="Italic"
+                                   HorizontalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Placemark.SubLocality, StringFormat='{0},'}"/>
+                                        <Span Text="{Binding Placemark.Locality, StringFormat=' {0},'}"/>
+                                        <Span Text="{Binding Placemark.SubAdminArea, StringFormat=' {0},'}"/>
+                                        <Span Text="{Binding Placemark.AdminArea, StringFormat=' {0}'}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10,0,10,0"
+                                     x:DataType="model:PrayerTime">
+                            <Grid Margin="0"
+                                  BackgroundColor="{Binding RowColor}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60*"/>
+                                    <ColumnDefinition Width="40*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" 
+                                       Text="{Binding Name}" 
+                                       TextColor="{StaticResource TextColor}"
+                                       VerticalTextAlignment="Center" 
                                        FontSize="Medium"
-                                       FontAttributes="Italic"
-                                       HorizontalTextAlignment="Center">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding Placemark.SubLocality, StringFormat='{0},'}"/>
-                                            <Span Text="{Binding Placemark.Locality, StringFormat=' {0},'}"/>
-                                            <Span Text="{Binding Placemark.SubAdminArea, StringFormat=' {0},'}"/>
-                                            <Span Text="{Binding Placemark.AdminArea, StringFormat=' {0}'}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </StackLayout>
-                        </CollectionView.Header>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout Padding="0,0,0,0"
-                                             x:DataType="model:PrayerTime">
-                                    <Grid Margin="0"
-                                          BackgroundColor="{Binding RowColor}">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <!--<RowDefinition Height="1"/>-->
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="60*"/>
-                                            <ColumnDefinition Width="40*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" 
-                                               Text="{Binding Name}" 
-                                               TextColor="{StaticResource TextColor}"
-                                               VerticalTextAlignment="Center" 
-                                               FontSize="Medium"
-                                               Padding="5"
-                                               CharacterSpacing="2"
-                                               FontAttributes="{Binding FontAttributes, Mode=TwoWay}"/>
-                                        <Label Grid.Column="1" 
-                                               Text="{Binding Time}" 
-                                               TextColor="{StaticResource TextColor}"
-                                               VerticalTextAlignment="Center"
-                                               HorizontalTextAlignment="Start"
-                                               FontSize="Medium"
-                                               Padding="5,2,5,2"
-                                               CharacterSpacing="1"
-                                               FontAttributes="{Binding FontAttributes, Mode=TwoWay}"/>
-                                        <!--<BoxView Grid.Row="1"
-                                                 Grid.ColumnSpan="2"
-                                                 BackgroundColor="LightGray"/>-->
-                                    </Grid>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                        <CollectionView.Footer>
-                            <StackLayout>
-                                <Label Text="Sumber: https://api.myquran.com/"
-                                       TextColor="{DynamicResource TextColor}"
-                                       FontAttributes="Italic"
+                                       Padding="5"
                                        CharacterSpacing="2"
-                                       HorizontalTextAlignment="Center"
-                                       Margin="0,5,0,5"/>
-                                <Label Text="Catatan: Jika waktu shalat berbeda dengan daerah anda, silahkan mengikuti waktu sholat di daerah anda masing masing."
-                                       TextColor="{DynamicResource TextColor}"
-                                       FontAttributes="Italic"
-                                       CharacterSpacing="2"
-                                       HorizontalTextAlignment="Center"
-                                       Margin="0,5,0,5"/>
-                            </StackLayout>
-                        </CollectionView.Footer>
-                    </CollectionView>
-                </RefreshView>
-            </StackLayout>
-        </ScrollView>
+                                       FontAttributes="{Binding FontAttributes, Mode=TwoWay}"/>
+                                <Label Grid.Column="1" 
+                                       Text="{Binding Time}" 
+                                       TextColor="{StaticResource TextColor}"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       FontSize="Medium"
+                                       Padding="5,2,5,2"
+                                       CharacterSpacing="1"
+                                       FontAttributes="{Binding FontAttributes, Mode=TwoWay}"/>
+                            </Grid>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.Footer>
+                    <StackLayout Padding="10,15,10,20">
+                        <Label Text="Sumber: https://api.myquran.com/"
+                               TextColor="{DynamicResource TextColor}"
+                               FontAttributes="Italic"
+                               CharacterSpacing="2"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,5,0,5"/>
+                        <Label Text="Catatan: Jika waktu shalat berbeda dengan daerah anda, silahkan mengikuti waktu sholat di daerah anda masing masing."
+                               TextColor="{DynamicResource TextColor}"
+                               FontAttributes="Italic"
+                               CharacterSpacing="2"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,5,0,5"/>
+                    </StackLayout>
+                </CollectionView.Footer>
+            </CollectionView>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

@@ -3,46 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Surah"  
              xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans" 
-             xmlns:localBehavior="clr-namespace:MyQuranIndo.Behaviors"
              x:Class="MyQuranIndo.Views.Surah.SurahPopularPage"
              BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
+
     <Shell.SearchHandler>
         <SearchHandler x:DataType="local:SurahPopularsViewModel"  
                        x:Name="searchBar"
                        Placeholder="Cari No / Nama Surat"
                        Command="{Binding SearchCommand}" 
-                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                            
                        SearchBoxVisibility="Collapsible"
                        BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}"     
-                       PlaceholderColor="LightGray"                  
-                   >
+                       PlaceholderColor="LightGray">
         </SearchHandler>
     </Shell.SearchHandler>
+
     <Shell.BackButtonBehavior>
         <BackButtonBehavior
             Command="{Binding GoBackCommand}"
             IsEnabled="True" />
     </Shell.BackButtonBehavior>
+
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="0">
             <BoxView BackgroundColor="{StaticResource TextColor}"
-                 HeightRequest="3"
-                 Margin="0, -4, 0, 0" />
+                     HeightRequest="3"
+                     Margin="0, -4, 0, 0" />
             <RefreshView x:DataType="local:SurahPopularsViewModel" 
-                 Command="{Binding LoadCommand}" 
-                 IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                 RefreshColor="{DynamicResource Primary}">
+                         Command="{Binding LoadCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         RefreshColor="{DynamicResource Primary}">
                 <CollectionView x:Name="collSurah"
-                    ItemsSource="{Binding Surahs}"
-                    SelectionMode="None">
+                                ItemsSource="{Binding Surahs}"
+                                SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Padding="0" 
-                             x:DataType="model:Surah">
-                                <Grid Margin="0, 0, 0, 0"
-                                      BackgroundColor="{Binding RowColorPopular}">
+                            <StackLayout Padding="0" x:DataType="model:Surah">
+                                <Grid Margin="0" BackgroundColor="{Binding RowColorPopular}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -50,12 +49,15 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
+
                                     <Label Grid.Row="0"
                                            Text="{Binding Name}" 
                                            Style="{StaticResource SurahLabelName}"                                           
                                            FontSize="{Binding FontSizeArabic}"
                                            TextColor="{StaticResource TextColor}"
+                                           FlowDirection="RightToLeft"
                                            Padding="5,0,5,0"/>
+
                                     <Label Grid.Row="1"
                                            Text="{Binding DisplayNameLatin}" 
                                            Style="{StaticResource SurahLabelNameLatin}"
@@ -66,7 +68,7 @@
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:SurahPopularsViewModel}}, Path=ItemTapped}"		
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:SurahPopularsViewModel}}, Path=ItemTapped}"        
                                         CommandParameter="{Binding .}">
                                     </TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>

@@ -8,11 +8,13 @@
              xmlns:behavior="clr-namespace:MyQuranIndo.Behaviors"
              BackgroundColor="{StaticResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
+
     <Shell.BackButtonBehavior>
         <BackButtonBehavior
-        Command="{Binding GoBackCommand}"
-        IsEnabled="True" />
+            Command="{Binding GoBackCommand}"
+            IsEnabled="True" />
     </Shell.BackButtonBehavior>
+
     <ContentPage.Resources>
         <DataTemplate x:Key="evenTemplate">
             <ViewCell>
@@ -22,42 +24,43 @@
                     <control:GridSurahDetail />
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer 
-                                            NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:JuzDetailViewModel}}, Path=AyahOneTapped}"		
-                                            CommandParameter="{Binding .}">
+                            NumberOfTapsRequired="1"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:JuzDetailViewModel}}, Path=AyahOneTapped}"        
+                            CommandParameter="{Binding .}">
                         </TapGestureRecognizer>
                         <TapGestureRecognizer 
-                                            NumberOfTapsRequired="2"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:JuzDetailViewModel}}, Path=AyahTwoTapped}"		
-                                            CommandParameter="{Binding .}">
+                            NumberOfTapsRequired="2"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:JuzDetailViewModel}}, Path=AyahTwoTapped}"        
+                            CommandParameter="{Binding .}">
                         </TapGestureRecognizer>
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
             </ViewCell>
         </DataTemplate>
     </ContentPage.Resources>
+
     <ContentPage.ToolbarItems>
         <ToolbarItem x:DataType="local:JuzDetailViewModel" 
                      IconImageSource="icon_setting_bw.png"
-                     Command="{Binding SettingTapped}"
-        />
+                     Command="{Binding SettingTapped}" />
     </ContentPage.ToolbarItems>
+
+    <!-- Shell SearchHandler tetap dipertahankan -->
     <Shell.SearchHandler>
         <SearchHandler x:DataType="local:JuzDetailViewModel"  
                        x:Name="searchBar"
                        Placeholder="Cari Kata Kunci"
                        PlaceholderColor="LightGray"
                        Command="{Binding SearchCommand}" 
-                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                            
                        SearchBoxVisibility="Collapsible"
                        BackgroundColor="{StaticResource BgColor}"
-                       TextColor="{StaticResource TextColor}" 
-                       >
-        </SearchHandler>
+                       TextColor="{StaticResource TextColor}" />
     </Shell.SearchHandler>
+
     <ContentPage.Content>
-        <StackLayout Spacing="3" 
-                     Padding="10">
+        <StackLayout Spacing="3" Padding="10">
+            <!-- SearchBar manual di dalam body -->
             <SearchBar x:Name="searchBar2"
                        x:DataType="local:JuzDetailViewModel"
                        Placeholder="Cari kata kunci"
@@ -68,16 +71,17 @@
                        BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}"  
                        Margin="0, 0, 0, 2"
-                       IsVisible="{Binding VisibleSearchBar}"
-                       >
+                       IsVisible="{Binding VisibleSearchBar}">
                 <SearchBar.Behaviors>
                     <behavior:TextChangedBehavior />
                 </SearchBar.Behaviors>
             </SearchBar>
+
             <BoxView BackgroundColor="{StaticResource TextColor}"
                      HeightRequest="3"
                      Margin="0, -6, 0, 1" 
                      IsVisible="{Binding VisibleSearchBar}"/>
+
             <RefreshView Command="{Binding LoadCommand}" 
                          x:DataType="local:JuzDetailViewModel"
                          IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
@@ -91,39 +95,20 @@
                           SeparatorVisibility="None"
                           SeparatorColor="{StaticResource TextColor}"
                           IsGroupingEnabled="True">
-                    <!--<ListView.Header>
-                        <StackLayout>
-                            <Label Text="{Binding SubTitle}"
-                                    FontSize="Medium"
-                                    FontAttributes="Bold"
-                                    HorizontalTextAlignment="Center"
-                                    FontFamily="Montserrat-Medium"
-                                    BackgroundColor="{StaticResource Accent}"
-                                    TextColor="Black"
-                                    Padding="5"
-                                    />
-                        </StackLayout>
-                    </ListView.Header>-->
                     <ListView.GroupHeaderTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout x:DataType="model:SurahGroup">
                                     <Grid BackgroundColor="{DynamicResource Accent}"
-                                            Padding="5">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
+                                          Padding="5">
                                         <Label Text="{Binding FoundResult}"
-                                                FontSize="Medium"
-                                                FontAttributes="Bold"
-                                                VerticalTextAlignment="Center"
-                                                HorizontalTextAlignment="Center"
-                                                TextColor="{StaticResource TextColor}"
-                                                CharacterSpacing="1"
-                                                Padding="5"/>
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"
+                                               VerticalTextAlignment="Center"
+                                               HorizontalTextAlignment="Center"
+                                               TextColor="{StaticResource TextColor}"
+                                               CharacterSpacing="1"
+                                               Padding="5"/>
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>

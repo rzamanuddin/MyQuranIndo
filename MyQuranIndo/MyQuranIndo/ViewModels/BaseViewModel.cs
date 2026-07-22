@@ -109,7 +109,7 @@ namespace MyQuranIndo.ViewModels
                 return "expand_black.png";
             }
 
-            return "expanded.png";
+            return "expand.png";
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

@@ -1,5 +1,6 @@
 ﻿using MyQuranIndo.Helpers;
 using MyQuranIndo.Messages;
+using MyQuranIndo.Models.Qurans;
 using MyQuranIndo.Views;
 using System;
 using System.Collections.Generic;
@@ -19,64 +20,58 @@ namespace MyQuranIndo.ViewModels.Zikr
         private ICommand _searchCommand;
 
         public ObservableCollection<Models.Zikrs.Zikr> Zikrs { get; }
-        
         public ICommand LoadCommand { get; }
-
         public ICommand ZikrOneTapped { get; }
 
         private string zikrTime;
         public string ZikrTime
         {
-            get
-            {
-                return zikrTime;
-            }
-            set
-            {
-                zikrTime = value;
-            }
+            get => zikrTime;
+            set => zikrTime = value;
         }
-        public double FontSizeArabic
-        {
-            get
-            {
-                return FontHelper.GetFontSizeArabic();
-            }
-        }
+
+        public double FontSizeArabic => FontHelper.GetFontSizeArabic();
 
         private string titlePage;
         public String TitlePage
         {
             get => titlePage;
-            set { SetProperty(ref titlePage, value); }
+            set => SetProperty(ref titlePage, value);
         }
 
         private string subTitlePage;
         public String SubTitlePage
         {
             get => subTitlePage;
-            set { SetProperty(ref subTitlePage, value); }
+            set => SetProperty(ref subTitlePage, value);
         }
+
         public IHasCollectionView View { get; set; }
 
         public ZikrViewModel()
-        {            
+        {
             Title = "Dzikir Pagi";
             TitlePage = "Dzikir yang Dibaca di Waktu Pagi";
             SubTitlePage = "(Antara Shubuh hingga siang hari ketika matahari akan bergeser ke barat)";
             Zikrs = new ObservableCollection<Models.Zikrs.Zikr>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
-            //AyahOneTapped = new Command<Ayah>(OnAyahOneTapped);
             ZikrOneTapped = new Command<Models.Zikrs.Zikr>(OnZikrOneTapped);
         }
 
         private void ScrollToItem(int index, bool isAnimated = false)
         {
-            View.CollectionView.ScrollTo(index, -1, position: ScrollToPosition.Start, isAnimated); // don't forget check null
+            if (View?.CollectionView != null && index > 0 && index <= Zikrs.Count)
+            {
+                View.CollectionView.ScrollTo(index - 1, -1, position: ScrollToPosition.Start, isAnimated);
+            }
         }
+
         private void ScrollToItem(Models.Zikrs.Zikr zikr, bool isAnimated = false)
         {
-            View.CollectionView.ScrollTo(zikr, -1, position: ScrollToPosition.Start, isAnimated); // don't forget check null
+            if (View?.CollectionView != null && zikr != null)
+            {
+                View.CollectionView.ScrollTo(zikr, -1, position: ScrollToPosition.Start, isAnimated);
+            }
         }
 
         private async Task ExecuteLoadCommand()
@@ -84,100 +79,86 @@ namespace MyQuranIndo.ViewModels.Zikr
             try
             {
                 Zikrs.Clear();
-                IEnumerable<Models.Zikrs.Zikr> zikrs = await ZikrDataService.GetZikrsAsync();
+                var rawZikrs = await ZikrDataService.GetZikrsAsync();
+                if (rawZikrs == null) return;
+
+                IEnumerable<Models.Zikrs.Zikr> zikrs = rawZikrs;
 
                 if (this.ZikrTime == "0")
                 {
-                    zikrs = zikrs.Where(q => q.Time.Trim().ToLower() == "pagi" || string.IsNullOrEmpty(q.Time));
+                    zikrs = zikrs.Where(q => q?.Time != null && q.Time.Trim().ToLower() == "pagi" || string.IsNullOrEmpty(q?.Time));
                     Title = "Dzikir Pagi";
                     TitlePage = "Dzikir yang Dibaca di Waktu Pagi";
                     SubTitlePage = "Antara Shubuh hingga siang hari ketika matahari akan bergeser ke barat";
                 }
                 else if (this.ZikrTime == "1")
                 {
-                    zikrs = zikrs.Where(q => q.Time.Trim().ToLower() == "petang" || string.IsNullOrEmpty(q.Time));
+                    zikrs = zikrs.Where(q => q?.Time != null && q.Time.Trim().ToLower() == "petang" || string.IsNullOrEmpty(q?.Time));
                     Title = "Dzikir Petang";
                     TitlePage = "Dzikir yang Dibaca di Waktu Petang";
                     SubTitlePage = "Dari tenggelam matahari atau waktu Maghrib hingga pertengahan malam";
                 }
-                var zikrsMorning = zikrs.ToList();
-                for (int i = 0; i < zikrsMorning.Count; i++)
+
+                var zikrsList = zikrs.ToList();
+                for (int i = 0; i < zikrsList.Count; i++)
                 {
-                    var zm = zikrsMorning[i];
+                    var zm = zikrsList[i];
+                    if (zm == null) continue;
+
                     zm.RowID = i + 1;
+
                     // Ayat Kursi
                     if (zm.ID == 1)
                     {
                         var ayatKursi = await AyahDataService.GetAsync(2, 255);
-                        zm.ArabicLatin = ayatKursi.TextIndo;
-                        zm.Arabic = ayatKursi.ReadText;
-                    } // Al Ikhlas - An Naas
-                    else if(zm.ID == 2) {
+                        if (ayatKursi != null)
+                        {
+                            zm.ArabicLatin = ayatKursi.TextIndo;
+                            zm.Arabic = ayatKursi.ReadText;
+                        }
+                    }
+                    // Al Ikhlas - An Naas
+                    else if (zm.ID == 2)
+                    {
                         var alIkhlas = await AyahDataService.GetAsync(112);
                         var alFalaq = await AyahDataService.GetAsync(113);
                         var anNaas = await AyahDataService.GetAsync(114);
                         var bismillah = await AyahDataService.GetAsync(1, 1);
-                        
-                        zm.Arabic = "";
-                        zm.TranslateID = "";
-                        zm.ArabicLatin = "";
 
-                        zm.Arabic += $"{bismillah.ReadText}\n";
-                        zm.TranslateID += $"{bismillah.TranslateIndo}\n";
-                        zm.ArabicLatin += $"{bismillah.TextIndo}\n";
-                        for (int ayah = 0; ayah < alIkhlas.Count; ayah++)
-                        {
-                            zm.Arabic += $"{alIkhlas[ayah].ReadText}  ";
-                            zm.TranslateID += $"{alIkhlas[ayah].TranslateIndo} ";
-                            if (ayah < alIkhlas.Count - 1)
-                            {
-                                zm.ArabicLatin += $"{alIkhlas[ayah].TextIndo}, ";
-                            }
-                            else
-                            {
-                                zm.ArabicLatin += $"{alIkhlas[ayah].TextIndo} ";
-                            }
-                        }
-                        zm.Arabic += "\n";
-                        zm.TranslateID += "\n";
-                        zm.ArabicLatin += "\n";
+                        zm.Arabic = string.Empty;
+                        zm.TranslateID = string.Empty;
+                        zm.ArabicLatin = string.Empty;
 
-                        zm.Arabic += $"{bismillah.ReadText}\n";
-                        zm.TranslateID += $"{bismillah.TranslateIndo}\n";
-                        zm.ArabicLatin += $"{bismillah.TextIndo}\n";
-                        for (int ayah = 0; ayah < alFalaq.Count; ayah++)
+                        // Helper builder untuk surat pendek
+                        void AppendSurahData(IList<Ayah> ayahs)
                         {
-                            zm.Arabic += $"{alFalaq[ayah]}  ";
-                            zm.TranslateID += $"{alFalaq[ayah].TranslateIndo} ";
-                            if (ayah < alFalaq.Count - 1)
+                            if (bismillah != null)
                             {
-                                zm.ArabicLatin += $"{alFalaq[ayah].TextIndo}, ";
+                                zm.Arabic += $"{bismillah.ReadText}\n";
+                                zm.TranslateID += $"{bismillah.TranslateIndo}\n";
+                                zm.ArabicLatin += $"{bismillah.TextIndo}\n";
                             }
-                            else
-                            {
-                                zm.ArabicLatin += $"{alFalaq[ayah].TextIndo} ";
-                            }
-                        }
-                        zm.Arabic += "\n";
-                        zm.TranslateID += "\n";
-                        zm.ArabicLatin += "\n";
 
-                        zm.Arabic += $"{bismillah.ReadText}\n";
-                        zm.TranslateID += $"{bismillah.TranslateIndo}\n";
-                        zm.ArabicLatin += $"{bismillah.TextIndo}\n";
-                        for (int ayah = 0; ayah < anNaas.Count; ayah++)
-                        {
-                            zm.Arabic += $"{anNaas[ayah]}  ";
-                            zm.TranslateID += $"{anNaas[ayah].TranslateIndo} ";
-                            if (ayah < anNaas.Count - 1)
+                            if (ayahs != null)
                             {
-                                zm.ArabicLatin += $"{anNaas[ayah].TextIndo}, ";
+                                for (int ayah = 0; ayah < ayahs.Count; ayah++)
+                                {
+                                    var item = ayahs[ayah];
+                                    if (item == null) continue;
+
+                                    zm.Arabic += $"{item.ReadText}  ";
+                                    zm.TranslateID += $"{item.TranslateIndo} ";
+                                    zm.ArabicLatin += item.TextIndo + (ayah < ayahs.Count - 1 ? ", " : " ");
+                                }
                             }
-                            else
-                            {
-                                zm.ArabicLatin += $"{anNaas[ayah].TextIndo} ";
-                            }
+                            zm.Arabic += "\n\n";
+                            zm.TranslateID += "\n\n";
+                            zm.ArabicLatin += "\n\n";
                         }
+
+                        AppendSurahData(alIkhlas);
+                        AppendSurahData(alFalaq);
+                        AppendSurahData(anNaas);
                     }
 
                     Zikrs.Add(zm);
@@ -186,7 +167,7 @@ namespace MyQuranIndo.ViewModels.Zikr
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_ZIKR
-                    + Environment.NewLine + ex.Message, Message.MSG_OK); ;
+                    + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -209,7 +190,7 @@ namespace MyQuranIndo.ViewModels.Zikr
                     string warningMessage = Message.MSG_NOT_FOUND_KEY.Replace("<text>", text);
                     if (id > 0)
                     {
-                        if (id > 0 && id <= Zikrs.Count)
+                        if (id <= Zikrs.Count)
                         {
                             ScrollToItem(id);
                         }
@@ -220,7 +201,7 @@ namespace MyQuranIndo.ViewModels.Zikr
                     }
                     else
                     {
-                        var s = Zikrs.FirstOrDefault(q => q.Title.ToLower().Contains(text));
+                        var s = Zikrs.FirstOrDefault(q => q?.Title != null && q.Title.ToLower().Contains(text.ToLower()));
                         if (s != null)
                         {
                             ScrollToItem(s);
@@ -245,36 +226,20 @@ namespace MyQuranIndo.ViewModels.Zikr
 
         private bool IsValidTapped(Models.Zikrs.Zikr zikr)
         {
-            if (zikr == null)
-            {
-                return false;
-            }
-
-            // Dont show pop up menu at ta'awudz
-            if (zikr.ID == 0)
-            {
-                return false;
-            }
-
+            if (zikr == null || zikr.ID == 0) return false;
             return true;
         }
 
-        /// <summary>
-        /// On Zikr tapped one
-        /// </summary>
-        /// <param name="zikr"></param>
         private async void OnZikrOneTapped(Models.Zikrs.Zikr zikr)
         {
             if (IsValidTapped(zikr))
             {
-                //MP3Helper.StopPlayer();
                 MP3Service.StopPlayer();
                 var oldColor = zikr.RowColor;
                 zikr.RowColor = (Color)Application.Current.Resources["SelectedItem"];
 
                 string result = "";
                 string errorMessage = "";
-                //var surah = await SurahDataService.GetSurahAsync(zikr.SurahID);
                 string action = await ActionHelper.DisplayActionZikrAsync(zikr.TitleAndNumber);
                 string zikrCopied = ActionHelper.GetZikrToShare(zikr, this.Title);
                 try
