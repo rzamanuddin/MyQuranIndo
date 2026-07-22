@@ -72,6 +72,15 @@ namespace MyQuranIndo.Models.Finds
 
         public FindGroup(int surahID, string surahName, int numberOfAyah, ObservableCollection<Find> finds) : base(finds)
         {
+            if (Preferences.Get(MyQuranIndo.References.Setting.THEME, 0) == (int)ThemeStyle.Black)
+            {
+                this.imageHeader = "expand_black.png";
+            }
+            else
+            {
+                this.imageHeader = "expand.png";
+            }
+
             this.SurahID = surahID;
             this.SurahName = surahName;
             this.NumberOfAyah = numberOfAyah;

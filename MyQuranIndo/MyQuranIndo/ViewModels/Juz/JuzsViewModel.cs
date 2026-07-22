@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MyQuranIndo.Messages;
 using MyQuranIndo.Models.Qurans;
 using MyQuranIndo.Views;
 using MyQuranIndo.Views.Juz;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.ViewModels.Juz
@@ -31,19 +31,19 @@ namespace MyQuranIndo.ViewModels.Juz
                 OnJuzSelected(value);
             }
         }
+
         public IHasCollectionView View { get; set; }
         public Task Initialization { get; private set; }
-
 
         public JuzsViewModel()
         {
             Title = "Daftar Juz";
-            //SurahFilter = new SurahFilter();
             Juzs = new ObservableCollection<Models.Qurans.JuzHeader>();
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
             ItemTapped = new Command<Models.Qurans.JuzHeader>(OnJuzSelected, (x) => CanNavigate);
             Initialization = InitStart();
         }
+
         private async Task InitStart()
         {
             await ExecuteLoadCommand();
@@ -51,57 +51,71 @@ namespace MyQuranIndo.ViewModels.Juz
 
         private void ScrollToItem(int index, bool isAnimated = false)
         {
-            View.CollectionView.ScrollTo(index - 1, -1, position: ScrollToPosition.Start, isAnimated);
+            if (View?.CollectionView != null)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    View.CollectionView.ScrollTo(index - 1, -1, position: ScrollToPosition.Start, isAnimated);
+                });
+            }
         }
+
         private void ScrollToItem(Models.Qurans.JuzHeader juzHeader, bool isAnimated = false)
         {
-            View.CollectionView.ScrollTo(juzHeader, -1, position: ScrollToPosition.Start, isAnimated);
+            if (View?.CollectionView != null && juzHeader != null)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    View.CollectionView.ScrollTo(juzHeader, -1, position: ScrollToPosition.Start, isAnimated);
+                });
+            }
         }
 
         public ICommand SearchCommand => _searchCommand ?? (_searchCommand = new Command<string>(async (text) =>
         {
             try
             {
-                if (String.IsNullOrWhiteSpace(text))
+                string keyword = text?.Trim()?.ToLower() ?? string.Empty;
+
+                if (string.IsNullOrWhiteSpace(keyword))
                 {
                     ScrollToItem(1);
                 }
                 else
                 {
-                    int juzID = 0;
-                    int.TryParse(text, out juzID);
                     string warningMessage = Message.MSG_NOT_FOUND_KEY.Replace("<text>", text);
 
-                    if (juzID > 0)
+                    if (int.TryParse(keyword, out int juzID) && juzID > 0)
                     {
-                        if (juzID > 0 && juzID <= Juzs.Count)
+                        if (juzID <= Juzs.Count)
                         {
                             ScrollToItem(juzID);
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
+                            await DisplayAlertSafe(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
                         }
                     }
                     else
                     {
-                        var s = Juzs.FirstOrDefault(q => q.SurahNameStart.ToLower().Contains(text)
-                            || q.SurahNameEnd.ToLower().Contains(text));
-                        if (s != null)
+                        var foundJuz = Juzs.FirstOrDefault(q =>
+                            (q.SurahNameStart != null && q.SurahNameStart.ToLower().Contains(keyword)) ||
+                            (q.SurahNameEnd != null && q.SurahNameEnd.ToLower().Contains(keyword)));
+
+                        if (foundJuz != null)
                         {
-                            ScrollToItem(s);
+                            ScrollToItem(foundJuz);
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
+                            await DisplayAlertSafe(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET
-                    + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -111,20 +125,14 @@ namespace MyQuranIndo.ViewModels.Juz
 
         private async void OnJuzSelected(Models.Qurans.JuzHeader juz)
         {
-            if (juz == null)
-            {
-                return;
-            }
-            if (juz.ID == 0)
-            {
-                return;
-            }
+            if (juz == null || juz.ID == 0) return;
 
             CanNavigate = false;
             var oldColor = juz.RowColor;
             juz.RowColor = (Color)Application.Current.Resources["SelectedItem"];
-            await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}" +
-                $"?{nameof(TabbedPageJuzDetailViewModel.JuzID)}={juz.ID.ToString()}");
+
+            await Shell.Current.GoToAsync($"{nameof(TabbedPageJuzDetailPage)}?{nameof(TabbedPageJuzDetailViewModel.JuzID)}={juz.ID}");
+
             juz.RowColor = oldColor;
             CanNavigate = true;
         }
@@ -133,17 +141,21 @@ namespace MyQuranIndo.ViewModels.Juz
         {
             try
             {
-                Juzs.Clear();
-                var juzs = await JuzDataService.GetJuzHeaderAsync(true);
-                for (int i = 0; i < juzs.Count; i++)
+                var fetchedJuzs = await JuzDataService.GetJuzHeaderAsync(true);
+                if (fetchedJuzs == null) return;
+
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Juzs.Add(juzs[i]);
-                }
+                    Juzs.Clear();
+                    foreach (var item in fetchedJuzs)
+                    {
+                        Juzs.Add(item);
+                    }
+                });
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_JUZ
-                    + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_JUZ + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -153,8 +165,18 @@ namespace MyQuranIndo.ViewModels.Juz
 
         public void OnAppearing()
         {
-            //IsBusy = true;
             SelectedJuz = null;
+        }
+
+        private async Task DisplayAlertSafe(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (App.Current?.MainPage != null)
+                {
+                    await App.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
         }
     }
 }

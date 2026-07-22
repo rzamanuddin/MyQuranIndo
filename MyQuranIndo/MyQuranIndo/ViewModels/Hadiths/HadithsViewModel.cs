@@ -1,18 +1,14 @@
-﻿using Java.Util;
-using MyQuranIndo.Messages;
+﻿using MyQuranIndo.Messages;
 using MyQuranIndo.Models.Hadiths;
-using MyQuranIndo.Models.Qurans;
-using MyQuranIndo.ViewModels.Juz;
 using MyQuranIndo.Views;
 using MyQuranIndo.Views.Hadiths;
-using MyQuranIndo.Views.Juz;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyQuranIndo.ViewModels.Hadiths
@@ -35,9 +31,10 @@ namespace MyQuranIndo.ViewModels.Hadiths
                 OnNarratorSelected(value);
             }
         }
+
         public IHasCollectionView View { get; set; }
         public Task Initialization { get; private set; }
-        
+
         public HadithsViewModel()
         {
             Title = "Daftar Perawi Hadis";
@@ -46,6 +43,7 @@ namespace MyQuranIndo.ViewModels.Hadiths
             ItemTapped = new Command<Narrator>(OnNarratorSelected, (x) => CanNavigate);
             Initialization = InitStart();
         }
+
         private async Task InitStart()
         {
             await ExecuteLoadCommand();
@@ -53,56 +51,70 @@ namespace MyQuranIndo.ViewModels.Hadiths
 
         private void ScrollToItem(int index, bool isAnimated = false)
         {
-            View.CollectionView.ScrollTo(index - 1, -1, position: ScrollToPosition.Start, isAnimated);
+            if (View?.CollectionView != null)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    View.CollectionView.ScrollTo(index - 1, -1, position: ScrollToPosition.Start, isAnimated);
+                });
+            }
         }
+
         private void ScrollToItem(Narrator narrator, bool isAnimated = false)
         {
-            View.CollectionView.ScrollTo(narrator, -1, position: ScrollToPosition.Start, isAnimated);
+            if (View?.CollectionView != null && narrator != null)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    View.CollectionView.ScrollTo(narrator, -1, position: ScrollToPosition.Start, isAnimated);
+                });
+            }
         }
 
         public ICommand SearchCommand => _searchCommand ?? (_searchCommand = new Command<string>(async (text) =>
         {
             try
             {
-                if (String.IsNullOrWhiteSpace(text))
+                string keyword = text?.Trim()?.ToLower() ?? string.Empty;
+
+                if (string.IsNullOrWhiteSpace(keyword))
                 {
                     ScrollToItem(1);
                 }
                 else
                 {
                     int narratorId = 0;
-                    int.TryParse(text, out narratorId);
+                    int.TryParse(keyword, out narratorId);
                     string warningMessage = Message.MSG_NOT_FOUND_KEY.Replace("<text>", text);
 
                     if (narratorId > 0)
                     {
-                        if (narratorId > 0 && narratorId <= Narrators.Count)
+                        if (narratorId <= Narrators.Count)
                         {
                             ScrollToItem(narratorId);
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
+                            await DisplayAlertSafe(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
                         }
                     }
                     else
                     {
-                        var s = Narrators.FirstOrDefault(q => q.Name.ToLower().Contains(text));
+                        var s = Narrators.FirstOrDefault(q => q.Name != null && q.Name.ToLower().Contains(keyword));
                         if (s != null)
                         {
                             ScrollToItem(s);
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
+                            await DisplayAlertSafe(Message.MSG_TITLE_WARNING, warningMessage, Message.MSG_OK);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET
-                    + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -120,7 +132,9 @@ namespace MyQuranIndo.ViewModels.Hadiths
             CanNavigate = false;
             var oldColor = narrator.RowColor;
             narrator.RowColor = (Color)Application.Current.Resources["SelectedItem"];
-            await Shell.Current.GoToAsync($"{nameof(HadithDetailPage)}?{nameof(HadithDetailViewModel.Slug)}={narrator.Slug.ToString()}");
+
+            await Shell.Current.GoToAsync($"{nameof(HadithDetailPage)}?{nameof(HadithDetailViewModel.Slug)}={narrator.Slug}");
+
             narrator.RowColor = oldColor;
             CanNavigate = true;
         }
@@ -129,18 +143,28 @@ namespace MyQuranIndo.ViewModels.Hadiths
         {
             try
             {
-                Narrators.Clear();
-                var narrator = await HadithDataService.GetNarratorsAsync(true);
-                for (int i = 0; i < narrator.Count; i++)
+                var narratorList = await HadithDataService.GetNarratorsAsync(true);
+                if (narratorList == null) return;
+
+                var tempList = new List<Narrator>();
+                for (int i = 0; i < narratorList.Count; i++)
                 {
-                    narrator[i].ID = i + 1;
-                    Narrators.Add(narrator[i]);
+                    narratorList[i].ID = i + 1;
+                    tempList.Add(narratorList[i]);
                 }
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    Narrators.Clear();
+                    foreach (var item in tempList)
+                    {
+                        Narrators.Add(item);
+                    }
+                });
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_HADITH
-                    + Environment.NewLine + ex.Message, Message.MSG_OK);
+                await DisplayAlertSafe(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_GET_HADITH + Environment.NewLine + ex.Message, Message.MSG_OK);
             }
             finally
             {
@@ -150,8 +174,18 @@ namespace MyQuranIndo.ViewModels.Hadiths
 
         public void OnAppearing()
         {
-            //IsBusy = true;
             SelectedNarattor = null;
+        }
+
+        private async Task DisplayAlertSafe(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (App.Current?.MainPage != null)
+                {
+                    await App.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
         }
     }
 }

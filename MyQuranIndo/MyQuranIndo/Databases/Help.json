@@ -1,492 +1,457 @@
 [
-	{
-		"ID": "1",
-		"Title": "Baca Surat",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Pada menu utama / home, ketuk pada tombol Baca Surat."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "",
-				"Content": "Setelah itu akan muncul daftar surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada surat yang ingin anda baca."
-			},
-			{
-				"ID": "3",
-				"Subtitle": "",
-				"Content": "Anda juga bisa mencari ayat, nomor ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
-			},
-			{
-				"ID": "4",
-				"Subtitle": "Dengarkan Murottal",
-				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
-			},
-			{
-				"ID": "5",
-				"Subtitle": "Bagikan Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
-			},
-			{
-				"ID": "6",
-				"Subtitle": "Salin Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
-			},
-			{
-				"ID": "7",
-				"Subtitle": "Bookmark Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
-			},
-			{
-				"ID": "8",
-				"Subtitle": "Tandai Terakhir Dibaca",
-				"Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
-			},
-			{
-				"ID": "9",
-				"Subtitle": "Menampilkan Tafsir Kemenag",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
-			},
-			{
-				"ID": "10",
-				"Subtitle": "Menampilkan Tafsir Al-Jalalain",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
-			}
-		]
-	},
-	{
-		"ID": "2",
-		"Title": "Baca Surat (Mode Tab)",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Pada menu utama / home, ketuk pada tombol Baca Surat (Mode Tab)."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "",
-				"Content": "Setelah itu akan muncul surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada tab surat yang ingin anda baca."
-			},
-			{
-				"ID": "3",
-				"Subtitle": "",
-				"Content": "Anda juga bisa mencari ayat, nomor ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
-			},
-			{
-				"ID": "4",
-				"Subtitle": "Dengarkan Murottal",
-				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
-			},
-			{
-				"ID": "5",
-				"Subtitle": "Bagikan Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
-			},
-			{
-				"ID": "6",
-				"Subtitle": "Salin Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
-			},
-			{
-				"ID": "7",
-				"Subtitle": "Bookmark Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
-			},
-			{
-				"ID": "8",
-				"Subtitle": "Tandai Terakhir Dibaca",
-				"Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
-			},
-			{
-				"ID": "9",
-				"Subtitle": "Menampilkan Tafsir Kemenag",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
-			},
-			{
-				"ID": "10",
-				"Subtitle": "Menampilkan Tafsir Al-Jalalain",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
-			}
-		]
-	},
-	{
-		"ID": "3",
-		"Title": "Baca Juz",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Pada menu utama / home, ketuk pada tombol Baca Juz."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "",
-				"Content": "Setelah itu akan muncul daftar juz dimulai dari Juz 1 sampai dengan Juz 30, lalu ketuk pada juz yang ingin anda baca."
-			},
-			{
-				"ID": "3",
-				"Subtitle": "",
-				"Content": "Anda juga bisa mencari ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
-			},
-			{
-				"ID": "4",
-				"Subtitle": "Dengarkan Murottal",
-				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
-			},
-			{
-				"ID": "5",
-				"Subtitle": "Bagikan Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
-			},
-			{
-				"ID": "6",
-				"Subtitle": "Salin Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
-			},
-			{
-				"ID": "7",
-				"Subtitle": "Bookmark Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
-			},
-			{
-				"ID": "8",
-				"Subtitle": "Tandai Terakhir Dibaca",
-				"Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
-			},
-			{
-				"ID": "9",
-				"Subtitle": "Menampilkan Tafsir Kemenag",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
-			},
-			{
-				"ID": "10",
-				"Subtitle": "Menampilkan Tafsir Al-Jalalain",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
-			}
-		]
-	},
-	{
-		"ID": "4",
-		"Title": "Baca Juz (Mode Tab)",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Pada menu utama / home, ketuk pada tombol Baca Juz (Mode Tab)."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "",
-				"Content": "Setelah itu akan muncul daftar juz dimulai dari Juz 1 sampai dengan Juz 30, lalu ketuk pada tab juz yang ingin anda baca."
-			},
-			{
-				"ID": "3",
-				"Subtitle": "",
-				"Content": "Anda juga bisa mencari ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
-			},
-			{
-				"ID": "4",
-				"Subtitle": "Dengarkan Murottal",
-				"Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
-			},
-			{
-				"ID": "5",
-				"Subtitle": "Bagikan Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
-			},
-			{
-				"ID": "6",
-				"Subtitle": "Salin Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
-			},
-			{
-				"ID": "7",
-				"Subtitle": "Bookmark Ayat",
-				"Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
-			},
-			{
-				"ID": "8",
-				"Subtitle": "Tandai Terakhir Dibaca",
-				"Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
-			},
-			{
-				"ID": "9",
-				"Subtitle": "Menampilkan Tafsir Kemenag",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
-			},
-			{
-				"ID": "10",
-				"Subtitle": "Menampilkan Tafsir Al-Jalalain",
-				"Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
-			}
-		]
-	},
-	{
-		"ID": "5",
-		"Title": "Baca Tafsir",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Pada menu utama / home, ketuk pada tombol Baca Tafsir."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "",
-				"Content": "Setelah itu akan muncul daftar surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada surat yang ingin anda baca tafsirnya."
-			},
-			{
-				"ID": "3",
-				"Subtitle": "",
-				"Content": "Anda juga bisa mencari tafsir maupun beserta nomornya dengan mengetiknya di kotak pencarian."
-			},
-			{
-				"ID": "4",
-				"Subtitle": "Bagikan Tafsir",
-				"Content": "Ketuk satu kali pada tafsir yang ingin dibagikan, lalu pilih menu Bagikan Tafsir."
-			},
-			{
-				"ID": "5",
-				"Subtitle": "Salin Tafsir",
-				"Content": "Ketuk satu kali pada tafsir yang ingin disalin, lalu pilih Salin Tafsir."
-			}
-		]
-	},
-	{
-		"ID": "6",
-		"Title": "Baca Juz 'Amma",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk membuka halaman Juz 'Amma."
-			}
-		]
-	},
-	{
-		"ID": "7",
-		"Title": "Terakhir Dibaca",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk membuka ayat yang terakhir sudah kita tandai."
-			}
-		]
-	},
-	{
-		"ID": "8",
-		"Title": "Bookmark",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menampilkan daftar bookmark dari ayat ayat yang sudah ditandai, anda bisa mengetuk ayat yang ingin ditampilkan."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "Membuka Bookmark",
-				"Content": "Ketuk satu kali pada bookmark untuk membuka ayat berdasarkan surat atau juz."
-			},
-			{
-				"ID": "3",
-				"Subtitle": "Menghapus Bookmark",
-				"Content": "Ketuk dua kali pada bookmark untuk menghapus bookmark."
-			}
-		]
-	},
-	{
-		"ID": "9",
-		"Title": "Pencarian",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk mencari ayat, terjemahan, dan transliterasi latin."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "",
-				"Content": "Ketik pada kotak teks yang disediakan, lalu tekan tombol search pada tampilan keyboard."
-			}
-		]
-	},
-	{
-		"ID": "10",
-		"Title": "Kumpulan Hadis",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menamplikan Kumpulan Hadis."
-			}
-		]
-	},
-	{
-		"ID": "11",
-		"Title": "Kumpulan Do'a",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menamplikan Kumpulan Do'a."
-			}
-		]
-	},
-	{
-		"ID": "12",
-		"Title": "Dzikir Pagi",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu pagi."
-			}
-		]
-	},
-	{
-		"ID": "13",
-		"Title": "Dzikir Petang",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu sore."
-			}
-		]
-	},
-	{
-		"ID": "14",
-		"Title": "Asmaul Husna",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menamplikan 99 Asmaul Husna / Nama-Nama Baik Allah SWT."
-			}
-		]
-	},
-	{
-		"ID": "15",
-		"Title": "Niat Sholat",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menamplikan halamat niat sholat."
-			}
-		]
-	},
-	{
-		"ID": "16",
-		"Title": "Jadwal Sholat",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menampilkan jadwal sholat."
-			}
-		]
-	},
-	{
-		"ID": "17",
-		"Title": "Arah Kiblat",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menampilkan arah kiblat."
-			}
-		]
-	},
-	{
-		"ID": "18",
-		"Title": "Petunjuk",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menampilkan petunjuk penggunaan program."
-			}
-		]
-	},
-	{
-		"ID": "19",
-		"Title": "Pengaturan",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "Transliterasi Latin",
-				"Content": "Aktifkan tombol Aktifkan Transliterasi untuk menampilkan transliterasi latin saat membaca Al-Qur'an."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "Terjemahan",
-				"Content": "Aktifkan tombol Aktifkan Terjemahan untuk menampilkan terjemahan surat saat membaca Al-Qur'an."
-			},
-			{
-				"ID": "3",
-				"Subtitle": "Pilih Warna Aplikasi",
-				"Content": "Pilih warna yang ingin digunakan untuk tema aplikasi."
-			},
-			{
-				"ID": "4",
-				"Subtitle": "Ukuran Teks Arab",
-				"Content": "Pilih pada ukuran teks arab yang ingin digunakan saat membaca Al-Qur'an."
-			},
-			{
-				"ID": "5",
-				"Subtitle": "Rasm",
-				"Content": "Pilih pada rasm yang ingin digunakan saat membaca Al-Qur'an."
-			},
-			{
-				"ID": "6",
-				"Subtitle": "Qari",
-				"Content": "Pilih qari yang ingin digunakan saat mendengarkan lantunan murottal."
-			},
-			{
-				"ID": "7",
-				"Subtitle": "Tafsir",
-				"Content": "Pilih tafsir yang ingin digunakan saat membaca tafsir."
-			},
-			{
-				"ID": "8",
-				"Subtitle": "Info Aplikasi",
-				"Content": "Menu ini berfungsi untuk menampilkan halaman Info Aplikasi."
-			},
-			{
-				"ID": "9",
-				"Subtitle": "Berikan Rating",
-				"Content": "Menu ini berfungsi untuk membelikan nilai / rating di playstore."
-			},
-			{
-				"ID": "10",
-				"Subtitle": "Cek Pembaruan",
-				"Content": "Menu ini berfungsi untuk memeriksa apakah aplikasi ini ada update terbaru atau tidak."
-			}
-		]
-	},
-	{
-		"ID": "20",
-		"Title": "Info Aplikasi",
-		"Contents": [
-			{
-				"ID": "1",
-				"Subtitle": "",
-				"Content": "Menu ini berfungsi untuk menampilkan informasi program."
-			},
-			{
-				"ID": "2",
-				"Subtitle": "",
-				"Content": "Didalam menu ini anda juga bisa mengirimkan saran maupun kritik."
-			},
-			{
-				"ID": "3",
-				"Subtitle": "Kirim Kritik / Saran.",
-				"Content": "Silahkan isi kritik / saran pada kotak teks yang sudah disediakan, setelah itu tekan tombol dibawahnya untuk mengirimkan email kepada pembuat aplikasi."
-			}
-		]
-	}
+  {
+    "ID": "1",
+    "Title": "Baca Surat",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Pada menu utama / home, ketuk pada tombol Baca Surat."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "",
+        "Content": "Setelah itu akan muncul daftar surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada surat yang ingin anda baca."
+      },
+      {
+        "ID": "3",
+        "Subtitle": "",
+        "Content": "Anda juga bisa mencari ayat, nomor ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+      },
+      {
+        "ID": "4",
+        "Subtitle": "Dengarkan Murottal",
+        "Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
+      },
+      {
+        "ID": "5",
+        "Subtitle": "Bagikan Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+      },
+      {
+        "ID": "6",
+        "Subtitle": "Salin Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+      },
+      {
+        "ID": "7",
+        "Subtitle": "Bookmark Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+      },
+      {
+        "ID": "8",
+        "Subtitle": "Tandai Terakhir Dibaca",
+        "Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
+      },
+      {
+        "ID": "9",
+        "Subtitle": "Menampilkan Tafsir Kemenag",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
+      },
+      {
+        "ID": "10",
+        "Subtitle": "Menampilkan Tafsir Al-Jalalain",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
+      }
+    ]
+  },
+  {
+    "ID": "2",
+    "Title": "Baca Juz",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Pada menu utama / home, ketuk pada tombol Baca Juz."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "",
+        "Content": "Setelah itu akan muncul daftar juz dimulai dari Juz 1 sampai dengan Juz 30, lalu ketuk pada juz yang ingin anda baca."
+      },
+      {
+        "ID": "3",
+        "Subtitle": "",
+        "Content": "Anda juga bisa mencari ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+      },
+      {
+        "ID": "4",
+        "Subtitle": "Dengarkan Murottal",
+        "Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
+      },
+      {
+        "ID": "5",
+        "Subtitle": "Bagikan Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+      },
+      {
+        "ID": "6",
+        "Subtitle": "Salin Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+      },
+      {
+        "ID": "7",
+        "Subtitle": "Bookmark Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+      },
+      {
+        "ID": "8",
+        "Subtitle": "Tandai Terakhir Dibaca",
+        "Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
+      },
+      {
+        "ID": "9",
+        "Subtitle": "Menampilkan Tafsir Kemenag",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
+      },
+      {
+        "ID": "10",
+        "Subtitle": "Menampilkan Tafsir Al-Jalalain",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
+      }
+    ]
+  },
+  {
+    "ID": "3",
+    "Title": "Baca Tafsir",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Pada menu utama / home, ketuk pada tombol Baca Tafsir."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "",
+        "Content": "Setelah itu akan muncul daftar surat dimulai dari Al-Fatihah sampai dengan An-Naas, lalu ketuk pada surat yang ingin anda baca tafsirnya."
+      },
+      {
+        "ID": "3",
+        "Subtitle": "",
+        "Content": "Anda juga bisa mencari tafsir maupun beserta nomornya dengan mengetiknya di kotak pencarian."
+      },
+      {
+        "ID": "4",
+        "Subtitle": "Bagikan Tafsir",
+        "Content": "Ketuk satu kali pada tafsir yang ingin dibagikan, lalu pilih menu Bagikan Tafsir."
+      },
+      {
+        "ID": "5",
+        "Subtitle": "Salin Tafsir",
+        "Content": "Ketuk satu kali pada tafsir yang ingin disalin, lalu pilih Salin Tafsir."
+      }
+    ]
+  },
+  {
+    "ID": "4",
+    "Title": "Baca Juz 'Amma",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk membuka halaman Juz 'Amma."
+      }
+    ]
+  },
+  {
+    "ID": "5",
+    "Title": "Baca Surat Populer",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Pada menu utama / home, ketuk pada tombol Baca Surat Populer."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "",
+        "Content": "Setelah itu akan muncul daftar surat populer, lalu ketuk pada surat yang ingin anda baca."
+      },
+      {
+        "ID": "3",
+        "Subtitle": "",
+        "Content": "Anda juga bisa mencari ayat, nomor ayat, terjemahan, maupun transliterasi latin dengan mengetiknya di kotak pencarian."
+      },
+      {
+        "ID": "4",
+        "Subtitle": "Dengarkan Murottal",
+        "Content": "Ketuk satu kali pada ayat yang ingin didengarkan, lalu pilih menu Dengarkan Murottal."
+      },
+      {
+        "ID": "5",
+        "Subtitle": "Bagikan Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibagikan, lalu pilih menu Bagikan Ayat."
+      },
+      {
+        "ID": "6",
+        "Subtitle": "Salin Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin disalin, lalu pilih Salin Ayat."
+      },
+      {
+        "ID": "7",
+        "Subtitle": "Bookmark Ayat",
+        "Content": "Ketuk satu kali pada ayat yang ingin di bookmark, lalu pilih menu Tambahkan Ke Bookmark."
+      },
+      {
+        "ID": "8",
+        "Subtitle": "Tandai Terakhir Dibaca",
+        "Content": "Ketuk satu kali pada ayat yang ingin di tandai, lalu pilih menu Tandai Terakhir Dibaca."
+      },
+      {
+        "ID": "9",
+        "Subtitle": "Menampilkan Tafsir Kemenag",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Kemenag."
+      },
+      {
+        "ID": "10",
+        "Subtitle": "Menampilkan Tafsir Al-Jalalain",
+        "Content": "Ketuk satu kali pada ayat yang ingin dibuka tafsirnya, lalu pilih menu Tampilkan Tafsir Al-Jalalain."
+      }
+    ]
+  },
+  {
+    "ID": "6",
+    "Title": "Terakhir Dibaca",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk membuka ayat yang terakhir sudah kita tandai."
+      }
+    ]
+  },
+  {
+    "ID": "7",
+    "Title": "Bookmark",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menampilkan daftar bookmark dari ayat ayat yang sudah ditandai, anda bisa mengetuk ayat yang ingin ditampilkan."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "Membuka Bookmark",
+        "Content": "Ketuk satu kali pada bookmark untuk membuka ayat berdasarkan surat atau juz."
+      },
+      {
+        "ID": "3",
+        "Subtitle": "Menghapus Bookmark",
+        "Content": "Ketuk dua kali pada bookmark untuk menghapus bookmark."
+      }
+    ]
+  },
+  {
+    "ID": "8",
+    "Title": "Pencarian",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk mencari ayat, terjemahan, dan transliterasi latin."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "",
+        "Content": "Ketik pada kotak teks yang disediakan, lalu tekan tombol search pada tampilan keyboard."
+      }
+    ]
+  },
+  {
+    "ID": "9",
+    "Title": "Kumpulan Hadis",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menamplikan Kumpulan Hadis."
+      }
+    ]
+  },
+  {
+    "ID": "10",
+    "Title": "Kumpulan Do'a",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menamplikan Kumpulan Do'a."
+      }
+    ]
+  },
+  {
+    "ID": "11",
+    "Title": "Dzikir Pagi",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu pagi."
+      }
+    ]
+  },
+  {
+    "ID": "12",
+    "Title": "Dzikir Petang",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menamplikan kumpulan dzikir yang bisa dibaca pada waktu sore."
+      }
+    ]
+  },
+  {
+    "ID": "13",
+    "Title": "Asmaul Husna",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menamplikan 99 Asmaul Husna / Nama-Nama Baik Allah SWT."
+      }
+    ]
+  },
+  {
+    "ID": "14",
+    "Title": "Niat Sholat",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menamplikan halamat niat sholat."
+      }
+    ]
+  },
+  {
+    "ID": "15",
+    "Title": "Jadwal Sholat",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menampilkan jadwal sholat."
+      }
+    ]
+  },
+  {
+    "ID": "16",
+    "Title": "Arah Kiblat",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menampilkan arah kiblat."
+      }
+    ]
+  },
+  {
+    "ID": "17",
+    "Title": "Petunjuk",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menampilkan petunjuk penggunaan program."
+      }
+    ]
+  },
+  {
+    "ID": "18",
+    "Title": "Pengaturan",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "Transliterasi Latin",
+        "Content": "Aktifkan tombol Aktifkan Transliterasi untuk menampilkan transliterasi latin saat membaca Al-Qur'an."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "Terjemahan",
+        "Content": "Aktifkan tombol Aktifkan Terjemahan untuk menampilkan terjemahan surat saat membaca Al-Qur'an."
+      },
+      {
+        "ID": "3",
+        "Subtitle": "Pilih Warna Aplikasi",
+        "Content": "Pilih warna yang ingin digunakan untuk tema aplikasi."
+      },
+      {
+        "ID": "4",
+        "Subtitle": "Ukuran Teks Arab",
+        "Content": "Pilih pada ukuran teks arab yang ingin digunakan saat membaca Al-Qur'an."
+      },
+      {
+        "ID": "5",
+        "Subtitle": "Rasm",
+        "Content": "Pilih pada rasm yang ingin digunakan saat membaca Al-Qur'an."
+      },
+      {
+        "ID": "6",
+        "Subtitle": "Qari",
+        "Content": "Pilih qari yang ingin digunakan saat mendengarkan lantunan murottal."
+      },
+      {
+        "ID": "7",
+        "Subtitle": "Tafsir",
+        "Content": "Pilih tafsir yang ingin digunakan saat membaca tafsir."
+      },
+      {
+        "ID": "8",
+        "Subtitle": "Info Aplikasi",
+        "Content": "Menu ini berfungsi untuk menampilkan halaman Info Aplikasi."
+      },
+      {
+        "ID": "9",
+        "Subtitle": "Berikan Rating",
+        "Content": "Menu ini berfungsi untuk membelikan nilai / rating di playstore."
+      },
+      {
+        "ID": "10",
+        "Subtitle": "Cek Pembaruan",
+        "Content": "Menu ini berfungsi untuk memeriksa apakah aplikasi ini ada update terbaru atau tidak."
+      }
+    ]
+  },
+  {
+    "ID": "19",
+    "Title": "Info Aplikasi",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menampilkan informasi program."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "",
+        "Content": "Didalam menu ini anda juga bisa mengirimkan saran maupun kritik."
+      },
+      {
+        "ID": "3",
+        "Subtitle": "Kirim Kritik / Saran.",
+        "Content": "Silahkan isi kritik / saran pada kotak teks yang sudah disediakan, setelah itu tekan tombol dibawahnya untuk mengirimkan email kepada pembuat aplikasi."
+      }
+    ]
+  },
+  {
+    "ID": "20",
+    "Title": "Donasi",
+    "Contents": [
+      {
+        "ID": "1",
+        "Subtitle": "",
+        "Content": "Menu ini berfungsi untuk menampilkan informasi donasi."
+      },
+      {
+        "ID": "2",
+        "Subtitle": "Salin No Rekening / Akun",
+        "Content": "Pilih tombol salin nomor rekening / akun untuk mengcopy nomor rekening / akun."
+      },
+      {
+        "ID": "3",
+        "Subtitle": "Konfirmasi Donasi.",
+        "Content": "Pilih tombol salin alamat email, lalu kirimkan email untuk konfirmasi donasi."
+      }
+    ]
+  }
 ]

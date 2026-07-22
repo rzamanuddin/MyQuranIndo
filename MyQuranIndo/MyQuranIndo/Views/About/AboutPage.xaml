@@ -5,27 +5,6 @@
              xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.About"
              Title="{Binding Title}"
              BackgroundColor="{DynamicResource BgColor}">
-    <!--<Shell.TitleView>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="90*"/>
-            </Grid.ColumnDefinitions>           
-            <Image Source="icon_about.png"
-                   HorizontalOptions="Start" />
-            <Label Grid.Column="1" 
-                   Text="{Binding Title}"
-                   TextColor="White"
-                   FontSize="Large"
-                   FontAttributes="Bold"
-                   CharacterSpacing="1"
-                   HorizontalTextAlignment="Start"
-                   VerticalTextAlignment="Center"/>
-        </Grid>
-    </Shell.TitleView>-->
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
     </ContentPage.BindingContext>    
