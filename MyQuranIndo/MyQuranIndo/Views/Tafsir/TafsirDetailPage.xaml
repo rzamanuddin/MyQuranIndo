@@ -93,7 +93,7 @@
                                    HorizontalTextAlignment="Center"
                                    FontFamily="Montserrat-Medium"
                                    BackgroundColor="{DynamicResource Accent}"
-                                   TextColor="Black"
+                                   TextColor="{StaticResource TextColor}"
                                    Padding="5" />
                         </StackLayout>
                     </ListView.Header>

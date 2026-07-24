@@ -144,6 +144,7 @@
                      />
             <Frame BorderColor="{StaticResource TextColor}"
                    BackgroundColor="Transparent"
+                   CornerRadius="8"
                    HasShadow="False"
                    Padding="0"
                    VerticalOptions="Start"
@@ -152,7 +153,7 @@
 
                 <Grid ColumnDefinitions="Auto, *"
                       ColumnSpacing="8"
-                      Padding="8,8,8,12"
+                      Padding="8"
                       VerticalOptions="Start"
                       HorizontalOptions="FillAndExpand">
 
