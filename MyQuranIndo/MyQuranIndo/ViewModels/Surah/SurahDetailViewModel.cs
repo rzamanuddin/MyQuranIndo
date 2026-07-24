@@ -1,29 +1,16 @@
 ﻿using MyQuranIndo.Messages;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Essentials;
-using MyQuranIndo.References;
-using Newtonsoft.Json;
 using MyQuranIndo.Views;
 using MyQuranIndo.Views.Setting;
 using MyQuranIndo.Models.Qurans;
-using MyQuranIndo.Models.Bookmarks;
-using MyQuranIndo.Configuration;
 using MyQuranIndo.Helpers;
-using MyQuranIndo.Models.Fonts;
-using Android.Widget;
 using System.IO;
-using System.Threading;
-using static Android.Provider.MediaStore;
-//using MediaManager.Media;
-//using MediaManager.Playback;
-//using MediaManager;
 
 namespace MyQuranIndo.ViewModels.Surah
 {
@@ -45,6 +32,65 @@ namespace MyQuranIndo.ViewModels.Surah
         public string Bismillah
         {
             get => FontHelper.GetBismillah();
+        }
+
+        private async Task OnTogglePlayCommand()
+        {
+            try
+            {
+                if (playbackState == PlaybackState.Stopped)
+                {
+                    // start playback
+                    if (Surah == null)
+                        return;
+
+                    if (CurrentMP3 <= 0)
+                        CurrentMP3 = 1;
+
+                    await OnPlayMP3Command();
+                    // OnPlayMP3Command sets state and PlayButtonText
+                }
+                else if (playbackState == PlaybackState.Playing)
+                {
+                    // pause
+                    if (MP3Service?.Player != null && MP3Service.IsPlaying())
+                    {
+                        MP3Service.Pause();
+                        playbackState = PlaybackState.Paused;
+                        PlayButtonIcon = "\u25B6"; // ▶ (resume)
+                        double duration = MP3Service.GetDuration();
+                        if (duration > 0)
+                        {
+                            double pos = MP3Service.GetCurrentPosition();
+                            Progress = (float)(pos / duration);
+                            Percent = Progress * 100;
+                        }
+                        VisibleProgressBar = true;
+                    }
+                }
+                else if (playbackState == PlaybackState.Paused)
+                {
+                    // resume
+                    if (MP3Service?.Player != null)
+                    {
+                        MP3Service.Play();
+                        playbackState = PlaybackState.Playing;
+                        PlayButtonIcon = "\u23F8"; // ⏸ (pause)
+                        double duration = MP3Service.GetDuration();
+                        if (duration > 0)
+                        {
+                            double pos = MP3Service.GetCurrentPosition();
+                            Progress = (float)(pos / duration);
+                            Percent = Progress * 100;
+                        }
+                        VisibleProgressBar = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 + Environment.NewLine + ex.Message, Message.MSG_OK);
+            }
         }
         public string BismillahUthmani
         {
@@ -109,7 +155,7 @@ namespace MyQuranIndo.ViewModels.Surah
             set => SetProperty(ref visibleSearchBar, value);
         }
 
-        private bool visibleProgressBar = false;
+        private bool visibleProgressBar = true;
         public bool VisibleProgressBar
         {
             get => visibleProgressBar;
@@ -155,6 +201,23 @@ namespace MyQuranIndo.ViewModels.Surah
             set => SetProperty(ref currentMP3, value);
         }
 
+        // handler reference so we can detach/attach playback ended handler
+        private EventHandler playerPlaybackEndedHandler;
+        private enum PlaybackState { Stopped, Playing, Paused }
+        private PlaybackState playbackState = PlaybackState.Stopped;
+
+        // private string playButtonText = "Play"; (removed, use PlayButtonIcon)
+        // now using icon glyph for button
+        private string playButtonIcon = "\u25B6"; // ▶
+        public string PlayButtonIcon { get => playButtonIcon; set => SetProperty(ref playButtonIcon, value); }
+
+        private bool isPlayerEnabled = false;
+        public bool IsPlayerEnabled { get => isPlayerEnabled; set => SetProperty(ref isPlayerEnabled, value); }
+
+        // Play button now shows an icon glyph via PlayButtonIcon
+
+        public ICommand TogglePlayCommand { get; }
+
 
         public Command LoadCommand { get; private set; }
         public ICommand AyahOneTapped { get; }
@@ -163,6 +226,7 @@ namespace MyQuranIndo.ViewModels.Surah
         public ICommand GoBackCommand { get; }
         public ICommand DownloadMP3Command { get; }
         public ICommand PlayMP3Command { get; }
+        public ICommand PauseMP3Command { get; }
         public ICommand StopMP3Command { get; }
 
         public SurahDetailViewModel()
@@ -170,44 +234,37 @@ namespace MyQuranIndo.ViewModels.Surah
             Title = "Surah";
             Ayahs = new ObservableCollection<Ayah>();            
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
-            AyahOneTapped = new Command<Ayah>(OnAyahOneTapped);
+            // AyahOneTapped = new Command<Ayah>(OnAyahOneTapped);
+            //AyahOneTapped = new Command<Ayah>(async (ayah) => await OnAyahOneTapped(ayah));
+            AyahOneTapped = new Command<Ayah>(async (ayah) =>
+            {
+                if (IsBusy) return;
+                IsBusy = true;
+                try
+                {
+                    await OnAyahOneTapped(ayah);
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+            });
             AyahTwoTapped = new Command<Ayah>(OnAyahTwoTapped);
             SettingTapped = new Command(OnSettingTapped);
             GoBackCommand = new Command(async () => await OnBackTapped());
             DownloadMP3Command = new Command(async () => await OnDownloadMP3Command());
             PlayMP3Command = new Command(async (x) => await OnPlayMP3Command());
+            PauseMP3Command = new Command(async (x) => await OnPauseMP3Command());
             StopMP3Command = new Command(async (x) => await OnStopMP3Command());
+            TogglePlayCommand = new Command(async () => await OnTogglePlayCommand());
 
-            //CrossMediaManager.Current.StateChanged += (object sender, StateChangedEventArgs e) =>
-            //{
-            //    if (e.State == MediaManager.Player.MediaPlayerState.Stopped)
-            //    {
-            //        Progress = 0f;
-            //        Percent = 0f;
-            //        CurrentMP3 = 0;
-            //        VisibleProgressBar = false;
-            //    }
-            //    else if (e.State == MediaManager.Player.MediaPlayerState.Playing)
-            //    {
-            //        VisibleProgressBar = true;
-            //        CurrentMP3 = 1;
-            //        Progress = (float)CurrentMP3 / CountMP3;
-            //        Percent = Progress * 100;
-            //    }
-            //};
-
-            //CrossMediaManager.Current.MediaItemChanged += (object sender, MediaItemEventArgs e) =>
-            //{
-            //    CurrentMP3++;
-            //    Progress = (float)CurrentMP3 / CountMP3;
-            //    Percent = Progress * 100;
-            //};
-            //MP3Service.Player.PlaybackEnded += Player_PlayBackEnded;            
+            PlayButtonIcon = "\u25B6"; // ▶ initial
+            IsPlayerEnabled = false;        
         }
 
         public async Task OnDownloadMP3Command()
         {
-            MP3Service.StopPlayer();
+            await OnStopMP3Command();
             Progress = 0;
             Percent = 0;
             string url = ReciterHelper.GetReciterUrl();
@@ -225,164 +282,151 @@ namespace MyQuranIndo.ViewModels.Surah
                 Percent = Progress * 100;
             }
             VisibleProgressBar = false;
+            // enable player when surah available
+            IsPlayerEnabled = true;
         }
 
         private async Task OnStopMP3Command()
         {
-            //MP3Service.StopPlayer();
-            //currentMP3 = 0;
-            //Percent = 0;
-            //Progress = 0;
-            //await CrossMediaManager.Current.Stop();
+            MP3Service.StopPlayer();
+            Progress = 0;
+            Percent = 0;
+            CurrentMP3 = 0;
+            VisibleProgressBar = true;
+            // reset state
+            playbackState = PlaybackState.Stopped;
+            PlayButtonIcon = "\u25B6"; // ▶
+            try
+            {
+                if (playerPlaybackEndedHandler != null && MP3Service?.Player != null)
+                {
+                    MP3Service.Player.PlaybackEnded -= playerPlaybackEndedHandler;
+                    playerPlaybackEndedHandler = null;
+                }
+            }
+            catch { }
+        }
+
+        private async Task OnPauseMP3Command()
+        {
+            try
+            {
+                if (MP3Service?.Player != null && MP3Service.IsPlaying())
+                {
+                    MP3Service.Pause();
+                    double duration = MP3Service.GetDuration();
+                    if (duration > 0)
+                    {
+                        double pos = MP3Service.GetCurrentPosition();
+                        Progress = (float)(pos / duration);
+                        Percent = Progress * 100;
+                    }
+                    // keep progress visible while paused
+                    VisibleProgressBar = true;
+                    playbackState = PlaybackState.Paused;
+                    PlayButtonIcon = "\u25B6"; // ▶ (resume)
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 + Environment.NewLine + ex.Message, Message.MSG_OK);
+            }
         }
 
         private async Task OnPlayMP3Command()
         {
+            if (Surah == null)
+                return;
+
             CountMP3 = Surah.NumberOfAyah;
-            CurrentMP3 = 1;
+            if (CountMP3 <= 0)
+                return;
+
+            if (CurrentMP3 <= 0)
+                CurrentMP3 = 1;
             Progress = 0f;
             Percent = 0f;
             FileName = "";
             MP3Service.StopPlayer();
             VisibleProgressBar = true;
 
+            // detach previous handler if any
+            try
+            {
+                if (playerPlaybackEndedHandler != null && MP3Service?.Player != null)
+                {
+                    MP3Service.Player.PlaybackEnded -= playerPlaybackEndedHandler;
+                    playerPlaybackEndedHandler = null;
+                }
 
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            //string mp3Name = $"{Surah.ID:000}{currentMP3:000}.mp3";
-            //string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
+                // create new handler
+                playerPlaybackEndedHandler = async (s, e) =>
+                {
+                    // run on main thread to update UI-bound properties
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        // advance to next mp3
+                        if (CurrentMP3 < CountMP3)
+                        {
+                            CurrentMP3++;
+                            Progress = (float)CurrentMP3 / CountMP3;
+                            Percent = Progress * 100;
+                            ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
+                            try
+                            {
+                                await MP3Service.PlayMurottal(Surah.ID, CurrentMP3, null);
+                            }
+                            catch { }
+                        }
+                        else
+                        {
+                            // finished
+                            MP3Service.StopPlayer();
+                            Progress = 0;
+                            Percent = 0;
+                            CurrentMP3 = 0;
+                            VisibleProgressBar = true;
+                            // reset state
+                            playbackState = PlaybackState.Stopped;
+                            PlayButtonIcon = "\u25B6"; // ▶
+                        }
+                    });
+                };
 
-            //var fileNames = new List<string>();
-            //for (int i = 1; i <= CountMP3; i++)
-            //{
-            //    string mp3Name = $"{Surah.ID:000}{i:000}.mp3";
-            //    string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
-            //    fileNames.Add(fileName);
-            //}
-            //await CrossMediaManager.Current.Play(fileNames);
+                if (MP3Service?.Player != null)
+                    MP3Service.Player.PlaybackEnded += playerPlaybackEndedHandler;
 
-            //FileName = mp3Name;
-            //try
-            //{
-            //    FileStream fs = null;
+                // play current ayah
+                await MP3Service.PlayMurottal(Surah.ID, CurrentMP3, null);
+                Progress = (float)CurrentMP3 / CountMP3;
+                Percent = Progress * 100;
+                ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
 
-            //    if (File.Exists(fileName))
-            //    {
-            //        fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-            //    }
-
-            //    try
-            //    {
-            //        MP3Service.Play(fs);
-            //        Progress = (float)CurrentMP3 / CountMP3;
-            //        Percent = Progress * 100;
-            //        ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
-            //        MP3Service.Player.PlaybackEnded += Player_PlayBackEnded;
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        await App.Current.MainPage.DisplayAlert("ERROR", ex.Message, "OK");
-            //    }
-            //    finally
-            //    {
-            //        if (fs != null)
-            //            fs.Dispose();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    await App.Current.MainPage.DisplayAlert("ERROR", ex.Message, "OK");
-            //}
+                // set state
+                playbackState = PlaybackState.Playing;
+                PlayButtonIcon = "\u23F8"; // ⏸ (pause)
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 + Environment.NewLine + ex.Message, Message.MSG_OK);
+                VisibleProgressBar = true;
+                Progress = 0;
+                percent = 0;
+            }
         }
-
-        //private void Player_PlayBackEnded(object sender, EventArgs e)
-        //{
-        //    //check if next playlist element exists
-        //    if (CurrentMP3 < CountMP3)
-        //    {             
-        //        MP3Service.StopPlayer();
-        //        VisibleProgressBar = true;
-
-        //        //string mp3Name = $"{Surah.ID:000}{CurrentMP3:000}.mp3";
-        //        //string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        //        //string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
-
-        //        //FileName = mp3Name;
-        //        //FileStream fs = null;
-        //        //if (File.Exists(fileName))
-        //        //{
-        //        //    fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-        //        //}
-
-        //        //MP3Service.Play(fs);
-        //        //Progress = (float)CurrentMP3 / CountMP3;
-        //        //Percent = Progress * 100;
-        //        //ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
-
-        //        //if (fs != null)
-        //        //{
-        //        //    fs.Dispose();
-        //        //}
-
-        //        string mp3Name = $"{Surah.ID:000}{CurrentMP3:000}.mp3";
-        //        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        //        string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
-
-        //        FileName = mp3Name;
-        //        FileStream fs = null;
-
-        //        try
-        //        {
-
-        //            if (File.Exists(fileName))
-        //            {
-        //                fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-        //            }
-
-        //            try
-        //            {
-        //                MP3Service.Play(fs);
-        //                Progress = (float)CurrentMP3 / CountMP3;
-        //                Percent = Progress * 100;
-        //                ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
-        //                CurrentMP3++;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                App.Current.MainPage.DisplayAlert("ERROR", ex.Message, "OK");
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            App.Current.MainPage.DisplayAlert("ERROR", ex.Message, "OK");
-        //        }
-        //        finally
-        //        {
-        //            if (fs != null)
-        //                fs.Dispose();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MP3Service.StopPlayer();
-        //        Progress = 0;
-        //        Percent = 0;
-        //        currentMP3 = 0;
-        //        VisibleProgressBar = false;
-        //    }
-        //}
 
         private async void OnSettingTapped()
         {
             //MP3Helper.StopPlayer();
-            MP3Service.StopPlayer();
+            await OnStopMP3Command();
             await Shell.Current.GoToAsync($"{nameof(SettingPage)}");
         }
 
         public async Task OnBackTapped()
         {
             //MP3Service.StopPlayer();
-            MP3Service.StopPlayer();
+            //MP3Service.StopPlayer(); 
+            await OnStopMP3Command();
             await Shell.Current.GoToAsync("..");
         }
         public void ScrollToItem(Ayah ayah, bool isAnimated = false)
@@ -396,6 +440,7 @@ namespace MyQuranIndo.ViewModels.Surah
             {
                 if (string.IsNullOrWhiteSpace(surahID) || surahID == "0")
                 {
+                    IsPlayerEnabled = false;
                     return;
                 }
 
@@ -405,6 +450,9 @@ namespace MyQuranIndo.ViewModels.Surah
                 ID = surah.ID.ToString();
                 SubTitle = surah.DisplayNameLatin; // String.Format("{0}. {1} (2)", Surah.ID, surah.NameLatin, surah.DisplayNameLatin);
                 Title = String.Format("{0}. {1}", surah.ID, surah.NameLatin);
+
+                // enable player now that a surah is loaded
+                IsPlayerEnabled = true;
 
                 if (!string.IsNullOrEmpty(ayahID) && ayahID != "0" && ayahID != "1")
                 {
@@ -427,8 +475,14 @@ namespace MyQuranIndo.ViewModels.Surah
             try
             {
                 //MP3Helper.StopPlayer();
-                MP3Service.StopPlayer();
+                await OnStopMP3Command();
                 Ayahs.Clear();
+                CurrentMP3 = 0; 
+                playbackState = PlaybackState.Stopped;
+                PlayButtonIcon = "\u25B6"; // ▶ Initial
+                VisibleProgressBar = true;
+                Progress = 0;
+                Percent = 0;
 
                 int surahID = 0;
                 int.TryParse(SurahID, out surahID);
@@ -542,7 +596,7 @@ namespace MyQuranIndo.ViewModels.Surah
                 else
                 {
                     //MP3Service.StopPlayer();
-                    MP3Service.StopPlayer();
+                    await OnStopMP3Command();
                     int ayahID = 0;
                     int.TryParse(text, out ayahID);
                     string errorMessage = Message.MSG_NOT_FOUND_KEY.Replace("<text>", text);
@@ -591,7 +645,7 @@ namespace MyQuranIndo.ViewModels.Surah
             if (IsValidTapped(ayah))
             {
                 //MP3Helper.StopPlayer();
-                MP3Service.StopPlayer();
+                await OnStopMP3Command();
                 var oldColor = ayah.RowColor;
                 // Show Tafsir
                 try
@@ -641,12 +695,11 @@ namespace MyQuranIndo.ViewModels.Surah
             int.TryParse(SurahID, out surahID);
             return surahID;
         }
-        private async void OnAyahOneTapped(Ayah ayah)
+        private async Task OnAyahOneTapped(Ayah ayah)
         {
             if (IsValidTapped(ayah))
             {
-                //MP3Helper.StopPlayer();
-                MP3Service.StopPlayer();
+                await OnStopMP3Command();
                 var oldColor = ayah.RowColor;
                 ayah.RowColor = (Color)Application.Current.Resources["SelectedItem"];
 
@@ -678,7 +731,10 @@ namespace MyQuranIndo.ViewModels.Surah
                             break;
                         case ActionHelper.PLAY_MP3:
                             //await MP3Helper.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
-                            await MP3Service.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
+                            // await MP3Service.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
+                            CurrentMP3 = ayah.AyahID;
+
+                            await OnPlayMP3Command();
                             break;
                         case ActionHelper.TAFSIR_KEMENAG_SHOW:
                             await ShowTafsir(ayah, (int)TafsirType.Kemenag);
@@ -711,86 +767,6 @@ namespace MyQuranIndo.ViewModels.Surah
                 }
             }
         }
-
-        //private async Task SetLastReadAyah(Ayah ayah)
-        //{
-
-        //    try
-        //    {
-        //        bool isConfirm = true;
-        //        if (Preferences.ContainsKey(MenuKey.LAST_SURAH))
-        //        {
-        //            //string test = Preferences.Get(Key.LAST_SURAH, "");
-        //            int lastSurah = Preferences.Get(MenuKey.LAST_SURAH, 0);
-        //            int lastAyah = Preferences.Get(MenuKey.LAST_AYAH, 0);
-        //            var lastSurahRead = await SurahDataService.GetSurahAsync(lastSurah);
-
-        //            string lastRead = string.Format("Ayat terakhir dibaca adalah Q.S. {0}. {1} Ayat {2}, akan diganti menjadi Q.S. {3}. {4} Ayat {5}"
-        //                , lastSurah
-        //                , lastSurahRead.NameLatin
-        //                , lastAyah
-        //                , ayah.SurahID
-        //                , Surah.NameLatin
-        //                , ayah.ID);
-
-        //            isConfirm = await App.Current.MainPage.DisplayAlert(Message.CONFIRM, lastRead, Message.MSG_YES, Message.MSG_NO);
-        //        }
-
-        //        if (isConfirm)
-        //        {
-        //            Preferences.Set(MenuKey.LAST_AYAH, ayah.ID);
-        //            Preferences.Set(MenuKey.LAST_SURAH, ayah.SurahID);
-
-        //            //await SecureStorage.SetAsync(Key.LAST_SURAH, Surah.ID.ToString());
-        //            //await SecureStorage.SetAsync(Key.LAST_AYAH, ayah.Number.ToString());
-        //            result = string.Format("Ayat terakhir dibaca berhasil diubah menjadi Q.S. {0}. {1} Ayat {2}."
-        //                , getSurahID(), Surah.NameLatin, ayah.ID);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        errorMessage = "Error" + Environment.NewLine + ex.Message;
-        //    }
-        //}
-
-        //private void SetBookmarkAyah(Ayah ayah)
-        //{
-        //    result = "";
-        //    errorMessage = "";
-        //    try
-        //    {
-        //        List<Bookmark> bookmarks = new List<Bookmark>();
-        //        if (Preferences.ContainsKey(MenuKey.BOOKMARK))
-        //        {
-        //            List<Bookmark> getBookmarks = JsonConvert.DeserializeObject<List<Bookmark>>(Preferences.Get(MenuKey.BOOKMARK, null));
-        //            bookmarks.AddRange(getBookmarks);
-        //        }
-        //        for (int i = 0; i < bookmarks.Count; i++)
-        //        {
-        //            if (bookmarks[i].SurahID == ayah.SurahID && bookmarks[i].AyahID == ayah.ID)
-        //            {
-        //                bookmarks.RemoveAt(i);
-        //            }
-        //        }
-        //        Bookmark b = new Bookmark();
-        //        b.AyahID = ayah.ID;
-        //        b.CreatedDate = DateTime.Now;
-        //        b.SurahID = ayah.SurahID;
-        //        b.SurahNameLatin = Surah.NameLatin;
-        //        b.Row = bookmarks.Count + 1;
-
-        //        bookmarks.Add(b);
-        //        Preferences.Set(MenuKey.BOOKMARK, JsonConvert.SerializeObject(bookmarks));
-
-        //        result = string.Format("Q.S {0}:{1} berhasil di bookmark."
-        //            , getSurahID(), ayah.ID);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        errorMessage = "Error" + Environment.NewLine + ex.Message;
-        //    }
-        //}
-
         public void OnAppearing()
         {
             IsBusy = true;

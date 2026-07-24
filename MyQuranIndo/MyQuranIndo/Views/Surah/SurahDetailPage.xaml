@@ -19,6 +19,39 @@
         <local:SurahDetailViewModel/>
     </ContentPage.BindingContext>-->
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ImageButtonStyle" TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="WidthRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="32" 
+                                 Tablet="64" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="32" 
+                                 Tablet="64" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ProgressBarStyle" TargetType="ProgressBar">
+                <Setter Property="BackgroundColor" Value="LightGray" />
+                <Setter Property="ProgressColor" Value="{StaticResource TextColor}" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="4" 
+                                 Tablet="12" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
         <DataTemplate x:Key="evenTemplate">
             <ViewCell>
                 <StackLayout Padding="0" 
@@ -73,11 +106,11 @@
         />
     </ContentPage.ToolbarItems>
     <Shell.SearchHandler>
-        <SearchHandler x:DataType="local:SurahDetailViewModel"  
+        <SearchHandler x:DataType="local:SurahDetailViewModel"
                        x:Name="searchBar"
                        Placeholder="Cari Kata Kunci"
                        Command="{Binding SearchCommand}" 
-                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                            
+                       CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                           
                        SearchBoxVisibility="Collapsible"
                        BackgroundColor="{StaticResource BgColor}"
                        TextColor="{StaticResource TextColor}"    
@@ -89,25 +122,6 @@
         <StackLayout Spacing="3" 
                      Padding="10"
                      x:DataType="local:SurahDetailViewModel">
-            <!--<ProgressBar WidthRequest="500"
-                         VerticalOptions="CenterAndExpand"
-                         HorizontalOptions="Fill"
-                         Progress="{Binding Progress}"
-                         ProgressColor="{DynamicResource Primary}"
-                         MinimumHeightRequest="10"
-                         IsVisible="{Binding VisibleProgressBar}"/>
-            <Button Text="Download"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"
-                    Command="{Binding DownloadMP3Command}" />
-            <Button Text="Play"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"
-                    Command="{Binding PlayMP3Command}" />
-            <Button Text="Stop"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"
-                    Command="{Binding StopMP3Command}" />-->
             <SearchBar x:Name="searchBar2"
                        Placeholder="Cari Kata Kunci"
                        SearchCommand="{Binding SearchCommand}"
@@ -123,11 +137,55 @@
                     <localBehavior:TextChangedBehavior />
                 </SearchBar.Behaviors>
             </SearchBar>
-            <BoxView BackgroundColor="{StaticResource BgColor}"
+            <BoxView BackgroundColor="{StaticResource TextColor}"
                      HeightRequest="3"
                      Margin="0, -6, 0, 1" 
                      IsVisible="{Binding VisibleSearchBar}"
                      />
+            <Frame BorderColor="{StaticResource TextColor}"
+                   BackgroundColor="Transparent"
+                   CornerRadius="8"
+                   HasShadow="False"
+                   Padding="0"
+                   VerticalOptions="Start"
+                   HorizontalOptions="FillAndExpand"
+                   Margin="0,8,0,8">
+
+                <Grid ColumnDefinitions="Auto, *"
+                      ColumnSpacing="8"
+                      Padding="8"
+                      VerticalOptions="Start"
+                      HorizontalOptions="FillAndExpand">
+
+                    <!-- Kolom 0: Tombol Play & Stop -->
+                    <StackLayout Grid.Column="0" 
+                             Orientation="Horizontal" 
+                             Spacing="2" 
+                             VerticalOptions="Center"
+                             HorizontalOptions="Start">
+                        <ImageButton Command="{Binding TogglePlayCommand}"
+                                 Style="{StaticResource ImageButtonStyle}"
+                                 IsEnabled="{Binding IsPlayerEnabled}">
+                            <ImageButton.Source>
+                                <FontImageSource Glyph="{Binding PlayButtonIcon}" Color="{StaticResource TextColor}" Size="20" />
+                            </ImageButton.Source>
+                        </ImageButton>
+                        <ImageButton Command="{Binding StopMP3Command}"
+                                 Style="{StaticResource ImageButtonStyle}"
+                                 IsEnabled="{Binding IsPlayerEnabled}">
+                            <ImageButton.Source>
+                                <FontImageSource Glyph="&#x25A0;" Color="{StaticResource TextColor}" Size="20" />
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </StackLayout>
+
+                    <!-- Kolom 1: ProgressBar otomatis mengisi sisa lebar layar ke kanan -->
+                    <ProgressBar Grid.Column="1"
+                             Progress="{Binding Progress, Mode=TwoWay}"
+                             Style="{StaticResource ProgressBarStyle}"
+                             IsVisible="{Binding VisibleProgressBar}" />
+                </Grid>
+            </Frame>
             <RefreshView Command="{Binding LoadCommand}" 
                          x:DataType="local:SurahDetailViewModel"
                          IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
@@ -142,9 +200,6 @@
                           SeparatorColor="{StaticResource TextColor}">
                     <ListView.Header>
                         <StackLayout>
-                            <!--<BoxView BackgroundColor="Black"
-                                        HeightRequest="6"
-                                        Margin="0, -3, 0, 1" />-->
                             <Label Text="{Binding SubTitle}"
                                     FontSize="Medium"
                                     FontAttributes="Bold"
@@ -152,12 +207,7 @@
                                     FontFamily="Montserrat-Medium"
                                     BackgroundColor="{DynamicResource Accent}"
                                     TextColor="{StaticResource TextColor}"
-                                    Padding="5"
-                                    />
-                            <!--<BoxView BackgroundColor="Black"
-                                        HeightRequest="3"
-                                        Margin="0, 1, 0, 1"
-                                        />-->
+                                    Padding="5"/>
                         </StackLayout>
                     </ListView.Header>
                 </ListView>

@@ -1219,6 +1219,9 @@ namespace MyQuranIndo.ViewModels.Setting
 
                 try
                 {
+                    IsDarkMode = false;
+                    FollowSystemTheme = false;
+
                     switch (theme)
                     {
                         case (int)ThemeStyle.Blue:
@@ -1305,7 +1308,6 @@ namespace MyQuranIndo.ViewModels.Setting
                         default:
                             goto case (int)ThemeStyle.BlackLight;
                     }
-                    IsDarkMode = false;
                 }
                 catch (Exception ex)
                 {

@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MyQuranIndo.Services
@@ -43,6 +44,21 @@ namespace MyQuranIndo.Services
     {
         private ISimpleAudioPlayer player;
 
+        // BUG FIX (performance): HttpClient sebelumnya dibuat baru (new HttpClient()) setiap kali
+        // DownloadAsync dipanggil. Ini adalah anti-pattern yang terkenal di .NET karena setiap
+        // instance HttpClient membuka socket/handler sendiri, dan pembuatan berulang bisa
+        // menyebabkan socket exhaustion (SocketException: "too many open files" / port habis)
+        // terutama saat DownloadSurahAsync memanggilnya puluhan-ratusan kali berturut-turut.
+        // Solusi: gunakan satu instance static yang di-reuse untuk seluruh lifetime aplikasi.
+        private static readonly HttpClient _httpClient = new HttpClient
+        {
+            Timeout = TimeSpan.FromSeconds(30)
+        };
+
+        // Batas jumlah download paralel agar tidak membanjiri koneksi/server saat DownloadSurahAsync
+        // dipanggil untuk surat dengan banyak ayat (misal Al-Baqarah = 286 ayat).
+        private const int MaxConcurrentDownloads = 4;
+
         public ISimpleAudioPlayer Player
         {
             get => this.player;
@@ -54,15 +70,15 @@ namespace MyQuranIndo.Services
             player = CrossSimpleAudioPlayer.Current;
         }
 
-        
+
         public async Task<byte[]> DownloadAsync(string url)
         {
             byte[] result = null;
 
-            var _httpClient = new HttpClient(); //{ Timeout = TimeSpan.FromSeconds(15) };
-
             try
             {
+                // BUG FIX: HttpResponseMessage sekarang benar2 dibuang lewat using,
+                // dan HttpClient di-reuse (lihat field _httpClient di atas).
                 using (var httpResponse = await _httpClient.GetAsync(url))
                 {
                     if (httpResponse.StatusCode == HttpStatusCode.OK)
@@ -94,9 +110,8 @@ namespace MyQuranIndo.Services
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string mp3Name = surahID.ToString("000") + ayahID.ToString("000") + ".mp3";
             string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
-            //string url = AppSetting.GetUrlMP3();
             string url = ReciterHelper.GetReciterUrl();
-            
+
             FileStream fs = null;
 
             byte[] mp3File = null;
@@ -107,11 +122,34 @@ namespace MyQuranIndo.Services
                 {
                     if (toastService != null)
                         toastService.Show("Sedang mengunduh murottal", false);
-                    mp3File = await DownloadAsync(Path.Combine(url, mp3Name));
+
+                    // BUG FIX: sebelumnya menggunakan Path.Combine untuk menggabungkan URL.
+                    // Path.Combine memakai separator platform (bisa '\' di Windows) dan tidak
+                    // aman untuk membentuk URL. Sekarang digabung manual dengan '/'.
+                    mp3File = await DownloadAsync(CombineUrl(url, mp3Name));
+
+                    // BUG FIX: sebelumnya mp3File langsung ditulis ke file dan diputar tanpa
+                    // dicek null. Jika download gagal (mis. tidak ada koneksi internet atau
+                    // status HTTP bukan 200), DownloadAsync mengembalikan null, lalu
+                    // File.WriteAllBytes(fileName, null) akan melempar ArgumentNullException,
+                    // dan proses tetap lanjut mencoba memutar file yang sebenarnya gagal dibuat.
+                    // Sekarang: jika gagal, tampilkan pesan dan hentikan proses lebih awal.
+                    if (mp3File == null || mp3File.Length == 0)
+                    {
+                        if (toastService != null)
+                            toastService.Show("Gagal mengunduh murottal", false);
+                        return;
+                    }
+
                     File.WriteAllBytes(fileName, mp3File);
-                    toastService.Show("Mainkan Murottal", false);
+
+                    // BUG FIX: sebelumnya toastService.Show dipanggil tanpa null check di sini,
+                    // padahal toastService adalah parameter opsional (default null). Jika method
+                    // dipanggil tanpa toastService, ini akan melempar NullReferenceException.
+                    if (toastService != null)
+                        toastService.Show("Mainkan Murottal", false);
+
                     fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                    
                 }
                 else
                 {
@@ -125,7 +163,7 @@ namespace MyQuranIndo.Services
                     player.Load(fs);
                     player.Play();
                     //player.PlaybackEnded += Player_PlaybackEnded;
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -148,40 +186,69 @@ namespace MyQuranIndo.Services
         public async Task DownloadSurahAsync(Surah surah)
         {
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            for (int i = 1; i <= surah.NumberOfAyah; i++)
+            string url = ReciterHelper.GetReciterUrl();
+            int reciter = ReciterHelper.GetReciter();
+
+            // PERFORMANCE FIX: sebelumnya setiap ayat diunduh secara sequential (satu per satu,
+            // menunggu ayat sebelumnya selesai total). Untuk surat panjang (contoh: Al-Baqarah,
+            // 286 ayat) ini sangat lambat karena tidak memanfaatkan latency jaringan yang bisa
+            // di-overlap. Sekarang diunduh paralel dengan batas MaxConcurrentDownloads memakai
+            // SemaphoreSlim, supaya tetap cepat tapi tidak membanjiri koneksi/server.
+            using (var semaphore = new SemaphoreSlim(MaxConcurrentDownloads))
             {
-                string mp3Name = surah.ID.ToString("000") + i.ToString("000") + ".mp3";
-                string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
-                //string url = AppSetting.GetUrlMP3();
-                string url = ReciterHelper.GetReciterUrl();
+                var tasks = new List<Task>();
 
-                FileStream fs = null;
-
-                byte[] mp3File = null;
-                try
+                for (int i = 1; i <= surah.NumberOfAyah; i++)
                 {
-                    if (!File.Exists(fileName))
-                    {
-                        //toastService.Show($"Sedang mengunduh surat {surah.NameLatin} Ayat {i}", false);
-                        mp3File = await DownloadAsync(Path.Combine(url, mp3Name));
-                        File.WriteAllBytes(fileName, mp3File);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 +
-                        Environment.NewLine + ex.Message, Message.MSG_OK);
-                }
-                finally
-                {
-                    if (fs != null)
-                        fs.Dispose();
+                    int ayahNumber = i; // hindari closure capture bug pada variabel loop
+                    tasks.Add(DownloadSingleAyahAsync(filePath, url, reciter, surah.ID, ayahNumber, semaphore));
                 }
 
-                // TODO: play all
+                await Task.WhenAll(tasks);
             }
 
             //toastService.Show($"Surat {surah.NameLatin} berhasil diunduh", false);
+        }
+
+        private async Task DownloadSingleAyahAsync(string filePath, string url, int reciter, int surahId, int ayahNumber, SemaphoreSlim semaphore)
+        {
+            string mp3Name = surahId.ToString("000") + ayahNumber.ToString("000") + ".mp3";
+            string fileName = Path.Combine(filePath, reciter.ToString("000") + mp3Name);
+
+            if (File.Exists(fileName))
+                return;
+
+            await semaphore.WaitAsync();
+            try
+            {
+                byte[] mp3File = await DownloadAsync(CombineUrl(url, mp3Name));
+
+                // BUG FIX: sama seperti di PlayMurottal, cek null/kosong sebelum menulis ke disk
+                // supaya tidak melempar exception dan tidak menyisakan file kosong/korup.
+                if (mp3File != null && mp3File.Length > 0)
+                {
+                    File.WriteAllBytes(fileName, mp3File);
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 +
+                    Environment.NewLine + ex.Message, Message.MSG_OK);
+            }
+            finally
+            {
+                semaphore.Release();
+            }
+        }
+
+        // Helper untuk menggabungkan base URL dan nama file MP3 tanpa bergantung pada
+        // separator path platform (lihat catatan BUG FIX di atas).
+        private static string CombineUrl(string baseUrl, string fileName)
+        {
+            if (string.IsNullOrEmpty(baseUrl))
+                return fileName;
+
+            return baseUrl.TrimEnd('/') + "/" + fileName.TrimStart('/');
         }
 
         public void StopPlayer()
@@ -198,7 +265,7 @@ namespace MyQuranIndo.Services
         public void Play(FileStream fs)
         {
             player.Load(fs);
-            player.Play(); 
+            player.Play();
             //Player.PlaybackEnded += Audio_PlaybackEnded;
         }
 
@@ -219,7 +286,7 @@ namespace MyQuranIndo.Services
 
         public double GetBalance()
         {
-            
+
             return player.Balance;
         }
 
@@ -243,20 +310,5 @@ namespace MyQuranIndo.Services
             player.Load(fileName);
             player.Play();
         }
-
-        //public void Audio_PlaybackEnded(object sender, EventArgs e)
-        //{
-
-        //    //Check if next playlist element exists
-        //    //if (Playlist.IndexOf(PlaylistSelectedItem) + 1 < Playlist.Count)
-        //    //{
-        //        //PlaylistSelectedItem = Playlist[Playlist.IndexOf(PlaylistSelectedItem) + 1];
-        //        // (Player.IsPlaying) Player.Stop();
-        //        //Player.Load(GetStreamFromFile());
-        //        Player.Play();
-        //        Player.PlaybackEnded += Audio_PlaybackEnded;
-        //    //}
-        //    //else if (Player.IsPlaying) Player.Stop();
-        //}
     }
 }
