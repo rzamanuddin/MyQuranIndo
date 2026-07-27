@@ -7,7 +7,7 @@
              xmlns:effect="clr-namespace:MyQuranIndo.Effects"
              Title="Pengaturan"
              Shell.PresentationMode="Animated"
-             BackgroundColor="LightGray">
+             BackgroundColor="{DynamicResource Accent}">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout x:DataType="vm:SettingViewModel">
@@ -15,68 +15,177 @@
                                          HasUnevenRows="True"
                                          SeparatorColor="{DynamicResource TextColor}">
                     <TableRoot>
-                        <TableSection Title="Transliterasi Latin"
-                                      TextColor="{DynamicResource TextColor}">
-                            <SwitchCell Text="Aktifkan Transliterasi" 
+                        <!--<TableSection Title="Transliterasi Latin"
+                                      TextColor="White">
+                            <SwitchCell Text="Aktifkan Transliterasi"
                                         On="{Binding IsActiveTransliteration, Mode=TwoWay}" 
-                                        OnColor="{DynamicResource TextColor}" />
+                                        OnColor="White" />
                         </TableSection>
                         <TableSection Title="Terjemahan"
-                                      TextColor="{DynamicResource TextColor}">
+                                      TextColor="White">
                             <SwitchCell Text="Aktifkan Terjemahan" 
                                         On="{Binding IsActiveTranslate, Mode=TwoWay}" 
                                         OnColor="{DynamicResource Primary}"                                      
                                         />
-                        </TableSection>         
-                        <TableSection Title="Tema"
-                                      TextColor="{DynamicResource TextColor}">
+                        </TableSection>-->
+                        <TableSection Title="Transliterasi Latin"
+              TextColor="White">
+                            <ViewCell Height="60">
+                                <ViewCell.View>
+                                    <StackLayout Padding="10,8,10,8" VerticalOptions="Center">
+                                        <Grid ColumnSpacing="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Button Text="Aktif"
+                            CharacterSpacing="2"
+                            Command="{Binding TransliterationCommand}"
+                            TextColor="{Binding TransliterationOnColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Boolean>True</x:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="1"
+                            Text="Nonaktif"
+                            CharacterSpacing="2"
+                            Command="{Binding TransliterationCommand}"
+                            TextColor="{Binding TransliterationOffColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Boolean>False</x:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </TableSection>
+                        <TableSection Title="Terjemahan"
+              TextColor="White">
+                            <ViewCell Height="60">
+                                <ViewCell.View>
+                                    <StackLayout Padding="10,8,10,8" VerticalOptions="Center">
+                                        <Grid ColumnSpacing="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Button Text="Aktif"
+                            CharacterSpacing="2"
+                            Command="{Binding TranslateCommand}"
+                            TextColor="{Binding TranslateOnColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Boolean>True</x:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="1"
+                            Text="Nonaktif"
+                            CharacterSpacing="2"
+                            Command="{Binding TranslateCommand}"
+                            TextColor="{Binding TranslateOffColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Boolean>False</x:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </TableSection>
+                        <!--<TableSection Title="Tema"
+                                      TextColor="White">
                             <SwitchCell Text="Ikuti Tema Sistem"
                                         On="{Binding FollowSystemTheme, Mode=TwoWay}"
                                         OnColor="{DynamicResource Primary}" />
                             <SwitchCell Text="Gunakan Mode Gelap"
                                         On="{Binding IsDarkMode, Mode=TwoWay}"
                                         OnColor="{DynamicResource Primary}" />
-                        </TableSection>
-                        <!--<TableSection Title="Tema">
-                            <ViewCell Height="50">
-                                <Grid Padding="15,0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        --><!-- Label mengambil sisa ruang --><!--
-                                        <ColumnDefinition Width="30" />
-                                        --><!-- Switch hanya mengambil ruang yang dibutuhkan --><!--
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Text="Ikuti Tema Sistem" 
-                                           VerticalOptions="Center" 
-                                           TextColor="{DynamicResource TextColor}"/>
-                                    <Switch Grid.Column="1"
-                                            BackgroundColor="{DynamicResource TextColor}"
-                                            IsToggled="{Binding FollowSystemTheme, Mode=TwoWay}"
-                                            VerticalOptions="Center" />
-
-                                    <Label Grid.Row="1"
-                                           Text="Gunakan Mode Gelap" 
-                                           VerticalOptions="Center" 
-                                           TextColor="{DynamicResource TextColor}"/>
-                                    <Switch Grid.Row="1"
-                                            Grid.Column="1"
-                                            BackgroundColor="{DynamicResource TextColor}"
-                                            IsToggled="{Binding IsDarkMode, Mode=TwoWay}"
-                                            VerticalOptions="Center" />
-                                </Grid>
-                            </ViewCell>
                         </TableSection>-->
+                        <TableSection Title="Tema"
+              TextColor="White">
+                            <ViewCell Height="90">
+                                <ViewCell.View>
+                                    <StackLayout Padding="10,10,10,8" Spacing="8">
+                                        <Label Text="Ikuti Tema Sistem"
+                       TextColor="White"
+                       FontAttributes="Bold" />
+                                        <Grid ColumnSpacing="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Button Text="Aktif"
+                            CharacterSpacing="2"
+                            Command="{Binding FollowSystemThemeCommand}"
+                            TextColor="{Binding FollowSystemThemeOnColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Boolean>True</x:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="1"
+                            Text="Nonaktif"
+                            CharacterSpacing="2"
+                            Command="{Binding FollowSystemThemeCommand}"
+                            TextColor="{Binding FollowSystemThemeOffColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Boolean>False</x:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                            <ViewCell Height="90">
+                                <ViewCell.View>
+                                    <StackLayout Padding="10,10,10,8" Spacing="8">
+                                        <Label Text="Gunakan Mode Gelap"
+                       TextColor="White"
+                       FontAttributes="Bold" />
+                                        <Grid ColumnSpacing="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Button Text="Aktif"
+                            CharacterSpacing="2"
+                            Command="{Binding DarkModeCommand}"
+                            TextColor="{Binding DarkModeOnColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Boolean>True</x:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="1"
+                            Text="Nonaktif"
+                            CharacterSpacing="2"
+                            Command="{Binding DarkModeCommand}"
+                            TextColor="{Binding DarkModeOffColor}">
+                                                <Button.CommandParameter>
+                                                    <x:Boolean>False</x:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </TableSection>
                         <TableSection Title="Pilih Warna Aplikasi"
-                                      TextColor="{DynamicResource TextColor}">        
-                            <ViewCell Height="50">
-                                <StackLayout Padding="10,0,10,0"
+                                      TextColor="White">
+                            <ViewCell Height="60">
+                                <StackLayout Padding="10,10,10,10"
                                              >
-                                    <Grid>
+                                    <Grid ColumnSpacing="6" RowSpacing="6">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="35"/>
                                         </Grid.RowDefinitions>
@@ -154,23 +263,13 @@
                                 </StackLayout>
                             </ViewCell>
                         </TableSection>
-                        <!--<TableSection Title="Test">
-                            <control:PickerCell>
-                                <Picker 
-                                            SelectedItem="{Binding FontSizeSelected, Mode=TwoWay}"
-                                            ItemsSource="{Binding FontSizes}"
-                                            ItemDisplayBinding="{Binding Value}"
-                                            CharacterSpacing="2">
-                                </Picker>
-                            </control:PickerCell>                     
-                        </TableSection>-->
                         <TableSection Title="Ukuran Teks Arab"
-                                      TextColor="{DynamicResource TextColor}">                            
+                                      TextColor="White">
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout Padding="10,0,10,0" 
-                                                 BackgroundColor="{DynamicResource BgColor}"                                                 >
-                                        <Grid>
+                                    <StackLayout Padding="10,10,10,10" 
+                                                 BackgroundColor="{DynamicResource Accent}"                                                 >
+                                        <Grid ColumnSpacing="8" RowSpacing="6">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="40"/>
                                                 <RowDefinition Height="Auto"/>
@@ -218,22 +317,21 @@
                                                    FontSize="{Binding FontSizeArabic}"
                                                    FontFamily="{Binding FontArabicName}"
                                                    LineHeight="1.4"
-                                                   TextColor="{DynamicResource TextColor}"
-                                                   BackgroundColor="{DynamicResource BgColor}"
+                                                   TextColor="White"
                                                    HorizontalTextAlignment="Center"
                                                    Padding="5"/>
                                         </Grid>
-                                        <!--</Grid>-->                                    
-                                    </StackLayout>                                 
+                                        <!--</Grid>-->
+                                    </StackLayout>
                                 </ViewCell.View>
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Ukuran Teks Transliterasi"
-                                      TextColor="{DynamicResource TextColor}">
+                                      TextColor="White">
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout Padding="10,0,10,0">
-                                        <Grid>
+                                    <StackLayout Padding="10,10,10,10">
+                                        <Grid ColumnSpacing="8" RowSpacing="6">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="40"/>
                                                 <RowDefinition Height="Auto"/>
@@ -280,8 +378,7 @@
                                                    Text="{Binding BismillahTextIndoSample}"
                                                    FontSize="{Binding FontSizeTextIndo}"
                                                    FontFamily="Montserrat-Light-Italic"
-                                                   TextColor="{DynamicResource TextColor}"
-                                                   BackgroundColor="{DynamicResource BgColor}"
+                                                   TextColor="White"
                                                    HorizontalTextAlignment="Center"
                                                    Padding="5" />
                                         </Grid>
@@ -291,11 +388,11 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Ukuran Teks Terjemahan"
-                                      TextColor="{DynamicResource TextColor}">
+                                      TextColor="White">
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout Padding="10,0,10,0">
-                                        <Grid>
+                                    <StackLayout Padding="10,10,10,10">
+                                        <Grid ColumnSpacing="8" RowSpacing="6">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="40"/>
                                                 <RowDefinition Height="Auto"/>
@@ -310,9 +407,9 @@
                                             <Button Text="Default"
                                                     Command="{Binding FontSizeTranslateCommand}"
                                                     TextColor="{Binding FontSizeTranslateCaptionColor}">
-                                                    <Button.CommandParameter>
-                                                        <x:Int32>3</x:Int32>
-                                                    </Button.CommandParameter>
+                                                <Button.CommandParameter>
+                                                    <x:Int32>3</x:Int32>
+                                                </Button.CommandParameter>
                                             </Button>
                                             <Button Grid.Column="1"
                                                     Text="Kecil"
@@ -326,27 +423,26 @@
                                                     Text="Sedang"
                                                     Command="{Binding FontSizeTranslateCommand}"
                                                     TextColor="{Binding FontSizeTranslateMediumColor}">
-                                                    <Button.CommandParameter>
-                                                        <x:Int32>1</x:Int32>
-                                                    </Button.CommandParameter>
-                                                </Button>
-                                                <Button Grid.Column="3"
+                                                <Button.CommandParameter>
+                                                    <x:Int32>1</x:Int32>
+                                                </Button.CommandParameter>
+                                            </Button>
+                                            <Button Grid.Column="3"
                                                         Text="Besar"
                                                         Command="{Binding FontSizeTranslateCommand}"
                                                         TextColor="{Binding FontSizeTranslateLargeColor}">
                                                 <Button.CommandParameter>
-                                                        <x:Int32>2</x:Int32>
-                                                    </Button.CommandParameter>
-                                                </Button>
+                                                    <x:Int32>2</x:Int32>
+                                                </Button.CommandParameter>
+                                            </Button>
                                             <Label Grid.Row ="1" 
                                                    Grid.ColumnSpan="4"
                                                    Text="{Binding BismillahTranslateSample}"
                                                    FontSize="{Binding FontSizeTranslate}"
                                                    FontFamily="Montserrat-Light-Italic"
-                                                   TextColor="{DynamicResource TextColor}"
-                                                   BackgroundColor="{DynamicResource BgColor}"
+                                                   TextColor="White"
                                                    HorizontalTextAlignment="Center"
-                                                   Padding="5" />    
+                                                   Padding="5" />
                                         </Grid>
                                         <!--</Grid>-->
                                     </StackLayout>
@@ -354,11 +450,11 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Rasm (Penulisan)"
-                                      TextColor="{DynamicResource TextColor}">
+                                      TextColor="{StaticResource TextColor}">
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout Padding="10,0,10,0">
-                                        <Grid>
+                                    <StackLayout Padding="10,10,10,10">
+                                        <Grid ColumnSpacing="8" RowSpacing="6">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="40"/>
                                             </Grid.RowDefinitions>
@@ -389,11 +485,11 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Qari"
-                                      TextColor="{DynamicResource TextColor}">
+                                      TextColor="{StaticResource TextColor}">
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout Padding="10,0,10,0">
-                                        <Grid>
+                                    <StackLayout Padding="10,10,10,10">
+                                        <Grid ColumnSpacing="8" RowSpacing="6">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="40"/>
                                             </Grid.RowDefinitions>
@@ -434,11 +530,11 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Tafsir"
-                                      TextColor="{DynamicResource TextColor}">
+                                      TextColor="White">
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout Padding="10,0,10,0">
-                                        <Grid>
+                                    <StackLayout Padding="10,10,10,10">
+                                        <Grid ColumnSpacing="8" RowSpacing="6">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="40"/>
                                             </Grid.RowDefinitions>
@@ -469,18 +565,22 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Lainnya"
-                                      TextColor="{DynamicResource TextColor}">
+                                      TextColor="White">
                             <ImageCell Text="Bersihkan Penyimpanan" 
-                                       ImageSource="icon_clean.png" 
+                                       ImageSource="icon_clean.png"
+                                       TextColor="White"
                                        Command="{Binding ClearCacheTapped}"/>
                             <ImageCell Text="Info Aplikasi" 
                                        ImageSource="icon_about.png" 
+                                       TextColor="White"
                                        Command="{Binding AboutTapped}"/>
                             <ImageCell Text="Berikan Rating"
                                        ImageSource="icon_rating.png"
+                                       TextColor="White"
                                        Command="{Binding OpenAppStoreTapped}"/>
                             <ImageCell Text="Cek Pembaruan"
                                        ImageSource="icon_update.png"
+                                       TextColor="White"
                                        Command="{Binding OpenAppStoreTapped}"/>
                         </TableSection>
                     </TableRoot>

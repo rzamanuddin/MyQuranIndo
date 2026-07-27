@@ -841,6 +841,98 @@ namespace MyQuranIndo.ViewModels.Setting
         }
 
         //public Task Initialization { get; private set; }
+        public ICommand TransliterationCommand { get; }
+        public ICommand TranslateCommand { get; }
+
+        private Color transliterationOnColor;
+        public Color TransliterationOnColor
+        {
+            get
+            {
+                transliterationOnColor = IsActiveTransliteration ? Color.LightGray : Color.White;
+                return transliterationOnColor;
+            }
+            set => SetProperty(ref transliterationOnColor, value);
+        }
+
+        private Color transliterationOffColor;
+        public Color TransliterationOffColor
+        {
+            get
+            {
+                transliterationOffColor = !IsActiveTransliteration ? Color.LightGray : Color.White;
+                return transliterationOffColor;
+            }
+            set => SetProperty(ref transliterationOffColor, value);
+        }
+
+        private Color translateOnColor;
+        public Color TranslateOnColor
+        {
+            get
+            {
+                translateOnColor = IsActiveTranslate ? Color.LightGray : Color.White;
+                return translateOnColor;
+            }
+            set => SetProperty(ref translateOnColor, value);
+        }
+
+        private Color translateOffColor;
+        public Color TranslateOffColor
+        {
+            get
+            {
+                translateOffColor = !IsActiveTranslate ? Color.LightGray : Color.White;
+                return translateOffColor;
+            }
+            set => SetProperty(ref translateOffColor, value);
+        }
+        public ICommand FollowSystemThemeCommand { get; }
+        public ICommand DarkModeCommand { get; }
+
+        private Color followSystemThemeOnColor;
+        public Color FollowSystemThemeOnColor
+        {
+            get
+            {
+                followSystemThemeOnColor = FollowSystemTheme ? Color.LightGray : Color.White;
+                return followSystemThemeOnColor;
+            }
+            set => SetProperty(ref followSystemThemeOnColor, value);
+        }
+
+        private Color followSystemThemeOffColor;
+        public Color FollowSystemThemeOffColor
+        {
+            get
+            {
+                followSystemThemeOffColor = !FollowSystemTheme ? Color.LightGray : Color.White;
+                return followSystemThemeOffColor;
+            }
+            set => SetProperty(ref followSystemThemeOffColor, value);
+        }
+
+        private Color darkModeOnColor;
+        public Color DarkModeOnColor
+        {
+            get
+            {
+                darkModeOnColor = IsDarkMode ? Color.LightGray : Color.White;
+                return darkModeOnColor;
+            }
+            set => SetProperty(ref darkModeOnColor, value);
+        }
+
+        private Color darkModeOffColor;
+        public Color DarkModeOffColor
+        {
+            get
+            {
+                darkModeOffColor = !IsDarkMode ? Color.LightGray : Color.White;
+                return darkModeOffColor;
+            }
+            set => SetProperty(ref darkModeOffColor, value);
+        }
 
         public SettingViewModel()
         {
@@ -863,6 +955,11 @@ namespace MyQuranIndo.ViewModels.Setting
             Tafsirs = new ObservableCollection<KeyValuePair<int, string>>();
             Rasms = new ObservableCollection<KeyValuePair<int, string>>();
 
+            TransliterationCommand = new Command<bool>((active) => OnTransliterationSelected(active));
+            TranslateCommand = new Command<bool>((active) => OnTranslateSelected(active)); 
+            FollowSystemThemeCommand = new Command<bool>((active) => OnFollowSystemThemeSelected(active));
+            DarkModeCommand = new Command<bool>((active) => OnDarkModeSelected(active));
+
             //int fontStyle = Preferences.Get(References.Setting.FONT_SIZE_SELECTED, (int)FontSize.Small);
             //FontSizeSelected = FontSizes.FirstOrDefault(q => q.Key == fontStyle);
             //Themes.Add(new Theme() { ID = 1, Name = "Biru" });
@@ -871,6 +968,58 @@ namespace MyQuranIndo.ViewModels.Setting
             //Device.GetNamedSize(NamedSize.Large, typeof(Label));
         }
 
+        private void OnFollowSystemThemeSelected(bool active)
+        {
+            if (FollowSystemTheme != active)
+            {
+                FollowSystemTheme = active; // setter yang sudah ada akan apply tema & subscribe/unsubscribe
+            }
+
+            RefreshThemeButtonColors();
+
+            ToastService.Show(active ? "Mengikuti tema sistem diaktifkan" : "Mengikuti tema sistem dinonaktifkan", false);
+        }
+
+        private void OnDarkModeSelected(bool active)
+        {
+            if (IsDarkMode != active)
+            {
+                IsDarkMode = active; // setter yang sudah ada akan apply tema & mematikan FollowSystemTheme jika perlu
+            }
+
+            RefreshThemeButtonColors();
+
+            ToastService.Show(active ? "Mode gelap diaktifkan" : "Mode gelap dinonaktifkan", false);
+        }
+
+        private void RefreshThemeButtonColors()
+        {
+            OnPropertyChanged(nameof(FollowSystemThemeOnColor));
+            OnPropertyChanged(nameof(FollowSystemThemeOffColor));
+            OnPropertyChanged(nameof(DarkModeOnColor));
+            OnPropertyChanged(nameof(DarkModeOffColor));
+        }
+        private void OnTransliterationSelected(bool active)
+        {
+            if (IsActiveTransliteration != active)
+            {
+                IsActiveTransliteration = active;
+                OnPropertyChanged(nameof(TransliterationOnColor));
+                OnPropertyChanged(nameof(TransliterationOffColor));
+            }
+            ToastService.Show(active ? "Transliterasi diaktifkan" : "Transliterasi dinonaktifkan", false);
+        }
+
+        private void OnTranslateSelected(bool active)
+        {
+            if (IsActiveTranslate != active)
+            {
+                IsActiveTranslate = active;
+                OnPropertyChanged(nameof(TranslateOnColor));
+                OnPropertyChanged(nameof(TranslateOffColor));
+            }
+            ToastService.Show(active ? "Terjemahan diaktifkan" : "Terjemahan dinonaktifkan", false);
+        }
         private void OnReciterSelected(int reciter)
         {
             int reciterSelected = Preferences.Get(References.Setting.RECITER_SELECTED, 0);

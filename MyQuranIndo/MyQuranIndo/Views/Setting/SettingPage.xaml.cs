@@ -1,10 +1,4 @@
 ﻿using MyQuranIndo.ViewModels.Setting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -28,12 +22,5 @@ namespace MyQuranIndo.Views.Setting
             }
             base.OnBindingContextChanged();
         }
-        //private async void BuildForm()
-        //{
-        //    await _viewModel.Initialization;
-
-        //    // assign the combobox
-        //    // _viewMode.cbCategories.DataSource = ocCategories;
-        //}
     }
 }
