@@ -56,6 +56,7 @@ namespace MyQuranIndo.ViewModels.Surah
                     if (MP3Service?.Player != null && MP3Service.IsPlaying())
                     {
                         MP3Service.Pause();
+                        IsStopVisibled = false;
                         playbackState = PlaybackState.Paused;
                         PlayButtonIcon = "\u25B6"; // ▶ (resume)
                         double duration = MP3Service.GetDuration();
@@ -74,6 +75,7 @@ namespace MyQuranIndo.ViewModels.Surah
                     if (MP3Service?.Player != null)
                     {
                         MP3Service.Play();
+                        IsStopVisibled = true;
                         playbackState = PlaybackState.Playing;
                         PlayButtonIcon = "\u23F8"; // ⏸ (pause)
                         double duration = MP3Service.GetDuration();
@@ -214,6 +216,13 @@ namespace MyQuranIndo.ViewModels.Surah
         private bool isPlayerEnabled = false;
         public bool IsPlayerEnabled { get => isPlayerEnabled; set => SetProperty(ref isPlayerEnabled, value); }
 
+        private bool isStopVisibled = false;
+        public bool IsStopVisibled 
+        { 
+            get => isStopVisibled; 
+            set => SetProperty(ref isStopVisibled, value); 
+        }
+
         // Play button now shows an icon glyph via PlayButtonIcon
 
         public ICommand TogglePlayCommand { get; }
@@ -259,7 +268,8 @@ namespace MyQuranIndo.ViewModels.Surah
             TogglePlayCommand = new Command(async () => await OnTogglePlayCommand());
 
             PlayButtonIcon = "\u25B6"; // ▶ initial
-            IsPlayerEnabled = false;        
+            IsPlayerEnabled = false;
+            IsStopVisibled = false;
         }
 
         public async Task OnDownloadMP3Command()
@@ -296,6 +306,7 @@ namespace MyQuranIndo.ViewModels.Surah
             // reset state
             playbackState = PlaybackState.Stopped;
             PlayButtonIcon = "\u25B6"; // ▶
+            IsStopVisibled = false;
             try
             {
                 if (playerPlaybackEndedHandler != null && MP3Service?.Player != null)
@@ -389,6 +400,7 @@ namespace MyQuranIndo.ViewModels.Surah
                             // reset state
                             playbackState = PlaybackState.Stopped;
                             PlayButtonIcon = "\u25B6"; // ▶
+                            IsStopVisibled = false;
                         }
                     });
                 };
@@ -405,6 +417,7 @@ namespace MyQuranIndo.ViewModels.Surah
                 // set state
                 playbackState = PlaybackState.Playing;
                 PlayButtonIcon = "\u23F8"; // ⏸ (pause)
+                IsStopVisibled = true;
             }
             catch (Exception ex)
             {
@@ -412,6 +425,7 @@ namespace MyQuranIndo.ViewModels.Surah
                 VisibleProgressBar = true;
                 Progress = 0;
                 percent = 0;
+                IsStopVisibled = false;
             }
         }
 

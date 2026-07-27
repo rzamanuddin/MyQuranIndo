@@ -172,7 +172,7 @@
                         </ImageButton>
                         <ImageButton Command="{Binding StopMP3Command}"
                                  Style="{StaticResource ImageButtonStyle}"
-                                 IsEnabled="{Binding IsPlayerEnabled}">
+                                 IsVisible="{Binding IsStopVisibled}">
                             <ImageButton.Source>
                                 <FontImageSource Glyph="&#x25A0;" Color="{StaticResource TextColor}" Size="20" />
                             </ImageButton.Source>
