@@ -29,7 +29,7 @@
                                         />
                         </TableSection>-->
                         <TableSection Title="Transliterasi Latin"
-              TextColor="White">
+                                      TextColor="White">
                             <ViewCell Height="60">
                                 <ViewCell.View>
                                     <StackLayout Padding="10,8,10,8" VerticalOptions="Center">
@@ -42,18 +42,18 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <Button Text="Aktif"
-                            CharacterSpacing="2"
-                            Command="{Binding TransliterationCommand}"
-                            TextColor="{Binding TransliterationOnColor}">
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding TransliterationCommand}"
+                                                    TextColor="{Binding TransliterationOnColor}">
                                                 <Button.CommandParameter>
                                                     <x:Boolean>True</x:Boolean>
                                                 </Button.CommandParameter>
                                             </Button>
                                             <Button Grid.Column="1"
-                            Text="Nonaktif"
-                            CharacterSpacing="2"
-                            Command="{Binding TransliterationCommand}"
-                            TextColor="{Binding TransliterationOffColor}">
+                                                    Text="Nonaktif"
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding TransliterationCommand}"
+                                                    TextColor="{Binding TransliterationOffColor}">
                                                 <Button.CommandParameter>
                                                     <x:Boolean>False</x:Boolean>
                                                 </Button.CommandParameter>
@@ -64,7 +64,7 @@
                             </ViewCell>
                         </TableSection>
                         <TableSection Title="Terjemahan"
-              TextColor="White">
+                                      TextColor="White">
                             <ViewCell Height="60">
                                 <ViewCell.View>
                                     <StackLayout Padding="10,8,10,8" VerticalOptions="Center">
@@ -77,18 +77,18 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <Button Text="Aktif"
-                            CharacterSpacing="2"
-                            Command="{Binding TranslateCommand}"
-                            TextColor="{Binding TranslateOnColor}">
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding TranslateCommand}"
+                                                    TextColor="{Binding TranslateOnColor}">
                                                 <Button.CommandParameter>
                                                     <x:Boolean>True</x:Boolean>
                                                 </Button.CommandParameter>
                                             </Button>
                                             <Button Grid.Column="1"
-                            Text="Nonaktif"
-                            CharacterSpacing="2"
-                            Command="{Binding TranslateCommand}"
-                            TextColor="{Binding TranslateOffColor}">
+                                                    Text="Nonaktif"
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding TranslateCommand}"
+                                                    TextColor="{Binding TranslateOffColor}">
                                                 <Button.CommandParameter>
                                                     <x:Boolean>False</x:Boolean>
                                                 </Button.CommandParameter>
@@ -159,18 +159,18 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <Button Text="Aktif"
-                            CharacterSpacing="2"
-                            Command="{Binding DarkModeCommand}"
-                            TextColor="{Binding DarkModeOnColor}">
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding DarkModeCommand}"
+                                                    TextColor="{Binding DarkModeOnColor}">
                                                 <Button.CommandParameter>
                                                     <x:Boolean>True</x:Boolean>
                                                 </Button.CommandParameter>
                                             </Button>
                                             <Button Grid.Column="1"
-                            Text="Nonaktif"
-                            CharacterSpacing="2"
-                            Command="{Binding DarkModeCommand}"
-                            TextColor="{Binding DarkModeOffColor}">
+                                                    Text="Nonaktif"
+                                                    CharacterSpacing="2"
+                                                    Command="{Binding DarkModeCommand}"
+                                                    TextColor="{Binding DarkModeOffColor}">
                                                 <Button.CommandParameter>
                                                     <x:Boolean>False</x:Boolean>
                                                 </Button.CommandParameter>

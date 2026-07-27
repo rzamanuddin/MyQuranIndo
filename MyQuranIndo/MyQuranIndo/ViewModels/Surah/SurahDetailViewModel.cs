@@ -746,6 +746,7 @@ namespace MyQuranIndo.ViewModels.Surah
                         case ActionHelper.PLAY_MP3:
                             //await MP3Helper.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
                             // await MP3Service.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
+                            Surah = surah;
                             CurrentMP3 = ayah.AyahID;
 
                             await OnPlayMP3Command();

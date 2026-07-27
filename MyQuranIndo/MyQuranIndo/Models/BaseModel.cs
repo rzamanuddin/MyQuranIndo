@@ -17,6 +17,20 @@ namespace MyQuranIndo.Models
         private int theme = Preferences.Get(Setting.THEME, 0);
         private Color rowColor;
 
+        // subscribe to theme change so UI can refresh row colors
+        public BaseModel()
+        {
+            try
+            {
+                Xamarin.Forms.MessagingCenter.Subscribe<MyQuranIndo.ViewModels.Setting.SettingViewModel, int>(this, MyQuranIndo.Messages.Message.MSG_KEY_CHANGE_THEME, (sender, arg) =>
+                {
+                    theme = Preferences.Get(Setting.THEME, theme);
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
+                });
+            }
+            catch { }
+        }
+
         [JsonProperty("id")]
         public int ID { get; set; }
 
@@ -24,25 +38,28 @@ namespace MyQuranIndo.Models
         {
             get
             {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
+                try
                 {
+                    var rowColorResource = (Color)Application.Current.Resources["RowColor"];
+                    int currentTheme = Preferences.Get(Setting.THEME, theme);
+
+                    Color computed;
                     if (ID % 2 == 0)
                     {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                        computed = rowColorResource;
                     }
                     else
                     {
-                        if (theme == (int)ThemeStyle.Black)
-                        {
-                            rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                        }
-                        else
-                        {
-                            rowColor = Color.White;
-                        }
+                        computed = currentTheme == (int)ThemeStyle.Black ? rowColorResource : Color.White;
                     }
+
+                    rowColor = computed;
+                    return rowColor;
                 }
-                return rowColor;
+                catch
+                {
+                    return rowColor;
+                }
             }
             set
             {

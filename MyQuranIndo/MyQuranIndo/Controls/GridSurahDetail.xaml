@@ -23,7 +23,7 @@
            FontFamily="Montserrat-ExtraLight"
            VerticalTextAlignment="Start"
            IsVisible="{Binding IsShowNumber}"
-           TextColor="{StaticResource TextColor}"
+           TextColor="{DynamicResource TextColor}"
            Padding="10, 10, 5, 0"
         />
     <Label Grid.Row="0"
@@ -32,7 +32,7 @@
            FontSize="{Binding FontSizeArabic}"
            FontFamily="{Binding FontArabicName}"
            LineHeight="{Binding LineHeight}"
-           TextColor="{StaticResource TextColor}"
+           TextColor="{DynamicResource TextColor}"
            Padding="{Binding Padding}"
            HorizontalTextAlignment="{Binding TextAlignment}"
            TextType="Text"
@@ -47,7 +47,7 @@
            FontFamily="Montserrat-Medium-Italic"
            Padding="10,10,10,2"
            IsVisible="{Binding IsVisibleTransliteration, Mode=TwoWay}"
-           TextColor="{StaticResource TextColor}"
+           TextColor="{DynamicResource TextColor}"
             />
     <Label Grid.Column="0"
            Grid.Row="2" 
@@ -59,6 +59,6 @@
            FontFamily="Montserrat-Light-Italic"
            Padding="10,5,10,15"  
            IsVisible="{Binding IsVisibleTranslate, Mode=TwoWay}"
-           TextColor="{StaticResource TextColor}"
+           TextColor="{DynamicResource TextColor}"
            />
 </Grid>
