@@ -6,7 +6,7 @@
              xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans"
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Juz"
              xmlns:behavior="clr-namespace:MyQuranIndo.Behaviors"
-             BackgroundColor="{StaticResource BgColor}"
+             BackgroundColor="{DynamicResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
 
     <Shell.BackButtonBehavior>
@@ -16,6 +16,26 @@
     </Shell.BackButtonBehavior>
 
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ImageButtonStyle" TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="WidthRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="32" 
+                                 Tablet="64" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="32" 
+                                 Tablet="64" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
         <DataTemplate x:Key="evenTemplate">
             <ViewCell>
                 <StackLayout Padding="0" 
@@ -54,30 +74,46 @@
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                            
                        SearchBoxVisibility="Collapsible"
-                       BackgroundColor="{StaticResource BgColor}"
-                       TextColor="{StaticResource TextColor}" />
+                       BackgroundColor="{DynamicResource BgColor}"
+                       TextColor="{DynamicResource TextColor}" />
     </Shell.SearchHandler>
 
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="10">
-            <!-- SearchBar manual di dalam body -->
-            <SearchBar x:Name="searchBar2"
-                       x:DataType="local:JuzDetailViewModel"
-                       Placeholder="Cari kata kunci"
-                       PlaceholderColor="LightGray"
-                       SearchCommand="{Binding SearchCommand}"
-                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
-                       FontSize="Medium"
-                       BackgroundColor="{StaticResource BgColor}"
-                       TextColor="{StaticResource TextColor}"  
-                       Margin="0, 0, 0, 2"
-                       IsVisible="{Binding VisibleSearchBar}">
-                <SearchBar.Behaviors>
-                    <behavior:TextChangedBehavior />
-                </SearchBar.Behaviors>
-            </SearchBar>
-
-            <BoxView BackgroundColor="{StaticResource TextColor}"
+            <Grid ColumnDefinitions="Auto, *"
+                  ColumnSpacing="8"
+                  Padding="8"
+                  VerticalOptions="Start"
+                  HorizontalOptions="FillAndExpand">
+                <!-- SearchBar manual di dalam body -->
+                <SearchBar Grid.Column="0"
+                           x:Name="searchBar2"
+                           x:DataType="local:JuzDetailViewModel"
+                           Placeholder="Cari kata kunci"
+                           PlaceholderColor="LightGray"
+                           SearchCommand="{Binding SearchCommand}"
+                           SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
+                           FontSize="Medium"
+                           BackgroundColor="{DynamicResource BgColor}"
+                           TextColor="{DynamicResource TextColor}"  
+                           Margin="0, 0, 0, 2"
+                           IsVisible="{Binding VisibleSearchBar}">
+                    <SearchBar.Behaviors>
+                        <behavior:TextChangedBehavior />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+                <ImageButton Grid.Column="1"
+                             Command="{Binding SettingTapped}"
+                             Style="{DynamicResource ImageButtonStyle}"
+                             x:DataType="local:JuzDetailViewModel">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#x2699;" 
+                            Color="{DynamicResource TextColor}" 
+                            Size="20" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
+            <BoxView BackgroundColor="{DynamicResource TextColor}"
                      HeightRequest="3"
                      Margin="0, -6, 0, 1" 
                      IsVisible="{Binding VisibleSearchBar}"/>
@@ -91,9 +127,9 @@
                           SelectionMode="Single"
                           HasUnevenRows="True"
                           CachingStrategy="RecycleElement"
-                          ItemTemplate="{StaticResource evenTemplate}"
+                          ItemTemplate="{DynamicResource evenTemplate}"
                           SeparatorVisibility="None"
-                          SeparatorColor="{StaticResource TextColor}"
+                          SeparatorColor="{DynamicResource TextColor}"
                           IsGroupingEnabled="True">
                     <ListView.GroupHeaderTemplate>
                         <DataTemplate>
@@ -106,7 +142,7 @@
                                                FontAttributes="Bold"
                                                VerticalTextAlignment="Center"
                                                HorizontalTextAlignment="Center"
-                                               TextColor="{StaticResource TextColor}"
+                                               TextColor="{DynamicResource TextColor}"
                                                CharacterSpacing="1"
                                                Padding="5"/>
                                     </Grid>

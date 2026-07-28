@@ -4,7 +4,7 @@
              x:Class="MyQuranIndo.Views.Juz.JuzsPage"
              xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans"
              xmlns:vm="clr-namespace:MyQuranIndo.ViewModels.Juz"
-             BackgroundColor="{StaticResource BgColor}"
+             BackgroundColor="{DynamicResource BgColor}"
              Title="{Binding Title}">
 
     <Shell.SearchHandler>
@@ -14,8 +14,8 @@
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                            
                        SearchBoxVisibility="Collapsible"
-                       BackgroundColor="{StaticResource BgColor}"
-                       TextColor="{StaticResource TextColor}"
+                       BackgroundColor="{DynamicResource BgColor}"
+                       TextColor="{DynamicResource TextColor}"
                        PlaceholderColor="LightGray" />
     </Shell.SearchHandler>
 
@@ -41,14 +41,14 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="{Binding ID, StringFormat='Juz {0}'}" 
-                                           Style="{StaticResource JuzLabelName}"
-                                           TextColor="{StaticResource TextColor}"
+                                           Style="{DynamicResource JuzLabelName}"
+                                           TextColor="{DynamicResource TextColor}"
                                            Padding="10,0,10,-10"/>
 
                                     <Label Grid.Row="1" 
                                            Text="{Binding Description}" 
-                                           Style="{StaticResource JuzLabelDescription}"
-                                           TextColor="{StaticResource TextColor}"
+                                           Style="{DynamicResource JuzLabelDescription}"
+                                           TextColor="{DynamicResource TextColor}"
                                            LineBreakMode="WordWrap"
                                            Padding="10,0,10,10"/>
                                 </Grid>

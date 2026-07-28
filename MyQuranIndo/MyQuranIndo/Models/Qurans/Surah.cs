@@ -15,6 +15,20 @@ namespace MyQuranIndo.Models.Qurans
 
         private Color rowColor;
         private Color rowColorPopular;
+        // subscribe to theme change so UI can refresh row colors
+        public Surah()
+        {
+            try
+            {
+                Xamarin.Forms.MessagingCenter.Subscribe<MyQuranIndo.ViewModels.Setting.SettingViewModel, int>(this, MyQuranIndo.Messages.Message.MSG_KEY_CHANGE_THEME, (sender, arg) =>
+                {
+                    theme = Preferences.Get(Setting.THEME, theme);
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColor)));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(RowColorPopular)));
+                });
+            }
+            catch { }
+        }
         public int ID { get; set; }
         public int SurahPopularID { get; set; }
         public string Name { get; set; }
@@ -26,35 +40,28 @@ namespace MyQuranIndo.Models.Qurans
         {
             get
             {
-                if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                { 
+                try
+                {
+                    var rowColorResource = (Color)Application.Current.Resources["RowColor"];
+                    int currentTheme = Preferences.Get(Setting.THEME, theme);
+
+                    Color computed;
                     if (ID % 2 == 0)
                     {
-                        rowColor = ((Color)Application.Current.Resources["RowColor"]);
+                        computed = rowColorResource;
                     }
                     else
                     {
-                        if (rowColor != ((Color)Application.Current.Resources["SelectedItem"]))
-                        {
-                            if (ID % 2 == 0)
-                            {
-                                rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                            }
-                            else
-                            {
-                                if (theme == (int)ThemeStyle.Black)
-                                {
-                                    rowColor = ((Color)Application.Current.Resources["RowColor"]);
-                                }
-                                else
-                                {
-                                    rowColor = Color.White;
-                                }
-                            }
-                        }
+                        computed = currentTheme == (int)ThemeStyle.Black ? rowColorResource : Color.White;
                     }
+
+                    rowColor = computed;
+                    return rowColor;
                 }
-                return rowColor;
+                catch
+                {
+                    return rowColor;
+                }
             }
             set
             {
@@ -72,25 +79,28 @@ namespace MyQuranIndo.Models.Qurans
         {
             get
             {
-                if (rowColorPopular != ((Color)Application.Current.Resources["SelectedItem"]))
+                try
                 {
+                    var rowColorResource = (Color)Application.Current.Resources["RowColor"];
+                    int currentTheme = Preferences.Get(Setting.THEME, theme);
+
+                    Color computed;
                     if (SurahPopularID % 2 == 0)
                     {
-                        rowColorPopular = ((Color)Application.Current.Resources["RowColor"]);
+                        computed = rowColorResource;
                     }
                     else
                     {
-                        if (theme == (int)ThemeStyle.Black)
-                        {
-                            rowColorPopular = ((Color)Application.Current.Resources["RowColor"]);
-                        }
-                        else
-                        {
-                            rowColorPopular = Color.White;
-                        }
+                        computed = currentTheme == (int)ThemeStyle.Black ? rowColorResource : Color.White;
                     }
+
+                    rowColorPopular = computed;
+                    return rowColorPopular;
                 }
-                return rowColorPopular;
+                catch
+                {
+                    return rowColorPopular;
+                }
             }
             set
             {

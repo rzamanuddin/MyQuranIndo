@@ -7,7 +7,7 @@
              xmlns:control="clr-namespace:MyQuranIndo.Controls"           
              xmlns:selector="clr-namespace:MyQuranIndo.Selectors"
              x:Class="MyQuranIndo.Views.Surah.SurahDetailPage"
-             BackgroundColor="{StaticResource BgColor}"
+             BackgroundColor="{DynamicResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior
@@ -40,7 +40,7 @@
             </Style>
             <Style x:Key="ProgressBarStyle" TargetType="ProgressBar">
                 <Setter Property="BackgroundColor" Value="LightGray" />
-                <Setter Property="ProgressColor" Value="{StaticResource TextColor}" />
+                <Setter Property="ProgressColor" Value="{DynamicResource TextColor}" />
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="HeightRequest">
@@ -95,8 +95,8 @@
             </ViewCell>
         </DataTemplate>
         <selector:AlternateColorDataTemplateSelector x:Key="alternateColorDataTemplateSelector"
-                                                     EvenTemplate="{StaticResource evenTemplate}"
-                                                     UnevenTemplate="{StaticResource unEvenTemplate}">            
+                                                     EvenTemplate="{DynamicResource evenTemplate}"
+                                                     UnevenTemplate="{DynamicResource unEvenTemplate}">            
         </selector:AlternateColorDataTemplateSelector>-->
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -112,8 +112,8 @@
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                                           
                        SearchBoxVisibility="Collapsible"
-                       BackgroundColor="{StaticResource BgColor}"
-                       TextColor="{StaticResource TextColor}"    
+                       BackgroundColor="{DynamicResource BgColor}"
+                       TextColor="{DynamicResource TextColor}"    
                        PlaceholderColor="LightGray"                   
                        >
         </SearchHandler>
@@ -121,28 +121,46 @@
     <ContentPage.Content>
         <StackLayout Spacing="3" 
                      Padding="10"
-                     x:DataType="local:SurahDetailViewModel">
-            <SearchBar x:Name="searchBar2"
-                       Placeholder="Cari Kata Kunci"
-                       SearchCommand="{Binding SearchCommand}"
-                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
-                       FontSize="Medium"
-                       BackgroundColor="{StaticResource BgColor}"
-                       TextColor="{StaticResource TextColor}"
-                       Margin="0, 0, 0, 2"
-                       IsVisible="{Binding VisibleSearchBar}"
-                       PlaceholderColor="LightGray"
+                     x:DataType="local:SurahDetailViewModel"
+                     BackgroundColor="{DynamicResource BgColor}">
+            <Grid ColumnDefinitions="Auto, *"
+                  ColumnSpacing="8"
+                  Padding="8"
+                  VerticalOptions="Start"
+                  HorizontalOptions="FillAndExpand">
+                <SearchBar x:Name="searchBar2"
+                           Grid.Column="0"
+                           Placeholder="Cari Kata Kunci"
+                           SearchCommand="{Binding SearchCommand}"
+                           SearchCommandParameter="{Binding Text, Source={x:Reference searchBar2}}"
+                           FontSize="Medium"
+                           BackgroundColor="{DynamicResource BgColor}"
+                           TextColor="{DynamicResource TextColor}"
+                           Margin="0, 0, 0, 2"
+                           IsVisible="{Binding VisibleSearchBar}"
+                           PlaceholderColor="LightGray"
                        >
-                <SearchBar.Behaviors>
-                    <localBehavior:TextChangedBehavior />
-                </SearchBar.Behaviors>
-            </SearchBar>
-            <BoxView BackgroundColor="{StaticResource TextColor}"
+                    <SearchBar.Behaviors>
+                        <localBehavior:TextChangedBehavior />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+                <ImageButton Grid.Column="1"
+                             Command="{Binding SettingTapped}"
+                             Style="{DynamicResource ImageButtonStyle}"
+                             x:DataType="local:SurahDetailViewModel">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#x2699;" 
+                                            Color="{DynamicResource TextColor}" 
+                                            Size="20" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
+            <BoxView BackgroundColor="{DynamicResource TextColor}"
                      HeightRequest="3"
                      Margin="0, -6, 0, 1" 
                      IsVisible="{Binding VisibleSearchBar}"
                      />
-            <Frame BorderColor="{StaticResource TextColor}"
+            <Frame BorderColor="{DynamicResource TextColor}"
                    BackgroundColor="Transparent"
                    CornerRadius="8"
                    HasShadow="False"
@@ -164,17 +182,17 @@
                              VerticalOptions="Center"
                              HorizontalOptions="Start">
                         <ImageButton Command="{Binding TogglePlayCommand}"
-                                 Style="{StaticResource ImageButtonStyle}"
+                                 Style="{DynamicResource ImageButtonStyle}"
                                  IsEnabled="{Binding IsPlayerEnabled}">
                             <ImageButton.Source>
-                                <FontImageSource Glyph="{Binding PlayButtonIcon}" Color="{StaticResource TextColor}" Size="20" />
+                                <FontImageSource Glyph="{Binding PlayButtonIcon}" Color="{DynamicResource TextColor}" Size="20" />
                             </ImageButton.Source>
                         </ImageButton>
                         <ImageButton Command="{Binding StopMP3Command}"
-                                 Style="{StaticResource ImageButtonStyle}"
+                                 Style="{DynamicResource ImageButtonStyle}"
                                  IsVisible="{Binding IsStopVisibled}">
                             <ImageButton.Source>
-                                <FontImageSource Glyph="&#x25A0;" Color="{StaticResource TextColor}" Size="20" />
+                                <FontImageSource Glyph="&#x25A0;" Color="{DynamicResource TextColor}" Size="20" />
                             </ImageButton.Source>
                         </ImageButton>
                     </StackLayout>
@@ -182,7 +200,7 @@
                     <!-- Kolom 1: ProgressBar otomatis mengisi sisa lebar layar ke kanan -->
                     <ProgressBar Grid.Column="1"
                              Progress="{Binding Progress, Mode=TwoWay}"
-                             Style="{StaticResource ProgressBarStyle}"
+                             Style="{DynamicResource ProgressBarStyle}"
                              IsVisible="{Binding VisibleProgressBar}" />
                 </Grid>
             </Frame>
@@ -195,9 +213,9 @@
                           SelectionMode="Single"
                           HasUnevenRows="True"
                           CachingStrategy="RecycleElement"
-                          ItemTemplate="{StaticResource evenTemplate}"
+                          ItemTemplate="{DynamicResource evenTemplate}"
                           SeparatorVisibility="None"
-                          SeparatorColor="{StaticResource TextColor}">
+                          SeparatorColor="{DynamicResource TextColor}">
                     <ListView.Header>
                         <StackLayout>
                             <Label Text="{Binding SubTitle}"
@@ -206,7 +224,7 @@
                                     HorizontalTextAlignment="Center"
                                     FontFamily="Montserrat-Medium"
                                     BackgroundColor="{DynamicResource Accent}"
-                                    TextColor="{StaticResource TextColor}"
+                                    TextColor="{DynamicResource TextColor}"
                                     Padding="5"/>
                         </StackLayout>
                     </ListView.Header>
