@@ -19,7 +19,7 @@ namespace MyQuranIndo.Services
         Task<byte[]> DownloadAsync(string url);
         Task DownloadSurahAsync(Surah surah);
         Stream GetStreamFromFile(string filename);
-        Task PlayMurottal(int surahID, int ayahID, IToastService toastService = null);
+        Task PlayMurottal(int surahID, int ayahID, IToastService toastService = null, CancellationToken cancellationToken = default);
 
         void StopPlayer();
 
@@ -42,6 +42,31 @@ namespace MyQuranIndo.Services
     }
     public class MP3Service : IMP3Service
     {
+        // SINGLETON: Satu instance MP3Service di-share di seluruh aplikasi.
+        // Sebelumnya DependencyService.Get<IMP3Service>() membuat instance baru setiap kali
+        // dipanggil, menyebabkan ghost playback karena handler PlaybackEnded dari instance lama
+        // masih ter-attach ke player yang sama tapi instance-nya sudah berbeda.
+        private static MP3Service _instance;
+        private static readonly object _lock = new object();
+
+        public static MP3Service Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new MP3Service();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
         private ISimpleAudioPlayer player;
 
         // BUG FIX (performance): HttpClient sebelumnya dibuat baru (new HttpClient()) setiap kali
@@ -65,7 +90,8 @@ namespace MyQuranIndo.Services
             set => this.player = value;
         }
 
-        public MP3Service()
+        // Private constructor untuk singleton
+        private MP3Service()
         {
             player = CrossSimpleAudioPlayer.Current;
         }
@@ -105,35 +131,109 @@ namespace MyQuranIndo.Services
             return stream;
         }
 
-        public async Task PlayMurottal(int surahID, int ayahID, IToastService toastService = null)
+        //public async Task PlayMurottal(int surahID, int ayahID, IToastService toastService = null)
+        //{
+        //    string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        //    string mp3Name = surahID.ToString("000") + ayahID.ToString("000") + ".mp3";
+        //    string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
+        //    string url = ReciterHelper.GetReciterUrl();
+
+        //    FileStream fs = null;
+
+        //    byte[] mp3File = null;
+        //    try
+        //    {
+        //        StopPlayer();
+        //        if (!File.Exists(fileName))
+        //        {
+        //            if (toastService != null)
+        //                toastService.Show("Sedang mengunduh murottal", false);
+
+        //            // BUG FIX: sebelumnya menggunakan Path.Combine untuk menggabungkan URL.
+        //            // Path.Combine memakai separator platform (bisa '\' di Windows) dan tidak
+        //            // aman untuk membentuk URL. Sekarang digabung manual dengan '/'.
+        //            mp3File = await DownloadAsync(CombineUrl(url, mp3Name));
+
+        //            // BUG FIX: sebelumnya mp3File langsung ditulis ke file dan diputar tanpa
+        //            // dicek null. Jika download gagal (mis. tidak ada koneksi internet atau
+        //            // status HTTP bukan 200), DownloadAsync mengembalikan null, lalu
+        //            // File.WriteAllBytes(fileName, null) akan melempar ArgumentNullException,
+        //            // dan proses tetap lanjut mencoba memutar file yang sebenarnya gagal dibuat.
+        //            // Sekarang: jika gagal, tampilkan pesan dan hentikan proses lebih awal.
+        //            if (mp3File == null || mp3File.Length == 0)
+        //            {
+        //                if (toastService != null)
+        //                    toastService.Show("Gagal mengunduh murottal", false);
+        //                return;
+        //            }
+
+        //            File.WriteAllBytes(fileName, mp3File);
+
+        //            // BUG FIX: sebelumnya toastService.Show dipanggil tanpa null check di sini,
+        //            // padahal toastService adalah parameter opsional (default null). Jika method
+        //            // dipanggil tanpa toastService, ini akan melempar NullReferenceException.
+        //            if (toastService != null)
+        //                toastService.Show("Mainkan Murottal", false);
+
+        //            fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+        //        }
+        //        else
+        //        {
+        //            if (toastService != null)
+        //                toastService.Show("Mainkan Murottal", false);
+        //            fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+        //        }
+
+        //        try
+        //        {
+        //            player.Load(fs);
+        //            player.Play();
+        //            //player.PlaybackEnded += Player_PlaybackEnded;
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 +
+        //            Environment.NewLine + ex.Message, Message.MSG_OK);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 +
+        //            Environment.NewLine + ex.Message, Message.MSG_OK);
+        //    }
+        //    finally
+        //    {
+        //        if (fs != null)
+        //            fs.Dispose();
+        //    }
+        //}
+
+        public async Task PlayMurottal(int surahID, int ayahID, IToastService toastService = null, CancellationToken cancellationToken = default)
         {
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string mp3Name = surahID.ToString("000") + ayahID.ToString("000") + ".mp3";
             string fileName = Path.Combine(filePath, ReciterHelper.GetReciter().ToString("000") + mp3Name);
             string url = ReciterHelper.GetReciterUrl();
 
-            FileStream fs = null;
-
-            byte[] mp3File = null;
             try
             {
+                // Stop pemutaran sebelumnya
                 StopPlayer();
+
+                // Guard: Cek apakah task sudah dibatalkan sebelum lanjut
+                cancellationToken.ThrowIfCancellationRequested();
+
                 if (!File.Exists(fileName))
                 {
                     if (toastService != null)
                         toastService.Show("Sedang mengunduh murottal", false);
 
-                    // BUG FIX: sebelumnya menggunakan Path.Combine untuk menggabungkan URL.
-                    // Path.Combine memakai separator platform (bisa '\' di Windows) dan tidak
-                    // aman untuk membentuk URL. Sekarang digabung manual dengan '/'.
-                    mp3File = await DownloadAsync(CombineUrl(url, mp3Name));
+                    byte[] mp3File = await DownloadAsync(CombineUrl(url, mp3Name));
 
-                    // BUG FIX: sebelumnya mp3File langsung ditulis ke file dan diputar tanpa
-                    // dicek null. Jika download gagal (mis. tidak ada koneksi internet atau
-                    // status HTTP bukan 200), DownloadAsync mengembalikan null, lalu
-                    // File.WriteAllBytes(fileName, null) akan melempar ArgumentNullException,
-                    // dan proses tetap lanjut mencoba memutar file yang sebenarnya gagal dibuat.
-                    // Sekarang: jika gagal, tampilkan pesan dan hentikan proses lebih awal.
+                    // Guard: Cek pembatalan setelah download async selesai
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     if (mp3File == null || mp3File.Length == 0)
                     {
                         if (toastService != null)
@@ -142,44 +242,37 @@ namespace MyQuranIndo.Services
                     }
 
                     File.WriteAllBytes(fileName, mp3File);
-
-                    // BUG FIX: sebelumnya toastService.Show dipanggil tanpa null check di sini,
-                    // padahal toastService adalah parameter opsional (default null). Jika method
-                    // dipanggil tanpa toastService, ini akan melempar NullReferenceException.
-                    if (toastService != null)
-                        toastService.Show("Mainkan Murottal", false);
-
-                    fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                }
-                else
-                {
-                    if (toastService != null)
-                        toastService.Show("Mainkan Murottal", false);
-                    fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 }
 
-                try
+                // Guard: Cek sekali lagi sebelum memuat audio ke player
+                cancellationToken.ThrowIfCancellationRequested();
+
+                // BUG FIX: player.Load(fileName) pada Android memanggil AssetManager.OpenFd()
+                // yang hanya bisa membuka file dari folder assets APK, bukan filesystem biasa.
+                // Solusi: buka file sebagai FileStream dan gunakan Load(Stream).
+                using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     player.Load(fs);
-                    player.Play();
-                    //player.PlaybackEnded += Player_PlaybackEnded;
+                }
 
-                }
-                catch (Exception ex)
+                // Cek pembatalan tepat sebelum Play()
+                if (cancellationToken.IsCancellationRequested)
                 {
-                    await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 +
-                    Environment.NewLine + ex.Message, Message.MSG_OK);
+                    player.Stop();
+                    return;
                 }
+
+                player.Play();
+            }
+            catch (OperationCanceledException)
+            {
+                // Task dibatalkan karena user pindah surat / stop — abaikan exception ini
+                StopPlayer();
             }
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 +
                     Environment.NewLine + ex.Message, Message.MSG_OK);
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
             }
         }
 
@@ -253,8 +346,22 @@ namespace MyQuranIndo.Services
 
         public void StopPlayer()
         {
-            if (player.IsPlaying)
-                player.Stop();
+            try
+            {
+                if (player != null)
+                {
+                    if (player.IsPlaying)
+                    {
+                        player.Stop();
+                    }
+                    //player?.Dispose();
+                    //player = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"StopPlayer Exception: {ex.Message}");
+            }
         }
 
         public bool IsPlaying()

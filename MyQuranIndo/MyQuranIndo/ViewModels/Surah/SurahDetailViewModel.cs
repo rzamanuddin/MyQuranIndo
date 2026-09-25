@@ -1,16 +1,17 @@
-﻿using MyQuranIndo.Messages;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
-using Xamarin.Essentials;
+﻿using MyQuranIndo.Helpers;
+using MyQuranIndo.Messages;
+using MyQuranIndo.Models.Qurans;
 using MyQuranIndo.Views;
 using MyQuranIndo.Views.Setting;
-using MyQuranIndo.Models.Qurans;
-using MyQuranIndo.Helpers;
+using System;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace MyQuranIndo.ViewModels.Surah
 {
@@ -204,9 +205,14 @@ namespace MyQuranIndo.ViewModels.Surah
         }
 
         // handler reference so we can detach/attach playback ended handler
-        private EventHandler playerPlaybackEndedHandler;
+        private EventHandler<EventArgs> playerPlaybackEndedHandler;
         private enum PlaybackState { Stopped, Playing, Paused }
         private PlaybackState playbackState = PlaybackState.Stopped;
+
+        // GHOST PLAYBACK FIX: volatile flag untuk mencegah race condition.
+        // Ketika user stop, flag ini di-set ke true SEBELUM token dibatalkan.
+        // OnPlayerPlaybackEnded mengecek flag ini pertama kali untuk early return.
+        private volatile bool _isStopping = false;
 
         // private string playButtonText = "Play"; (removed, use PlayButtonIcon)
         // now using icon glyph for button
@@ -244,20 +250,20 @@ namespace MyQuranIndo.ViewModels.Surah
             Ayahs = new ObservableCollection<Ayah>();            
             LoadCommand = new Command(async () => await ExecuteLoadCommand());
             // AyahOneTapped = new Command<Ayah>(OnAyahOneTapped);
-            //AyahOneTapped = new Command<Ayah>(async (ayah) => await OnAyahOneTapped(ayah));
-            AyahOneTapped = new Command<Ayah>(async (ayah) =>
-            {
-                if (IsBusy) return;
-                IsBusy = true;
-                try
-                {
-                    await OnAyahOneTapped(ayah);
-                }
-                finally
-                {
-                    IsBusy = false;
-                }
-            });
+            AyahOneTapped = new Command<Ayah>(async (ayah) => await OnAyahOneTapped(ayah));
+            //AyahOneTapped = new Command<Ayah>(async (ayah) =>
+            //{
+            //    if (IsBusy) return;
+            //    //IsBusy = true;
+            //    try
+            //    {
+            //        await OnAyahOneTapped(ayah);
+            //    }
+            //    finally
+            //    {
+            //        IsBusy = false;
+            //    }
+            //});
             AyahTwoTapped = new Command<Ayah>(OnAyahTwoTapped);
             SettingTapped = new Command(OnSettingTapped);
             GoBackCommand = new Command(async () => await OnBackTapped());
@@ -296,26 +302,124 @@ namespace MyQuranIndo.ViewModels.Surah
             IsPlayerEnabled = true;
         }
 
+        // Tambahkan field pelacak ini di ViewModel
+        private CancellationTokenSource _playCts;
+        private int _activePlaySurahId = 0; // Guard untuk mencatat ID surat yang sah diputar
+        private int _isPlayLock = 0; // Interlocked guard: 0 = idle, 1 = sedang play
+
+        private async void OnPlayerPlaybackEnded(object sender, EventArgs e)
+        {
+            // GHOST PLAYBACK FIX: Cek _isStopping PERTAMA kali (volatile read).
+            // Ini mencegah handler melanjutkan play ke ayat berikutnya jika user sudah stop.
+            if (_isStopping)
+                return;
+
+            // Guard cepat: jika sedang tidak play, langsung return
+            if (playbackState == PlaybackState.Stopped)
+                return;
+
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                // GHOST PLAYBACK FIX: Cek lagi _isStopping di dalam main thread
+                // karena ada delay Device.BeginInvokeOnMainThread
+                if (_isStopping)
+                    return;
+
+                // GUARD 1: Jika state sudah Stopped / Surah null / ID surat tidak cocok, STOP!
+                if (Surah == null || playbackState == PlaybackState.Stopped || Surah.ID != _activePlaySurahId)
+                {
+                    return;
+                }
+
+                // Guard 2: Pastikan token pembatalan belum aktif
+                if (_playCts == null || _playCts.Token.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                // Guard 3: Jika lock masih aktif (sedang proses play lain), skip
+                if (Interlocked.CompareExchange(ref _isPlayLock, 1, 0) != 0)
+                    return;
+
+                try
+                {
+                    if (CurrentMP3 < CountMP3)
+                    {
+                        CurrentMP3++;
+                        Progress = (float)CurrentMP3 / CountMP3;
+                        Percent = Progress * 100;
+
+                        var nextAyah = Ayahs.FirstOrDefault(q => q.ID == CurrentMP3);
+                        if (nextAyah != null)
+                        {
+                            ScrollToItem(nextAyah, true);
+                        }
+
+                        // Cek token sekali lagi sebelum memanggil PlayMurottal
+                        if (_playCts == null || _playCts.Token.IsCancellationRequested || Surah.ID != _activePlaySurahId)
+                            return;
+
+                        // Putar ayat berikutnya dengan memasukkan CancellationToken
+                        await MP3Service.PlayMurottal(Surah.ID, CurrentMP3, null, _playCts.Token);
+                    }
+                    else
+                    {
+                        await OnStopMP3Command();
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    // Di-cancel karena berpindah surat/stop
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error playing next ayah: {ex.Message}");
+                }
+                finally
+                {
+                    Interlocked.Exchange(ref _isPlayLock, 0);
+                }
+            });
+        }
+
         private async Task OnStopMP3Command()
         {
+            // GHOST PLAYBACK FIX: Set _isStopping PERTAMA kali (sebelum hal lain).
+            // Ini memastikan OnPlayerPlaybackEnded akan early return saat dicek.
+            _isStopping = true;
+
+            // 0. Lepas handler SEBELUM cancel/stop untuk mencegah event sisa
+            try
+            {
+                if (MP3Service?.Player != null)
+                {
+                    MP3Service.Player.PlaybackEnded -= OnPlayerPlaybackEnded;
+                }
+            }
+            catch { }
+
+            // 1. Batalkan semua task pemutaran/unduh yang sedang berjalan
+            _playCts?.Cancel();
+            _playCts?.Dispose();
+            _playCts = null;
+            _activePlaySurahId = 0;
+
+            // 2. Stop player
             MP3Service.StopPlayer();
+
+            // 3. Lepas lock agar OnPlayMP3Command bisa dijalankan lagi
+            Interlocked.Exchange(ref _isPlayLock, 0);
+
             Progress = 0;
             Percent = 0;
             CurrentMP3 = 0;
             VisibleProgressBar = true;
-            // reset state
+
             playbackState = PlaybackState.Stopped;
             PlayButtonIcon = "\u25B6"; // ▶
             IsStopVisibled = false;
-            try
-            {
-                if (playerPlaybackEndedHandler != null && MP3Service?.Player != null)
-                {
-                    MP3Service.Player.PlaybackEnded -= playerPlaybackEndedHandler;
-                    playerPlaybackEndedHandler = null;
-                }
-            }
-            catch { }
+
+            await Task.CompletedTask;
         }
 
         private async Task OnPauseMP3Command()
@@ -349,83 +453,108 @@ namespace MyQuranIndo.ViewModels.Surah
             if (Surah == null)
                 return;
 
-            CountMP3 = Surah.NumberOfAyah;
-            if (CountMP3 <= 0)
+            // RE-ENTRANCE GUARD: Cegah OnPlayMP3Command berjalan lebih dari 1x secara bersamaan
+            if (Interlocked.CompareExchange(ref _isPlayLock, 1, 0) != 0)
                 return;
 
-            if (CurrentMP3 <= 0)
-                CurrentMP3 = 1;
-            Progress = 0f;
-            Percent = 0f;
-            FileName = "";
-            MP3Service.StopPlayer();
-            VisibleProgressBar = true;
-
-            // detach previous handler if any
             try
             {
-                if (playerPlaybackEndedHandler != null && MP3Service?.Player != null)
+                // GHOST PLAYBACK FIX: Reset _isStopping sebelum mulai play baru
+                _isStopping = false;
+
+                // 1. BATALKAN PROSES SEBELUMNYA & Lepas Event Handler lama (Mencegah Ghost/Double Playback)
+                if (_playCts != null)
                 {
-                    MP3Service.Player.PlaybackEnded -= playerPlaybackEndedHandler;
-                    playerPlaybackEndedHandler = null;
+                    _playCts.Cancel();
+                    _playCts.Dispose();
+                    _playCts = null;
                 }
 
-                // create new handler
-                playerPlaybackEndedHandler = async (s, e) =>
+                // Detach handler SEBELUM stop — pastikan tidak ada callback sisa
+                try
                 {
-                    // run on main thread to update UI-bound properties
-                    Device.BeginInvokeOnMainThread(async () =>
+                    if (MP3Service?.Player != null)
                     {
-                        // advance to next mp3
-                        if (CurrentMP3 < CountMP3)
-                        {
-                            CurrentMP3++;
-                            Progress = (float)CurrentMP3 / CountMP3;
-                            Percent = Progress * 100;
-                            ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
-                            try
-                            {
-                                await MP3Service.PlayMurottal(Surah.ID, CurrentMP3, null);
-                            }
-                            catch { }
-                        }
-                        else
-                        {
-                            // finished
-                            MP3Service.StopPlayer();
-                            Progress = 0;
-                            Percent = 0;
-                            CurrentMP3 = 0;
-                            VisibleProgressBar = true;
-                            // reset state
-                            playbackState = PlaybackState.Stopped;
-                            PlayButtonIcon = "\u25B6"; // ▶
-                            IsStopVisibled = false;
-                        }
-                    });
-                };
+                        MP3Service.Player.PlaybackEnded -= OnPlayerPlaybackEnded;
+                    }
+                }
+                catch { /* swallow — detach idempotent */ }
 
+                MP3Service.StopPlayer();
+
+                // Beri jeda singkat agar native audio player benar-benar menghentikan stream/buffer sebelumnya
+                await Task.Delay(100);
+
+                _playCts = new CancellationTokenSource();
+
+                // 2. Set ID Surat aktif saat ini
+                _activePlaySurahId = Surah.ID;
+                int targetSurahId = Surah.ID;
+
+                CountMP3 = Surah.NumberOfAyah;
+                if (CountMP3 <= 0)
+                    return;
+
+                if (CurrentMP3 <= 0)
+                    CurrentMP3 = 1;
+
+                Progress = 0f;
+                Percent = 0f;
+                FileName = "";
+
+                VisibleProgressBar = true;
+
+                // Attach handler — sudah di-detach sebelumnya, dijamin tidak duplikat
                 if (MP3Service?.Player != null)
-                    MP3Service.Player.PlaybackEnded += playerPlaybackEndedHandler;
+                {
+                    MP3Service.Player.PlaybackEnded += OnPlayerPlaybackEnded;
+                }
 
-                // play current ayah
-                await MP3Service.PlayMurottal(Surah.ID, CurrentMP3, null);
+                // Cek token sebelum mulai load/download
+                if (_playCts == null || _playCts.Token.IsCancellationRequested || Surah.ID != targetSurahId)
+                {
+                    return;
+                }
+
+                // 3. Jalankan pemutaran dengan Token & Guard ID
+                await MP3Service.PlayMurottal(targetSurahId, CurrentMP3, null, _playCts.Token);
+
+                // Pasca download/load, pastikan pengguna belum mengganti surat di pertengahan jalan
+                if (_playCts == null || _playCts.Token.IsCancellationRequested || Surah.ID != targetSurahId)
+                {
+                    MP3Service.StopPlayer();
+                    return;
+                }
+
                 Progress = (float)CurrentMP3 / CountMP3;
                 Percent = Progress * 100;
-                ScrollToItem(Ayahs.FirstOrDefault(q => q.ID == CurrentMP3), true);
 
-                // set state
+                var activeAyah = Ayahs.FirstOrDefault(q => q.ID == CurrentMP3);
+                if (activeAyah != null)
+                {
+                    ScrollToItem(activeAyah, true);
+                }
+
                 playbackState = PlaybackState.Playing;
-                PlayButtonIcon = "\u23F8"; // ⏸ (pause)
+                PlayButtonIcon = "\u23F8"; // ⏸
                 IsStopVisibled = true;
+            }
+            catch (OperationCanceledException)
+            {
+                // Di-cancel karena berpindah surat/stop
             }
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert(Message.MSG_TITLE_ERROR, Message.MSG_FAIL_PLAY_MP3 + Environment.NewLine + ex.Message, Message.MSG_OK);
                 VisibleProgressBar = true;
                 Progress = 0;
-                percent = 0;
+                Percent = 0;
                 IsStopVisibled = false;
+            }
+            finally
+            {
+                // Lepas lock agar pemutaran berikutnya bisa dijalankan
+                Interlocked.Exchange(ref _isPlayLock, 0);
             }
         }
 
@@ -719,7 +848,7 @@ namespace MyQuranIndo.ViewModels.Surah
 
                 result = "";
                 errorMessage = "";
-                var surah = await SurahDataService.GetSurahAsync(ayah.SurahID);                
+                var surah = await SurahDataService.GetSurahAsync(ayah.SurahID);
                 string action = await ActionHelper.DisplayActionAyahAsync(ayah.SurahID, ayah.AyahID, surah.NameLatin);
                 string ayahCopied = ActionHelper.GetAyahToShare(ayah, Surah.NameLatin);
                 try
@@ -746,7 +875,6 @@ namespace MyQuranIndo.ViewModels.Surah
                         case ActionHelper.PLAY_MP3:
                             //await MP3Helper.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
                             // await MP3Service.PlayMurottal(ayah.SurahID, ayah.AyahID, ToastService);
-                            Surah = surah;
                             CurrentMP3 = ayah.AyahID;
 
                             await OnPlayMP3Command();

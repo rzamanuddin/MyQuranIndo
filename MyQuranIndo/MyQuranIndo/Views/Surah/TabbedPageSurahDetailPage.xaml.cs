@@ -94,8 +94,11 @@ namespace MyQuranIndo.Views.Surah
             base.OnCurrentPageChanged();
             if (CurrentPage?.BindingContext is SurahDetailViewModel detailVM)
             {
-                _viewModel.SurahID = detailVM.SurahID;
-                _ = _viewModel.LoadSurahDetail();
+                if (_viewModel.SurahID != detailVM.SurahID)
+                {
+                    _viewModel.SurahID = detailVM.SurahID;
+                    _ = _viewModel.LoadSurahDetail();
+                }
             }
         }
     }

@@ -21,7 +21,11 @@ namespace MyQuranIndo.ViewModels
         public IAyahDataService AyahDataService => DependencyService.Get<IAyahDataService>();
         public ITafsirDataService TafsirDataService => DependencyService.Get<ITafsirDataService>();
         public IToastService ToastService => DependencyService.Get<IToastService>();
-        public IMP3Service MP3Service => DependencyService.Get<IMP3Service>();
+        // SINGLETON: Menggunakan MP3Service.Instance alih-alih DependencyService.Get
+        // untuk memastikan semua ViewModel berbagi satu instance yang sama.
+        // DependencyService.Get<IMP3Service>() membuat instance baru setiap kali,
+        // yang menyebabkan ghost playback karena handler dari instance lama masih aktif.
+        public IMP3Service MP3Service => Services.MP3Service.Instance;
         public IZikrDataService ZikrDataService => DependencyService.Get<IZikrDataService>();
         public IAsmaulHusnaDataService AsmaulHusnaDataService => DependencyService.Get<IAsmaulHusnaDataService>();
         public IPrayDataService PrayDataService => DependencyService.Get<IPrayDataService>();
