@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:MyQuranIndo.ViewModels.Surah"  
              xmlns:model="clr-namespace:MyQuranIndo.Models.Qurans" 
              x:Class="MyQuranIndo.Views.Surah.SurahPopularPage"
-             BackgroundColor="{StaticResource BgColor}"
+             BackgroundColor="{DynamicResource BgColor}"
              Title="{Binding Title, Mode=TwoWay}">
 
     <Shell.SearchHandler>
@@ -14,8 +14,8 @@
                        Command="{Binding SearchCommand}" 
                        CommandParameter="{Binding Query, Source={x:Reference searchBar}}"                            
                        SearchBoxVisibility="Collapsible"
-                       BackgroundColor="{StaticResource BgColor}"
-                       TextColor="{StaticResource TextColor}"     
+                       BackgroundColor="{DynamicResource BgColor}"
+                       TextColor="{DynamicResource TextColor}"     
                        PlaceholderColor="LightGray">
         </SearchHandler>
     </Shell.SearchHandler>
@@ -28,7 +28,7 @@
 
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="0">
-            <BoxView BackgroundColor="{StaticResource TextColor}"
+            <BoxView BackgroundColor="{DynamicResource TextColor}"
                      HeightRequest="3"
                      Margin="0, -4, 0, 0" />
             <RefreshView x:DataType="local:SurahPopularsViewModel" 
@@ -52,17 +52,17 @@
 
                                     <Label Grid.Row="0"
                                            Text="{Binding Name}" 
-                                           Style="{StaticResource SurahLabelName}"                                           
+                                           Style="{DynamicResource SurahLabelName}"                                           
                                            FontSize="{Binding FontSizeArabic}"
-                                           TextColor="{StaticResource TextColor}"
+                                           TextColor="{DynamicResource TextColor}"
                                            FlowDirection="RightToLeft"
                                            Padding="5,0,5,0"/>
 
                                     <Label Grid.Row="1"
                                            Text="{Binding DisplayNameLatin}" 
-                                           Style="{StaticResource SurahLabelNameLatin}"
+                                           Style="{DynamicResource SurahLabelNameLatin}"
                                            LineBreakMode="WordWrap"
-                                           TextColor="{StaticResource TextColor}"
+                                           TextColor="{DynamicResource TextColor}"
                                            Padding="5,0,5,10" />
                                 </Grid>
                                 <StackLayout.GestureRecognizers>
